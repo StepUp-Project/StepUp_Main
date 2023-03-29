@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="proj.stepUp.mapper.userMapper">
+ 	<select id="checkId" resultType="int" parameterType="String">
+ 		select count(*) from user_tb where userid = #{userId}
+ 	</select>
+ 	
+ 	<select id="checkNick" resultType="int" parameterType="String">
+ 		select count(*) from user_tb where usernick = #{userNick}	
+ 	</select>
+ 	
+ 	<insert id="insertUser" parameterType="userVO">
+ 		insert into user_tb
+ 		(userid , userpw, username, usernick, userphone, useraddr, userzipcode, userphac, useraddrdetail, usermail) 
+ 		values (#{userId}, md5(#{userPw}), #{userName}, #{userNick}, #{userPhone},#{userAddr}, #{userZipCode}, #{userPhAc}, #{userAddrDetail}, #{userMail})
+ 	</insert>
+ 	
+ 	<select id="login" resultType="userVO" parameterType="userVO">
+ 		select userindex ,userid, username, usernick, usergrade from user_tb where userid = #{userId} and userpw = md5(#{userPw})
+ 	</select>
+ 	
+ 	<select id="kakaoLogin" resultType="userVO" parameterType="String">
+ 		select userindex ,userid, username, usernick, usergrade, userKakaoId from user_tb where userKakaoId = #{userKakaoId} 
+ 	</select>
+ 	
+ 	<update id="upDateKakaoId" parameterType="userVO">
+ 		update user_tb set userKakaoId = #{userKakaoId} where userindex = #{userIndex}
+ 	</update>
+ 	
+ 	<select id="naverLogin" resultType="userVO" parameterType="String">
+ 		select userindex ,userid, username, usernick, usergrade, userNaverId from user_tb where userNaverId = #{userNaverId} 
+ 	</select>
+ 	
+ 	<update id="upDateNaverId" parameterType="userVO">
+ 		update user_tb set userNaverId = #{userNaverId} where userindex = #{userIndex}
+ 	</update>
+ </mapper>
