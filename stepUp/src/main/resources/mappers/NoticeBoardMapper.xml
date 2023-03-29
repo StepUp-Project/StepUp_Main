@@ -4,6 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="proj.stepUp.mapper.noticeBoardMapper">
- 
- 
+ 	<select id="selectAll" resultType="NoticeBoardVO" parameterType="searchVO">
+ 		select *
+ 			from notice_tb
+ 			
+ 			<if test='searchType != null and searchType eq "title"'>
+ 				where  noticeTitle like concat('%',#{searchValue},'%')
+ 			</if>
+ 			<if test='searchType != null and searchType eq "content"'>
+ 				where  noticeCnt like concat('%',#{searchValue},'%')
+ 			</if>
+	</select>
 </mapper>

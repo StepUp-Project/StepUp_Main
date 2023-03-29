@@ -9,7 +9,7 @@
  			from free_tb b, user_tb u
  			where b.userIndex = u.userIndex
  			<if test='searchType != null and searchType eq "title"'>
- 				and freeTitle like concat('%',#{searchValue},'%')
+ 				and noticeTitle like concat('%',#{searchValue},'%')
  			</if>
  			<if test='searchType != null and searchType eq "content"'>
  				and freeCnt like concat('%',#{searchValue},'%')
