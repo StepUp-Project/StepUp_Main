@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
-	<!--안녕-->
 <head>
 	<title>Home</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>	
