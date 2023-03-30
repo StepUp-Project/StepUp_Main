@@ -134,6 +134,18 @@
                     <label for="prdMt" class="form-label">상품 소재</label>
                     <input type="text" name="prdMt" class="form-control" id="prdMt"/>
                 </div>
+                                <div class="mt-4">
+                    <label for="prdQc" class="form-label">품질 보증기준</label>
+                    <input type="text" name="prdQc" class="form-control" id="prdQc"/>
+                </div>
+                <div class="mt-4">
+                    <label for="prdCare" class="form-label">소재관리 방법</label>
+                    <input type="text" name="prdCare" class="form-control" id="prdCare"/>
+                </div>
+                <div class="mt-4">
+                    <label for="prdMadeDate" class="form-label">제조일</label>
+                    <input type="text" name="prdMadeDate" class="form-control" id="prdMadeDate"/>
+                </div>
                 <div class="d-flex">
                     <div class="file-area">
                         <div class="mt-4 mainImg">
@@ -167,7 +179,32 @@
                         <br/>
                         <span>3. 메인 이미지는 상품 리스트 출력시 노출되는 사진입니다.</span>
                     </div>
-                 </div>
+                </div>
+                <div>
+                <button type="button" class="btn btn-outline-secondary" onclick="add()">재고 추가</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="removeer()">재고 삭제</button>
+                	<ul id="sizeWrap">
+                		<li class="d-flex mt-4">
+                			<div class="w-25 me-5">
+                				<label for="sizeKind" class="form-label">상품 사이즈</label>
+	                            <select name="sizeKind" class="form-select" id="sizeKind">
+	                                <option value="210">210</option>
+	                                <option value="220">220</option>
+	                                <option value="230">230</option>
+	                                <option value="240">240</option>
+	                                <option value="250">250</option>
+	                                <option value="260">260</option>
+	                                <option value="270">270</option>
+	                                <option value="280">280</option>
+	                            </select>
+                			</div>
+			                <div class="w-25">
+			                    <label for="sizeStock" class="form-label">제고 수량</label>
+			                    <input type="number" name="sizeStock" class="form-control" id="sizeStock"/>
+			                </div>
+                		</li>
+                	</ul>
+                </div>
                 <div class="detail-info">
                     <h2>상품 상세 정보</h2>
                     <textarea id="summernote" name="prdCnt"></textarea>
@@ -253,6 +290,34 @@
             var name = event.target.files[0].name;
             $('#file-name2').text(name);
             });
+        
+        let size = '';
+        size += '<li class="d-flex mt-2 size">';
+        size += '<div class="w-25 me-5">';
+		size += '<select name="sizeKind" class="form-select" id="sizeKind">'
+		size += '<option value="210">210</option>';
+        size += '<option value="220">220</option>';  
+        size += '<option value="230">230</option>';  
+        size += '<option value="240">240</option>';  
+        size += '<option value="250">250</option>';  
+        size += '<option value="260">260</option>';  
+        size += '<option value="270">270</option>';  
+        size += '<option value="280">280</option>';  
+        size += '</select>';  
+        size += '</div>';  
+        size += '<div class="w-25">';
+        size += '<input type="number" name="sizeStock" class="form-control" id="sizeStock"/>';  
+        size += '</div>';  
+        size += '</li>';  
+                
+
+        function add(){
+        	$("#sizeWrap").append(size);
+        }
+        
+        function removeer(){
+        	$("#sizeWrap").find(".size").last().remove();
+        }        
     </script>
 </body>
 </html>

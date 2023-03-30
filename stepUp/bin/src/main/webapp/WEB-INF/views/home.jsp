@@ -37,6 +37,7 @@
 <a href="<%=request.getContextPath()%>/free/free.do">자유게시판으로 이동!</a>
 <a href="<%=request.getContextPath()%>/event/event.do">이벤트게시판으로 이동!</a>
 <a href="<%=request.getContextPath()%>/notice/notice.do">공지사항으로 이동!</a>
+<a href="<%=request.getContextPath()%>/product/registration.do">상품등록페이지로 이동!</a>
 <a href="https://kauth.kakao.com/oauth/logout?client_id=0575c28de27e26d54b189d1b04528e6b&logout_redirect_uri=http://localhost:8080/controller/user/logout.do">카카오 로그아웃</a>
 <a href="#" onclick="logout()">로그아웃</a>
 <c:if test="${not empty login}">

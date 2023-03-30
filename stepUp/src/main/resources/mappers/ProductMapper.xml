@@ -5,8 +5,10 @@
   
   <mapper namespace="proj.stepUp.mapper.productMapper">
   	<insert id="insertProduct" parameterType="productVO">
-  		<![CDATA[insert into product_tb(prdCode, prdName, prdPrice, prdOname, prdRname, prdMadeIn, prdMt, prdCnt) 
-  		values(#{prdCode}, #{prdName}, #{prdPrice}, #{prdOname}, #{prdRname}, #{prdMadeIn}, #{prdMt}, #{prdCnt})]]>
+  		<![CDATA[insert into product_tb(prdCode, prdName, prdPrice, prdOname, prdRname, prdMadeIn, prdMt, prdCnt,
+  		prdQc, prdCare, prdMadeDate) 
+  		values(#{prdCode}, #{prdName}, #{prdPrice}, #{prdOname}, #{prdRname}, #{prdMadeIn}, #{prdMt}, #{prdCnt},
+  		#{prdQc}, #{prdCare}, #{prdMadeDate})]]>
   		<selectKey resultType="int" order="AFTER" keyProperty="prdIndex">
   			select MAX(prdIndex) from product_tb
   		</selectKey>

@@ -434,7 +434,7 @@ footer {height: 230px; background: #1e1e1e; width: 100%;}
     line-height: normal;
    
 }
-    
+
 .input_title{
     margin-bottom: 15px;
     width: 100%
@@ -980,8 +980,93 @@ footer {height: 230px; background: #1e1e1e; width: 100%;}
   }
   
   /*brand_write 시작*/
+  .prd-registration h2{
+    font-size: 1.2rem;
+  }
   .atc_file{
     height: 35px; padding: 2px;
     font-family: 'Courier New', Courier, monospace;
   }
+  .prd-Kategorie-area{
+    box-sizing: border-box;
+  }
+  .prdCode-title{
+    margin-bottom: 1%;
+  }
+
+  .file-input-container{
+    padding: 1% 0;
+  }
+  .sm-input-file{
+      border: 1px solid #333;
+      background: #ccc;
+      color: #777;
+      width: 82px;
+      opacity:0;
+      display: none;
+  }
+  .for-sm-input-file{
+      width: 14%;
+      height: 36px;
+      border: 1px solid #ced4da;
+      padding: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 30;
+      text-align: center;
+      font-family: consolas;
+      left:10px;
+      color:black;
+      padding-top:10px;
+      border-top-left-radius: 2px;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 2px;
+      border-radius: 0.375rem;
+      transition: all 0.3s ease-in-out;
+  }
+  .for-sm-input-file:hover{
+    background:black;
+    color:#fff;
+  }
+  .span-text{
+      display: block;
+      height: 36px;
+      width: 40%;
+      text-align: left;
+      padding-top: 9px;
+      padding-left: 11px;
+      border: 1px solid #ced4da;
+      margin-left: 1%;
+      font-family: consolas;
+      background: white;
+      color: #000;
+      min-width: 100px;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 0px;
+      border-radius: 0.375rem;
+  }
+
+  .file-area{
+    width: 50%;
+  }
+
+  .file-info-area{
+    width: 50%;
+    padding: 3% 0;
+  }
+
+  .file-info-area span{
+    line-height: 1.5rem;
+  }
+
+  .detail-info{
+    margin-top: 1%;
+  }
+  .detail-info h2{
+    margin-bottom: 1%;
+  }
   
+  /*brand_write 끝*/

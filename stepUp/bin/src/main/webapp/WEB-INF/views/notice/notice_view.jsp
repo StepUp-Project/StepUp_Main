@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="proj.stepUp.vo.NoticeBoardVO" %>
+<%@ page import="java.util.*" %>
+<% 
+	List<NoticeBoardVO> blist = (List<NoticeBoardVO>)request.getAttribute("blist");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -84,84 +90,15 @@
                         
                     </tr>
                 </thead>
-                <tbody>
+              <tbody>
+                 <c:forEach var="vo" items="${blist}">
                     <tr>
-                        <td><span>12</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>23:53</span></td>
-                        <td><span>글쓴이12</span></td>
-                       
+                        <td><span>${vo.noticeIndex}</span></td>
+                        <td><a href="#"><div>${vo.noticeTitle}</div></a></td>
+                        <td><span>${vo.noticeWdate}</span></td>
+                        <td><span>관리자</span></td>
                     </tr>
-                    <tr>
-                        <td><span>11</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>09:00</span></td>
-                        <td><span>글쓴이11</span></td>
-                       
-                    </tr>
-                    <tr>
-                        <td><span>10</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>09:00</span></td>
-                        <td><span>글쓴이10</span></td>
-                        
-                    </tr>
-                    <tr>
-                        <td><span>9</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>09:00</span></td>
-                        <td><span>글쓴이9</span></td>
-                        
-                    </tr>
-                    <tr>
-                        <td><span>8</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>09:00</span></td>
-                        <td><span>글쓴이8</span></td>
-                       
-                    </tr>
-                    <tr>
-                        <td><span>7</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>09:00</span></td>
-                        <td><span>글쓴이7</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>6</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>09:00</span></td>
-                        <td><span>글쓴이6</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>5</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>09:00</span></td>
-                        <td><span>글쓴이5</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>4</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>09:00</span></td>
-                        <td><span>글쓴이4</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>3</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>02-07</span></td>
-                        <td><span>글쓴이3</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>2</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>02-07</span></td>
-                        <td><span>글쓴이2</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>1</span></td>
-                        <td><a href="#"><div>제목 입니다</div></a></td>
-                        <td><span>02-06</span></td>
-                        <td><span>글쓴이1</span></td>
-                    </tr>
+                 </c:forEach>
                 </tbody>
                 <tfoot>
                     <tr class="board_page" >
@@ -169,15 +106,15 @@
                     </tr>
                     <tr>
                         <td class="board_search" colspan="5">
-                           <form name="frm" action="/event/event.do" class="search_select" method="get">
+                           <form name="frm" action="<%=request.getContextPath()%>/free/free.do" class="search_select" method="get">
                                 <div>
                                     <select name="searchType">
                                         <option value="title" selected>제목</option>
                                         <option value="content">내용</option>
                                     </select>
-                                    <input type="text" name="keyword" class="keyword" value="" required="" placeholder="검색어를 입력하세요.">
-                                    <input type="button" class="srch-bt" value="검색">
-                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='notice_write.do'">
+                                    <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
+                                    <button class="srch-bt" >검 색</button>
+                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='free_write.do'">
                                 </div>
                             </form>  
                         </td> 

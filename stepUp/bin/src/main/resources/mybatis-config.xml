@@ -10,6 +10,8 @@
         <typeAlias type="proj.stepUp.vo.EventBoardVO" alias="eventboardVO"/>
         <typeAlias type="proj.stepUp.vo.NoticeBoardVO" alias="noticeboardVO"/>
         <typeAlias type="proj.stepUp.vo.SearchVO" alias="searchVO"/>
+        <typeAlias type="proj.stepUp.vo.ProductVO" alias="productVO"/>
+        <typeAlias type="proj.stepUp.vo.ProductImgVO" alias="productimgVO"/>
     </typeAliases>
 
 </configuration>
