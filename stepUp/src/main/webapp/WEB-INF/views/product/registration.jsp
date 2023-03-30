@@ -82,7 +82,7 @@
     <main class="prd-registration">
         <article id="board_write">
             <div id="board_ttl">브랜드별 상품등록</div>
-            <form method="post">
+            <form name="frm" action="registration.do" method="post" onsubmit="return check()" enctype="multipart/form-data">
                 <div class="prd-Kategorie-area">
                     <div class="prdCode-title">
                         <h2>상품코드</h2>
@@ -91,7 +91,7 @@
                     <div class="d-flex">
                         <div class="w-25 me-4">
                             <label for="brand" class="form-label">브랜드</label>
-                            <select name="brandCode" class="form-select" id="brand">
+                            <select name="brandCode" class="form-select" id="brandCode">
                                 <option value="NK">나이키</option>
                                 <option value="NB">뉴발</option>
                                 <option value="VS">반스</option>
@@ -104,7 +104,7 @@
                         </div>   
                         <div class="w-25 me-4">
                             <label for="type" class="form-label">종류</label>
-                            <select name="typeCode" class="form-select" id="type">
+                            <select name="typeCode" class="form-select" id="typeCode">
                                 <option value="01">운동화</option>
                                 <option value="02">스포츠화</option>
                                 <option value="03">크록스</option>
@@ -114,7 +114,7 @@
                         </div>  
                         <div class="w-25">
                             <label for="code" class="form-label">코드</label>
-                            <input type="text" name="code" class="form-control" id="code" value=""/>
+                            <input type="text" name="inputCode" class="form-control" id="inputCode" value=""/>
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                 </div>
                 <div class="mt-4">
                     <label for="prdPrice" class="form-label">상품가격</label>
-                    <input type="text" name="prdPrice" class="form-control" id="prdPrice"/>
+                    <input type="number" name="prdPrice" class="form-control" id="prdPrice" value="0"/>
                 </div>
                 <div class="mt-4">
                     <label for="prdMadeIn" class="form-label">상품 제조국</label>
@@ -139,22 +139,22 @@
                         <div class="mt-4 mainImg">
                             <h2>메인 이미지</h2>
                             <div class="file-input-container d-flex">
-                                <input type="file" class="sm-input-file" id="sm-ip-1"/>
-                                <label class="for-sm-input-file" for="sm-ip-1">이미지 등록</label>
+                                <input type="file" class="sm-input-file" name="mainFile" id="MainImg"/>
+                                <label class="for-sm-input-file" for="MainImg">이미지 등록</label>
                                 <div class="span-text" id="file-name"></div>
                             </div>
                         </div>
                         <div class="mt-2 subImg">
                             <h2>서브 이미지</h2>
                             <div class="file-input-container d-flex">
-                                <input type="file" class="sm-input-file" id="sm-ip-1"/>
-                                <label class="for-sm-input-file" for="sm-ip-1">이미지 등록</label>
-                                <div class="span-text" id="file-name"></div>
+                                <input type="file" class="sm-input-file" name="subFile" id="subImg1"/>
+                                <label class="for-sm-input-file" for="subImg1">이미지 등록</label>
+                                <div class="span-text" id="file-name1"></div>
                             </div>
                             <div class="file-input-container d-flex pt-0">
-                                <input type="file" class="sm-input-file" id="sm-ip-1"/>
-                                <label class="for-sm-input-file" for="sm-ip-1">이미지 등록</label>
-                                <div class="span-text" id="file-name"></div>
+                                <input type="file" class="sm-input-file" name="subFile" id="subImg2"/>
+                                <label class="for-sm-input-file" for="subImg2">이미지 등록</label>
+                                <div class="span-text" id="file-name2"></div>
                             </div>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                  </div>
                 <div class="detail-info">
                     <h2>상품 상세 정보</h2>
-                    <textarea id="summernote" name="editordata"></textarea>
+                    <textarea id="summernote" name="prdCnt"></textarea>
                 </div>
                 <div id="board_button">
                     <input type="submit" class="btn btn-outline-secondary" value="저 장">
@@ -230,19 +230,28 @@
         	});
         });
         
+       
         function check(){//코드 조합
         	let brandCode = $("#brandCode").val();
-        	let crdCode =  $("#crdCode").val();
-        	let prdCode = brandCode+crdCode;
+        	let crdCode =  $("#typeCode").val();
+        	let inputCode = $('#inputCode').val();
+        	let prdCode = brandCode+crdCode+inputCode;
         	$('input[name=prdCode]').attr('value',prdCode);
 
-        	
         	return true
         }
         
-        $('#sm-ip-1').on('change',function(event){
+        $('#MainImg').on('change',function(event){
             var name = event.target.files[0].name;
             $('#file-name').text(name);
+            });
+        $('#subImg1').on('change',function(event){
+            var name = event.target.files[0].name;
+            $('#file-name1').text(name);
+            });
+        $('#subImg2').on('change',function(event){
+            var name = event.target.files[0].name;
+            $('#file-name2').text(name);
             });
     </script>
 </body>
