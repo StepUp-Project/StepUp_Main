@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main</title>
+    <title>registration</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
@@ -114,7 +114,7 @@
                         </div>  
                         <div class="w-25">
                             <label for="code" class="form-label">코드</label>
-                            <input type="text" name="code" class="form-control" id="code" value=""/>
+                            <input type="text" name="code" class="form-control procode" id="code" value=""/>
                         </div>
                     </div>
                 </div>
@@ -140,7 +140,6 @@
                             <h2>메인 이미지</h2>
                             <div class="file-input-container d-flex">
                                 <input type="file" class="sm-input-file" id="sm-ip-1"/>
-                                <label class="for-sm-input-file" for="sm-ip-1">이미지 등록</label>
                                 <div class="span-text" id="file-name"></div>
                             </div>
                         </div>
@@ -148,12 +147,10 @@
                             <h2>서브 이미지</h2>
                             <div class="file-input-container d-flex">
                                 <input type="file" class="sm-input-file" id="sm-ip-1"/>
-                                <label class="for-sm-input-file" for="sm-ip-1">이미지 등록</label>
                                 <div class="span-text" id="file-name"></div>
                             </div>
                             <div class="file-input-container d-flex pt-0">
                                 <input type="file" class="sm-input-file" id="sm-ip-1"/>
-                                <label class="for-sm-input-file" for="sm-ip-1">이미지 등록</label>
                                 <div class="span-text" id="file-name"></div>
                             </div>
                         </div>
