@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="proj.stepUp.mapper.productMapper">
+  	<insert id="insertProduct" parameterType="productVO">
+  		<![CDATA[insert into product_tb(prdCode, prdName, prdPrice, prdOname, prdRname, prdMadeIn, prdMt, prdCnt,
+  		prdQc, prdCare, prdMadeDate) 
+  		values(#{prdCode}, #{prdName}, #{prdPrice}, #{prdOname}, #{prdRname}, #{prdMadeIn}, #{prdMt}, #{prdCnt},
+  		#{prdQc}, #{prdCare}, #{prdMadeDate})]]>
+  		<selectKey resultType="int" order="AFTER" keyProperty="prdIndex">
+  			select MAX(prdIndex) from product_tb
+  		</selectKey>
+  	</insert>
+  	
+  	<select id="selectProductIndex" parameterType="int" resultType="productVO">
+  		select * from product_tb where prdIndex = #{prdIndex}
+  	</select>
+  </mapper>
