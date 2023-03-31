@@ -14,6 +14,7 @@ public class ProductVO {
 	private String prdQc;
 	private String prdCare;
 	private String prdMadeDate;
+	
 	public int getPrdIndex() {
 		return prdIndex;
 	}
