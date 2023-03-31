@@ -1,18 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="proj.stepUp.vo.NoticeBoardVO" %>
+<%@ page import="proj.stepUp.vo.EventBoardVO" %>
 <%@ page import="java.util.*" %>
 <% 
-	List<NoticeBoardVO> blist = (List<NoticeBoardVO>)request.getAttribute("blist");
+	List<EventBoardVO> blist = (List<EventBoardVO>)request.getAttribute("blist");
 %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>noticeView</title>
+    <title>eventView</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
@@ -76,10 +77,11 @@
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
+    	</div>
     </header><!--헤더 끝--> 
     <main><!--메인 시작-->
         <article id="board_contain">
-            <div class="board_title">공지사항</div>
+            <div class="board_title">이벤트 게시판</div>
             <table class="nomal_board">
                 <thead>
                     <tr>
@@ -87,16 +89,17 @@
                         <th class="boardTtl">제목</th>
                         <th class="wDate">작성일</th>
                         <th class="wID">작성자</th>
-                        
+                        <th class="boardHit">조회수</th>
                     </tr>
                 </thead>
-              <tbody>
+                <tbody>
                  <c:forEach var="vo" items="${blist}">
                     <tr>
-                        <td><span>${vo.noticeIndex}</span></td>
-                        <td><a href="#"><div>${vo.noticeTitle}</div></a></td>
-                        <td><span>${vo.noticeWdate}</span></td>
-                        <td><span>관리자</span></td>
+                        <td><span>${vo.eventIndex}</span></td>
+                        <td><a href="event_view.do"><div>${vo.eventTitle}</div></a></td>
+                        <td><span>${vo.eventWdate}</span></td>
+                        <td><span>${vo.userIndex}</span></td>
+                        <td><span>${vo.eventHit}</span></td>
                     </tr>
                  </c:forEach>
                 </tbody>
@@ -111,10 +114,11 @@
                                     <select name="searchType" class="search_css">
                                         <option value="title" selected>제목</option>
                                         <option value="content">내용</option>
+                                        <option value="writer">작성자</option>
                                     </select>
                                     <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
                                     <button class="srch-bt" >검 색</button>
-                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='notice_write.do'">
+                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='event_write.do'">
                                 </div>
                             </form>  
                         </td> 

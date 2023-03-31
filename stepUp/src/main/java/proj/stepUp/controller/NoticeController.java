@@ -26,7 +26,7 @@ public class NoticeController {
 		
 		List<NoticeBoardVO> list = noticeService.list(svo);
 		model.addAttribute("blist", list);
-		return "notice/notice_view";
+		return "notice/notice_list";
 	}	
 	
 	
@@ -36,7 +36,11 @@ public class NoticeController {
 		return "notice/notice_write";
 	}
 	
-	
+	@RequestMapping(value="/notice_view.do", method = RequestMethod.GET)
+	public String noticeview() {
+		
+		return "notice/notice_view";
+	}
 	
 
 }

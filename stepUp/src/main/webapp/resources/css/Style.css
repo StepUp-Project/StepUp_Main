@@ -1331,3 +1331,146 @@ notice_view.jsp(공지사항 리스트)
 }
   /*registration.jsp 끝*/
 
+
+  /*board_view 시작*/
+  #board_viewcontain{
+    border: 1px solid #a5a5a5;
+    width: 63%;
+    margin: 0 auto;
+    margin-top: 250px;
+  }
+
+  #board_view{
+    margin: 20px;
+  }
+  #board_viewTtl div{
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+  }
+
+  #board_viewTtl{
+    margin-top: 30px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #494949;
+    height: 40px;
+
+  }
+
+  #board_winfo{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #494949;
+    height: 30px;
+    line-height: 30px;
+  }
+  #board_winfo div{
+    display: inline-block;
+    font-size: 15px;
+    padding-left: 10px;
+  }
+  #board_winfo span{
+    margin-left: 20px;
+    margin-right: 30px;
+    font-size: 15px;
+  }
+  #board_winfo p{
+    float: right;
+    margin-right: 15px;
+    font-size: 15px;
+  }
+  #board_wctn{
+    width: 98%;
+    padding: 10px;
+    margin: 0 auto;
+    height: 600px;
+    margin-top: 30px;
+  }
+
+  /*댓글*/
+  #re_ctn{
+    width: 63%;
+    margin: 50px auto;
+    
+  }
+  #re_ctn li{
+    margin-top: 50px;
+    border-bottom: solid 1px #a5a5a5;
+  }
+
+  .re_writer{
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+  .re_winfo{
+    margin-bottom: 25px;
+  }
+  .re_winfo span{
+    font-size: 13px;
+  }
+  
+  .re_winfo input{
+    float: right;
+    font-size: 12px;
+    width: 50px;
+    height: 25px;
+    margin-right: 10px;
+  }
+  .re_note{
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
+  .re_edit{
+    background: #bfbfbf;
+    color: #fff;
+    border: 0;
+  }
+  .re_del{
+    background: #fff;
+    color: #bfbfbf;
+    border: solid 1px #a5a5a5;
+  }
+
+  #re_write{
+    width: 63%;
+    margin: 50px auto;
+  }
+  #re_formTtl{
+    margin-top: 50px;
+    margin-bottom: 35px;
+    font-weight: bold;
+  }
+  #re_writeCnt{
+    display: inline-block;
+    width: 75%;
+    height: 100px;
+    vertical-align: top;
+    line-height: 2em;
+    padding: 15px;
+    resize: none;
+    border:solid 1px #a5a5a5;
+    font-size: 14px;
+  }
+  #re_btn{
+    display: inline-block;
+    width: 23%;
+    height: 100px;
+    border:solid 1px #a5a5a5;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    margin-left: 1%;
+  }
+  #re_btn button{
+    display: inline-block;
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    background: #494949;
+    color: #fff;
+    border: 0;
+    font-size: 14px;
+  }
