@@ -77,7 +77,8 @@
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
-    </header><!--헤더 끝-->   
+    	</div>
+    </header><!--헤더 끝--> 
     <main>
         <article id="board_write">
             <div id="board_ttl">자유게시판 글쓰기</div>

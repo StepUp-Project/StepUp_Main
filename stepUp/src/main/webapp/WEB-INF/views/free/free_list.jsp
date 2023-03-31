@@ -20,7 +20,7 @@
     
 </head>
 <body>
-    <header id="header"><!--헤더 시작-->
+   <header id="header"><!--헤더 시작-->
         <div class="d-flex justify-content-between pt-5">
             <div class="p-2 logo-wrap" ><!-- 로고 영역 시작-->
                 <h1 class="logo">
@@ -78,6 +78,7 @@
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
+    	</div>
     </header><!--헤더 끝--> 
     <main><!--메인 시작-->
         <article id="board_contain">
@@ -96,7 +97,7 @@
                  <c:forEach var="vo" items="${blist}">
                     <tr>
                         <td><span>${vo.freeIndex}</span></td>
-                        <td><a href="#"><div>${vo.freeTitle}</div></a></td>
+                        <td><a href="free_view.do"><div>${vo.freeTitle}</div></a></td>
                         <td><span>${vo.freeWdate}</span></td>
                         <td><span>${vo.userIndex}</span></td>
                         <td><span>${vo.freeHit}</span></td>

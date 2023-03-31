@@ -26,7 +26,7 @@ public class EventController {
 		
 		List<EventBoardVO> list = eventService.list(svo);
 		model.addAttribute("blist", list);
-		return "event/event_view";
+		return "event/event_list";
 	}	
 		
 	
@@ -37,6 +37,11 @@ public class EventController {
 	}
 	
 	
+	@RequestMapping(value="/event_view.do", method = RequestMethod.GET)
+	public String eventview() {
+		
+		return "event/event_view";
+	}
 	
 	
 

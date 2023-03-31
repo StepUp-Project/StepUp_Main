@@ -26,7 +26,7 @@ public class FreeController {
 		
 		List<FreeBoardVO> list = freeService.list(svo);
 		model.addAttribute("blist", list);
-		return "free/free_view";
+		return "free/free_list";
 	}	
 	
 	
@@ -35,5 +35,13 @@ public class FreeController {
 		
 		return "free/free_write";
 	}
+	
+	@RequestMapping(value="/free_view.do", method = RequestMethod.GET)
+	public String freeview() {
+		
+		return "free/free_view";
+	}
+	
+	
 	
 }
