@@ -78,11 +78,12 @@
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
+		</div>            
     </header><!--헤더 끝-->   
     <main class="prd-registration">
         <article id="board_write">
             <div id="board_ttl">브랜드별 상품등록</div>
-            <form method="post">
+            <form name="frm" action="registration.do" method="post" onsubmit="return check()" enctype="multipart/form-data">
                 <div class="prd-Kategorie-area">
                     <div class="prdCode-title">
                         <h2>상품코드</h2>
@@ -91,7 +92,7 @@
                     <div class="d-flex">
                         <div class="w-25 me-4">
                             <label for="brand" class="form-label">브랜드</label>
-                            <select name="brandCode" class="form-select" id="brand">
+                            <select name="brandCode" class="form-select" id="brandCode">
                                 <option value="NK">나이키</option>
                                 <option value="NB">뉴발</option>
                                 <option value="VS">반스</option>
@@ -104,7 +105,7 @@
                         </div>   
                         <div class="w-25 me-4">
                             <label for="type" class="form-label">종류</label>
-                            <select name="typeCode" class="form-select" id="type">
+                            <select name="typeCode" class="form-select" id="typeCode">
                                 <option value="01">운동화</option>
                                 <option value="02">스포츠화</option>
                                 <option value="03">크록스</option>
@@ -114,7 +115,11 @@
                         </div>  
                         <div class="w-25">
                             <label for="code" class="form-label">코드</label>
+<<<<<<< HEAD
+                            <input type="text" name="inputCode" class="form-control" id="inputCode" value=""/>
+=======
                             <input type="text" name="code" class="form-control procode" id="code" value=""/>
+>>>>>>> branch 'main' of https://github.com/ArkJBJ/StepUp_Main.git
                         </div>
                     </div>
                 </div>
@@ -124,7 +129,7 @@
                 </div>
                 <div class="mt-4">
                     <label for="prdPrice" class="form-label">상품가격</label>
-                    <input type="text" name="prdPrice" class="form-control" id="prdPrice"/>
+                    <input type="number" name="prdPrice" class="form-control" id="prdPrice" value="0"/>
                 </div>
                 <div class="mt-4">
                     <label for="prdMadeIn" class="form-label">상품 제조국</label>
@@ -134,24 +139,53 @@
                     <label for="prdMt" class="form-label">상품 소재</label>
                     <input type="text" name="prdMt" class="form-control" id="prdMt"/>
                 </div>
+                                <div class="mt-4">
+                    <label for="prdQc" class="form-label">품질 보증기준</label>
+                    <input type="text" name="prdQc" class="form-control" id="prdQc"/>
+                </div>
+                <div class="mt-4">
+                    <label for="prdCare" class="form-label">소재관리 방법</label>
+                    <input type="text" name="prdCare" class="form-control" id="prdCare"/>
+                </div>
+                <div class="mt-4">
+                    <label for="prdMadeDate" class="form-label">제조일</label>
+                    <input type="text" name="prdMadeDate" class="form-control" id="prdMadeDate"/>
+                </div>
                 <div class="d-flex">
                     <div class="file-area">
                         <div class="mt-4 mainImg">
                             <h2>메인 이미지</h2>
                             <div class="file-input-container d-flex">
+<<<<<<< HEAD
+                                <input type="file" class="sm-input-file" name="mainFile" id="MainImg"/>
+                                <label class="for-sm-input-file" for="MainImg">이미지 등록</label>
+=======
                                 <input type="file" class="sm-input-file" id="sm-ip-1"/>
+>>>>>>> branch 'main' of https://github.com/ArkJBJ/StepUp_Main.git
                                 <div class="span-text" id="file-name"></div>
                             </div>
                         </div>
                         <div class="mt-2 subImg">
                             <h2>서브 이미지</h2>
                             <div class="file-input-container d-flex">
+<<<<<<< HEAD
+                                <input type="file" class="sm-input-file" name="subFile" id="subImg1"/>
+                                <label class="for-sm-input-file" for="subImg1">이미지 등록</label>
+                                <div class="span-text" id="file-name1"></div>
+=======
                                 <input type="file" class="sm-input-file" id="sm-ip-1"/>
                                 <div class="span-text" id="file-name"></div>
+>>>>>>> branch 'main' of https://github.com/ArkJBJ/StepUp_Main.git
                             </div>
                             <div class="file-input-container d-flex pt-0">
+<<<<<<< HEAD
+                                <input type="file" class="sm-input-file" name="subFile" id="subImg2"/>
+                                <label class="for-sm-input-file" for="subImg2">이미지 등록</label>
+                                <div class="span-text" id="file-name2"></div>
+=======
                                 <input type="file" class="sm-input-file" id="sm-ip-1"/>
                                 <div class="span-text" id="file-name"></div>
+>>>>>>> branch 'main' of https://github.com/ArkJBJ/StepUp_Main.git
                             </div>
                         </div>
                     </div>
@@ -164,10 +198,35 @@
                         <br/>
                         <span>3. 메인 이미지는 상품 리스트 출력시 노출되는 사진입니다.</span>
                     </div>
-                 </div>
+                </div>
+                <div>
+                <button type="button" class="btn btn-outline-secondary" onclick="add()">재고 추가</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="removeer()">재고 삭제</button>
+                	<ul id="sizeWrap">
+                		<li class="d-flex mt-4">
+                			<div class="w-25 me-5">
+                				<label for="sizeKind" class="form-label">상품 사이즈</label>
+	                            <select name="sizeKind" class="form-select" id="sizeKind">
+	                                <option value="210">210</option>
+	                                <option value="220">220</option>
+	                                <option value="230">230</option>
+	                                <option value="240">240</option>
+	                                <option value="250">250</option>
+	                                <option value="260">260</option>
+	                                <option value="270">270</option>
+	                                <option value="280">280</option>
+	                            </select>
+                			</div>
+			                <div class="w-25">
+			                    <label for="sizeStock" class="form-label">제고 수량</label>
+			                    <input type="number" name="sizeStock" class="form-control" id="sizeStock"/>
+			                </div>
+                		</li>              		
+                	</ul>
+                </div>
                 <div class="detail-info">
                     <h2>상품 상세 정보</h2>
-                    <textarea id="summernote" name="editordata"></textarea>
+                    <textarea id="summernote" name="prdCnt"></textarea>
                 </div>
                 <div id="board_button">
                     <input type="submit" class="btn btn-outline-secondary" value="저 장">
@@ -222,25 +281,89 @@
               height: 450,                 // 에디터 높이
               minHeight: null,             // 최소 높이
               maxHeight: null,             // 최대 높이
-              focus: true,                 // 에디터 로딩후 포커스를 맞출지 여부
-              lang: "ko-KR",			   // 한글 설정 
-        	});
+              focus: false,                // 에디터 로딩후 포커스를 맞출지 여부
+              lang: "ko-KR",			       // 한글 설정
+              callbacks:{
+            	  onImageUpload: function(files, editor, welEditable){
+  		            for (var i = files.length - 1; i >= 0; i--) {
+		            	sendFile(files[i], this);
+            	  }
+              }
+            }
         });
+      }); 
         
+        function sendFile(file, el){
+        	let data = new FormData();
+        	data.append('file', file);
+        	$.ajax({
+            	data: data,
+            	type: "POST",
+            	url: '${pageContext.request.contextPath}/ajax/SummerNoteImageFile.do',
+            	cache: false,
+            	contentType: false,
+            	enctype: 'multipart/form-data',
+            	processData: false,
+            	success: function(data) {
+            		console.log("ajax 응답 성공");
+            		console.log(data);
+              		$(el).summernote('editor.insertImage', data.url);
+            	}
+          	});
+        }
+        
+        
+        
+       
         function check(){//코드 조합
         	let brandCode = $("#brandCode").val();
-        	let crdCode =  $("#crdCode").val();
-        	let prdCode = brandCode+crdCode;
+        	let crdCode =  $("#typeCode").val();
+        	let inputCode = $('#inputCode').val();
+        	let prdCode = brandCode+crdCode+inputCode;
         	$('input[name=prdCode]').attr('value',prdCode);
-
-        	
         	return true
         }
         
-        $('#sm-ip-1').on('change',function(event){
+        $('#MainImg').on('change',function(event){
             var name = event.target.files[0].name;
             $('#file-name').text(name);
             });
+        $('#subImg1').on('change',function(event){
+            var name = event.target.files[0].name;
+            $('#file-name1').text(name);
+            });
+        $('#subImg2').on('change',function(event){
+            var name = event.target.files[0].name;
+            $('#file-name2').text(name);
+            });
+        
+        let size = '';
+        size += '<li class="d-flex mt-2 size">';
+        size += '	<div class="w-25 me-5">';
+		size += '		<select name="sizeKind" class="form-select" id="sizeKind">'
+		size += '			<option value="210">210</option>';
+        size += '			<option value="220">220</option>';  
+        size += '			<option value="230">230</option>';  
+        size += '			<option value="240">240</option>';  
+        size += '			<option value="250">250</option>';  
+        size += '			<option value="260">260</option>';  
+        size += '			<option value="270">270</option>';  
+        size += '			<option value="280">280</option>';  
+        size += '		</select>';  
+        size += '	</div>';  
+        size += '	<div class="w-25">';
+        size += '		<input type="number" name="sizeStock" class="form-control" id="sizeStock"/>';  
+        size += '	</div>';  
+        size += '</li>';  
+                
+
+        function add(){
+        	$("#sizeWrap").append(size);
+        }
+        
+        function removeer(){
+        	$("#sizeWrap").find(".size").last().remove();
+        }        
     </script>
 </body>
 </html>
