@@ -28,6 +28,7 @@
    
    </beans:bean>
 	
+
 	<context:component-scan base-package="proj.stepUp.controller" />
 	<context:component-scan base-package="proj.stepUp.dao" />
 	<context:component-scan base-package="proj.stepUp.service" />

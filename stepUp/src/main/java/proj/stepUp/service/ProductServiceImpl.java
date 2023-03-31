@@ -16,5 +16,11 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDAO.insertProduct(vo);
 	}
+
+	@Override
+	public ProductVO selectProductIndex(int prdIndex) {
+		// TODO Auto-generated method stub
+		return productDAO.selectProductIndex(prdIndex);
+	}
 	
 }

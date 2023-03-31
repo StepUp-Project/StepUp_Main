@@ -13,4 +13,8 @@
   			select MAX(prdIndex) from product_tb
   		</selectKey>
   	</insert>
+  	
+  	<select id="selectProductIndex" parameterType="int" resultType="productVO">
+  		select * from product_tb where prdIndex = #{prdIndex}
+  	</select>
   </mapper>

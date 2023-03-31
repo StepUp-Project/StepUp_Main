@@ -78,6 +78,7 @@
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
+		</div>            
     </header><!--헤더 끝-->   
     <main class="prd-registration">
         <article id="board_write">
@@ -202,7 +203,7 @@
 			                    <label for="sizeStock" class="form-label">제고 수량</label>
 			                    <input type="number" name="sizeStock" class="form-control" id="sizeStock"/>
 			                </div>
-                		</li>
+                		</li>              		
                 	</ul>
                 </div>
                 <div class="detail-info">
@@ -262,10 +263,38 @@
               height: 450,                 // 에디터 높이
               minHeight: null,             // 최소 높이
               maxHeight: null,             // 최대 높이
-              focus: true,                 // 에디터 로딩후 포커스를 맞출지 여부
-              lang: "ko-KR",			   // 한글 설정 
-        	});
+              focus: false,                // 에디터 로딩후 포커스를 맞출지 여부
+              lang: "ko-KR",			       // 한글 설정
+              callbacks:{
+            	  onImageUpload: function(files, editor, welEditable){
+  		            for (var i = files.length - 1; i >= 0; i--) {
+		            	sendFile(files[i], this);
+            	  }
+              }
+            }
         });
+      }); 
+        
+        function sendFile(file, el){
+        	let data = new FormData();
+        	data.append('file', file);
+        	$.ajax({
+            	data: data,
+            	type: "POST",
+            	url: '${pageContext.request.contextPath}/ajax/SummerNoteImageFile.do',
+            	cache: false,
+            	contentType: false,
+            	enctype: 'multipart/form-data',
+            	processData: false,
+            	success: function(data) {
+            		console.log("ajax 응답 성공");
+            		console.log(data);
+              		$(el).summernote('editor.insertImage', data.url);
+            	}
+          	});
+        }
+        
+        
         
        
         function check(){//코드 조합
@@ -274,7 +303,6 @@
         	let inputCode = $('#inputCode').val();
         	let prdCode = brandCode+crdCode+inputCode;
         	$('input[name=prdCode]').attr('value',prdCode);
-
         	return true
         }
         
@@ -293,21 +321,21 @@
         
         let size = '';
         size += '<li class="d-flex mt-2 size">';
-        size += '<div class="w-25 me-5">';
-		size += '<select name="sizeKind" class="form-select" id="sizeKind">'
-		size += '<option value="210">210</option>';
-        size += '<option value="220">220</option>';  
-        size += '<option value="230">230</option>';  
-        size += '<option value="240">240</option>';  
-        size += '<option value="250">250</option>';  
-        size += '<option value="260">260</option>';  
-        size += '<option value="270">270</option>';  
-        size += '<option value="280">280</option>';  
-        size += '</select>';  
-        size += '</div>';  
-        size += '<div class="w-25">';
-        size += '<input type="number" name="sizeStock" class="form-control" id="sizeStock"/>';  
-        size += '</div>';  
+        size += '	<div class="w-25 me-5">';
+		size += '		<select name="sizeKind" class="form-select" id="sizeKind">'
+		size += '			<option value="210">210</option>';
+        size += '			<option value="220">220</option>';  
+        size += '			<option value="230">230</option>';  
+        size += '			<option value="240">240</option>';  
+        size += '			<option value="250">250</option>';  
+        size += '			<option value="260">260</option>';  
+        size += '			<option value="270">270</option>';  
+        size += '			<option value="280">280</option>';  
+        size += '		</select>';  
+        size += '	</div>';  
+        size += '	<div class="w-25">';
+        size += '		<input type="number" name="sizeStock" class="form-control" id="sizeStock"/>';  
+        size += '	</div>';  
         size += '</li>';  
                 
 

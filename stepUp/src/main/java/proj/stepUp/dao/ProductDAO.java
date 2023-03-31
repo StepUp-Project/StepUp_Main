@@ -13,7 +13,10 @@ public class ProductDAO {
 	private SqlSession sqlSession;
 	
 	public int insertProduct(ProductVO vo) {
-		System.out.println("DAO¡¯¿‘");
 		return sqlSession.insert("proj.stepUp.mapper.productMapper.insertProduct", vo);
+	}
+	
+	public ProductVO selectProductIndex(int prdIndex) {
+		return sqlSession.selectOne("proj.stepUp.mapper.productMapper.selectProductIndex", prdIndex);
 	}
 }
