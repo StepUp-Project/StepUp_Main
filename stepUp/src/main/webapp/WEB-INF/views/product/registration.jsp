@@ -20,8 +20,8 @@
 
 </head>
 <body>
-    <header id="header"><!--헤더 시작-->
-        <div class="d-flex justify-content-between pt-5">
+     <header id="header"><!--헤더 시작-->
+        <div class="d-flex justify-content-between pt-5"><!--d-flex 영역 시작-->
             <div class="p-2 logo-wrap" ><!-- 로고 영역 시작-->
                 <h1 class="logo">
                     <a href="/">
@@ -78,7 +78,7 @@
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
-		</div>            
+	    </div><!--d-flex 영역 끝-->
     </header><!--헤더 끝-->   
     <main class="prd-registration">
         <article id="board_write">
