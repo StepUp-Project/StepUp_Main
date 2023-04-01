@@ -13,8 +13,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-    <header id="header"><!--헤더 시작-->
-        <div class="d-flex justify-content-between pt-5">
+     <header id="header"><!--헤더 시작-->
+        <div class="d-flex justify-content-between pt-5"><!--d-flex 영역 시작-->
             <div class="p-2 logo-wrap" ><!-- 로고 영역 시작-->
                 <h1 class="logo">
                     <a href="/">
@@ -71,7 +71,8 @@
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
-    </header><!--헤더 끝--> 
+	    </div><!--d-flex 영역 끝-->
+    </header><!--헤더 끝-->   
 
     <main><!--메인 시작-->
       <article id="prd_view"><!-- 상품 사진 + 선택 영역-->
