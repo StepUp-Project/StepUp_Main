@@ -39,11 +39,11 @@
     </script>
 </head>
 <body>
-    <header id="header"><!--헤더 시작-->
-        <div class="d-flex justify-content-between pt-5">
+   <header id="header"><!--헤더 시작-->
+        <div class="d-flex justify-content-between pt-5"><!--d-flex 영역 시작-->
             <div class="p-2 logo-wrap" ><!-- 로고 영역 시작-->
                 <h1 class="logo">
-                    <a href="<%=request.getContextPath()%>">
+                    <a href="/">
                         <span>kikshub</span>
                     </a>    
                 </h1>
@@ -93,14 +93,12 @@
                 </ul>
             </nav><!--메인 네비게이션 영역 끝-->
             <div class="p-2 me-4" id="user"><!-- 로그인, 장바구니, 마이페이지 영역 시작-->
-                <a href="#"><i class="xi-search"></i></a><!-- 검색 -->
-                <a href='
-                <c:if test="${empty login}"><%=request.getContextPath()%>/user/login.do</c:if>
-                <c:if test="${not empty login}"><%=request.getContextPath()%></c:if>
-                '><i class="xi-user-o"></i></a><!-- 로그인 및 마이페이지 -->
-                <a href="#"><i class="xi-cart-o"></i></a><!-- 장바구니 -->
+                <a href="#"><i class="xi-search"></i></a>
+                <a href="#"><i class="xi-user-o"></i></a>
+                <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
-    </header><!--헤더 끝--> 
+	    </div><!--d-flex 영역 끝-->
+    </header><!--헤더 끝-->   
     
     <main>
     <div class="login-area"><!--로그인 헤더 영역 시작-->
