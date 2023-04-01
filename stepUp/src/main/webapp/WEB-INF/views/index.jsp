@@ -71,7 +71,7 @@
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
-	</<!--d-flex 영역 시작-->
+	    </div><!--d-flex 영역 시작-->
     </header><!--헤더 끝-->   
 
     <main><!-- 메인 시작 -->
