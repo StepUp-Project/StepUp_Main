@@ -12,7 +12,7 @@
 		<input type="number" name="prdIndex">
 		<button>전송</button>
 	</form>
-	
+	<div></div>
 	<c:if test="${not empty prdVO}">
 		${prdVO.prdIndex}
 		<br>
@@ -27,6 +27,8 @@
 		${prdVO.prdOname}
 		<br>
 		${prdVO.prdRname}
+		<br>
+		<img alt="" src='<%=request.getContextPath()%>/resources/prdmainimg/${prdVO.prdRname}'>
 		<br>
 		${prdVO.prdCnt}
 		<br>

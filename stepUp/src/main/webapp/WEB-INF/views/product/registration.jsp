@@ -116,7 +116,6 @@
                         <div class="w-25">
                             <label for="code" class="form-label">코드</label>
                             <input type="text" name="inputCode" class="form-control" id="inputCode" value=""/>
-                            <input type="text" name="code" class="form-control procode" id="code" value=""/>
                         </div>
                     </div>
                 </div>
@@ -155,7 +154,6 @@
                             <div class="file-input-container d-flex">
                                 <input type="file" class="sm-input-file" name="mainFile" id="MainImg"/>
                                 <label class="for-sm-input-file" for="MainImg">이미지 등록</label>
-                                <input type="file" class="sm-input-file" id="sm-ip-1"/>
                                 <div class="span-text" id="file-name"></div>
                             </div>
                         </div>
@@ -165,15 +163,11 @@
                                 <input type="file" class="sm-input-file" name="subFile" id="subImg1"/>
                                 <label class="for-sm-input-file" for="subImg1">이미지 등록</label>
                                 <div class="span-text" id="file-name1"></div>
-                                <input type="file" class="sm-input-file" id="sm-ip-1"/>
-                                <div class="span-text" id="file-name"></div>
                             </div>
                             <div class="file-input-container d-flex pt-0">
                                 <input type="file" class="sm-input-file" name="subFile" id="subImg2"/>
                                 <label class="for-sm-input-file" for="subImg2">이미지 등록</label>
                                 <div class="span-text" id="file-name2"></div>
-                                <input type="file" class="sm-input-file" id="sm-ip-1"/>
-                                <div class="span-text" id="file-name"></div>
                             </div>
                         </div>
                     </div>
@@ -207,14 +201,14 @@
                 			</div>
 			                <div class="w-25">
 			                    <label for="sizeStock" class="form-label">제고 수량</label>
-			                    <input type="number" name="sizeStock" class="form-control" id="sizeStock"/>
+			                    <input type="number" name="sizeStock" class="form-control" id="sizeStock" value="0" required="required"/>
 			                </div>
                 		</li>              		
                 	</ul>
                 </div>
                 <div class="detail-info">
                     <h2>상품 상세 정보</h2>
-                    <textarea id="summernote" name="prdCnt"></textarea>
+                    <textarea id="summernote" name="prdCnt" id="prdCnt"></textarea>
                 </div>
                 <div id="board_button">
                     <input type="submit" class="btn btn-outline-secondary" value="저 장">
@@ -263,7 +257,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
     <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function() {//썸머노트
         //여기 아래 부분
         $('#summernote').summernote({
               height: 450,                 // 에디터 높이
@@ -281,7 +275,7 @@
         });
       }); 
         
-        function sendFile(file, el){
+        function sendFile(file, el){//썸머노트 콜백
         	let data = new FormData();
         	data.append('file', file);
         	$.ajax({
@@ -303,16 +297,67 @@
         
         
        
-        function check(){//코드 조합
+        function check(){//코드 조합 및 유효성 검사       	
         	let brandCode = $("#brandCode").val();
         	let crdCode =  $("#typeCode").val();
         	let inputCode = $('#inputCode').val();
+        	let checkCode = /^[0-9]{4}$/;
+        	if($("#inputCode").val() == "" || !checkCode.test(inputCode)){
+        		alert("상품코드를 입력해주세요(숫자 4자리로 이루어진 코드여야합니다.)");
+        		$("#inputCode").focus();
+        		return false;
+        	}
         	let prdCode = brandCode+crdCode+inputCode;
         	$('input[name=prdCode]').attr('value',prdCode);
+        	if($("#prdName").val() == ""){
+        		alert("상품명을 입력해주세요");
+        		$("#prdName").focus();
+        		return false;
+        	}
+        	if($("#prdPrice").val() == ""){
+        		alert("상품가격을 입력해주세요");
+        		$("#prdPrice").focus();
+        		return false;
+        	}
+        	if($("#prdMadeIn").val() == ""){
+        		alert("상품 제조국을 입력해주세요");
+        		$("#prdMadeIn").focus();
+        		return false;
+        	}
+        	if($("#prdMt").val() == ""){
+        		alert("상품 소재를 입력해주세요");
+        		$("#prdMt").focus();
+        		return false;
+        	}
+        	if($("#prdQc").val() == ""){
+        		alert("품질보증 기준을 입력해주세요");
+        		$("#prdQc").focus();
+        		return false;
+        	}
+        	if($("#MainImg").val() == ""){
+        		alert("메인이미지를 등록해주세요");
+        		$("#MainImg").focus();
+        		return false;
+        	}
+        	if($("#subImg1").val() == ""){
+        		alert("서브이미지를 등록해주세요");
+        		return false;
+        	}
+        	if($("#subImg2").val() == ""){
+        		alert("서브이미지를 등록해주세요");
+        		return false;
+        	}
+        	if($("#prdCnt").val() == ""){
+        		alert("상품 상세내용을 입력해주세요");
+        		$("#prdCnt").focus();
+        		return false;
+        	}
         	return true
         }
         
-        $('#MainImg').on('change',function(event){
+        
+
+        $('#MainImg').on('change',function(event){//이미지 등록시 이미지명 텍스트 출력
             var name = event.target.files[0].name;
             $('#file-name').text(name);
             });
@@ -340,16 +385,16 @@
         size += '		</select>';  
         size += '	</div>';  
         size += '	<div class="w-25">';
-        size += '		<input type="number" name="sizeStock" class="form-control" id="sizeStock"/>';  
+        size += '		<input type="number" name="sizeStock" class="form-control" id="sizeStock" value="0" required="required"/>';  
         size += '	</div>';  
         size += '</li>';  
                 
 
-        function add(){
+        function add(){//재고 추가 버튼 클릭시 실행 함수
         	$("#sizeWrap").append(size);
         }
         
-        function removeer(){
+        function removeer(){//재고 삭제 버튼 클릭시 실행 함수
         	$("#sizeWrap").find(".size").last().remove();
         }        
     </script>
