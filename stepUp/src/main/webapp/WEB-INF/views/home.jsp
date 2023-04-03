@@ -32,7 +32,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<<<<<<< HEAD
 <a href="<%=request.getContextPath()%>/user/join.do">회원가입 테스트 이동!</a>
 <a href="<%=request.getContextPath()%>/user/login.do">로그인 테스트 이동!</a>
 <a href="<%=request.getContextPath()%>/free/free.do">자유게시판으로 이동!</a>
