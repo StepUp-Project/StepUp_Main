@@ -96,7 +96,7 @@
                  <c:forEach var="vo" items="${blist}">
                     <tr>
                         <td><span>${vo.eventIndex}</span></td>
-                        <td><a href="event_view.do"><div>${vo.eventTitle}</div></a></td>
+                        <td><a href="event_view.do?eventIndex=${vo.eventIndex}"><div>${vo.eventTitle}</div></a></td>
                         <td><span>${vo.eventWdate}</span></td>
                         <td><span>${vo.userIndex}</span></td>
                         <td><span>${vo.eventHit}</span></td>

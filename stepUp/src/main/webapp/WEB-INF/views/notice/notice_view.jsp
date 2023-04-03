@@ -1,11 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="proj.stepUp.vo.NoticeBoardVO" %>
-<%@ page import="java.util.*" %>
-<% 
-	List<NoticeBoardVO> blist = (List<NoticeBoardVO>)request.getAttribute("blist");
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,7 +12,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
 </head>
 <body>
-    <header id="header"><!--헤더 시작-->
+   <header id="header"><!--헤더 시작-->
         <div class="d-flex justify-content-between pt-5">
             <div class="p-2 logo-wrap" ><!-- 로고 영역 시작-->
                 <h1 class="logo">
@@ -75,52 +69,53 @@
                 <a href="#"><i class="xi-search"></i></a>
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
-            </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->        
+            </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
+    	</div>
     </header><!--헤더 끝--> 
     <main><!--메인 시작-->
-        <article id="board_contain">
-            <div class="board_title">공 지 사 항</div>
-            <table class="nomal_board">
-                <thead>
-                    <tr>
-                        <th class="boardNum">번호</th>
-                        <th class="boardTtl">제목</th>
-                        <th class="wDate">작성일</th>
-                        <th class="wID">작성자</th>
-                        
-                    </tr>
-                </thead>
-              <tbody>
-                 <c:forEach var="vo" items="${blist}">
-                    <tr>
-                        <td><span>${vo.noticeIndex}</span></td>
-                        <td><a href="#"><div>${vo.noticeTitle}</div></a></td>
-                        <td><span>${vo.noticeWdate}</span></td>
-                        <td><span>관리자</span></td>
-                    </tr>
-                 </c:forEach>
-                </tbody>
-                <tfoot>
-                    <tr class="board_page" >
-                        <td colspan="5">◀ 1 2 3 4 5 6 7 8 9 ▶</td>
-                    </tr>
-                    <tr>
-                        <td class="board_search" colspan="5">
-                           <form name="frm" action="<%=request.getContextPath()%>/free/free.do" class="search_select" method="get">
-                                <div>
-                                    <select name="searchType">
-                                        <option value="title" selected>제목</option>
-                                        <option value="content">내용</option>
-                                    </select>
-                                    <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
-                                    <button class="srch-bt" >검 색</button>
-                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='free_write.do'">
-                                </div>
-                            </form>  
-                        </td> 
-                    </tr>
-                </tfoot>
-            </table>
+        <article id="board_viewcontain">
+            <ul id="board_view">
+                <li id="board_viewTtl"><div>공지사항  글 제목</div></li>
+                <li id="board_winfo">
+                    <div>글쓴이 닉네임</div><span>|</span><div>조회수 : 200</div><p>2023.03.30 14:21</p>
+                </li>
+                <li id="board_wctn">
+                    자유게시판 글쓰기 내용
+                </li>
+            </ul>
+        </article>
+        <article id=""><!--댓글란-->
+            <div id="re_write">
+                <p id="re_formTtl">댓 글(작성된 댓글의 갯수)</p>
+                <div>
+                    <form>
+                        <textarea id="re_writeCnt"  placeholder="댓글을 남겨주세요"></textarea>
+                        <div id="re_btn">
+                            <button>등록</button>
+                        </div>
+                    </form>
+                </div>
+            </div> 
+            <ul id="re_ctn">
+                <li><!-- 작성된 댓글 보여주는 곳 -->
+                    <div class="re_winfo">
+                        <span class="re_writer">작성자1111</span>
+                        <span class="re_wdate">2023.03.17</span>
+                        <input class="re_del"  type="button" value="삭제">
+                        <input class="re_edit"  type="button" value="수정">
+                    </div>
+                    <div class="re_note">댓글 작성 내용</div>
+                </li>
+                <li>
+                    <div class="re_winfo">
+                        <span class="re_writer">작성자2222</span>
+                        <span class="re_wdate">2023.03.17</span>
+                        <input class="re_del"  type="button" value="삭제">
+                        <input class="re_edit"  type="button" value="수정">
+                    </div>
+                    <div class="re_note">댓글 작성 내용</div>
+                </li>
+            </ul>
         </article>
 	</main>
     <footer class="d-flex justify-content-between pt-2"> <!-- 하단 시작-->

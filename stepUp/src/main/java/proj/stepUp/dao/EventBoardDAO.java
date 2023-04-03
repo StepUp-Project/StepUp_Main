@@ -19,4 +19,21 @@ public class EventBoardDAO {
 	public List<EventBoardVO> list(SearchVO svo){
 		return sqlSession.selectList("proj.stepUp.mapper.eventBoardMapper.selectAll", svo);
 	}
+	
+	public EventBoardVO selectByIndex(int eventIndex) {
+		
+		return sqlSession.selectOne("proj.stepUp.mapper.eventBoardMapper.selectByIndex", eventIndex);
+	}
+	
+	public int insert(EventBoardVO vo) {
+		return sqlSession.insert("proj.stepUp.mapper.eventBoardMapper.insert", vo);
+	}
+	public int update(EventBoardVO vo) {
+		return sqlSession.update("proj.stepUp.mapper.eventBoardMapper.update", vo);
+	}
+	
+	public int delete(int eventIndex) {
+		return sqlSession.delete("proj.stepUp.mapper.eventBoardMapper.delete", eventIndex);
+	}
+	
 }

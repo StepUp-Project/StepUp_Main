@@ -20,4 +20,34 @@ public class EventServiceImpl implements EventService {
 		return eventBoardDAO.list(svo);
 	}
 
+	@Override
+	public EventBoardVO selectByIndex(int eventIndex) {
+
+		return eventBoardDAO.selectByIndex(eventIndex);
+	}
+
+	@Override
+	public int insert(EventBoardVO vo) {
+		
+		
+		
+		return eventBoardDAO.insert(vo);
+	}
+
+	@Override
+	public int update(EventBoardVO vo) {
+		
+		return eventBoardDAO.update(vo);
+	}
+
+	@Override
+	public int delete(int eventIndex) {
+
+		
+		return eventBoardDAO.delete(eventIndex);
+	}
+	
+	
+	
+	
 }

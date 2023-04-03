@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -77,24 +75,47 @@
     <main><!--메인 시작-->
         <article id="board_viewcontain">
             <ul id="board_view">
-                <li id="board_viewTtl"><div>${vo.eventTitle}</div></li>
+                <li id="board_viewTtl"><div>자유게시판 글 제목</div></li>
                 <li id="board_winfo">
-                    <div>${vo.userIndex}</div><span>|</span><div>조회수 : ${vo.eventHit}</div><p>${vo.eventWdate}</p>
+                    <div>글쓴이 닉네임</div><span>|</span><div>조회수 : 200</div><p>2023.03.30 14:21</p>
                 </li>
                 <li id="board_wctn">
-                    ${vo.eventCnt}	
+                    자유게시판 글쓰기 내용
                 </li>
             </ul>
-            <div>
-   	           <input type="button" class="board_btn" value="돌아가기"	 onclick="location.href='event.do'">
-   	           <c:if test="${not empty login and login.userIndex eq vo.userIndex}">
-					<input type="button" class="board_btn" value="수 정" onclick="if(confirm('수정하시겠습니까?')) {location.href='event_modify.do?eventIndex=${vo.eventIndex}'}">
-					<input type="button" class="board_btn" value="삭 제" onclick="if(confirm('정말로 삭제하시겠습니까?')) {document.delfrm.submit();}">
-		            <form  name="delfrm" action="event_delete.do" method="post">
-		           		<input type="hidden" name="eventIndex" value="${vo.eventIndex}">
-		           	</form>
-	           </c:if>
-            </div>
+        </article>
+        <article id=""><!--댓글란-->
+            <div id="re_write">
+                <p id="re_formTtl">댓 글(작성된 댓글의 갯수)</p>
+                <div>
+                    <form>
+                        <textarea id="re_writeCnt"  placeholder="댓글을 남겨주세요"></textarea>
+                        <div id="re_btn">
+                            <button>등록</button>
+                        </div>
+                    </form>
+                </div>
+            </div> 
+            <ul id="re_ctn">
+                <li><!-- 작성된 댓글 보여주는 곳 -->
+                    <div class="re_winfo">
+                        <span class="re_writer">작성자1111</span>
+                        <span class="re_wdate">2023.03.17</span>
+                        <input class="re_del"  type="button" value="삭제">
+                        <input class="re_edit"  type="button" value="수정">
+                    </div>
+                    <div class="re_note">댓글 작성 내용</div>
+                </li>
+                <li>
+                    <div class="re_winfo">
+                        <span class="re_writer">작성자2222</span>
+                        <span class="re_wdate">2023.03.17</span>
+                        <input class="re_del"  type="button" value="삭제">
+                        <input class="re_edit"  type="button" value="수정">
+                    </div>
+                    <div class="re_note">댓글 작성 내용</div>
+                </li>
+            </ul>
         </article>
 	</main>
     <footer class="d-flex justify-content-between pt-2"> <!-- 하단 시작-->

@@ -19,4 +19,6 @@ public class FreeBoardDAO {
 	public List<FreeBoardVO> list(SearchVO svo){
 		return sqlSession.selectList("proj.stepUp.mapper.freeBoardMapper.selectAll", svo);
 	}
+	
+	
 }
