@@ -19,6 +19,9 @@ public class EventBoardDAO {
 	public List<EventBoardVO> list(SearchVO svo){
 		return sqlSession.selectList("proj.stepUp.mapper.eventBoardMapper.selectAll", svo);
 	}
+	public List<EventBoardVO> cntTotal(SearchVO svo){
+		return sqlSession.selectList("proj.stepUp.mapper.eventBoardMapper.cntTotal", svo);
+	}
 	
 	public EventBoardVO selectByIndex(int eventIndex) {
 		

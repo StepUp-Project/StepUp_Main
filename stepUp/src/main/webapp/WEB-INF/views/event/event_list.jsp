@@ -1,3 +1,4 @@
+<%@page import="proj.stepUp.util.PagingUtil"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -6,6 +7,7 @@
 <%@ page import="java.util.*" %>
 <% 
 	List<EventBoardVO> blist = (List<EventBoardVO>)request.getAttribute("blist");
+	PagingUtil paging = (PagingUtil)request.getAttribute("paging");
 %>
 
 <!DOCTYPE html>
@@ -94,7 +96,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                 <c:forEach var="vo" items="${blist}">
+                 <c:forEach var="vo" items="${blist}" begin="1" end="4">
                     <tr>
                         <td><span>${vo.eventIndex}</span></td>
                         <td><a href="event_view.do?eventIndex=${vo.eventIndex}"><div>${vo.eventTitle}</div></a></td>
@@ -104,15 +106,11 @@
 						        Date date = new Date();
 						        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 						        String nowDate = sdf.format(date);
-						
 						        EventBoardVO dbWDate = (EventBoardVO)pageContext.getAttribute("vo");
 						        String dbDate = dbWDate.getEventWdate().substring(0,10);
-						        String dbTime = dbWDate.getEventWdate().substring(11, 16);
-						
+						        String dbTime = dbWDate.getEventWdate().substring(11, 16);				
 						        if (nowDate.equals(dbDate)) {
 						        	out.print(dbTime);
-				                    
-				                    
 				                } else {
 				                	out.print(dbDate);
 				                }
@@ -126,7 +124,37 @@
                 </tbody>
                 <tfoot>
                     <tr class="board_page" >
-                        <td colspan="5"></td>
+                       <td colspan="5">
+				<%  
+					// 페이징 출력 영역
+					if(paging.getStartPage()> 1){
+				%>
+					<a href="event.do?nowPage=<%= paging.getStartPage()-1%>"> </a>
+				<%		
+					}
+		
+					for(int i = paging.getStartPage(); i<=paging.getEndPage(); i++){
+					
+						if(paging.getNowPage() != i){
+				%>
+					<a href="event.do?nowPage=<%= i %>"> <%= i %> </a>	
+				<%
+						}else{
+				%>
+					<b><%= i %></b>
+					
+				<%	
+						}
+					}
+					
+					if(paging.getEndPage() < paging.getLastPage()){
+				%>	
+					<a href="event.do?nowPage=<%= paging.getEndPage()+1%>"> </a>
+				<%
+					}
+				%>
+
+				</td>
                     </tr>
                     <tr>
                         <td class="board_search" colspan="5">
@@ -138,6 +166,7 @@
                                         <option value="writer">작성자</option>
                                     </select>
                                     <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
+                                    <input type="hidden" name="nowPage" value="1">
                                     <button class="srch-bt" >검 색</button>
                                     <input type="button" class="board_Write" value="글쓰기" onclick="location.href='event_write.do'">
                                 </div>

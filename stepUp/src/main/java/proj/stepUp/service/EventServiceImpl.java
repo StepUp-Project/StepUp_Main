@@ -46,7 +46,14 @@ public class EventServiceImpl implements EventService {
 		
 		return eventBoardDAO.delete(eventIndex);
 	}
-	
+
+	@Override
+	public List<EventBoardVO> cntTotal(SearchVO svo) {
+		
+		return eventBoardDAO.cntTotal(svo);
+	}
+
+
 	
 	
 	

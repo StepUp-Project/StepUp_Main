@@ -1,6 +1,8 @@
 package proj.stepUp.vo;
 
-public class SearchVO {
+import proj.stepUp.util.PagingUtil;
+
+public class SearchVO extends PagingUtil {
 	private String searchType;
 	private String searchValue;
 	
@@ -15,9 +17,6 @@ public class SearchVO {
 	}
 	public void setSearchValue(String searchValue) {
 		this.searchValue = searchValue;
-	}
-
-	
-	
+	}	
 	
 }
