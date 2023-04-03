@@ -18,5 +18,42 @@
  				and userNick like concat('%',#{searchValue},'%')
  			</if>
  	</select>
- 
+	
+	<select id="selectByIndex" resultType="EventBoardVO" parameterType="int">
+		select *
+ 			from event_tb
+ 			where eventIndex = #{eventIndex}
+	</select>
+	
+	<insert id="insert" parameterType="EventBoardVO">
+	
+		insert into event_tb(
+		<![CDATA[
+			eventCnt 
+			, eventTitle 
+			, userIndex 
+			)values(
+			#{eventCnt} 
+			, #{eventTitle} 
+			, #{userIndex} 
+			)
+			]]>
+		<selectKey resultType="int" order="AFTER" keyProperty="eventIndex">
+			select max(eventIndex) from event_tb
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="EventBoardVO">
+		update event_tb
+			set eventCnt = #{eventCnt}
+			, eventTitle = #{eventTitle}
+			where userIndex = #{userIndex}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete
+			from event_tb
+ 			where eventIndex = #{eventIndex}
+	</delete>
+	
 </mapper>

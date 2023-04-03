@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="proj.stepUp.vo.EventBoardVO" %>
-<%@ page import="java.util.*" %>
-<% 
-	List<EventBoardVO> blist = (List<EventBoardVO>)request.getAttribute("blist");
-%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -13,10 +8,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eventView</title>
+    <title>eventWrite</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
+
+    
+    <!-- ㅆㅁㄴㅌ 연결-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/resources//plugin/summernote/summernote-lite.js"></script>
+    <script src="<%=request.getContextPath()%>/resources//plugin/summernote/summernote-ko-KR.min.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources//plugin/summernote/summernote-lite.css">
 </head>
 <body>
     <header id="header"><!--헤더 시작-->
@@ -79,54 +81,33 @@
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
     	</div>
     </header><!--헤더 끝--> 
-    <main><!--메인 시작-->
-        <article id="board_contain">
-            <div class="board_title">이벤트 게시판</div>
-            <table class="nomal_board">
-                <thead>
-                    <tr>
-                        <th class="boardNum">번호</th>
-                        <th class="boardTtl">제목</th>
-                        <th class="wDate">작성일</th>
-                        <th class="wID">작성자</th>
-                        <th class="boardHit">조회수</th>
-                    </tr>
-                </thead>
-                <tbody>
-                 <c:forEach var="vo" items="${blist}">
-                    <tr>
-                        <td><span>${vo.eventIndex}</span></td>
-                        <td><a href="event_view.do?eventIndex=${vo.eventIndex}"><div>${vo.eventTitle}</div></a></td>
-                        <td><span>${vo.eventWdate}</span></td>
-                        <td><span>${vo.userIndex}</span></td>
-                        <td><span>${vo.eventHit}</span></td>
-                    </tr>
-                 </c:forEach>
-                </tbody>
-                <tfoot>
-                    <tr class="board_page" >
-                        <td colspan="5">◀ 1 2 3 4 5 6 7 8 9 ▶</td>
-                    </tr>
-                    <tr>
-                        <td class="board_search" colspan="5">
-                           <form name="frm" action="<%=request.getContextPath()%>/free/free.do" class="search_select" method="get">
-                                <div>
-                                    <select name="searchType" class="search_css">
-                                        <option value="title" selected>제목</option>
-                                        <option value="content">내용</option>
-                                        <option value="writer">작성자</option>
-                                    </select>
-                                    <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
-                                    <button class="srch-bt" >검 색</button>
-                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='event_write.do'">
-                                </div>
-                            </form>  
-                        </td> 
-                    </tr>
-                </tfoot>
-            </table>
-        </article>
-	</main>
+    <main>
+        <article id="board_write">
+            <div id="board_ttl">게시글 수정</div>
+            <form method="post" action="event_write.do">
+                <input class="input_title" 	 name="eventTitle"	type="text" placeholder="제목을 입력해주세요" value="${vo.eventTitle}">
+                <textarea id="summernote"	 name="eventCnt" >${vo.eventCnt}</textarea>
+                <div id="board_button">
+                    <input type="submit" value="저 장" onclick="return confirm('저장하시겠습니까?')">
+                    <input type="button" value="돌아가기">
+                </div>
+            </form>
+        </article> 
+        <script>
+            $(document).ready(function() {
+            //여기 아래 부분
+            $('#summernote').summernote({
+                  height: 450,                 // 에디터 높이
+                  minHeight: null,             // 최소 높이
+                  maxHeight: null,             // 최대 높이
+                  focus: true,                 // 에디터 로딩후 포커스를 맞출지 여부
+                  lang: "ko-KR",			   // 한글 설정
+                  
+            });
+        });
+        </script>
+    </main>
+
     <footer class="d-flex justify-content-between pt-2"> <!-- 하단 시작-->
         <div class="d-flex justify-content-between pt-3, footinfo"> <!-- 회사 정보 -->
             <ul>

@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="proj.stepUp.vo.EventBoardVO" %>
-<%@ page import="java.util.*" %>
-<% 
-	List<EventBoardVO> blist = (List<EventBoardVO>)request.getAttribute("blist");
-%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -13,13 +8,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eventView</title>
+    <title>Main</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
 </head>
 <body>
-    <header id="header"><!--헤더 시작-->
+   <header id="header"><!--헤더 시작-->
         <div class="d-flex justify-content-between pt-5">
             <div class="p-2 logo-wrap" ><!-- 로고 영역 시작-->
                 <h1 class="logo">
@@ -80,51 +75,26 @@
     	</div>
     </header><!--헤더 끝--> 
     <main><!--메인 시작-->
-        <article id="board_contain">
-            <div class="board_title">이벤트 게시판</div>
-            <table class="nomal_board">
-                <thead>
-                    <tr>
-                        <th class="boardNum">번호</th>
-                        <th class="boardTtl">제목</th>
-                        <th class="wDate">작성일</th>
-                        <th class="wID">작성자</th>
-                        <th class="boardHit">조회수</th>
-                    </tr>
-                </thead>
-                <tbody>
-                 <c:forEach var="vo" items="${blist}">
-                    <tr>
-                        <td><span>${vo.eventIndex}</span></td>
-                        <td><a href="event_view.do?eventIndex=${vo.eventIndex}"><div>${vo.eventTitle}</div></a></td>
-                        <td><span>${vo.eventWdate}</span></td>
-                        <td><span>${vo.userIndex}</span></td>
-                        <td><span>${vo.eventHit}</span></td>
-                    </tr>
-                 </c:forEach>
-                </tbody>
-                <tfoot>
-                    <tr class="board_page" >
-                        <td colspan="5">◀ 1 2 3 4 5 6 7 8 9 ▶</td>
-                    </tr>
-                    <tr>
-                        <td class="board_search" colspan="5">
-                           <form name="frm" action="<%=request.getContextPath()%>/free/free.do" class="search_select" method="get">
-                                <div>
-                                    <select name="searchType" class="search_css">
-                                        <option value="title" selected>제목</option>
-                                        <option value="content">내용</option>
-                                        <option value="writer">작성자</option>
-                                    </select>
-                                    <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
-                                    <button class="srch-bt" >검 색</button>
-                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='event_write.do'">
-                                </div>
-                            </form>  
-                        </td> 
-                    </tr>
-                </tfoot>
-            </table>
+        <article id="board_viewcontain">
+            <ul id="board_view">
+                <li id="board_viewTtl"><div>${vo.eventTitle}</div></li>
+                <li id="board_winfo">
+                    <div>${vo.userIndex}</div><span>|</span><div>조회수 : ${vo.eventHit}</div><p>${vo.eventWdate}</p>
+                </li>
+                <li id="board_wctn">
+                    ${vo.eventCnt}	
+                </li>
+            </ul>
+            <div>
+   	           <input type="button" class="board_btn" value="돌아가기"	 onclick="location.href='event.do'">
+   	           <c:if test="${not empty login and login.userIndex eq vo.userIndex}">
+					<input type="button" class="board_btn" value="수 정" onclick="if(confirm('수정하시겠습니까?')) {location.href='event_modify.do?eventIndex=${vo.eventIndex}'}">
+					<input type="button" class="board_btn" value="삭 제" onclick="if(confirm('정말로 삭제하시겠습니까?')) {document.delfrm.submit();}">
+		            <form  name="delfrm" action="event_delete.do" method="post">
+		           		<input type="hidden" name="eventIndex" value="${vo.eventIndex}">
+		           	</form>
+	           </c:if>
+            </div>
         </article>
 	</main>
     <footer class="d-flex justify-content-between pt-2"> <!-- 하단 시작-->
