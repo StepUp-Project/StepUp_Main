@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -97,15 +98,35 @@
                     <tr>
                         <td><span>${vo.eventIndex}</span></td>
                         <td><a href="event_view.do?eventIndex=${vo.eventIndex}"><div>${vo.eventTitle}</div></a></td>
-                        <td><span>${vo.eventWdate}</span></td>
-                        <td><span>${vo.userIndex}</span></td>
+                        <td>
+						    <span>
+						        <% 
+						        Date date = new Date();
+						        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+						        String nowDate = sdf.format(date);
+						
+						        EventBoardVO dbWDate = (EventBoardVO)pageContext.getAttribute("vo");
+						        String dbDate = dbWDate.getEventWdate().substring(0,10);
+						        String dbTime = dbWDate.getEventWdate().substring(11, 16);
+						
+						        if (nowDate.equals(dbDate)) {
+						        	out.print(dbTime);
+				                    
+				                    
+				                } else {
+				                	out.print(dbDate);
+				                }
+				                %>
+						    </span>
+						</td>
+                        <td><span>${vo.userNick}</span></td>
                         <td><span>${vo.eventHit}</span></td>
                     </tr>
                  </c:forEach>
                 </tbody>
                 <tfoot>
                     <tr class="board_page" >
-                        <td colspan="5">◀ 1 2 3 4 5 6 7 8 9 ▶</td>
+                        <td colspan="5"></td>
                     </tr>
                     <tr>
                         <td class="board_search" colspan="5">

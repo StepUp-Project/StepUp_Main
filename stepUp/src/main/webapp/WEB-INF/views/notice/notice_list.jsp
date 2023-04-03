@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -96,7 +97,25 @@
                     <tr>
                         <td><span>${vo.noticeIndex}</span></td>
                         <td><a href="notice_view.do"><div>${vo.noticeTitle}</div></a></td>
-                        <td><span>${vo.noticeWdate}</span></td>
+                        <td><span>
+                        <% 
+                                Date date = new Date();
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                String nowDate = sdf.format(date);
+
+                                NoticeBoardVO dbWDate = (NoticeBoardVO)pageContext.getAttribute("vo");
+                                String dbDate = dbWDate.getNoticeWdate().substring(0,10);
+                                String dbTime = dbWDate.getNoticeWdate().substring(11, 16);
+
+                                if (nowDate.equals(dbDate)) {
+                                    out.print(dbTime);
+
+
+                                } else {
+                                    out.print(dbDate);
+                                }
+                        %>
+                        </span></td>
                         <td><span>관리자</span></td>
                     </tr>
                  </c:forEach>

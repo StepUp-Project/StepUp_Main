@@ -7,7 +7,15 @@ public class FreeBoardVO {
 	private int freeHit;
 	private String freeWdate;
 	private int userIndex;
+	private String userNick;
 	
+	
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
 	
 	
 	public int getFreeIndex() {
