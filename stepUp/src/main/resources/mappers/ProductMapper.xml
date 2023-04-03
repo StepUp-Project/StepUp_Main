@@ -17,4 +17,8 @@
   	<select id="selectProductIndex" parameterType="int" resultType="productVO">
   		select * from product_tb where prdIndex = #{prdIndex}
   	</select>
+  	
+  	<select id="selectProductByDate" resultType="productVO" parameterType="int">
+  		select prdIndex, prdName, prdPrice, prdRname from product_tb order by prdDate desc limit 0, #{maxPrd}
+  	</select>
   </mapper>
