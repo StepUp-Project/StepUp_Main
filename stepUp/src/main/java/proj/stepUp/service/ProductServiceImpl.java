@@ -1,5 +1,7 @@
 package proj.stepUp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,12 @@ public class ProductServiceImpl implements ProductService {
 	public ProductVO selectProductIndex(int prdIndex) {
 		// TODO Auto-generated method stub
 		return productDAO.selectProductIndex(prdIndex);
+	}
+
+	@Override
+	public List<ProductVO> selectProductByDate(int maxPrd) {
+		// TODO Auto-generated method stub
+		return productDAO.selectProductByDate(maxPrd);
 	}
 	
 }
