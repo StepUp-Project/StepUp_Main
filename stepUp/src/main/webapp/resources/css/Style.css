@@ -19,8 +19,8 @@ header{overflow: hidden; height: 60px; transition: all 0.2s ease-in-out;
     transition: all 0.3s ease-in-out; width: 0;}
 #gnb>li:hover>a:after{opacity: 1; width: 100%;}
 
-.mt-5{margin-top: 2rem!important;}
-.pt-5{padding-top: 0.6rem!important;}
+#header .mt-5{margin-top: 2rem!important;}
+#header .pt-5{padding-top: 0.6rem!important;}
 
 /*서브메뉴*/
 #gnb>li ul li{padding: 5px; text-align: left; }
@@ -35,6 +35,51 @@ header{overflow: hidden; height: 60px; transition: all 0.2s ease-in-out;
 
 #user i{color: #505050; transition: all 0.3s ease-in-out; font-size: 18px; margin: 8px 10px;}
 #user .xi-search{font-size: 16px;}
+#search {
+  opacity: 0; visibility: hidden; position: fixed;
+  width: 100%; height: 300px; border-bottom: 1px solid rgb(237, 237, 237);
+  top: 0; right: 0; z-index: 30;
+  background: rgba(255, 255, 255, .9); display: flex; justify-content: center;
+  align-items: center; transform: scale(1.1, 1.1); transition: all 0.3s;
+}
+#search.show {
+  opacity: 1; visibility: visible; /*transform: scale(1, 1);*/
+}
+#search .inner {
+  width: 50%;
+}
+
+/*검색창*/
+.searchbox{
+  display: flex; 
+}
+#search input {
+  font-family: 'NanumBarunGothic'; color: #505050;
+  width: 100%; font-size: 16px; padding: 0.5em; box-sizing: border-box;
+  background: none; border: 0; border-bottom: 0.5px solid #505050;;
+  outline: none;
+}
+.searchicon{
+  color: #505050;
+  font-size: 20px;
+  margin: 16px 0 0 10px;
+}
+.searchicon:hover{
+  color: #505050;
+}
+#search input::-moz-placeholder {
+  color: #222;
+}
+#search input::placeholder {
+  color: #7f7f7f;
+}
+#search .close_search{
+  position: fixed; top: 32px; right: 180px;
+  padding: 3px; cursor: pointer; color: #222;
+}
+#search .close_search .xi-close:before {
+  color: #303030; background: #fff;
+}
 /*header 끝*/
 
 
@@ -85,7 +130,6 @@ footer {height: 230px; background: #1e1e1e; width: 100%;}
 
 main{margin-top: 60px;}
 
-
 /*메인 베너*/
 .swiper{border-radius: 0 200px 0 0; box-sizing: content-box; height: 90vh;}/*베너 전체 영역*/
 .swiper-pagination-bullet{border-radius: 0; width: 8%; height: 0.13rem;
@@ -93,10 +137,10 @@ main{margin-top: 60px;}
 .swiper-pagination-bullet-active{background:white;}/*현재 위치한 페이지 네이션 적용 클래스*/
 .swiper-button-next{color: rgba(255, 255, 255, 0.3);}/*다음 페이지 버튼 클래스*/
 .swiper-button-prev{color: rgba(255, 255, 255, 0.3);}/*이전 페이지 버튼 클래스*/
-.swiper .swiper-slide:nth-child(1){background-image:url(/image/main/mainview_ad.png); background-size: cover;}/*베너 첫번째 이미지*/
-.swiper .swiper-slide:nth-child(2){background:url(/image/main/mainview_vs2.png); background-size: cover;}/*베너 두번째 이미지*/
-.swiper .swiper-slide:nth-child(3){background:url(/image/main/mainview_nk.png); background-size: cover;}/*베너 세번째 이미지*/
-.swiper .swiper-slide:nth-child(4){background:url(/image/main/mainview_pm2.png); background-size: cover;}/*베너 네번째 이미지*/
+.swiper .swiper-slide:nth-child(1){background-image:url(/image/main/mainview_pm.png); background-size: cover;}/*베너 첫번째 이미지*/
+.swiper .swiper-slide:nth-child(2){background:url(/image/main/mainview_ad.png); background-size: cover;}/*베너 두번째 이미지*/
+.swiper .swiper-slide:nth-child(3){background:url(/image/main/mainview_vs3.png); background-size: cover;}/*베너 세번째 이미지*/
+.swiper .swiper-slide:nth-child(4){background:url(/image/main/mainview_nk2.png); background-size: cover;}/*베너 네번째 이미지*/
 .swiper .banner-link{width: 100%; height: 100%; display: inline-block;}
 /*메인 베너 끝*/
 
@@ -119,20 +163,37 @@ main{margin-top: 60px;}
 
 
 /*Main_BRAND 영역*/
-.main-brand{ position: relative; height: 93vh;
-    background:linear-gradient(#13816e 50%, rgba(255, 255, 255, 0.9) 0px, rgba(255,255,255,0.9));
-    border: 1px solid blue;}
-.main-brand-title{color: white; font-size: 1.2rem;
-    position: absolute; top: 5%; left: 3%;}
-.main-brand-img{position: absolute; top: 16%; left: 3%; height: 89%; width: 94%;}
-.main-brand-img a{width: calc(100%/3); background-size: contain; background-repeat: no-repeat;
-  transition: all 0.3s ease-in-out;}
+.main-brand{
+    position: relative; height: 590px;
+}
+.main-brand-title{
+    font-size: 1.2rem; position: absolute; top: 0; left: 3%;
+}
+.main-brand-img{
+    position: absolute; top: 12%; left: 0; height: 465px; width: 100%;
+    padding: 0 3%; box-sizing: border-box;
+  }
+.main-brand-img a{
+  width: 500px;  background-repeat: no-repeat; background-size: cover;
+  transition: all 0.1s ease-in-out;
+}
+.main_brand_int{
+  position: absolute; bottom: 0; left: 0; padding: 0 3%; box-sizing: border-box;
+  display: flex; justify-content: space-between; width: 100%;
+}
+.main_brand_int span{
+  border-top: 2px solid rgb(214, 214, 214); padding-top: 20px; box-sizing: border-box;
+  width: 500px; text-align: center; font-size: 15px;
+}
+.main_brand_int span:nth-child(2){
+  margin: 0 1%;
+}
 .main-brand-img a:nth-child(1){background-image: url(/image/main/main_brand_nb.jpg);}
 .main-brand-img a:hover:nth-child(1){background-image: url(/image/main/main_brand_nb2.jpg);}
-.main-brand-img a:nth-child(2){background-image: url(/image/main/main_brand_pm.jpg); margin: 0 1%; }
-.main-brand-img a:hover:nth-child(2){background-image: url(/image/main/main_brand_pm2.jpg);}
-.main-brand-img a:nth-child(3){background-image: url(/image/main/main_brand_fl.jpg);}
-.main-brand-img a:hover:nth-child(3){background-image: url(/image/main/main_brand_fl2.jpg);}
+.main-brand-img a:nth-child(2){background-image: url(/image/main/main_brand_nk.jpg); margin: 0 1%;}
+.main-brand-img a:hover:nth-child(2){background-image: url(/image/main/main_brand_nk2.jpg);}
+.main-brand-img a:nth-child(3){background-image: url(/image/main/main_brand_ad.jpg);}
+.main-brand-img a:hover:nth-child(3){background-image: url(/image/main/main_brand_ad2.jpg);}
 /*Main_BRAND 영역 끝*/
 
 
@@ -174,74 +235,79 @@ main{margin-top: 60px;}
 
 
 
-
-/*login.jsp 시작*/
-.login-area{
-  width: 25%;
-  margin: 150px auto 150px;
-  	border:1px solid red;
+/*jointerms, join 공통 로고*/
+.jointermslogo{
+  width: 100%; margin: 60px auto 0;
+}
+.jointerms_title{
+  width: 15%; height: 100%; margin: 0 auto;
+}
+.jointerms_title img{
+  display: block; width: 100%; height: 100%
 }
 
-.login-header{
-	border:1px solid blue;
-  width: 50%; height: 100%;
 
-  
+
+
+
+
+/*jointerms.jsp 시작*/
+.jointerms-area{
+  width: 30%; margin: 80px auto 150px;
 }
-.login-header img{
-  display: block; width: 100%; height: 100%;
+.joinline{
+  text-decoration: underline;
 }
-.login-main{
-  margin-top: 15%;
+ul.jointerms_box{
+  border: 1px solid #ddd;
+  padding: 10px; box-sizing: border-box;
+  background-color: #fff;
 }
-.form-floating #eyes{
+.jtcheckBox,.jtcheckBox>ul{
+  position: relative;
+}
+.jtcheckBox>ul>li{
+  float: left;
+}
+.jtcheckBox>ul>li:first-child{
+  width: 95%; padding: 20px 15px 10px 30px;
+  font-size: 13px; line-height: 1.2rem;
+}
+.jtcheckBox>ul>li:nth-child(2){
   position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 2%;
-  margin: auto 2px;
-  height: 30px;
-  font-size: 25px;
-  cursor: pointer; 
+  top: 68%;
+  left: 10px;
+  margin-top: -12px;
 }
-.find-area{
-  font-size: 13px;
-  margin: 30px 120px;
+.jtcheckBox strong{
+  color: #7ae48f;
 }
-.find-area a{text-decoration: none; color: black;}
-.find-area span{color: rgb(195, 195, 195);}
-.find-area a:hover{text-decoration: underline;}
-.find-btn{margin-left: 2%;}
+.jtcheckBox textarea{
+  width: 96%; height: 90px; margin: 0 2%;
+  background-color: #f7f7f7;
+  font-size: 12px; color: #747474; line-height: 1rem;
+  border: none; padding: 15px; box-sizing: border-box;
+}
+.footBtwrap{
+  margin-top: 50px;
+}
+.footBtwrap>li{
+  float: left; width: 50%; height: 55px;
+}
+.footBtwrap>li>button{
+  border: 1px solid #3a3a3a;
+  display: block; width: 99%; height: 100%;
+  font-size: 13px; text-align: center; line-height: 60px;
+}
+.fpmgBt1{
+  background-color: #fff; color:#3a3a3a;
+}
+.fpmgBt2{
+  float:right;
+  background-color: #3a3a3a; color: #fff
+}
+/*jointerms.jsp 끝*/
 
-.btngroup{
-  display: flex;
-  justify-content: space-between;
-}
-.login-btn-area{
-  margin-top: 5%;
-}
-.login-btn-area .btn {
-  background-color: white;
-  color: black;
-  width: 49%;
-  height: 60px;
-  font-size: 14px;
-  padding-top: 15px;
-  box-sizing: border-box;
-  border-radius: 0;
-  border: 1px solid black;
-  transition: all 0.2s ease-in-out;
-}
-.login-btn-area .btn:hover{
-  background-color: black;
-  color: white;
-  border:1px solid white;
-}
-.login-btn-area input{padding: 3% 0;}
-.sns-login {margin-top: 2%;}
-.sns-login img{width: 100%;}
-/*login-main 끝*/
-/*login.jsp 끝*/
 
 
 
@@ -251,23 +317,43 @@ main{margin-top: 60px;}
 /*join.jsp 시작*/
 #join_contain{
   width: 30%;
-  margin: 150px auto 100px;
+  margin: 80px auto 150px;
 }
 #join_title{
   font-size: 18px;
   margin: 50px 0;
 }
 .form-floating{
-  font-size: 14px;
+  font-size: 13px;
 }
 .form-control{
-  border: 1px solid rgb(195, 195, 195);
+  border: 1px solid #e0e0e0;
   border-radius: 0px;
+}
+.form-floating #eyes{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 2%;
+  margin: 18px 2px;
+  height: 30px;
+  font-size: 20px;
+  cursor: pointer; 
+}
+.form-floating #pwceyes{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 2%;
+  margin: 18px 2px;
+  height: 30px;
+  font-size: 20px;
+  cursor: pointer; 
 }
 .btn-secondary {
   border-radius: 0;
   width: 130px;
-  font-size: 14px;
+  font-size: 13px;
   padding-top: 10px;
   box-sizing: border-box;
   --bs-btn-color: #fff;
@@ -295,31 +381,21 @@ main{margin-top: 60px;}
   padding-top: 5px;
   box-sizing: border-box;
   height: 55px;
-  margin-top: 30px;
-  background: #3a3a3a ;
-  border: 0;
-  color: #fff;
-}
-#join_btn input:nth-child(2){
-  width: 49.3%;
-  font-size: 14px;
-  padding-top: 5px;
-  box-sizing: border-box;
-  height: 55px;
   background: #fff ;
   margin-top: 30px;
   border: 1px solid #3a3a3a;
   color: #3a3a3a;
 }
-#pwceyes{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 2%;
-  margin: auto 2px;
-  height: 30px;
-  font-size: 25px;
-  cursor: pointer; 
+#join_btn input:nth-child(2){
+  width: 49.3%;
+  font-size: 13px;
+  padding-top: 5px;
+  box-sizing: border-box;
+  height: 55px;
+  margin-top: 30px;
+  background: #3a3a3a ;
+  border: 0;
+  color: #fff;
 }
 #UserZipCode{
   width: 80%;
@@ -328,6 +404,292 @@ main{margin-top: 60px;}
   margin-left: 30px;
 }
 /*join.jsp 끝*/
+
+
+
+
+
+
+
+
+/*joinok.jsp 시작*/
+.joinoklogo{
+  margin-top: 200px;
+}
+.joinoklogo .jointerms_title{
+  width: 20%; height: 100%;
+}
+#joinok {
+  margin: 60px auto;
+  width: 800px;
+  text-align: center;
+}
+#joinok .xi-check {
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: #7ae48f;
+}
+#joinok p:nth-child(2) {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+#joinok p:nth-child(3) {
+  font-size: 12px;
+  color: #878787;
+  line-height: 18px;
+}
+#joinok #joid_btn {
+  width: 320px;
+  height: 55px;
+  background: #3a3a3a;
+  color: #fff;
+  font-size: 13px;
+  font-family: 'LeferiBaseType-RegularA';
+  border: 0;
+  margin-top: 30px;
+  padding-top: 6px;
+  box-sizing: border-box;
+}
+/*joinok.jsp 끝*/
+
+
+
+
+
+
+
+
+/*login.jsp 시작*/
+.loginlogo .jointerms_title{
+  width: 13%; height: 100%; margin: 100px auto 80px;
+}
+.loginlogo .jointerms_title img{
+  display: block; width: 100%; height: 100%
+}
+
+.login-area{
+  width: 25%;
+  margin: 0px auto 130px;
+}
+.form-floating>label {
+  font-size: 13px;
+  color: #a1a1a1;
+  top: 8px ;
+}
+.form-floating>.form-control:not(:placeholder-shown)~label{
+  font-family: 'NanumBarunGothic', Courier, monospace;
+  transform: scale(.85) translateY(-0.8rem) translateX(0.15rem);
+}
+.form-floating #eyes{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 2%;
+  margin: 18px 2px;
+  height: 30px;
+  font-size: 20px;
+  cursor: pointer; 
+}
+.find-area{
+  width: 200px;
+  font-size: 13px;
+  margin: 30px 85px;
+}
+.find-area a{text-decoration: none; color: black;}
+.find-area a:hover{text-decoration: underline;}
+.find-btn{margin-left: 2%;}
+
+.btngroup{
+  display: flex;
+  justify-content: space-between;
+}
+.login-btn-area{
+  margin-top: 5%;
+}
+.login-btn-area .btn {
+  background-color: white;
+  color: black;
+  width: 49%;
+  height: 55px;
+  font-size: 13px;
+  padding-top: 15px;
+  box-sizing: border-box;
+  border-radius: 0;
+  border: 1px solid black;
+  transition: all 0.2s ease-in-out;
+}
+.login-btn-area .btn:hover{
+  background-color: black;
+  color: white;
+  border:1px solid white;
+}
+.login-btn-area input{padding: 3% 0;}
+.kakao{margin-top: 40px;}
+.sns-login img{width: 100%;}
+/*login-main 끝*/
+/*login.jsp 끝*/
+
+
+
+
+
+
+/*mypage폴더 공통 시작*/
+.mypagemain{
+  width: 50%; height: 100%; margin: 0 auto; padding: 50px 0 100px;
+}
+
+.mypage_menu{
+  border-bottom: 1px solid rgb(233, 233, 233); background: #fff;
+  display: flex; flex-direction: column;
+  width: 100%; height: 100%; padding: 5% 0 2%; box-sizing: border-box;
+}
+.mypagehi{
+  margin-bottom: 40px; font-size: 16px; font-weight: bold;
+  text-align: center;
+}
+.mypage_gnb{
+  display: flex; justify-content: space-between;
+  width: 100%; padding: 1% 0; box-sizing: border-box;
+}
+.mypage_gnb span{
+  font-size: 13px;
+  color: #606060;
+}
+.mypage_gnb a:hover{
+  color:  #212121;
+}
+
+#mypage_contain{
+  width: 100%; padding: 65px 0 40px; box-sizing: border-box;
+}
+#mypage_title{
+  font-size: 17px;
+  margin-bottom: 45px;
+}
+#mypage_title h2{
+  margin-bottom: 15px;
+}
+#mypage_title p{
+  font-size: 11px;
+  margin: 8px 0;
+  color: #616161;
+}
+/*mypage폴더 공통 끝*/
+
+
+
+
+
+/*mypagemodify.jsp 시작*/
+#mypage_btn input:nth-child(1){
+  width: 49.3%;
+  font-size: 13px;
+  padding-top: 5px;
+  box-sizing: border-box;
+  height: 55px;
+  background: #fff ;
+  margin-top: 30px;
+  border: 1px solid #3a3a3a;
+  color: #3a3a3a;
+}
+#mypage_btn input:nth-child(2){
+  width: 49.3%;
+  font-size: 13px;
+  padding-top: 5px;
+  box-sizing: border-box;
+  height: 55px;
+  margin-top: 30px;
+  background: #3a3a3a ;
+  border: 0;
+  color: #fff;
+}
+/*mypagemodify.jsp 끝*/
+
+
+
+
+
+
+/*mypageorder.jsp 시작*/
+.order_board {
+  margin: 0 auto;
+  font-size: 12.5px;
+  width: 100%;
+  position: relative;
+}
+.order_board tbody tr{
+  border-bottom: 1px solid #dfdfdf;
+}
+.order_board tr, .order_board th, .order_board td {
+  height: 40px;
+  vertical-align: middle;
+}
+.order_board th {
+  background: #f3f3f3;
+  font-size: 12px;
+}
+.order_board td {
+  text-align: center;
+}
+.order_board td div {
+  text-align: left;
+  padding-left: 8px; box-sizing: border-box;
+}
+.order_board td span {
+  display: inline-block;
+  height: 25px;
+  line-height: 25px;
+}
+.order_board .order_page{
+  font-family: 'LeferiBaseType-RegularA';
+  height: 100px;
+}
+#mypageod_contain{
+  width: 100%; padding: 65px 0 0; box-sizing: border-box;
+}
+
+.orderNum {
+  text-align: center;
+  width: 13%;
+}
+.orderwDate {
+  text-align: center;
+  width: 12%;
+}
+.orderproduct {
+  width: 50%;
+  text-align: center;
+}
+
+.totalPrice {
+  width: 10%;
+  text-align: center;
+}
+.orderstate {
+  width: 10%;
+  text-align: center;
+}
+.board_page td {
+  height: 100px;
+}
+
+.orderhelp{
+  margin-top: 30px;
+}
+.orderhelp>div{
+  margin-bottom: 20px;
+}
+.orderhelp p{
+  font-size: 11px;
+  margin: 8px 0;
+  color: #616161;
+}
+.orderhelp p img{
+  margin-top: 20px;
+  display: block; width: 100%; height: 100%
+}
+/*mypageorder.jsp 끝*/
 
 
 

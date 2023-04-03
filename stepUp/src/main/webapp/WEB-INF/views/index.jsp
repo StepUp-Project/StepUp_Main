@@ -22,6 +22,17 @@
                     </a>    
                 </h1>
             </div><!-- 로고 영역 끝-->
+            
+            <aside id="search"><!--돋보기 누르면 뜨는 창-->
+                <div class="inner">
+                    <form class="searchbox">
+                        <input type="text" placeholder="  검색">
+                        <a href="#" class="searchicon"><i class="xi-search"></i></a>
+                    </form>
+                </div>
+                <a class="close_search show"><i class="xi-close"></i></a>
+            </aside><!--//#search-->
+            
             <nav><!--메인 네비게이션 영역 시작-->
                 <ul class="d-flex" id="gnb">
                     <li>
@@ -189,7 +200,7 @@
             <!-- NEW 영역 끝-->
             
             
-            <div class="main-brand"><!-- BRAND 영역 시작-->
+               <div class="main-brand"><!-- BRAND 영역 시작-->
                 <div class="main-brand-title">
                     <h2>BRAND</h2>
                 </div>
@@ -198,14 +209,18 @@
                     <a href="#"></a>
                     <a href="#"></a>
                 </div>
+                <div class="main_brand_int">
+                    <span>탁월한 성능과 유니크한 디자인</span>
+                    <span>성공적인 러닝을 위한 정답 그 자체</span>
+                    <span>70년대 패션과 문화를 담아낸 슈즈</span>
+                </div>
             </div><!-- BRAND 영역 끝-->
+            
             <div class="main-event d-flex justify-content-between"><!-- Event 영역 시작-->
                     <a href="#"></a>
                     <a href="#"></a>
             </div><!-- Event 영역 끝-->
-            <!--div class="main-liner"  liner 영역 시작
-                <span>liner</span>
-            </div> liner 영역 끝-->
+
             <div class="main-brandBest d-flex justify-content-between"><!-- brand-best 영역 시작-->
                 <div class="main-brandBest-img"></div>
                 <div class="main-brandBest-items">
