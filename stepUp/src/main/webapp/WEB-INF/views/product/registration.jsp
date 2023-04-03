@@ -115,11 +115,8 @@
                         </div>  
                         <div class="w-25">
                             <label for="code" class="form-label">코드</label>
-<<<<<<< HEAD
                             <input type="text" name="inputCode" class="form-control" id="inputCode" value=""/>
-=======
                             <input type="text" name="code" class="form-control procode" id="code" value=""/>
->>>>>>> branch 'main' of https://github.com/ArkJBJ/StepUp_Main.git
                         </div>
                     </div>
                 </div>
@@ -156,36 +153,27 @@
                         <div class="mt-4 mainImg">
                             <h2>메인 이미지</h2>
                             <div class="file-input-container d-flex">
-<<<<<<< HEAD
                                 <input type="file" class="sm-input-file" name="mainFile" id="MainImg"/>
                                 <label class="for-sm-input-file" for="MainImg">이미지 등록</label>
-=======
                                 <input type="file" class="sm-input-file" id="sm-ip-1"/>
->>>>>>> branch 'main' of https://github.com/ArkJBJ/StepUp_Main.git
                                 <div class="span-text" id="file-name"></div>
                             </div>
                         </div>
                         <div class="mt-2 subImg">
                             <h2>서브 이미지</h2>
                             <div class="file-input-container d-flex">
-<<<<<<< HEAD
                                 <input type="file" class="sm-input-file" name="subFile" id="subImg1"/>
                                 <label class="for-sm-input-file" for="subImg1">이미지 등록</label>
                                 <div class="span-text" id="file-name1"></div>
-=======
                                 <input type="file" class="sm-input-file" id="sm-ip-1"/>
                                 <div class="span-text" id="file-name"></div>
->>>>>>> branch 'main' of https://github.com/ArkJBJ/StepUp_Main.git
                             </div>
                             <div class="file-input-container d-flex pt-0">
-<<<<<<< HEAD
                                 <input type="file" class="sm-input-file" name="subFile" id="subImg2"/>
                                 <label class="for-sm-input-file" for="subImg2">이미지 등록</label>
                                 <div class="span-text" id="file-name2"></div>
-=======
                                 <input type="file" class="sm-input-file" id="sm-ip-1"/>
                                 <div class="span-text" id="file-name"></div>
->>>>>>> branch 'main' of https://github.com/ArkJBJ/StepUp_Main.git
                             </div>
                         </div>
                     </div>
