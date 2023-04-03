@@ -8,6 +8,7 @@ public class EventBoardVO {
 	private int eventHit;
 	private int userIndex;
 	private String userNick;
+	private int total;
 	
 	public String getUserNick() {
 		return userNick;
@@ -52,6 +53,13 @@ public class EventBoardVO {
 	public void setUserIndex(int userIndex) {
 		this.userIndex = userIndex;
 	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
 	
 
 }

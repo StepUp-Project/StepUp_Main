@@ -5,7 +5,7 @@
   
  <mapper namespace="proj.stepUp.mapper.eventBoardMapper">
  	<select id="selectAll" resultType="EventBoardVO" parameterType="searchVO">
- 		select *
+ 		select count(*) over () as total, b.*, u.*
  			from event_tb b, user_tb u
  			where b.userIndex = u.userIndex
  			<if test='searchType != null and searchType eq "title"'>
@@ -18,6 +18,21 @@
  				and userNick like concat('%',#{searchValue},'%')
  			</if>
  	</select>
+ 	
+ 	<select id="cntTotal" resultType="EventBoardVO" parameterType="searchVO">
+ 		select count(*) over () as total from event_tb
+ 			<if test='searchType != null and searchType eq "title"'>
+ 				where eventTitle like concat('%',#{searchValue},'%')
+ 			</if>
+ 			<if test='searchType != null and searchType eq "content"'>
+ 				where eventCnt like concat('%',#{searchValue},'%')
+ 			</if>
+ 			<if test='searchType != null and searchType eq "writer"'>
+ 				where userNick like concat('%',#{searchValue},'%')
+ 			</if>
+ 	</select>
+	
+	
 	
 	<select id="selectByIndex" resultType="EventBoardVO" parameterType="int">
 		select *

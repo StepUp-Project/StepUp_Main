@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import proj.stepUp.service.EventService;
+import proj.stepUp.util.PagingUtil;
 import proj.stepUp.vo.EventBoardVO;
 import proj.stepUp.vo.SearchVO;
 import proj.stepUp.vo.UserVO;
@@ -28,11 +29,29 @@ public class EventController {
 	@RequestMapping(value="/event.do", method = RequestMethod.GET)
 	public String event(Model model, SearchVO svo) {
 		
-		List<EventBoardVO> list = eventService.list(svo);
-		model.addAttribute("blist", list);
-		return "event/event_list";
-	}	
 		
+		int nowPage = 1;
+		if(svo.getNowPage() != 0 ) {
+			nowPage = svo.getNowPage();
+		}
+		List<EventBoardVO> cntTotal = eventService.cntTotal(svo);
+		
+		int totalCnt = cntTotal.get(1).getTotal();
+		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 5);
+		
+		
+		List<EventBoardVO> list = eventService.list(svo);
+		
+		System.out.println(paging.getStart());
+		System.out.println(totalCnt);
+		System.out.println(paging.getPerPage());
+		System.out.println(paging.getNowPage());
+		
+		
+		model.addAttribute("blist", list);
+		model.addAttribute("paging", paging);
+		return "event/event_list";
+	}
 	
 	@RequestMapping(value="/event_write.do", method = RequestMethod.GET)
 	public String eventwrite() {
