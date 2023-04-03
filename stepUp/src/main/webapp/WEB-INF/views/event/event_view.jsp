@@ -79,7 +79,7 @@
             <ul id="board_view">
                 <li id="board_viewTtl"><div>${vo.eventTitle}</div></li>
                 <li id="board_winfo">
-                    <div>${vo.userIndex}</div><span>|</span><div>조회수 : ${vo.eventHit}</div><p>${vo.eventWdate}</p>
+                    <div>${vo.userNick}</div><span>|</span><div>조회수 : ${vo.eventHit}</div><p>${vo.eventWdate}</p>
                 </li>
                 <li id="board_wctn">
                     ${vo.eventCnt}	

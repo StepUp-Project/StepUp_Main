@@ -7,7 +7,14 @@ public class EventBoardVO {
 	private String eventWdate;
 	private int eventHit;
 	private int userIndex;
+	private String userNick;
 	
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
 	
 	public int getEventIndex() {
 		return eventIndex;

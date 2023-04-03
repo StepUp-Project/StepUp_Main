@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -98,8 +99,26 @@
                     <tr>
                         <td><span>${vo.freeIndex}</span></td>
                         <td><a href="free_view.do"><div>${vo.freeTitle}</div></a></td>
-                        <td><span>${vo.freeWdate}</span></td>
-                        <td><span>${vo.userIndex}</span></td>
+                        <td><span>
+                        <% 
+                                Date date = new Date();
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                String nowDate = sdf.format(date);
+
+                                FreeBoardVO dbWDate = (FreeBoardVO)pageContext.getAttribute("vo");
+                                String dbDate = dbWDate.getFreeWdate().substring(0,10);
+                                String dbTime = dbWDate.getFreeWdate().substring(11, 16);
+
+                                if (nowDate.equals(dbDate)) {
+                                    out.print(dbTime);
+
+
+                                } else {
+                                    out.print(dbDate);
+                                }
+                        %>
+                        </span></td>
+                        <td><span>${vo.userNick}</span></td>
                         <td><span>${vo.freeHit}</span></td>
                     </tr>
                  </c:forEach>
