@@ -408,8 +408,6 @@
      			checkNameOk = 1;
      		}
      	}
-     	UserZipCode
-     	UserAddr
      	
      	//주소 입력 여부 체크
     	function addrCheck(){
