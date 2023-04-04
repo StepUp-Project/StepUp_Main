@@ -8,7 +8,7 @@ public class FreeBoardVO {
 	private String freeWdate;
 	private int userIndex;
 	private String userNick;
-	
+	private int total;
 	
 	public String getUserNick() {
 		return userNick;
@@ -53,6 +53,12 @@ public class FreeBoardVO {
 	}
 	public void setUserIndex(int userIndex) {
 		this.userIndex = userIndex;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	
 	

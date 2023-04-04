@@ -82,11 +82,11 @@
     <main>
         <article id="board_write">
             <div id="board_ttl">자유게시판 글쓰기</div>
-            <form method="post">
-                <input class="input_title" type="text" placeholder="제목을 입력해주세요">
-                <textarea id="summernote" name="editordata"></textarea>
+            <form method="post" action="free_write.do">
+                <input class="input_title" name="freeTitle" type="text" placeholder="제목을 입력해주세요">
+                <textarea id="summernote"  name="freeCnt"></textarea>
                 <div id="board_button">
-                    <input type="submit" value="저 장">
+                    <input type="submit" value="저 장" onclick="return confirm('저장하시겠습니까?')">
                     <input type="button" value="돌아가기">
                 </div>
             </form>

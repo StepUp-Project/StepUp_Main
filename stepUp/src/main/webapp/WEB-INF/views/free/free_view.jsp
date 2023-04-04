@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -75,14 +77,24 @@
     <main><!--메인 시작-->
         <article id="board_viewcontain">
             <ul id="board_view">
-                <li id="board_viewTtl"><div>자유게시판 글 제목</div></li>
+                <li id="board_viewTtl"><div>${vo.freeTitle}</div></li>
                 <li id="board_winfo">
-                    <div>글쓴이 닉네임</div><span>|</span><div>조회수 : 200</div><p>2023.03.30 14:21</p>
+                    <div>${vo.userNick}</div><span>|</span><div>조회수 : ${vo.freeHit}</div><p>${vo.freeWdate}</p>
                 </li>
                 <li id="board_wctn">
-                    자유게시판 글쓰기 내용
+                   	 ${vo.freeCnt}	
                 </li>
             </ul>
+            <div>
+   	           <input type="button" class="board_btn" value="돌아가기"	 onclick="location.href='free.do'">
+   	           <c:if test="${not empty login and login.userIndex eq vo.userIndex}">
+					<input type="button" class="board_btn" value="수 정" onclick="if(confirm('수정하시겠습니까?')) {location.href='free_modify.do?freeIndex=${vo.freeIndex}'}">
+					<input type="button" class="board_btn" value="삭 제" onclick="if(confirm('정말로 삭제하시겠습니까?')) {document.delfrm.submit();}">
+		            <form  name="delfrm" action="free_delete.do" method="post">
+		           		<input type="hidden" name="freeIndex" value="${vo.freeIndex}">
+		           	</form>
+	           </c:if>
+            </div>
         </article>
         <article id=""><!--댓글란-->
             <div id="re_write">
