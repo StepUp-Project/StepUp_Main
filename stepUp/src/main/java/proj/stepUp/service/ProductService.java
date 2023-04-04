@@ -8,4 +8,5 @@ public interface ProductService {
 	public int insertProduct(ProductVO vo);	
 	public ProductVO selectProductIndex(int prdIndex);
 	public List<ProductVO> selectProductByDate(int maxPrd);
+	public List<ProductVO> selectProductSales(int maxPrd);
 }

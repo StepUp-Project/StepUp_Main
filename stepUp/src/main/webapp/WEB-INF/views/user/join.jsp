@@ -333,7 +333,6 @@
 	     	
      	// 핸드폰 문자 인증 및 유효성 체크
      	let PchOk = 0;
-     	let PchNum;			//문자인증요청시 인증 번호 저장 변수
      	function call(){
      		let UserPchNumStyle = document.getElementById("userPchNum");
      		let UserPhone = $("#userPhone").val();
@@ -348,7 +347,6 @@
      				data:{userPhone : UserPhone},
      				success:function(data){
      					alert("인증번호가 전송되었습니다.");
-     					PchNum = data;
      					UserPchNumStyle.disabled = false;
      				},
      				error:function(){
@@ -371,23 +369,29 @@
      	}
      	
      	//인증번호 일치 확인
-     	function Pch(){
-     		let UserPchNum = $("#userPchNum").val();
+     	function Pch(){//ajax로 처리 보안 문제(완료)
+     		let PchNum = $("#userPchNum").val();
      		let checkPhone =  document.getElementById("check-Phone");
      		let UserPchNumStyle = document.getElementById("userPchNum");
-     		if(PchNum == UserPchNum){
-     			PchOk = 1;
-     			$("#check-Phone").html("일치");
-     			checkPhone.style.color = "#008000";
-     			UserPchNumStyle.style.borderColor = "#008000";
-     			UserPchNumStyle.disabled = true;
-     		}else{
-     			PchOk = 0;
-     			$("#check-Phone").html("불일치");
-     			checkPhone.style.color = "#ff0000";
-     			UserPchNumStyle.style.borderColor = "#ff0000";
-     			
-     		}
+			$.ajax({
+				url:"<%=request.getContextPath()%>/ajax/checkPchNum.do",
+				type:"post",
+				data:{PchNum : PchNum},
+				success:function(data){
+					if(data == 1){
+		     			PchOk = 1;
+		     			$("#check-Phone").html("일치");
+		     			checkPhone.style.color = "#008000";
+		     			UserPchNumStyle.style.borderColor = "#008000";
+		     			UserPchNumStyle.disabled = true;
+					}else{
+		     			PchOk = 0;
+		     			$("#check-Phone").html("불일치");
+		     			checkPhone.style.color = "#ff0000";
+		     			UserPchNumStyle.style.borderColor = "#ff0000";
+					}
+				}
+			});
      	}
      	
      	//이름 유효성 검사

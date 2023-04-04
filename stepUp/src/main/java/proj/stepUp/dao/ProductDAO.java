@@ -25,4 +25,8 @@ public class ProductDAO {
 	public List<ProductVO> selectProductByDate(int maxPrd) {
 		return sqlSession.selectList("proj.stepUp.mapper.productMapper.selectProductByDate", maxPrd);
 	}
+	
+	public List<ProductVO> selectProductSales(int maxPrd){
+		return sqlSession.selectList("proj.stepUp.mapper.productMapper.selectProductSales", maxPrd);
+	}
 }

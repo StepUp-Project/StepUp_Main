@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -122,78 +125,28 @@
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper" id="autoStop">
                         <!-- Slides -->
+                        <c:forEach var="newPrd" items="${newProduct}">
                         <div class="swiper-slide">
                             <a href="#">
-                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/image/brand/Brand_cnt02.jpg)"></p></div>
-                                <P class="cnt_brand"><span>NIKE</span></P>
-                                <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                <P class="cnt_prc"><span>49,800원</span></P>
+                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${newPrd.prdRname})"></p></div>
+                                <P class="cnt_brand"><span>
+                                <c:set var="newBrandCode" value="${fn:substring(newPrd.prdCode,0,2)}"/>
+                                <c:choose>
+                                	<c:when test='${newBrandCode eq "NK"}'>나이키</c:when>
+                                	<c:when test='${newBrandCode eq "AD"}'>아디다스</c:when>
+                                	<c:when test='${newBrandCode eq "VS"}'>반스</c:when>
+                                	<c:when test='${newBrandCode eq "CV"}'>컨버스</c:when>
+                                	<c:when test='${newBrandCode eq "PM"}'>퓨마</c:when>
+                                	<c:when test='${newBrandCode eq "FL"}'>휠라</c:when>
+                                	<c:when test='${newBrandCode eq "CR"}'>크록스</c:when>
+                                	<c:when test='${newBrandCode eq "NB"}'>뉴발란스</c:when>
+                                </c:choose>
+                                </span></P>
+                                <P class="cnt_name"><span>${newPrd.prdName}</span></P>
+                                <P class="cnt_prc"><span><fmt:formatNumber value="${newPrd.prdPrice}" pattern="#,###"/>원</span></P>
                             </a>
                         </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/image/brand/Brand_cnt02.jpg)"></p></div>
-                                <P class="cnt_brand"><span>NIKE</span></P>
-                                <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                <P class="cnt_prc"><span>49,800원</span></P>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/image/brand/Brand_cnt02.jpg)"></p></div>
-                                <P class="cnt_brand"><span>NIKE</span></P>
-                                <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                <P class="cnt_prc"><span>49,800원</span></P>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/image/brand/Brand_cnt02.jpg)"></p></div>
-                                <P class="cnt_brand"><span>NIKE</span></P>
-                                <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                <P class="cnt_prc"><span>49,800원</span></P>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/image/brand/Brand_cnt02.jpg)"></p></div>
-                                <P class="cnt_brand"><span>NIKE</span></P>
-                                <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                <P class="cnt_prc"><span>49,800원</span></P>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/image/brand/Brand_cnt02.jpg)"></p></div>
-                                <P class="cnt_brand"><span>NIKE</span></P>
-                                <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                <P class="cnt_prc"><span>49,800원</span></P>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/image/brand/Brand_cnt02.jpg)"></p></div>
-                                <P class="cnt_brand"><span>NIKE</span></P>
-                                <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                <P class="cnt_prc"><span>49,800원</span></P>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/image/brand/Brand_cnt02.jpg)"></p></div>
-                                <P class="cnt_brand"><span>NIKE</span></P>
-                                <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                <P class="cnt_prc"><span>49,800원</span></P>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="#">
-                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/image/brand/Brand_cnt02.jpg)"></p></div>
-                                <P class="cnt_brand"><span>NIKE</span></P>
-                                <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                <P class="cnt_prc"><span>49,800원</span></P>
-                            </a>
-                        </div>
+                        </c:forEach>
                     </div>
                     <div class="swiper-scrollbar"></div>
                 </div><!-- 메인 슬라이더 끝 -->
@@ -230,171 +183,33 @@
                     </div>
                     <div class="main-brandBest-items-area">
                         <ul id="cnt_list">
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>1</span>
-                                </div>
-                                <a href="#">
-                                <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt03.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>2</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>3</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt01.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>4</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>5</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt03.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>6</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>7</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt01.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>8</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>9</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt03.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>10</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>11</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt01.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>12</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>13</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt03.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>14</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
-                            <li class="cnt_info">
-                                <div class="best-rank">
-                                    <span>15</span>
-                                </div>
-                                <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt01.jpg)"></div></p>
-                                    <P class="cnt_brand"><span>NIKE</span></P>
-                                    <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                    <P class="cnt_prc"><span>49,800원</span></P>
-                                </a>
-                            </li>
+                        	<c:set var="rank" value="1"/>
+                        	<c:forEach var="bestPrd" items="${bestProduct}">                   
+                        	<c:set var="bestBrandCode" value="${fn:substring(bestPrd.prdCode,0,2)}" />
+	                            <li class="cnt_info">
+	                                <div class="best-rank">
+	                                    <span>${rank}</span>
+	                                </div>
+	                                <c:set var="rank" value="${rank+1}"/>
+	                                <a href="#">
+	                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${bestPrd.prdRname})"></div></p>
+	                                    <P class="cnt_brand"><span>
+		                                <c:choose>
+		                                	<c:when test='${bestBrandCode eq "NK"}'>나이키</c:when>
+		                                	<c:when test='${bestBrandCode eq "AD"}'>아디다스</c:when>
+		                                	<c:when test='${bestBrandCode eq "VS"}'>반스</c:when>
+		                                	<c:when test='${bestBrandCode eq "CV"}'>컨버스</c:when>
+		                                	<c:when test='${bestBrandCode eq "PM"}'>퓨마</c:when>
+		                                	<c:when test='${bestBrandCode eq "FL"}'>휠라</c:when>
+		                                	<c:when test='${bestBrandCode eq "CR"}'>크록스</c:when>
+		                                	<c:when test='${bestBrandCode eq "NB"}'>뉴발란스</c:when>
+		                                </c:choose>	                                    
+	                                    </span></P>
+	                                    <P class="cnt_name"><span>${bestPrd.prdName}</span></P>
+	                                    <P class="cnt_prc"><span><fmt:formatNumber value="${bestPrd.prdPrice}" pattern="#,###"/>원</span></P>
+	                                </a>
+	                            </li>
+                            </c:forEach>
                         </ul>  
                     </div>
                 </div>
@@ -443,7 +258,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
     <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
     <script>
-        window.onload = function(){
                 //메인뷰
                 const swiper = new Swiper('.swiper', {
                 // Default parameters
@@ -491,7 +305,7 @@
                 swiperSmall.autoplay.stop()
                 let pos = swiperSmall.getTranslate();
                 slider.style.transform = `translate3d(${pos}px, 0px, 0px)`;
-                        
+                
             });
 
             slider.addEventListener("mouseout", function(){ 
@@ -501,7 +315,6 @@
                     swiperSmall.slideNext();
                 }, 1000); // 3초 후에 업데이트
             });
-        }
     </script>
 </body>
 </html>

@@ -14,7 +14,14 @@ public class ProductVO {
 	private String prdQc;
 	private String prdCare;
 	private String prdMadeDate;
+	private int prdSales;
 	
+	public int getPrdSales() {
+		return prdSales;
+	}
+	public void setPrdSales(int prdSales) {
+		this.prdSales = prdSales;
+	}
 	public int getPrdIndex() {
 		return prdIndex;
 	}

@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,25 +56,28 @@ public class AjaxController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/checkPhone.do", method = RequestMethod.POST)
-	public String checkPhone(String userPhone){
+	@RequestMapping(value="/checkPhone.do", method = RequestMethod.POST)	//ì¸ì¦ë²ˆí˜¸ ë°œì†¡ì²˜ë¦¬
+	public void checkPhone(String userPhone, HttpServletRequest req){
 		
 		NaverSMS sms = new NaverSMS();
 		
 		String result =  sms.sendSMS(userPhone);
-		
-		return result;
+		HttpSession session = req.getSession();	
+		session.setAttribute("phoneCode", result);
+		return;
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/checkPchNum.do", method = RequestMethod.POST)
-	public String checkPchNum(String userPhone){
-		
-		NaverSMS sms = new NaverSMS();
-		
-		String result =  sms.sendSMS(userPhone);
-		
-		return result;
+	@RequestMapping(value="/checkPchNum.do", method = RequestMethod.POST)	//ì¸ì¦ë²ˆí˜¸ ë¹„êµ ì²˜ë¦¬
+	public String checkPchNum(String PchNum, HttpServletRequest req){
+		HttpSession session = req.getSession();	
+		String phoneCode = (String)session.getAttribute("phoneCode");
+		if(PchNum.equals(phoneCode)) {
+			return "1";
+		}else {
+			return "0";
+		}
+
 	}
 	
 	@RequestMapping(value="/SummerNoteImageFile.do", produces = "application/json; charset=utf8", method = RequestMethod.POST)
@@ -86,26 +90,26 @@ public class AjaxController {
 			cntDir.mkdirs();
 		}
         /*
-		 * String fileRoot = "C:\\summernote_image\\"; // ¿ÜºÎ°æ·Î·Î ÀúÀåÀ» Èñ¸ÁÇÒ¶§.
+		 * String fileRoot = "C:\\summernote_image\\"; // // ì™¸ë¶€ê²½ë¡œë¡œ ì €ì¥ì„ í¬ë§í• ë•Œ.
 		 */
 		
-		// ³»ºÎ°æ·Î·Î ÀúÀå
+		// ë‚´ë¶€ê²½ë¡œë¡œ ì €ì¥
 		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
 		String fileRoot = contextRoot+"resources/fileupload/";
 		
-		String originalFileName = multipartFile.getOriginalFilename();	//¿À¸®Áö³¯ ÆÄÀÏ¸í
-		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//ÆÄÀÏ È®ÀåÀÚ
-		String savedFileName = UUID.randomUUID() + extension;	//ÀúÀåµÉ ÆÄÀÏ ¸í
+		String originalFileName = multipartFile.getOriginalFilename();	//ì˜¤ë¦¬ì§€ë‚  íŒŒì¼ëª…
+		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//íŒŒì¼ í™•ì¥ì
+		String savedFileName = UUID.randomUUID() + extension;	//ì €ì¥ë  íŒŒì¼ ëª…
 		
 		File targetFile = new File(fileRoot + savedFileName);	
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
-			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//ÆÄÀÏ ÀúÀå
-			jsonObject.addProperty("url",request.getContextPath()+"/resources/fileupload/"+savedFileName); // contextroot + resources + ÀúÀåÇÒ ³»ºÎ Æú´õ¸í
+			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//íŒŒì¼ ì €ì¥
+			jsonObject.addProperty("url",request.getContextPath()+"/resources/fileupload/"+savedFileName); // contextroot + resources + ì €ì¥í•  ë‚´ë¶€ í´ë”ëª…
 			jsonObject.addProperty("responseCode", "success");
 				
 		} catch (IOException e) {
-			FileUtils.deleteQuietly(targetFile);	//ÀúÀåµÈ ÆÄÀÏ »èÁ¦
+			FileUtils.deleteQuietly(targetFile);	//ì €ì¥ëœ íŒŒì¼ ì‚­ì œ
 			jsonObject.addProperty("responseCode", "error");
 			e.printStackTrace();
 		}
