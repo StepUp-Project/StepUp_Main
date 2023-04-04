@@ -30,5 +30,11 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDAO.selectProductByDate(maxPrd);
 	}
+
+	@Override
+	public List<ProductVO> selectProductSales(int maxPrd) {
+		// TODO Auto-generated method stub
+		return productDAO.selectProductSales(maxPrd);
+	}
 	
 }

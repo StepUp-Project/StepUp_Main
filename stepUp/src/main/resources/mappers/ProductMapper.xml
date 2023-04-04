@@ -19,6 +19,11 @@
   	</select>
   	
   	<select id="selectProductByDate" resultType="productVO" parameterType="int">
-  		select prdIndex, prdName, prdPrice, prdRname from product_tb order by prdDate desc limit 0, #{maxPrd}
+  		select prdIndex, prdCode, prdName, prdPrice, prdRname from product_tb order by prdDate desc limit 0, #{maxPrd}
+  	</select>
+  	
+  	<select id="selectProductSales" resultType="productVO" parameterType="int">
+  	SELECT product_tb.prdIndex, prdCode, prdName, prdPrice, prdRname, ifnull(sum(orderTotalPrice),0) as prdSales FROM product_tb left join order_tb on product_tb.prdIndex = order_tb.prdIndex
+	GROUP BY prdIndex ORDER BY prdSales DESC limit 0, #{maxPrd};
   	</select>
   </mapper>

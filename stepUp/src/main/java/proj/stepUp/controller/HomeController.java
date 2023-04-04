@@ -46,9 +46,15 @@ public class HomeController {
 	
 	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
 	public String index(Model model) {
+		//상품 정보(Date순)
 		int maxPrd = 9;
 		List<ProductVO> newProduct = productService.selectProductByDate(maxPrd);
 		model.addAttribute("newProduct", newProduct);
+		
+		//상품정보(판매순)
+		maxPrd = 15;
+		List<ProductVO> bestProduct = productService.selectProductSales(maxPrd);
+		model.addAttribute("bestProduct", bestProduct);
 		
 		return "index";
 	}
