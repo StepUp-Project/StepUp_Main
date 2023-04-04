@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import proj.stepUp.vo.EventBoardVO;
 import proj.stepUp.vo.FreeBoardVO;
 import proj.stepUp.vo.SearchVO;
 
@@ -20,5 +21,23 @@ public class FreeBoardDAO {
 		return sqlSession.selectList("proj.stepUp.mapper.freeBoardMapper.selectAll", svo);
 	}
 	
+	public List<FreeBoardVO> cntTotal(SearchVO svo){
+		return sqlSession.selectList("proj.stepUp.mapper.freeBoardMapper.cntTotal", svo);
+	}
 	
+	public FreeBoardVO selectByIndex(int freeIndex) {
+		
+		return sqlSession.selectOne("proj.stepUp.mapper.freeBoardMapper.selectByIndex", freeIndex);
+	}
+	
+	public int insert(FreeBoardVO vo) {
+		return sqlSession.insert("proj.stepUp.mapper.freeBoardMapper.insert", vo);
+	}
+	public int update(FreeBoardVO vo) {
+		return sqlSession.update("proj.stepUp.mapper.freeBoardMapper.update", vo);
+	}
+	
+	public int delete(int freeIndex) {
+		return sqlSession.delete("proj.stepUp.mapper.freeBoardMapper.delete", freeIndex);
+	}
 }
