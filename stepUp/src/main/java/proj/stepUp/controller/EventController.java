@@ -37,16 +37,16 @@ public class EventController {
 		List<EventBoardVO> cntTotal = eventService.cntTotal(svo);
 		
 		int totalCnt = cntTotal.get(1).getTotal();
-		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 5);
+		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 10);
 		
 		
 		List<EventBoardVO> list = eventService.list(svo);
 		
-		System.out.println(paging.getStart());
-		System.out.println(totalCnt);
-		System.out.println(paging.getPerPage());
-		System.out.println(paging.getNowPage());
-		
+		System.out.println("getStart:::"+paging.getStart());
+		System.out.println("totalCnt:::"+totalCnt);
+		System.out.println("getPerPage:::"+paging.getPerPage());
+		System.out.println("getNowPage:::"+paging.getNowPage());
+		System.out.println("getEndPage:::"+paging.getEndPage());
 		
 		model.addAttribute("blist", list);
 		model.addAttribute("paging", paging);
