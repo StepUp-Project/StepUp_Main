@@ -96,7 +96,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                 <c:forEach var="vo" items="${blist}" begin="1" end="4">
+                 <c:forEach var="vo" items="${blist}" begin="${(paging.nowPage*10)-10}" end="${(paging.nowPage*10) -1}">
                     <tr>
                         <td><span>${vo.eventIndex}</span></td>
                         <td><a href="event_view.do?eventIndex=${vo.eventIndex}"><div>${vo.eventTitle}</div></a></td>
@@ -158,7 +158,7 @@
                     </tr>
                     <tr>
                         <td class="board_search" colspan="5">
-                           <form name="frm" action="<%=request.getContextPath()%>/free/free.do" class="search_select" method="get">
+                           <form name="frm" action="<%=request.getContextPath()%>/event/event.do" class="search_select" method="get">
                                 <div>
                                     <select name="searchType" class="search_css">
                                         <option value="title" selected>제목</option>
