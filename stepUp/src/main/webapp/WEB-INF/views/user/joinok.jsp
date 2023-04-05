@@ -18,7 +18,7 @@
         <div class="jointermslogo">
             <h1 class="jointerms_title">
                 <a href="/">
-                    <img src="/image/kickshublogo.png" alt="kickshub">
+                    <img src="<%=request.getContextPath()%>/resources/image/kickshublogo.png" alt="kickshub">
                 </a>
             </h1>
         </div>
