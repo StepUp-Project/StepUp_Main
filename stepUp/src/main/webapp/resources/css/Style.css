@@ -1100,12 +1100,20 @@ padding-bottom: 12px;
 font-size: 16px;
 }
 #prd_name{
-padding-top: 20px;
-padding-bottom: 10px;
+  display: flex; justify-content: space-between; 
+  padding-top: 30px;
+  padding-bottom: 10px;
+  vertical-align: sub;
 }
 #prd_name span{
 font-size: 20px;
 font-weight: bold;
+}
+/*좋아요 찜 관심*/
+#prd_name span:nth-child(2){
+  font-family: 'IBMPlexSansKR-Regular';
+  font-size: 22px;
+  margin-top: -4px;
 }
 #prd_code span{
 color: #8e8e8e;
@@ -1233,8 +1241,8 @@ color: #494949;
 
 /*상품 링크*/
 #info_link{
-width: 63%;
-margin: 50px auto;
+width: 60%;
+margin: 90px auto 20px;
 display: flex;
 justify-content: space-around;
 }
@@ -1254,7 +1262,7 @@ border-bottom: 1px solid #494949;
 margin-bottom: 40px;
 }
 #prdinfo_tap1 table{
-width: 63%;
+width: 60%;
 margin: 50px auto 10px;
 font-size: 12px;
 }
@@ -1273,7 +1281,7 @@ height: 80px;
 /*상품 상세 설명*/
 .prd_infoPic{
 margin: 15px auto;
-width: 63%;
+width: 60%;
 background-position: center;
 background-size: cover;
 height: 500px;
@@ -1286,11 +1294,11 @@ border-bottom: 1px solid #494949;
 margin: 50px auto;
 }
 #prdinfo_tap2 p{
-width: 63%;
+width: 60%;
 margin: 0 auto;
 }
 #prdinfo_tap3 table{
-width: 63%;
+width: 60%;
 margin: 50px auto;
 font-size: 12px; 
 }
@@ -1327,7 +1335,7 @@ color:#fc0;
 }
 
 #review_write{
-width: 63%;
+width: 60%;
 margin: 50px auto;
 }
 #review_formTtl{
@@ -1376,7 +1384,7 @@ font-size: 13px;
 
 /*상품평*/
 #review_ctn{
-width: 63%;
+width: 60%;
 margin: 50px auto;
 }
 #review_ctn li{

@@ -87,7 +87,7 @@
         <div id="prd_select">
            <ul id="prd_info">
                 <li id="prd_brand"><span>NIKE</span></li>
-                <li id="prd_name"><span>레볼루션6 넥스트 네이처</span></li>
+                <li id="prd_name"><span>레볼루션6 넥스트 네이처</span><span>♥</span></li>
                 <li id="prd_code"><span>상품코드: NK445484</span></li>
                 <li id="prd_price">150000</li>
            </ul>
