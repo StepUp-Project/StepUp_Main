@@ -55,9 +55,9 @@ public class ProductController {
 		String uploadSubFolder = rootPath+"resources/prdsubimg";
 		List<MultipartFile> subFileList =  subFile.getFiles("subFile");
 		
-		System.out.println("�н����"+uploadMainFolder);
+		System.out.println("패스경로"+uploadMainFolder);
 		
-		File mainDir = new File(uploadMainFolder);//��ġ ������ �����ϴ��� Ȯ��
+		File mainDir = new File(uploadMainFolder);//위치 폴더가 존재하는지 확인
 		File subDir = new File(uploadSubFolder);
 		if(!mainDir.exists()) {
 			mainDir.mkdirs();
@@ -67,17 +67,17 @@ public class ProductController {
 		}
 		
 		
-		String prdOname = mainFile.getOriginalFilename();		//���� �����̸�
-		String prdRname = System.currentTimeMillis()+"_"+prdOname;//����� �����̸�
+		String prdOname = mainFile.getOriginalFilename();		//원본 파일이름
+		String prdRname = System.currentTimeMillis()+"_"+prdOname;//저장용 파일이름
 		prdRname = new String(prdRname.getBytes("utf-8"),"8859_1");
-		mainFile.transferTo(new File(uploadMainFolder, prdRname));//���ο� �����̸����� ����
+		mainFile.transferTo(new File(uploadMainFolder, prdRname));//새로운 파일이름으로 저장
 		vo.setPrdOname(prdOname);
 		vo.setPrdRname(prdRname);
 		productService.insertProduct(vo);
 		int prdIndex = vo.getPrdIndex();
 		
 
-		for(MultipartFile sub : subFileList) {//���� �̹��� ����
+		for(MultipartFile sub : subFileList) {//서브 이미지 저장
 			String prdImgOname = sub.getOriginalFilename();
 			String prdImgRname = System.currentTimeMillis() + "_" + prdImgOname;
 			prdImgRname = new String(prdImgRname.getBytes("utf-8"),"8859_1");
@@ -89,7 +89,7 @@ public class ProductController {
 		}
 		
 		
-		for(int i = 0; i < sizeKind.length; i++) {//��ǰ ����� ���� ����
+		for(int i = 0; i < sizeKind.length; i++) {//상품 사이즈별 제고 저장
 			SizeVO sizeVO = new SizeVO();
 			String sizekind = sizeKind[i];
 			int sizestock = sizeStock[i];
