@@ -55,9 +55,9 @@ public class ProductController {
 		String uploadSubFolder = rootPath+"resources/prdsubimg";
 		List<MultipartFile> subFileList =  subFile.getFiles("subFile");
 		
-		System.out.println("ÆĞ½º°æ·Î"+uploadMainFolder);
+		System.out.println("íŒ¨ìŠ¤ê²½ë¡œ"+uploadMainFolder);
 		
-		File mainDir = new File(uploadMainFolder);//À§Ä¡ Æú´õ°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+		File mainDir = new File(uploadMainFolder);//ìœ„ì¹˜ í´ë”ê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
 		File subDir = new File(uploadSubFolder);
 		if(!mainDir.exists()) {
 			mainDir.mkdirs();
@@ -67,17 +67,17 @@ public class ProductController {
 		}
 		
 		
-		String prdOname = mainFile.getOriginalFilename();		//¿øº» ÆÄÀÏÀÌ¸§
-		String prdRname = System.currentTimeMillis()+"_"+prdOname;//ÀúÀå¿ë ÆÄÀÏÀÌ¸§
+		String prdOname = mainFile.getOriginalFilename();		//ì›ë³¸ íŒŒì¼ì´ë¦„
+		String prdRname = System.currentTimeMillis()+"_"+prdOname;//ì €ì¥ìš© íŒŒì¼ì´ë¦„
 		prdRname = new String(prdRname.getBytes("utf-8"),"8859_1");
-		mainFile.transferTo(new File(uploadMainFolder, prdRname));//»õ·Î¿î ÆÄÀÏÀÌ¸§À¸·Î ÀúÀå
+		mainFile.transferTo(new File(uploadMainFolder, prdRname));//ìƒˆë¡œìš´ íŒŒì¼ì´ë¦„ìœ¼ë¡œ ì €ì¥
 		vo.setPrdOname(prdOname);
 		vo.setPrdRname(prdRname);
 		productService.insertProduct(vo);
 		int prdIndex = vo.getPrdIndex();
 		
 
-		for(MultipartFile sub : subFileList) {//¼­ºê ÀÌ¹ÌÁö ÀúÀå
+		for(MultipartFile sub : subFileList) {//ì„œë¸Œ ì´ë¯¸ì§€ ì €ì¥
 			String prdImgOname = sub.getOriginalFilename();
 			String prdImgRname = System.currentTimeMillis() + "_" + prdImgOname;
 			prdImgRname = new String(prdImgRname.getBytes("utf-8"),"8859_1");
@@ -89,7 +89,7 @@ public class ProductController {
 		}
 		
 		
-		for(int i = 0; i < sizeKind.length; i++) {//»óÇ° »çÀÌÁîº° Á¦°í ÀúÀå
+		for(int i = 0; i < sizeKind.length; i++) {//ìƒí’ˆ ì‚¬ì´ì¦ˆë³„ ì œê³  ì €ì¥
 			SizeVO sizeVO = new SizeVO();
 			String sizekind = sizeKind[i];
 			int sizestock = sizeStock[i];
@@ -117,5 +117,17 @@ public class ProductController {
 		}
 		
 		return "redirect:/product/test.do";
+	}
+	
+	@RequestMapping(value="/view.do", method = RequestMethod.GET)
+	public String view(int prdIndex, Model model) {
+		ProductVO prdVO = productService.selectProductIndex(prdIndex);
+		List<ProductImgVO> prdImgVO = producImgService.selectByProductIndex(prdIndex);
+		if(prdVO != null) {
+			model.addAttribute("prdVO", prdVO);//ìƒí’ˆ ì •ë³´
+			model.addAttribute("prdImgVO", prdImgVO);//ìƒí’ˆ ì„œë¸Œ ì´ë¯¸ì§€
+		}
+		
+		return "product/product_view";
 	}
 }

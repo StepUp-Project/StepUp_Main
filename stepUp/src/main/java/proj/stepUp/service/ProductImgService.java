@@ -1,8 +1,10 @@
 package proj.stepUp.service;
 
+import java.util.List;
+
 import proj.stepUp.vo.ProductImgVO;
-import proj.stepUp.vo.ProductVO;
 
 public interface ProductImgService {
 	public int insertProductImg(ProductImgVO vo);
+	public List<ProductImgVO> selectByProductIndex(int prdIndex);
 }
