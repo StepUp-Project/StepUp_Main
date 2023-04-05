@@ -194,7 +194,6 @@
 	      					let checkIdResult = document.getElementById("checkIdResult");
 	      					$("#checkIdResult").html(html);
 	      					checkIdResult.style.color = '#008000';
-	      					checkIdResult.style.fontSize = '13px';
 	      					checkIdOk = 1;
 	      				}else{
 	      					let html = "중복된 아이디 입니다."
