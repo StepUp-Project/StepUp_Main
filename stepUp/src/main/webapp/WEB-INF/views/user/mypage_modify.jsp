@@ -10,12 +10,6 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-
-	<!-- ㅆㅁㄴㅌ 연결-->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="/plugin/summernote/summernote-lite.js"></script>
-    <script src="/plugin/summernote/summernote-ko-KR.min.js"></script>
-    <link rel="stylesheet" href="/plugin/summernote/summernote-lite.css">
 </head>
 <body>
     <header id="header"><!--헤더 시작-->
@@ -76,25 +70,25 @@
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
-	</div>
     </header><!--헤더 끝--> 
 
     <main><!--메인 시작-->
         <div class="mypagemain">
-            <div class="mypage_menu">
+            <div class="mypage_menu"><!--마이페이지 메뉴 시작-->
                 <div class="mypagehi">
                     <p>안녕하세요, 배유진님!</p>
                 </div>
                 <div class="mypage_gnb">
-                    <span><a href="#">개인정보수정</a></span>
                     <span><a href="#">주문배송조회</a></span>
                     <span><a href="#">상품후기</a></span>
-                    <span><a href="#">상품 Q&A</a></span>
-                    <span><a href="#">찜한 상품</a></span>
+                    <span><a href="#">관심목록</a></span>
+                    <span><a href="#">QnA</a></span>
                     <span><a href="#">내가 작성한 글</a></span>
+                    <span><a href="#">개인정보수정</a></span>
                 </div>
-            </div>
-            <article id="mypage_contain">
+            </div><!--마이페이지 메뉴 끝-->
+
+            <article id="mypage_contain"><!--개인정보수정 페이지 시작-->
                 <div id="mypage_title">
                     <h2>
                         개인정보수정
@@ -104,7 +98,7 @@
                         고객님의 주소와 연락처 등 개인정보를 수정하실 수 있습니다.
                     </p>
                 </div>
-                <form action="" method="post">
+                <form action="" method="post" class="mpm">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="UserName"  name="UserName"  placeholder="이름">
                         <label for="UserName">이름</label>
@@ -162,7 +156,7 @@
                         <input type="submit" value="적용">
                     </div>
                 </form>
-            </article>
+            </article><!--개인정보수정 페이지 끝-->
         </div>
 	</main>
     <footer class="d-flex justify-content-between pt-2"> <!-- 하단 시작-->
