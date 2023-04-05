@@ -168,7 +168,9 @@
                                     <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
                                     <input type="hidden" name="nowPage" value="1">
                                     <button class="srch-bt" >검 색</button>
+								<c:if test="${not empty login and login.userIndex}">
                                     <input type="button" class="board_Write" value="글쓰기" onclick="location.href='event_write.do'">
+                           		</c:if> 
                                 </div>
                             </form>  
                         </td> 
