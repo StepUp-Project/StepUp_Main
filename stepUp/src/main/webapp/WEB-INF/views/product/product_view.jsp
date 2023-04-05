@@ -81,9 +81,9 @@
       <article id="prd_view"><!-- 상품 사진 + 선택 영역-->
         <div id="prd_pic">
             <ul>
-                <li class="small_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${prdVO.prdRname})"></li>
+                <li class="small_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${prdVO.prdRname})" onclick="chgimg(this)"></li>
                 <c:forEach var="subImg" items="${prdImgVO}">
-                	<li class="small_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdsubimg/${subImg.prdImgRname})"></li>
+                	<li class="small_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdsubimg/${subImg.prdImgRname})" onclick="chgimg(this)"></li>
                 </c:forEach>       
             </ul>
             <div class="big_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${prdVO.prdRname}"></div>
@@ -158,7 +158,7 @@
                     </label>
                 </li>
            </ul>
-           <ul class="size_selected">
+           <ul class="size_selected" id="prdSizeArea">
            </ul>
            <div class="total_price"></div>
            <button id="cart_btn">장바구니</button>
@@ -178,15 +178,18 @@
            <table>
                 <tr>
                     <td class="prd_table1">상품등록일</td>
-                    <td>2023-03-17</td>
+                    <td>
+                    	<fmt:parseDate value="${prdVO.prdDate}" var="dateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
+                    	<fmt:formatDate value="${dateFmt}" type="date" pattern="yyy-MM-dd"/>
+                    </td>
                 </tr>
                 <tr>
                     <td class="prd_table1">제품제조국</td>
-                    <td>NIKE / 베트남</td>
+                    <td>${prdVO.prdMadeIn}</td>
                 </tr>                
                 <tr>
                     <td class="prd_table1">제품소재</td>
-                    <td>갑피 : 천연가죽(소가죽) / 폴리에스터 100% / 합성수지, 안감 : 폴리에스터 100%, 창 : 합성고무</td>
+                    <td>${prdVO.prdMt}</td>
                 </tr>
                 <tr>
                     <td class="prd_table2">품질보증기준</td>
@@ -204,12 +207,7 @@
            </table>
         </article>
         <article id="prdinfo_tap2"> <!--상품 설명-->
-            <div class="prd_infoPic" style="background-image:url(../image/product/NK01020/NK01020-main1.jpg)" ></div>
-            <p></p>
-            <div class="prd_infoPic" style="background-image:url(../image/product/NK01020/NK01020-main2.jpg)" ></div>
-            <p></p>
-            <div class="prd_infoPic" style="background-image:url(../image/product/NK01020/NK01020-main3.jpg)" ></div>
-            <div class="prd_infoPic" style="background-image:url(../image/product/NK01020/NK01020-main4.jpg)" ></div>
+            ${prdVO.prdCnt}
         </article>
 
         <article id="prdinfo_tap3"><!--반품/교환정보-->
@@ -267,20 +265,22 @@
             <div id="review_write">
                 <p id="review_formTtl">상품평(작성된 상품평의 갯수)</p>
                 <div>
-                    <form>
-                        <textarea id="review_writeCnt"  placeholder="상품평을 남겨주세요"></textarea>
+                    <form name="reviewFrm" action="<%=request.getContextPath()%>/review/insert.do" method="post">
+                    	<input type="hidden" name="userIndex" value="${login.userIndex}"/>
+                    	<input type="hidden" name="prdIndex" value="${prdVO.prdIndex}"/>
+                        <textarea id="review_writeCnt" name="reviewContent" placeholder="상품평을 남겨주세요"></textarea>
                         <div id="rating_ctn">
                             <span>별점을 남겨주세요</span>
                             <div class="star-rating">
-                                <input type="radio" id="5-stars" name="rating" value="5" />
+                                <input type="radio" id="5-stars" name="reviewScore" value="5" />
                                 <label for="5-stars" class="star">&#9733;</label>
-                                <input type="radio" id="4-stars" name="rating" value="4" />
+                                <input type="radio" id="4-stars" name="reviewScore" value="4" />
                                 <label for="4-stars" class="star">&#9733;</label>
-                                <input type="radio" id="3-stars" name="rating" value="3" />
+                                <input type="radio" id="3-stars" name="reviewScore" value="3" />
                                 <label for="3-stars" class="star">&#9733;</label>
-                                <input type="radio" id="2-stars" name="rating" value="2" />
+                                <input type="radio" id="2-stars" name="reviewScore" value="2" />
                                 <label for="2-stars" class="star">&#9733;</label>
-                                <input type="radio" id="1-star" name="rating" value="1" />
+                                <input type="radio" id="1-star" name="reviewScore" value="1" />
                                 <label for="1-star" class="star">&#9733;</label>
                             </div>
                             <button>등록</button>
@@ -356,81 +356,79 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
     <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
         <script>
-            function updateSizeSelected(obj) { 
-                const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
-                console.log(selectedSizes.length);
-                if ( selectedSizes.length <=3 ){
-                    const sizeSelected = document.querySelector('.size_selected');
-                    sizeSelected.innerHTML = '';
-                    selectedSizes.forEach(function(size) {
-                    const price = parseInt(document.getElementById('prd_price').textContent);
+        function updateSizeSelected(obj) { 
+            const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
+            console.log(selectedSizes.length);
+            if ( selectedSizes.length <=3 ){
+                const sizeSelected = document.querySelector('.size_selected');
+                sizeSelected.innerHTML = '';
+                selectedSizes.forEach(function(size) {
+                    const price = ${prdVO.prdPrice};
                     const formattedPrice = price.toLocaleString();
                     const li = document.createElement('li');
-                    li.innerHTML = `
-                        <div class="select_prdName"><span>레볼루션6 넥스트 네이처 /</span> <span>사이즈 ${size.value}</span></div>
-                        <button class="decrease-btn" onclick="decreaseQuantity('${size.value}'); totalPrice();">-</button>
-                        <input class="qnt_numb" id="quantity_${size.value}" type="text" value="1" disabled>
-                        <button class="increase-btn" onclick="increaseQuantity('${size.value}'); totalPrice();">+</button>
-                        
-                        <div class="selec_PrdPrice">
-                            <span  id="price_${size.value}">${formattedPrice}원</span>
-                            <label for="size${size.value}">
-                                <div class="x-btn, xi-close" ></div>
-                            </label>
-                        </div>
-                    `;
+                    li.innerHTML = '<div class="select_prdName"><span>${prdVO.prdName}</span> <span>사이즈 ' + size.value + '</span></div>' +
+                    '<button class="decrease-btn" onclick="decreaseQuantity(\'' + size.value + '\'); totalPrice();">-</button>' +
+                    '<input class="qnt_numb" id="quantity_' + size.value + '" type="text" value="1" disabled>' +
+                    '<button class="increase-btn" onclick="increaseQuantity(\'' + size.value + '\'); totalPrice();">+</button>' +
+                    '<div class="selec_PrdPrice">' +
+                    '<span id="price_' + size.value + '">' + formattedPrice + '원</span>' +
+                    '<label for="size' + size.value + '">' +
+                    '<div class="x-btn, xi-close" ></div>' +
+                    '</label>' +
+                    '</div>';
                     sizeSelected.appendChild(li);
                 });
                 totalPrice();
-                }else if( selectedSizes.length >=4 ){
-                    alert("사이즈는 최대 3개까지 선택 가능합니다.");
-                    $(obj).prop("checked",false);
-                }
+            } else if (selectedSizes.length >= 4) {
+                alert("사이즈는 최대 3개까지 선택 가능합니다.");
+                $(obj).prop("checked",false);
             }
+        }
 
-            function increaseQuantity(size) {
-                const quantityInput = document.getElementById(`quantity_${size}`);
-                let quantity = parseInt(quantityInput.value);
-                quantity++;
+        function increaseQuantity(size) {
+            const quantityInput = document.getElementById('quantity_' + size);
+            let quantity = parseInt(quantityInput.value);
+            quantity++;
+            quantityInput.value = quantity;
+            totalPrice();
+            sizePrice(quantity, size);
+        }
+
+        function decreaseQuantity(size) {
+            const quantityInput = document.getElementById('quantity_' + size);
+            let quantity = parseInt(quantityInput.value);
+            if (quantity > 1) {
+                quantity--;
                 quantityInput.value = quantity;
                 totalPrice();
                 sizePrice(quantity, size);
-                }
-
-            function decreaseQuantity(size) {
-                const quantityInput = document.getElementById(`quantity_${size}`);
-                let quantity = parseInt(quantityInput.value);
-                if (quantity > 1) {
-                    quantity--;
-                    quantityInput.value = quantity;
-                totalPrice();
-                sizePrice(quantity, size);
-                }
             }
+        }
 
-            function sizePrice(quantity, size) {   
-                const price = parseInt(document.getElementById('prd_price').textContent);
-                sizeQntPrice = (price * quantity).toLocaleString();
-                document.querySelector(`#price_${size}`).textContent = `${sizeQntPrice}원`;
+        function sizePrice(quantity, size) {   
+            const price = ${prdVO.prdPrice};
+            const sizeQntPrice = (price * quantity).toLocaleString();
+            document.querySelector('#price_' + size).textContent = sizeQntPrice + '원';
+        }
+               
+        function totalPrice() {
+            const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
+            if (selectedSizes.length !== 0) {
+                let total = 0;
+                selectedSizes.forEach(function(size) {
+                    const quantityInput = document.getElementById('quantity_' + size.value);
+                    const quantity = parseInt(quantityInput.value);
+                    const price = ${prdVO.prdPrice};
+                    total += quantity * price;
+                });
+                const formattedPrice = '총 금액 : ' + total.toLocaleString() + ' 원';
+                document.querySelector('.total_price').textContent = formattedPrice;             
+            } else {
+                document.querySelector('.total_price').textContent = '';
             }
-           
-
-            function totalPrice() {
-                const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
-                    if(  selectedSizes.length !=0 ){
-                        let total = 0;
-                        selectedSizes.forEach(function(size) {
-                        const quantityInput = document.getElementById(`quantity_${size.value}`);
-                        const quantity = parseInt(quantityInput.value);
-                        const price = parseInt(document.getElementById('prd_price').textContent);
-                        total += quantity * price;
-                        const formattedPrice ='총 금액 : '+ total.toLocaleString()+' 원';
-                        document.querySelector('.total_price').textContent = formattedPrice;             
-                    });
-                    }else{
-                        document.querySelector('.total_price').textContent = '';
-                    }
-            }
+        }
+            
+            
             var bigimg = document.querySelector(".big_img");
             
             function chgimg(element){
