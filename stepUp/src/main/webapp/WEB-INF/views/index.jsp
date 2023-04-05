@@ -127,7 +127,7 @@
                         <!-- Slides -->
                         <c:forEach var="newPrd" items="${newProduct}">
                         <div class="swiper-slide">
-                            <a href="#">
+                            <a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${newPrd.prdIndex}">
                                 <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${newPrd.prdRname})"></p></div>
                                 <P class="cnt_brand"><span>
                                 <c:set var="newBrandCode" value="${fn:substring(newPrd.prdCode,0,2)}"/>
