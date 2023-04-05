@@ -55,9 +55,9 @@ public class ProductController {
 		String uploadSubFolder = rootPath+"resources/prdsubimg";
 		List<MultipartFile> subFileList =  subFile.getFiles("subFile");
 		
-		System.out.println("ÆĞ½º°æ·Î"+uploadMainFolder);
+		System.out.println("ï¿½Ğ½ï¿½ï¿½ï¿½ï¿½"+uploadMainFolder);
 		
-		File mainDir = new File(uploadMainFolder);//À§Ä¡ Æú´õ°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+		File mainDir = new File(uploadMainFolder);//ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		File subDir = new File(uploadSubFolder);
 		if(!mainDir.exists()) {
 			mainDir.mkdirs();
@@ -67,17 +67,17 @@ public class ProductController {
 		}
 		
 		
-		String prdOname = mainFile.getOriginalFilename();		//¿øº» ÆÄÀÏÀÌ¸§
-		String prdRname = System.currentTimeMillis()+"_"+prdOname;//ÀúÀå¿ë ÆÄÀÏÀÌ¸§
+		String prdOname = mainFile.getOriginalFilename();		//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+		String prdRname = System.currentTimeMillis()+"_"+prdOname;//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 		prdRname = new String(prdRname.getBytes("utf-8"),"8859_1");
-		mainFile.transferTo(new File(uploadMainFolder, prdRname));//»õ·Î¿î ÆÄÀÏÀÌ¸§À¸·Î ÀúÀå
+		mainFile.transferTo(new File(uploadMainFolder, prdRname));//ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		vo.setPrdOname(prdOname);
 		vo.setPrdRname(prdRname);
 		productService.insertProduct(vo);
 		int prdIndex = vo.getPrdIndex();
 		
 
-		for(MultipartFile sub : subFileList) {//¼­ºê ÀÌ¹ÌÁö ÀúÀå
+		for(MultipartFile sub : subFileList) {//ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			String prdImgOname = sub.getOriginalFilename();
 			String prdImgRname = System.currentTimeMillis() + "_" + prdImgOname;
 			prdImgRname = new String(prdImgRname.getBytes("utf-8"),"8859_1");
@@ -89,7 +89,7 @@ public class ProductController {
 		}
 		
 		
-		for(int i = 0; i < sizeKind.length; i++) {//»óÇ° »çÀÌÁîº° Á¦°í ÀúÀå
+		for(int i = 0; i < sizeKind.length; i++) {//ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½îº° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			SizeVO sizeVO = new SizeVO();
 			String sizekind = sizeKind[i];
 			int sizestock = sizeStock[i];
@@ -117,5 +117,17 @@ public class ProductController {
 		}
 		
 		return "redirect:/product/test.do";
+	}
+	
+	@RequestMapping(value="/view.do", method = RequestMethod.GET)
+	public String view(int prdIndex, Model model) {
+		ProductVO prdVO = productService.selectProductIndex(prdIndex);
+		List<ProductImgVO> prdImgVO = producImgService.selectByProductIndex(prdIndex);
+		if(prdVO != null) {
+			model.addAttribute("prdVO", prdVO);//ìƒí’ˆ ì •ë³´
+			model.addAttribute("prdImgVO", prdImgVO);//ìƒí’ˆ ì„œë¸Œ ì´ë¯¸ì§€
+		}
+		
+		return "product/product_view";
 	}
 }

@@ -23,7 +23,9 @@
   	</select>
   	
   	<select id="selectProductSales" resultType="productVO" parameterType="int">
-  	SELECT product_tb.prdIndex, prdCode, prdName, prdPrice, prdRname, ifnull(sum(orderTotalPrice),0) as prdSales FROM product_tb left join order_tb on product_tb.prdIndex = order_tb.prdIndex
-	GROUP BY prdIndex ORDER BY prdSales DESC limit 0, #{maxPrd};
+  	SELECT p.prdIndex, p.prdCode, p.prdName, p.prdPrice, p.prdRname, COALESCE(SUM(o.orderItemStock), 0) as prdSales 
+  	FROM product_tb p left join Size_Tb s on p.prdIndex = s.prdIndex
+  	left join Order_Item_Tb o ON s.sizeIndex = o.sizeIndex
+	GROUP BY p.prdIndex, p.prdName ORDER BY prdSales DESC limit 0, #{maxPrd};
   	</select>
   </mapper>

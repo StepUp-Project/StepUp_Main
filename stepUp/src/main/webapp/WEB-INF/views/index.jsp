@@ -191,7 +191,7 @@
 	                                    <span>${rank}</span>
 	                                </div>
 	                                <c:set var="rank" value="${rank+1}"/>
-	                                <a href="#">
+	                                <a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${bestPrd.prdIndex}">
 	                                <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${bestPrd.prdRname})"></div></p>
 	                                    <P class="cnt_brand"><span>
 		                                <c:choose>

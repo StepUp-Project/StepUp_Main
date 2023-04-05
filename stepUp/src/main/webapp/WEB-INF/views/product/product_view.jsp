@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>        
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,18 +81,31 @@
       <article id="prd_view"><!-- 상품 사진 + 선택 영역-->
         <div id="prd_pic">
             <ul>
-                <li class="small_img" style="background-image:url(../image/product/NK01020/NK01020-side.jpg)"></li>
-                <li class="small_img" style="background-image:url(../image/product/NK01020/NK01020-up.jpg)"></li>
-                <li class="small_img" style="background-image:url(../image/product/NK01020/NK01020-back.jpg)"></li>
+                <li class="small_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${prdVO.prdRname})"></li>
+                <c:forEach var="subImg" items="${prdImgVO}">
+                	<li class="small_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdsubimg/${subImg.prdImgRname})"></li>
+                </c:forEach>       
             </ul>
-            <div class="big_img" style="background-image:url(../image/product/NK01020/NK01020-side.jpg)"></div>
+            <div class="big_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${prdVO.prdRname}"></div>
         </div>
         <div id="prd_select">
            <ul id="prd_info">
-                <li id="prd_brand"><span>NIKE</span></li>
-                <li id="prd_name"><span>레볼루션6 넥스트 네이처</span><span>♥</span></li>
-                <li id="prd_code"><span>상품코드: NK445484</span></li>
-                <li id="prd_price">150000</li>
+                <li id="prd_brand"><span>
+	               <c:set var="BrandCode" value="${fn:substring(prdVO.prdCode,0,2)}"/>
+	               <c:choose>
+		               	<c:when test='${BrandCode eq "NK"}'>나이키</c:when>
+		               	<c:when test='${BrandCode eq "AD"}'>아디다스</c:when>
+		               	<c:when test='${BrandCode eq "VS"}'>반스</c:when>
+		               	<c:when test='${BrandCode eq "CV"}'>컨버스</c:when>
+		               	<c:when test='${BrandCode eq "PM"}'>퓨마</c:when>
+		               	<c:when test='${BrandCode eq "FL"}'>휠라</c:when>
+		               	<c:when test='${BrandCode eq "CR"}'>크록스</c:when>
+		               	<c:when test='${BrandCode eq "NB"}'>뉴발란스</c:when>
+	               </c:choose>                
+                </span></li>
+                <li id="prd_name"><span>${prdVO.prdName}</span><span>♥</span></li>
+                <li id="prd_code"><span>상품코드:${prdVO.prdCode}</span></li>
+                <li id="prd_price"><fmt:formatNumber value="${prdVO.prdPrice}" pattern="#,###"/>원</li>
            </ul>
            <div id="size_ttl">사이즈</div>
            <ul  id="select_box">
@@ -300,7 +316,45 @@
                 </li>
             </ul>
         </article> 
-
+	</main>
+    <footer class="d-flex justify-content-between pt-2"> <!-- 하단 시작-->
+        <div class="d-flex justify-content-between pt-3, footinfo"> <!-- 회사 정보 -->
+            <ul>
+                <li>(주)스텝업 / 대표자: 이상훈, 곽진훈, 조범준 / 사업장소재지 : 전라북도 전주시 덕진구 백제대로 572 5층</li>
+                <li>사업자등록번호 : 257-67-74617 / 통신판매업 신고번호: 제2022-2875호</li>
+                <li>이메일: service@kickshub.com / 개인정보관리책임자 : 배유진</li>
+                <li></li>
+                <li>Copyright Ⓒ kickshub All rights reserved,</li>
+            </ul>
+            <ul>
+                <li>고객센터 : 1660-2875</li>
+                <li>운영시간 : 10:00 ~ 17:00 (주말/공휴일 휴무)</li>
+                <li>점심시간 : 11:50 ~ 13:00</li>
+                <li>반품주소 : 전라북도 전주시 덕진구 백제대로 572 5층</li>
+                <li></li>
+            </ul>
+            <ul>
+                <li><a href="#">회사소개</a></li>
+                <li><a href="#">공지사항</a></li>
+                <li><a href="#">QnA</a></li>
+                <li><a href="#">운영정책관리자</a></li>
+                <li></li>
+            </ul>
+        </div> <!-- 회사 정보 끝 -->
+        <div id="footlogosns"> <!--로고 및 sns 연결 시작-->
+            <h1 id="footlogo"><a href="#">
+                <span>kickshub</span>
+            </a></h1>
+            <ul id="footsns" class="d-flex justify-content-between "> <!--SNS 링크 부분-->
+                <li id="sns_fb"><a href="#"><span>facebook</span></a></li>
+                <li id="sns_tw"><a href="#"><span>twitter</span></a></li>
+                <li id="sns_ist"><a href="#"><span>instagram</span></a></li>
+                <li id="sns_ytb"><a href="#"><span>Youtube</span></a></li>
+            </ul>
+        </div> <!--로고 및 sns 연결 끝-->
+    </footer> <!-- 하단 끝-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
+    <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
         <script>
             function updateSizeSelected(obj) { 
                 const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
@@ -377,46 +431,12 @@
                         document.querySelector('.total_price').textContent = '';
                     }
             }
+            var bigimg = document.querySelector(".big_img");
+            
+            function chgimg(element){
+              var newimg = element.style.backgroundImage;
+              bigimg.style.backgroundImage = newimg;
+            }
             </script>
-
-	</main>
-    <footer class="d-flex justify-content-between pt-2"> <!-- 하단 시작-->
-        <div class="d-flex justify-content-between pt-3, footinfo"> <!-- 회사 정보 -->
-            <ul>
-                <li>(주)스텝업 / 대표자: 이상훈, 곽진훈, 조범준 / 사업장소재지 : 전라북도 전주시 덕진구 백제대로 572 5층</li>
-                <li>사업자등록번호 : 257-67-74617 / 통신판매업 신고번호: 제2022-2875호</li>
-                <li>이메일: service@kickshub.com / 개인정보관리책임자 : 배유진</li>
-                <li></li>
-                <li>Copyright Ⓒ kickshub All rights reserved,</li>
-            </ul>
-            <ul>
-                <li>고객센터 : 1660-2875</li>
-                <li>운영시간 : 10:00 ~ 17:00 (주말/공휴일 휴무)</li>
-                <li>점심시간 : 11:50 ~ 13:00</li>
-                <li>반품주소 : 전라북도 전주시 덕진구 백제대로 572 5층</li>
-                <li></li>
-            </ul>
-            <ul>
-                <li><a href="#">회사소개</a></li>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">QnA</a></li>
-                <li><a href="#">운영정책관리자</a></li>
-                <li></li>
-            </ul>
-        </div> <!-- 회사 정보 끝 -->
-        <div id="footlogosns"> <!--로고 및 sns 연결 시작-->
-            <h1 id="footlogo"><a href="#">
-                <span>kickshub</span>
-            </a></h1>
-            <ul id="footsns" class="d-flex justify-content-between "> <!--SNS 링크 부분-->
-                <li id="sns_fb"><a href="#"><span>facebook</span></a></li>
-                <li id="sns_tw"><a href="#"><span>twitter</span></a></li>
-                <li id="sns_ist"><a href="#"><span>instagram</span></a></li>
-                <li id="sns_ytb"><a href="#"><span>Youtube</span></a></li>
-            </ul>
-        </div> <!--로고 및 sns 연결 끝-->
-    </footer> <!-- 하단 끝-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
-    <script src="../JS/script.js"></script><!-- 자바 스크립트 연결 -->
 </body>
 </html>

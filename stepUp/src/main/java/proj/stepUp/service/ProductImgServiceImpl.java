@@ -1,5 +1,7 @@
 package proj.stepUp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,13 @@ public class ProductImgServiceImpl implements ProductImgService{
 	private ProductImgDAO productImgDAO;
 	
 	@Override
-	public int insertProductImg(ProductImgVO vo) {
-		// TODO Auto-generated method stub
+	public int insertProductImg(ProductImgVO vo) {//이미지 insert
 		return productImgDAO.insertProductImg(vo);
+	}
+
+	@Override
+	public List<ProductImgVO> selectByProductIndex(int prdIndex) {//상품 인덱스로 검색
+		return productImgDAO.selectByProductIndex(prdIndex);
 	}
 
 }
