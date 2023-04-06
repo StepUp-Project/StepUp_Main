@@ -445,11 +445,11 @@
 	    
 	    function inputCart(){
 	    	let userIndex =  "<c:out value='${login.userIndex}'/>";
-	    	let sizeIndex = {};
-	    	let sizeStock = {};
+	    	let sizeIndex = [];
+	    	let sizeStock = [];
 	    	const sIndex = document.querySelectorAll("input#sizeIndex");
 	    	sIndex.forEach(function(sIndex) {
-	    		sizeIndex[sIndex.value] = sIndex.checked;
+	    		sizeIndex.push(sIndex.value);
 	    	});
 	    	
 	    	const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
@@ -457,15 +457,20 @@
 		    	selectedSizes.forEach(function(size){
 		    	const sStock = document.querySelectorAll("input#quantity_"+size.value);	
 			    	sStock.forEach(function(sStock){
-			    		sizeStock[size.value] = sStock.value;
+			    		sizeStock.push(sStock.value);
 			    	});
-		    	
+		    		
 		    	});
 	    	}
 			$.ajax({
 				url:"<%=request.getContextPath()%>/ajax/inputCart.do",
 				type:"post",
-				data:{sizeIndex : sizeIndex, sizeStock : sizeStock, userIndex : userIndex},
+				traditional : true,
+				data:{
+					sizeIndex : sizeIndex,
+					sizeStock : sizeStock,
+					userIndex : userIndex
+				},
 				success:function(){
 					
 				}

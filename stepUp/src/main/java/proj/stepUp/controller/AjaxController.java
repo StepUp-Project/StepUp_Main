@@ -3,8 +3,6 @@ package proj.stepUp.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
 
+import proj.stepUp.service.CartService;
 import proj.stepUp.service.MarkService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.NaverSMS;
+import proj.stepUp.vo.CartVO;
 import proj.stepUp.vo.MarkVO;
 
 @RequestMapping(value="/ajax")
@@ -36,6 +36,9 @@ public class AjaxController {
 	
 	@Autowired
 	private MarkService markService;
+	
+	@Autowired
+	private CartService cartService;
 	
 	@ResponseBody
 	@RequestMapping(value="/checkId.do", method = RequestMethod.POST)
@@ -140,9 +143,22 @@ public class AjaxController {
 		
 		@ResponseBody
 		@RequestMapping(value="/inputCart.do", method = RequestMethod.POST)
-		public String inputCart(@RequestParam Map<String, String> params){	//cart 데이터 넘기는중
-			System.out.println("에이작스 카트"+params.get("sizeIndex"));
-			System.out.println("에이작스 카트"+params.get("sizeStock"));
-			return "";
+		public String inputCart(String[] sizeIndex, String[] sizeStock, CartVO vo){	//cart 데이터 넘기는중
+			try {
+				for(int i = 0; i < sizeIndex.length; i++) {
+					int size = Integer.parseInt(sizeIndex[i]);
+					int stock =Integer.parseInt(sizeStock[i]);				
+					vo.setSizeIndex(size);
+					vo.setCartStock(stock);
+					int result = cartService.insertCart(vo);
+					if(result != 1) {
+						return "0";
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return "1";
 		}			
 }
