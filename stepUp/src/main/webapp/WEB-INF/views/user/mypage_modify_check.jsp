@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
 </head>
 <body>
-    <header id="header"><!--헤더 시작-->
+   <header id="header"><!--헤더 시작-->
         <div class="d-flex justify-content-between pt-5">
             <div class="p-2 logo-wrap" ><!-- 로고 영역 시작-->
                 <h1 class="logo">
@@ -70,7 +70,7 @@
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
-        </div>
+    	</div>
     </header><!--헤더 끝--> 
     <main><!--메인 시작-->
         <div class="mypagemain">
