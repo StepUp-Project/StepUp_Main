@@ -1,5 +1,7 @@
 package proj.stepUp.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,5 +16,9 @@ public class SizeDAO {
 	
 	public int insertSize(SizeVO vo) {
 		return sqlSession.insert("proj.stepUp.mapper.sizeMapper.insertSize", vo);
+	}
+	
+	public List<SizeVO> selectByPrdIndex(int prdIndex) {
+		return sqlSession.selectList("proj.stepUp.mapper.sizeMapper.selectByPrdIndex", prdIndex);
 	}
 }

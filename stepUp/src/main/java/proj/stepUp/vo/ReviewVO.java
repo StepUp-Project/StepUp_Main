@@ -7,8 +7,14 @@ public class ReviewVO {
 	private int reviewScore;
 	private int userIndex;
 	private int prdIndex;
-	
-	
+	private String userNick;
+			
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
 	public int getReviewIndex() {
 		return reviewIndex;
 	}

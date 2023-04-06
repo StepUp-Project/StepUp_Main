@@ -103,65 +103,38 @@
 		               	<c:when test='${BrandCode eq "NB"}'>뉴발란스</c:when>
 	               </c:choose>                
                 </span></li>
-                <li id="prd_name"><span>${prdVO.prdName}</span><span>♥</span></li>
+                <li id="prd_name">
+                <span>${prdVO.prdName}</span>
+                <c:if test="${not empty login}">     
+	                <c:choose>
+		                <c:when test="${not empty markResult}">
+		                	<span class="xi-heart" id="mark">
+		                </c:when>
+		     			<c:otherwise>
+		     				<span class="xi-heart-o" id="mark">
+		     			</c:otherwise>
+	                </c:choose>
+                </c:if>
+                </li>
                 <li id="prd_code"><span>상품코드:${prdVO.prdCode}</span></li>
                 <li id="prd_price"><fmt:formatNumber value="${prdVO.prdPrice}" pattern="#,###"/>원</li>
            </ul>
            <div id="size_ttl">사이즈</div>
            <ul  id="select_box">
-                <li class="select_size">
-                    <input type="checkbox" name="size" value="210" id="size210" onclick="updateSizeSelected(this)">
-                    <label for="size210">
-                        <span>210</span>
-                    </label>
-                </li>
-                <li class="select_size">
-                    <input type="checkbox" name="size" value="220" id="size220" onclick="updateSizeSelected(this)">
-                    <label for="size220">
-                        <span>220</span>
-                    </label>
-                </li>
-                <li class="select_size">
-                    <input type="checkbox" name="size" value="230" id="size230" onclick="updateSizeSelected(this)">
-                    <label for="size230">
-                        <span>230</span>
-                    </label>
-                </li>
-                <li class="select_size">
-                    <input type="checkbox" name="size" value="240" id="size240" onclick="updateSizeSelected(this)">
-                    <label for="size240">
-                        <span>240</span>
-                    </label>
-                </li>
-                <li class="select_size">
-                    <input type="checkbox" name="size" value="250" id="size250" onclick="updateSizeSelected(this)">
-                    <label for="size250">
-                        <span>250</span>
-                    </label>
-                </li>
-                <li class="select_size">
-                    <input type="checkbox" name="size" value="260" id="size260" onclick="updateSizeSelected(this)">
-                    <label for="size260">
-                        <span>260</span>
-                    </label>
-                </li>
-                <li class="select_size">
-                    <input type="checkbox" name="size" value="270" id="size270" onclick="updateSizeSelected(this)">
-                    <label for="size270">
-                        <span>270</span>
-                    </label>
-                </li>
-                <li class="select_size">
-                    <input type="checkbox" name="size" value="280" id="size280"  onclick="updateSizeSelected(this)">
-                    <label for="size280">
-                        <span>280</span>
-                    </label>
-                </li>
+           		<c:forEach var="sizeList" items="${sizeVO}">
+	                <li class="select_size">
+	                    <input type="checkbox" name="size" value="${sizeList.sizeKind}" id="size${sizeList.sizeKind}" onclick="updateSizeSelected(this)">
+	                    <input type="hidden" name="sizeNum" id="sizeNum" value="${sizeList.sizeIndex}" />
+	                    <label for="size${sizeList.sizeKind}">
+	                        <span>${sizeList.sizeKind}</span>
+	                    </label>
+	                </li>           		
+           		</c:forEach>
            </ul>
-           <ul class="size_selected" id="prdSizeArea">
-           </ul>
+	           <ul class="size_selected" id="prdSizeArea">
+	           </ul>
            <div class="total_price"></div>
-           <button id="cart_btn">장바구니</button>
+           <button id="cart_btn" onclick="inputCart()">장바구니</button>
            <button id="buy_btn">바로구매</button>
         </article>
         <article id="info_link"> <!--상품 관련 링크 탭-->
@@ -264,51 +237,56 @@
         <article id="prdinfo_tap4"><!--상품평-->
             <div id="review_write">
                 <p id="review_formTtl">상품평(작성된 상품평의 갯수)</p>
-                <div>
-                    <form name="reviewFrm" action="<%=request.getContextPath()%>/review/insert.do" method="post">
-                    	<input type="hidden" name="userIndex" value="${login.userIndex}"/>
-                    	<input type="hidden" name="prdIndex" value="${prdVO.prdIndex}"/>
-                        <textarea id="review_writeCnt" name="reviewContent" placeholder="상품평을 남겨주세요"></textarea>
-                        <div id="rating_ctn">
-                            <span>별점을 남겨주세요</span>
-                            <div class="star-rating">
-                                <input type="radio" id="5-stars" name="reviewScore" value="5" />
-                                <label for="5-stars" class="star">&#9733;</label>
-                                <input type="radio" id="4-stars" name="reviewScore" value="4" />
-                                <label for="4-stars" class="star">&#9733;</label>
-                                <input type="radio" id="3-stars" name="reviewScore" value="3" />
-                                <label for="3-stars" class="star">&#9733;</label>
-                                <input type="radio" id="2-stars" name="reviewScore" value="2" />
-                                <label for="2-stars" class="star">&#9733;</label>
-                                <input type="radio" id="1-star" name="reviewScore" value="1" />
-                                <label for="1-star" class="star">&#9733;</label>
-                            </div>
-                            <button>등록</button>
-                        </div>
-                    </form>
-                </div>
+                <c:if test="${not empty login}">
+	                <div>
+	                    <form name="reviewFrm" action="<%=request.getContextPath()%>/review/insert.do" method="post">
+	                    	<input type="hidden" name="userIndex" value="${login.userIndex}"/>
+	                    	<input type="hidden" name="prdIndex" value="${prdVO.prdIndex}"/>
+	                        <textarea id="review_writeCnt" name="reviewContent" placeholder="상품평을 남겨주세요"></textarea>
+	                        <div id="rating_ctn">
+	                            <span>별점을 남겨주세요</span>
+	                            <div class="star-rating">
+	                                <input type="radio" id="5-stars" name="reviewScore" value="5" />
+	                                <label for="5-stars" class="star">&#9733;</label>
+	                                <input type="radio" id="4-stars" name="reviewScore" value="4" />
+	                                <label for="4-stars" class="star">&#9733;</label>
+	                                <input type="radio" id="3-stars" name="reviewScore" value="3" />
+	                                <label for="3-stars" class="star">&#9733;</label>
+	                                <input type="radio" id="2-stars" name="reviewScore" value="2" />
+	                                <label for="2-stars" class="star">&#9733;</label>
+	                                <input type="radio" id="1-star" name="reviewScore" value="1" />
+	                                <label for="1-star" class="star">&#9733;</label>
+	                            </div>
+	                            <button>등록</button>
+	                        </div>
+	                    </form>
+	                </div>
+                </c:if>
             </div> 
-            <ul id="review_ctn">
-                <li><!-- 리뷰 보여주는 곳 -->
-                    <div class="review_winfo">
-                        <span class="review_star">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="review_writer">작성자</span>
-                        <span class="review_wdate">2023.03.17</span>
-                        <input class="review_del"  type="button" value="삭제">
-                        <input class="review_edit"  type="button" value="수정">
-                    </div>
-                    <div class="review_note">리뷰 작성 내용</div>
-                </li>
-                <li>
-                    <div class="review_winfo">
-                        <span class="review_star">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="review_writer">작성자</span>
-                        <span class="review_wdate">2023.03.17</span>
-                        <input class="review_del"  type="button" value="삭제">
-                        <input class="review_edit"  type="button" value="수정">
-                    </div>
-                    <div class="review_note">리뷰 작성 내용</div>
-                </li>
+            <ul id="review_ctn"><!-- 리뷰 보여주는 곳 -->
+            	<c:forEach var="reviewList" items="${reviewVO}">
+	                <li>
+	                    <div class="review_winfo">
+	                        <span class="review_star">
+		                        <c:set var="star" value="&#9733;"/>
+		                        <c:forEach var="printDstar" begin="1" end="${reviewList.reviewScore}" step="1">
+		                        	&#9733;
+		                        </c:forEach>
+								<c:forEach var="printWstar" begin="1" end="${5 - reviewList.reviewScore}" step="1">
+		                        	&#9734;
+		                        </c:forEach>	      
+	                        </span>
+	                        <span class="review_writer">${reviewList.userNick}</span>
+	                        <span class="review_wdate">
+	                        	<fmt:parseDate value="${reviewList.reviewDate}" var="reviewDateFmt" pattern="yyyy-MM-dd HH:mm:ss"/>
+	                    		<fmt:formatDate value="${reviewDateFmt}" type="date" pattern="yyy-MM-dd"/>
+	                        </span>
+	                        <input class="review_del"  type="button" value="삭제">
+	                        <input class="review_edit"  type="button" value="수정">
+	                    </div>
+	                    <div class="review_note">${reviewList.reviewContent}</div>
+	                </li>
+                </c:forEach>
             </ul>
             <ul id="reeview_page">
                 <li>
@@ -355,86 +333,144 @@
     </footer> <!-- 하단 끝-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
     <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
-        <script>
-        function updateSizeSelected(obj) { 
-            const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
-            console.log(selectedSizes.length);
-            if ( selectedSizes.length <=3 ){
-                const sizeSelected = document.querySelector('.size_selected');
-                sizeSelected.innerHTML = '';
-                selectedSizes.forEach(function(size) {
-                    const price = ${prdVO.prdPrice};
-                    const formattedPrice = price.toLocaleString();
-                    const li = document.createElement('li');
-                    li.innerHTML = '<div class="select_prdName"><span>${prdVO.prdName}</span> <span>사이즈 ' + size.value + '</span></div>' +
-                    '<button class="decrease-btn" onclick="decreaseQuantity(\'' + size.value + '\'); totalPrice();">-</button>' +
-                    '<input class="qnt_numb" id="quantity_' + size.value + '" type="text" value="1" disabled>' +
-                    '<button class="increase-btn" onclick="increaseQuantity(\'' + size.value + '\'); totalPrice();">+</button>' +
-                    '<div class="selec_PrdPrice">' +
-                    '<span id="price_' + size.value + '">' + formattedPrice + '원</span>' +
-                    '<label for="size' + size.value + '">' +
-                    '<div class="x-btn, xi-close" ></div>' +
-                    '</label>' +
-                    '</div>';
-                    sizeSelected.appendChild(li);
-                });
-                totalPrice();
-            } else if (selectedSizes.length >= 4) {
-                alert("사이즈는 최대 3개까지 선택 가능합니다.");
-                $(obj).prop("checked",false);
-            }
-        }
-
-        function increaseQuantity(size) {
-            const quantityInput = document.getElementById('quantity_' + size);
-            let quantity = parseInt(quantityInput.value);
-            quantity++;
-            quantityInput.value = quantity;
-            totalPrice();
-            sizePrice(quantity, size);
-        }
-
-        function decreaseQuantity(size) {
-            const quantityInput = document.getElementById('quantity_' + size);
-            let quantity = parseInt(quantityInput.value);
-            if (quantity > 1) {
-                quantity--;
-                quantityInput.value = quantity;
-                totalPrice();
-                sizePrice(quantity, size);
-            }
-        }
-
-        function sizePrice(quantity, size) {   
-            const price = ${prdVO.prdPrice};
-            const sizeQntPrice = (price * quantity).toLocaleString();
-            document.querySelector('#price_' + size).textContent = sizeQntPrice + '원';
-        }
-               
-        function totalPrice() {
-            const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
-            if (selectedSizes.length !== 0) {
-                let total = 0;
-                selectedSizes.forEach(function(size) {
-                    const quantityInput = document.getElementById('quantity_' + size.value);
-                    const quantity = parseInt(quantityInput.value);
-                    const price = ${prdVO.prdPrice};
-                    total += quantity * price;
-                });
-                const formattedPrice = '총 금액 : ' + total.toLocaleString() + ' 원';
-                document.querySelector('.total_price').textContent = formattedPrice;             
-            } else {
-                document.querySelector('.total_price').textContent = '';
-            }
-        }
-            
-            
-            var bigimg = document.querySelector(".big_img");
-            
-            function chgimg(element){
-              var newimg = element.style.backgroundImage;
-              bigimg.style.backgroundImage = newimg;
-            }
-            </script>
+	<script>
+		function updateSizeSelected(obj) { 
+		    const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
+		    console.log(selectedSizes.length);
+		    if ( selectedSizes.length <=3 ){
+		        const sizeSelected = document.querySelector('.size_selected');
+		        sizeSelected.innerHTML = '';
+		        selectedSizes.forEach(function(size) {
+		            const price = ${prdVO.prdPrice};
+		            const formattedPrice = price.toLocaleString();
+		            const li = document.createElement('li');
+		            const sizeIndex = size.nextElementSibling;
+		            li.innerHTML = '<div class="select_prdName"><span>${prdVO.prdName}</span> <span>사이즈 ' + size.value + '</span></div>' +
+		            '<input type="hidden" id="sizeIndex" value="'+sizeIndex.value+'" name="sizeIndex">'+
+		            '<button class="decrease-btn" onclick="decreaseQuantity(\'' + size.value + '\'); totalPrice();">-</button>' +
+		            '<input class="qnt_numb" name="cartStock"  id="quantity_' + size.value + '" type="text" value="1" disabled>' +
+		            '<button class="increase-btn" onclick="increaseQuantity(\'' + size.value + '\'); totalPrice();">+</button>' +
+		            '<div class="selec_PrdPrice">' +
+		            '<span id="price_' + size.value + '">' + formattedPrice + '원</span>' +
+		            '<label for="size' + size.value + '">' +
+		            '<div class="x-btn, xi-close" ></div>' +
+		            '</label>' +
+		            '</div>';
+		            sizeSelected.appendChild(li);
+		        });
+		        totalPrice();
+		    } else if (selectedSizes.length >= 4) {
+		        alert("사이즈는 최대 3개까지 선택 가능합니다.");
+		        $(obj).prop("checked",false);
+		    }
+		}
+		
+		function increaseQuantity(size) {
+		    const quantityInput = document.getElementById('quantity_' + size);
+		    let quantity = parseInt(quantityInput.value);
+		    quantity++;
+		    quantityInput.value = quantity;
+		    totalPrice();
+		    sizePrice(quantity, size);
+		}
+		
+		function decreaseQuantity(size) {
+		    const quantityInput = document.getElementById('quantity_' + size);
+		    let quantity = parseInt(quantityInput.value);
+		    if (quantity > 1) {
+		        quantity--;
+		        quantityInput.value = quantity;
+		        totalPrice();
+		        sizePrice(quantity, size);
+		    }
+		}
+		
+		function sizePrice(quantity, size) {   
+		    const price = ${prdVO.prdPrice};
+		    const sizeQntPrice = (price * quantity).toLocaleString();
+		    document.querySelector('#price_' + size).textContent = sizeQntPrice + '원';
+		}
+		       
+		function totalPrice() {
+		    const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
+		    if (selectedSizes.length !== 0) {
+		        let total = 0;
+		        selectedSizes.forEach(function(size) {
+		            const quantityInput = document.getElementById('quantity_' + size.value);
+		            const quantity = parseInt(quantityInput.value);
+		            const price = ${prdVO.prdPrice};
+		            total += quantity * price;
+		        });
+		        const formattedPrice = '총 금액 : ' + total.toLocaleString() + ' 원';
+		        document.querySelector('.total_price').textContent = formattedPrice;             
+		    } else {
+		        document.querySelector('.total_price').textContent = '';
+		    }
+		}
+		    
+		    
+	    var bigimg = document.querySelector(".big_img");
+	    
+	    function chgimg(element){
+	      var newimg = element.style.backgroundImage;
+	      bigimg.style.backgroundImage = newimg;
+	    } 
+	    
+		
+	    //찜버튼 변경 스크립트
+	    $("#mark").click(function(){
+	    	let userIndex = "<c:out value='${login.userIndex}'/>";
+	    	let prdIndex = "<c:out value='${prdVO.prdIndex}'/>";
+	    	if($("#mark").hasClass("xi-heart-o")){
+	    		$.ajax({
+	    			url:"<%=request.getContextPath()%>/ajax/addMark.do",
+	    			type:"post",
+	    			data:{userIndex : userIndex , prdIndex : prdIndex},
+	    			success : function(){
+	    				$("#mark").attr("class", "xi-heart");
+	    			}
+	    		});
+	    	}else if($("#mark").hasClass("xi-heart")){
+	    		$.ajax({
+	    			url:"<%=request.getContextPath()%>/ajax/removeMark.do",
+	    			type:"post",
+	    			data:{userIndex : userIndex, prdIndex : prdIndex},
+	    			success : function(){
+	    				$("#mark").attr("class", "xi-heart-o");
+	    			}
+	    		});
+	    	}
+			
+	    });
+	    
+	    function inputCart(){
+	    	let userIndex =  "<c:out value='${login.userIndex}'/>";
+	    	let sizeIndex = {};
+	    	let sizeStock = {};
+	    	const sIndex = document.querySelectorAll("input#sizeIndex");
+	    	sIndex.forEach(function(sIndex) {
+	    		sizeIndex[sIndex.value] = sIndex.checked;
+	    	});
+	    	
+	    	const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
+	    	if (selectedSizes.length !== 0) {
+		    	selectedSizes.forEach(function(size){
+		    	const sStock = document.querySelectorAll("input#quantity_"+size.value);	
+			    	sStock.forEach(function(sStock){
+			    		sizeStock[size.value] = sStock.value;
+			    	});
+		    	
+		    	});
+	    	}
+			$.ajax({
+				url:"<%=request.getContextPath()%>/ajax/inputCart.do",
+				type:"post",
+				data:{sizeIndex : sizeIndex, sizeStock : sizeStock, userIndex : userIndex},
+				success:function(){
+					
+				}
+			})
+	    }
+	</script>
 </body>
 </html>

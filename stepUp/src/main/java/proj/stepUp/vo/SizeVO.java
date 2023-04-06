@@ -1,10 +1,17 @@
 package proj.stepUp.vo;
 
 public class SizeVO {
+	private int sizeIndex;
 	private int prdIndex;
 	private String sizeKind;
 	private int sizeStock;
 	
+	public int getSizeIndex() {
+		return sizeIndex;
+	}
+	public void setSizeIndex(int sizeIndex) {
+		this.sizeIndex = sizeIndex;
+	}
 	public int getPrdIndex() {
 		return prdIndex;
 	}
