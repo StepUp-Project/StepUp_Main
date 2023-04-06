@@ -14,6 +14,7 @@
         <typeAlias type="proj.stepUp.vo.ProductImgVO" alias="productimgVO"/>
         <typeAlias type="proj.stepUp.vo.SizeVO" alias="sizeVO"/>
         <typeAlias type="proj.stepUp.vo.ReviewVO" alias="reviewVO"/>
+        <typeAlias type="proj.stepUp.vo.MarkVO" alias="markVO"/>
     </typeAliases>
 
 </configuration>

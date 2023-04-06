@@ -7,4 +7,8 @@
   	<insert id="insertSize" parameterType="sizeVO">
   		insert into size_tb (prdIndex, sizeKind, sizeStock) values(#{prdIndex}, #{sizeKind}, #{sizeStock})
   	</insert>
+  	
+  	<select id="selectByPrdIndex" parameterType="int" resultType="sizeVO">
+  		select * from size_tb where prdIndex = #{prdIndex} order by sizeKind
+  	</select>
   </mapper>

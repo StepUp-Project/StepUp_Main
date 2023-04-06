@@ -3,6 +3,8 @@ package proj.stepUp.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
 
+import proj.stepUp.service.MarkService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.NaverSMS;
+import proj.stepUp.vo.MarkVO;
 
 @RequestMapping(value="/ajax")
 @Controller
@@ -30,6 +34,8 @@ public class AjaxController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private MarkService markService;
 	
 	@ResponseBody
 	@RequestMapping(value="/checkId.do", method = RequestMethod.POST)
@@ -116,5 +122,27 @@ public class AjaxController {
 		String a = jsonObject.toString();
 		return a;
 	}
-
+	
+		@ResponseBody
+		@RequestMapping(value="/addMark.do", method = RequestMethod.POST)
+		public String addMark(MarkVO vo, HttpServletRequest req){	//북마크 등록
+			int result = markService.insertMark(vo);
+			return result+"";
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/removeMark.do", method = RequestMethod.POST)
+		public String removeMark(MarkVO vo, HttpServletRequest req){	//북마크 등록
+			int result = markService.deleteMark(vo);
+			return result+"";
+		}
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/inputCart.do", method = RequestMethod.POST)
+		public String inputCart(@RequestParam Map<String, String> params){	//cart 데이터 넘기는중
+			System.out.println("에이작스 카트"+params.get("sizeIndex"));
+			System.out.println("에이작스 카트"+params.get("sizeStock"));
+			return "";
+		}			
 }
