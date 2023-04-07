@@ -1,7 +1,11 @@
+<%@page import="proj.stepUp.vo.ReVO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%
+	List<ReVO> rList = (List<ReVO>)request.getAttribute("rList");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -98,35 +102,69 @@
         </article>
         <article id=""><!--댓글란-->
             <div id="re_write">
-                <p id="re_formTtl">댓 글(작성된 댓글의 갯수)</p>
+                <p id="re_formTtl"><c:if test="${not empty rList}">댓 글  : ${rList.get(0).total}</c:if>  
                 <div>
-                    <form>
-                        <textarea id="re_writeCnt"  placeholder="댓글을 남겨주세요"></textarea>
+                <c:if test="${not empty login}">
+   	                <form name="refrm" action="re_write.do" method="post">
+                        <textarea id="re_writeCnt" name="reCnt" placeholder="댓글을 남겨주세요"></textarea>
+                        <input name="userIndex" value="${login.userIndex}"	type="hidden">
+                        <input name="freeIndex" value="${vo.freeIndex}"		type="hidden">
                         <div id="re_btn">
                             <button>등록</button>
                         </div>
                     </form>
+                </c:if>
                 </div>
             </div> 
             <ul id="re_ctn">
-                <li><!-- 작성된 댓글 보여주는 곳 -->
-                    <div class="re_winfo">
-                        <span class="re_writer">작성자1111</span>
-                        <span class="re_wdate">2023.03.17</span>
-                        <input class="re_del"  type="button" value="삭제">
-                        <input class="re_edit"  type="button" value="수정">
-                    </div>
-                    <div class="re_note">댓글 작성 내용</div>
-                </li>
-                <li>
-                    <div class="re_winfo">
-                        <span class="re_writer">작성자2222</span>
-                        <span class="re_wdate">2023.03.17</span>
-                        <input class="re_del"  type="button" value="삭제">
-                        <input class="re_edit"  type="button" value="수정">
-                    </div>
-                    <div class="re_note">댓글 작성 내용</div>
-                </li>
+            <c:if test="${not empty rList}">
+	            <c:forEach var="rList" items="${rList}" >
+	                <li><!-- 작성된 댓글 보여주는 곳 -->
+	                    <div class="re_winfo">
+	                        <span class="re_writer">${rList.userNick}</span>
+	                        <span class="re_wdate">${rList.reWdate}</span>
+	                        <c:if test="${login.userIndex eq rList.userIndex}">
+	                        	<form action="re_del.do" method="post" onsubmit="return confirm('삭제하시겠습니까?')">
+	                        		<div></div>
+   									<input type="hidden" name="reIndex" value="${rList.reIndex}">
+   									<input type="hidden" name="freeIndex" value="${rList.freeIndex}">
+   									<input class="re_del" type="submit" value="삭제">
+		                        </form>
+								<input class="re_edit" type="button" value="수정" onclick="openPopup(${rList.reIndex})">
+		                        
+		                        <div id="popup">
+								  <form name="editForm" action="re_edit.do" method="post" onsubmit="return confirm('수정하시겠습니까?')">
+								    <p>댓글 수정</p>
+								    <textarea id="re_editCnt" name="reCnt"></textarea>
+								    <input name="reIndex" value="${rList.reIndex}" type="hidden">
+								    <input class="re_edit" type="submit" value="수정">
+								    <input class="re_edit" type="button" value="취소" onclick="closePopup(${rList.reIndex})">
+								  </form>
+								</div>
+		                        <script>
+									function openPopup(reIndex) {
+									  // 팝업 열기
+									  document.getElementById("popup").style.display = "block";
+									
+									  // 수정할 댓글 내용 가져오기
+									  var reCnt = document.querySelector("li[data-reIndex='" + reIndex + "'] .re_note").innerHTML.trim();
+									  document.getElementById("re_editCnt").value = reCnt;
+									
+									  // 수정할 댓글 인덱스 설정
+									  document.editForm.reIndex.value = reIndex;
+									}
+									
+									function closePopup() {
+									  // 팝업 닫기
+									  document.getElementById("popup").style.display = "none";
+									}
+							</script>
+	                        </c:if>
+	                    </div>
+	                    <div class="re_note">${rList.reCnt}</div>
+	                </li>
+	            </c:forEach>
+            </c:if>
             </ul>
         </article>
 	</main>
@@ -168,5 +206,7 @@
     </footer> <!-- 하단 끝-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
     <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
+	
+
 </body>
 </html>
