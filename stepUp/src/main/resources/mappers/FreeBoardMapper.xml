@@ -62,7 +62,7 @@
 		update free_tb
 			set freeCnt = #{freeCnt}
 			, freeTitle = #{freeTitle}
-			where userIndex = #{userIndex}
+			where freeIndex = #{freeIndex}
 	</update>
 	
 	<delete id="delete" parameterType="int">
