@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="proj.stepUp.mapper.reviewMapper">
+	<insert id="insertRivew" parameterType="reviewVO">
+		insert into review_tb (reviewContent, reviewScore, userIndex, prdIndex) values(#{reviewContent}, #{reviewScore}, #{userIndex}, #{prdIndex})
+	</insert>
+	  
+	<select id="selectByPrdIndex" resultType="reviewVO" parameterType="int">
+		SELECT * FROM review_tb r, user_tb u where r.userIndex = u.userIndex and prdIndex = #{prdIndex}
+	</select>	
+  </mapper>

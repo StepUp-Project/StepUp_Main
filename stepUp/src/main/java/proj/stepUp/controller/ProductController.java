@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import proj.stepUp.service.MarkService;
 import proj.stepUp.service.ProductImgService;
 import proj.stepUp.service.ProductService;
+import proj.stepUp.service.ReviewService;
 import proj.stepUp.service.SizeService;
+import proj.stepUp.vo.MarkVO;
 import proj.stepUp.vo.ProductImgVO;
 import proj.stepUp.vo.ProductVO;
+import proj.stepUp.vo.ReviewVO;
 import proj.stepUp.vo.SizeVO;
+import proj.stepUp.vo.UserVO;
 
 @RequestMapping(value="/product")
 @Controller
@@ -33,8 +39,10 @@ public class ProductController {
 	private ProductImgService producImgService;
 	@Autowired
 	private SizeService sizeService;
-	
-	
+	@Autowired
+	private ReviewService reviewService;
+	@Autowired
+	private MarkService markService;
 	
 	@RequestMapping(value="registration.do", method = RequestMethod.GET)
 	public String registration() {
@@ -120,13 +128,35 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/view.do", method = RequestMethod.GET)
-	public String view(int prdIndex, Model model) {
+	public String view(int prdIndex, MarkVO markVO, Model model, HttpSession session) {
 		ProductVO prdVO = productService.selectProductIndex(prdIndex);
 		List<ProductImgVO> prdImgVO = producImgService.selectByProductIndex(prdIndex);
-		if(prdVO != null) {
-			model.addAttribute("prdVO", prdVO);//상품 정보
-			model.addAttribute("prdImgVO", prdImgVO);//상품 서브 이미지
+		List<ReviewVO> reviewVO = reviewService.selectByPrdIndex(prdIndex);
+		UserVO userVO = (UserVO)session.getAttribute("login");
+		List<SizeVO> sizeVO = sizeService.selectByPrdIndex(prdIndex);
+		try {
+			if(userVO != null) {
+				markVO.setUserIndex(userVO.getUserIndex());
+				MarkVO result = markService.selectMarkByAll(markVO);
+				System.out.println(result);
+				if(result != null) {
+					model.addAttribute("markResult", result);
+				}
+			}
+			if(prdVO != null) {
+				model.addAttribute("prdVO", prdVO);//상품 정보
+				model.addAttribute("prdImgVO", prdImgVO);//상품 서브 이미지
+			}
+			if(reviewVO != null) {
+				model.addAttribute("reviewVO", reviewVO);//상품 리뷰
+			}
+			if(sizeVO != null) {
+				model.addAttribute("sizeVO", sizeVO);//상품 사이즈 정보
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 		
 		return "product/product_view";
 	}

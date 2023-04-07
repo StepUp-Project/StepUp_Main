@@ -3,7 +3,7 @@
 @import url(./font.css);
 
 
-body{background-color: white; font-family: 'LeferiBaseType-RegularA';}
+body{background-color: white; font-family: 'LeferiBaseType-RegularA', 'SpoqaHanSansNeo-Regular', 'NanumBarunGothic';}
 
 
 /*header 시작*/
@@ -251,7 +251,7 @@ main{margin-top: 60px;}
 
 
 
-/*jointerms.jsp 시작*/
+/*jointerms.jsp- 시작*/
 .jointerms-area{
   width: 30%; margin: 80px auto 150px;
 }
@@ -417,7 +417,7 @@ ul.jointerms_box{
   margin-top: 200px;
 }
 .joinoklogo .jointerms_title{
-  width: 20%; height: 100%;
+  width: 350px; height: 100%;
 }
 #joinok {
   margin: 60px auto;
@@ -491,12 +491,17 @@ ul.jointerms_box{
   cursor: pointer; 
 }
 .find-area{
-  width: 200px;
-  font-size: 13px;
-  margin: 30px 85px;
+	width: 180px; font-size: 13px; margin: 30px auto;
 }
-.find-area a{text-decoration: none; color: black;}
-.find-area a:hover{text-decoration: underline;}
+.find-area span{
+	color: #bdbdbd;
+}
+.find-area a{
+	color: rgb(87, 87, 87);
+}
+.find-area a:hover{
+	text-decoration: underline;
+}
 .find-btn{margin-left: 2%;}
 
 .btngroup{
@@ -534,55 +539,110 @@ ul.jointerms_box{
 
 
 
-/*mypage폴더 공통 시작*/
+/*mypage 공통 시작*/
 .mypagemain{
-  width: 50%; height: 100%; margin: 0 auto; padding: 50px 0 100px;
+  width: 80%; height: 100%; margin: 0 auto; padding: 50px 0 100px;
+  display: flex; justify-content: space-between;
 }
 
 .mypage_menu{
-  border-bottom: 1px solid rgb(233, 233, 233); background: #fff;
+  width: 19%; height: 100%; padding: 4% 1.5% 2%; box-sizing: border-box;
   display: flex; flex-direction: column;
-  width: 100%; height: 100%; padding: 5% 0 2%; box-sizing: border-box;
 }
 .mypagehi{
-  margin-bottom: 40px; font-size: 16px; font-weight: bold;
-  text-align: center;
+  margin-bottom: 40px; font-size: 14px; font-weight: bold;
 }
-.mypage_gnb{
-  display: flex; justify-content: space-between;
-  width: 100%; padding: 1% 0; box-sizing: border-box;
-}
+
 .mypage_gnb span{
+  display: block;
+  margin: 18px 0;
   font-size: 13px;
   color: #606060;
 }
 .mypage_gnb a:hover{
-  color:  #212121;
+  color: #959595;
 }
 
 #mypage_contain{
-  width: 100%; padding: 65px 0 40px; box-sizing: border-box;
+  width: 80%; padding: 65px 0 40px; box-sizing: border-box;
 }
 #mypage_title{
-  font-size: 17px;
-  margin-bottom: 45px;
+  font-size: 17.5px;
+  margin-bottom: 60px;
 }
 #mypage_title h2{
-  margin-bottom: 15px;
+  border-bottom: 2px solid #747474;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 #mypage_title p{
   font-size: 11px;
   margin: 8px 0;
   color: #616161;
 }
-/*mypage폴더 공통 끝*/
+/*mypage 공통 끝*/
 
 
 
 
 
-/*mypagemodify.jsp 시작*/
-#mypage_btn input:nth-child(1){
+
+/*mypage_modifycheck.jsp 시작*/
+#mypage_subtitle{
+  padding: 50px 0 50px; text-align: center;
+}
+#mypage_subtitle h3{
+  font-size: 16px;
+}
+#mypage_subtitle p{
+  font-size: 13px; margin-top: 20px;
+}
+.mpmc{
+width: 420px; margin: 0 auto;
+display: flex; justify-content: space-between;
+}
+.mpmc .form-control{
+  width: 290px; height:50px;
+}
+.mpmc .form-floating{
+  width: 290px; height:50px; 
+}
+.mpmc .form-floating>label {
+  top: 4px;
+}
+.mpmc #mypage_btn input{
+  width: 125px;
+  font-size: 13px;
+  padding-top: 5px;
+  box-sizing: border-box;
+  height: 50px;
+  background: #3a3a3a ;
+  border: 0;
+  color: #fff;
+}
+.mpmc .mt-3{
+  margin: 0rem!important;
+}
+.mpmc .mb-3{
+  margin: 0rem!important;
+}
+.modifypre{
+  font-size: 13px; line-height: 1.2rem; margin-top: 15px;
+  text-align: center; margin: 50px; color: #747474;
+}
+/*mypage_modifycheck.jsp 끝*/
+
+
+
+
+
+
+
+/*mypage_modify.jsp 시작*/
+.mpm{
+  width: 60%; margin: 0 auto;
+}
+.mpm #mypage_btn input:nth-child(1){
   width: 49.3%;
   font-size: 13px;
   padding-top: 5px;
@@ -593,7 +653,7 @@ ul.jointerms_box{
   border: 1px solid #3a3a3a;
   color: #3a3a3a;
 }
-#mypage_btn input:nth-child(2){
+.mpm #mypage_btn input:nth-child(2){
   width: 49.3%;
   font-size: 13px;
   padding-top: 5px;
@@ -604,14 +664,14 @@ ul.jointerms_box{
   border: 0;
   color: #fff;
 }
-/*mypagemodify.jsp 끝*/
+/*mypage_modify.jsp 끝*/
 
 
 
 
 
 
-/*mypageorder.jsp 시작*/
+/*mypage_order.jsp 시작*/
 .order_board {
   margin: 0 auto;
   font-size: 12.5px;
@@ -646,7 +706,7 @@ ul.jointerms_box{
   height: 100px;
 }
 #mypageod_contain{
-  width: 100%; padding: 65px 0 0; box-sizing: border-box;
+  padding: 65px 0 0; width: 80%; box-sizing: border-box;
 }
 
 .orderNum {
@@ -689,8 +749,347 @@ ul.jointerms_box{
   margin-top: 20px;
   display: block; width: 100%; height: 100%
 }
-/*mypageorder.jsp 끝*/
+/*mypage_order.jsp 끝*/
 
+
+
+
+
+
+/*mypage_review.jsp 시작*/
+.review_board {
+  margin: 0 auto;
+  font-size: 12.5px;
+  width: 100%;
+  position: relative;
+}
+.review_board tbody tr{
+  border-bottom: 1px solid #dfdfdf;
+}
+.review_board tr, .review_board td {
+  vertical-align: middle;
+}
+.review_board thead tr {
+  height: 40px;
+  background: #f3f3f3;
+  font-size: 12px;
+}
+.review_board td {
+  text-align: center;
+}
+.review_board .cnt_info span{
+  font-family: 'LeferiBaseType-RegularA';
+}
+
+/*이미지 칸*/
+.review_board td:nth-child(1) {
+  width:9%;
+  padding: 20px 5px 20px 10px;
+  box-sizing: border-box;
+}
+.review_board .cnt_info a div{
+  width: 6vw; height: 6vw;
+}
+.review_board .cnt_info a div .cnt_img1{
+  width: 6vw; height: 6vw
+}
+
+/*상품정보 칸*/
+.review_board td:nth-child(2) {
+  width: 50%;
+  text-align: left;
+}
+.review_board td span {
+  display: inline-block;
+  height: 25px;
+  line-height: 25px;
+}
+
+.review_board .cnt_info a{
+  display: inline-block;
+}
+.review_board .cnt_brand{
+  margin-top: 0px;
+}
+.review_board .cnt_name{
+  margin-top: 0px;
+  font-size: 14px;
+}
+.review_board .cnt_size{
+  margin-top: 0px;
+  font-size: 12px;
+  color: #626262;
+}
+
+.review_write{
+  border: 1px solid #3a3a3a;
+  background: #3a3a3a;
+  color: #fff;
+  width: 80px; height: 30px;
+}
+.review_edit{
+  border: 1px solid #bfbfbf;
+  background: #bfbfbf;
+  color: #fff;
+  width: 80px; height: 25px;
+  margin-bottom: 3px;
+}
+.review_del{
+  margin-top: 3px;
+  border: 1px solid #a5a5a5;
+  background: #fff;
+  color: #a8a8a8;
+  width: 80px; height: 25px;
+}
+
+.review_board .order_page{
+  font-family: 'LeferiBaseType-RegularA';
+  height: 100px;
+}
+
+.revinfo {
+  text-align: center;
+  width: 60%;
+}
+.revwDate {
+  text-align: center;
+  width: 10%;
+}
+.revprice {
+  width: 10%;
+  text-align: center;
+}
+.revwrite {
+  width: 10%;
+  text-align: center;
+}
+.board_page td {
+  height: 100px;
+}
+.review_board .cnt_info a div{
+  margin: 0;
+}
+
+
+
+/*review.jsp 후기작성하는 팝업창 시작*/
+/*review_modify.jsp 동일*/
+#reviewpop_title{
+  background: #1c1c1c;
+  padding: 40px 30px 20px;
+  margin-bottom: 60px;
+}
+#reviewpop_title h2{
+  color: #fff;
+  font-size: 17.5px;
+  border-bottom: 2px solid #f8f8f8;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+#reviewpop_title p{
+  font-size: 11px;
+  margin: 8px 0;
+  color: #a8a8a8;
+}
+
+#repopcontain{
+  padding: 0 30px;
+}
+#myreview_write{
+  width: 100%; position: relative;
+  height: 230px;
+}
+.review_writename .cnt_brand{
+  margin-top: 0;
+  font-size: 14px;
+}
+.review_writename .cnt_name{
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.review_writename .cnt_size{
+  font-size: 13px;
+  color: #626262;
+}
+
+/*이미지*/
+.review_writeproduct{
+  width: 100%; height: 160px;
+  display: flex; justify-content: space-between;
+}
+.review_writeimg .cnt_img1{
+  width: 20%; height: 66%;
+  background-position: center;
+  background-size: cover;
+  position: absolute; bottom: 0; left: 0;
+}
+.review_writeimg .cnt_img1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #d3d3d3;
+  opacity: 0.2;
+}
+
+/*상품평 textarea + 별점 + 등록*/
+.review_writebox{
+  display: flex; justify-content: space-between;
+  width: 79%; height: 150px;
+  position: absolute; bottom: 0; right: 0;
+}
+/*상품평 입력창*/
+#review_writeCnt{
+  display: inline-block;
+  width: 75%;
+  height: 10vw;
+  vertical-align: top;
+  line-height: 1.5em;
+  padding: 15px;
+  resize: none;
+  border:solid 1px #e0e0e0;
+  font-size: 13px;
+}
+
+/*별점 선택창*/
+#myreview_write #rating_ctn{
+  display: inline-block;
+  width: 24%;
+  height: 150px;
+  border:solid 1px #e0e0e0;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  
+}
+#myreview_write #rating_ctn span{
+  display: inline-block;
+  margin-top: 35px;
+  font-size: 12px;
+}
+#myreview_write .star-rating label {
+  color:#ccc;
+  font-size: 20px;
+  cursor:pointer;
+}
+
+#myreview_write .star-rating :checked ~ label {
+  color:#7ae48f;
+  }
+  
+#myreview_write .star-rating label:hover,
+#myreview_write .star-rating label:hover ~ label {
+  color:#67e380;
+  }
+#myreview_write #rating_ctn button{
+  font-size: 12px;
+}
+/*review.jsp 후기작성하는 팝업창 끝*/
+/*mypage_review.jsp 끝*/
+
+
+
+
+
+
+
+/*mypage_like.jsp 시작*/
+.like-items{
+  overflow: scroll; -ms-overflow-style: none;
+  width: 101.3%;
+}
+.like-items::-webkit-scrollbar { 
+  display: none;
+  width: 0 !important;
+}
+.like-items .cnt_info{
+  width: calc(100%/4); margin-bottom: 5%;
+  position: relative;
+}
+.like-items .cnt_info a div{
+  width: 15.2vw; height: 14vw;
+}
+.like-items .cnt_img1{
+  width: 15.2vw; height: 14vw; background-size: cover;
+}
+
+.like-items .cnt_info .likeheart{
+  position: absolute; z-index: 1; top: 9px; right: 18px;
+  width: 12%; height: 12%; text-align: center;
+}
+.like-items .cnt_info .likeheart span{
+  color: #414141; font-size: 1.2rem;
+  display: block; font-family: 'IBMPlexSansKR-Regular';
+}
+
+#mplikepage{
+  text-align: center; margin: 40px 0;
+}
+/*mypage_like.jsp 끝*/
+
+
+
+
+
+/*mypage__posting.jsp 시작*/
+/*mypage_qna 동일*/
+#allcheck{
+  font-size: 13px;
+}
+#allcheck input{
+  margin: 0 5px 10px 14px;
+}
+#allcheck td{
+  text-align: left; height:10px;
+}
+.poallch{ border: 1px solid blue;
+  float: left;
+}
+.postCheck{
+  text-align: center;
+  width: 5%;
+}
+.postNume {
+  text-align: center;
+  width: 13%;
+}
+.postTitle {
+  text-align: center;
+  width: 50%;
+}
+.postwDate {
+  width: 12%;
+  text-align: center;
+}
+.postHit {
+  width: 9%;
+  text-align: center;
+}
+.postcha {
+  width: 9%;
+  text-align: center;
+}
+.postdel {
+  width: 9%;
+  text-align: center;
+}
+.order_page td {
+  height: 100px;
+}
+.post_del{
+  float: right;
+  font-size: 12px;
+  width: 55px;
+  height: 25px;
+  padding-top: 2px;
+  box-sizing: border-box;
+  background: #5e5e5e;
+  color: #fff;
+  border: 0;
+  }
+/*mypage_posting.jsp 끝/
 
 
 

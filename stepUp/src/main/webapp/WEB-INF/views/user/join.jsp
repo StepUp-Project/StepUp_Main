@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>join</title>
+    <title>join-</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
@@ -24,7 +24,7 @@
         <div class="jointermslogo">
             <h1 class="jointerms_title">
                 <a href="/">
-                    <img src="/image/kickshublogo.png" alt="kickshub">
+                    <img src="<%=request.getContextPath()%>/resources/image/kickshublogo.png" alt="kickshub">
                 </a>
             </h1>
         </div>
@@ -34,7 +34,7 @@
                     <input type="text" class="form-control" id="userId" name="userId" placeholder="userId" oninput="checkId()">
                     <label for="userId">아이디</label>
                 </div>
-                <div id="checkIdResult" class="mb-3"></div>
+                <div id="checkIdResult" class="mb-3" style="font-size:13px;"></div>
                 <div class="form-floating mb-3" >
                     <input type="password" class="form-control" id="userPw" name="userPw" placeholder="userPw" onblur="checkPw()">
                     <label for="userPw">비밀번호</label>
@@ -42,7 +42,7 @@
                         <i class="xi-eye-o" id="i-eyes"></i>
                     </div>
                 </div>
-                <div id="checkPwResult" class="mb-3"></div>
+                <div id="checkPwResult" class="mb-3" style="font-size:13px;"></div>
                 <div class="form-floating mb-3">
                     <input type="password" class="form-control" id="userPwc" name="userPwc"  placeholder="userPwc" onblur="checkPwc()">
                     <label for="userPwc">비밀번호 확인</label>
@@ -50,17 +50,17 @@
                         <i class="xi-eye-o" id="c-eyes"></i>
                     </div>
                 </div>
-                <div id="checkPwcResult" class="mb-3"></div>
+                <div id="checkPwcResult" class="mb-3" style="font-size:13px;"></div>
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="userName"  name="userName"  placeholder="이름" onblur="nameCheck()">
                     <label for="userName">이름</label>
                 </div>
-                <div id="checkNameResult" class="mb-3"></div>
+                <div id="checkNameResult" class="mb-3" style="font-size:13px;"></div>
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="userNick" name="userNick" placeholder="닉네임" oninput="checkNick()">
                     <label for="userNick">닉네임</label>
                 </div>
-                <div id="checkNickResult" class="mb-3"></div>
+                <div id="checkNickResult" class="mb-3" style="font-size:13px;"></div>
                 <div class="form-floating mb-3 d-flex justify-content-between">
                     <input type="text" class="form-control w-80" id="userPhone" name="userPhone" placeholder="연락처" onblur="PhoneCheck()">
                     <label for="userPhone">연락처</label>
@@ -71,12 +71,12 @@
                     <label for="userPchNum">인증번호</label>
                     <span id="check-Phone"></span>
                 </div>
-               	<div id="PchResult" class="mb-3"></div>
+               	<div id="PchResult" class="mb-3" style="font-size:13px;"></div>
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="userMail" name="userMail" placeholder="이메일" onblur="checkEmail()">
                     <label for="userMail">이메일</label>         
                 </div>
-                <div id="checkEmailResult" class="mb-3"></div>
+                <div id="checkEmailResult" class="mb-3" style="font-size:13px;"></div>
                 <div class="form-floating mb-3 mt-3">
                     <input type="radio" id="userPhAc"  name="userPhAc" value="Y" checked>연락처 수신동의
                     <input type="radio" id="userPhAc" class="upa2" name="userPhAc" value="N">연락처 수신비동의
