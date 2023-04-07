@@ -137,6 +137,7 @@
 								    <p>댓글 수정</p>
 								    <textarea id="re_editCnt" name="reCnt"></textarea>
 								    <input name="reIndex" value="${rList.reIndex}" type="hidden">
+   									<input type="hidden" name="freeIndex" value="${rList.freeIndex}">
 								    <input class="re_edit" type="submit" value="수정">
 								    <input class="re_edit" type="button" value="취소" onclick="closePopup(${rList.reIndex})">
 								  </form>
