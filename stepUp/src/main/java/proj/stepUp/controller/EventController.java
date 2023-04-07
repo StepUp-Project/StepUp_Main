@@ -34,9 +34,13 @@ public class EventController {
 		if(svo.getNowPage() != 0 ) {
 			nowPage = svo.getNowPage();
 		}
-		List<EventBoardVO> cntTotal = eventService.cntTotal(svo);
 		
-		int totalCnt = cntTotal.get(1).getTotal();
+		List<EventBoardVO> cntTotal = eventService.cntTotal(svo);
+		int totalCnt = 0;
+		if(cntTotal.size()>0) {
+			totalCnt = cntTotal.get(0).getTotal();
+		}
+		
 		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 10);
 		
 		
