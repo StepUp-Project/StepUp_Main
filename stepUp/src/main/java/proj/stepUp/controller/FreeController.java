@@ -138,5 +138,14 @@ public class FreeController {
 		return "redirect:/free/free_view.do?freeIndex="+freeIndex;
 	}
 	
+	@RequestMapping(value="/re_edit.do", method = RequestMethod.POST)
+	public String reedit(ReVO vo) {
 	
+		int result = reService.update(vo);
+		if(result>0) {
+			return "redirect:/free/free_view.do?freeIndex="+vo.getFreeIndex();
+		}else {
+			return "redirect:/free/free_view.do?freeIndex="+vo.getFreeIndex()+"&updateYN=N";
+		}
+	}
 }
