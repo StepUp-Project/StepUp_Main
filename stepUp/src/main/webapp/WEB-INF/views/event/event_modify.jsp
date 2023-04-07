@@ -84,7 +84,8 @@
     <main>
         <article id="board_write">
             <div id="board_ttl">게시글 수정</div>
-            <form method="post" action="event_write.do">
+            <form method="post" action="event_modify.do">
+            	<input name="eventIndex" value = "${vo.eventIndex}" type="hidden">
                 <input class="input_title" 	 name="eventTitle"	type="text" placeholder="제목을 입력해주세요" value="${vo.eventTitle}">
                 <textarea id="summernote"	 name="eventCnt" >${vo.eventCnt}</textarea>
                 <div id="board_button">

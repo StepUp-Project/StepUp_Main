@@ -1853,3 +1853,43 @@ notice_view.jsp(공지사항 리스트)
   	font-size:14px;
   	width:85px;
   }
+
+  /*댓글 수정 팝업*/
+  #popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#popup form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 230px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#popup textarea {
+  width: 100%;
+  height: 78%;
+  box-sizing: border-box;
+  resize: none;
+}
+
+#popup #re_btn {
+  text-align: center;
+  margin-top: 10px;
+}
+
+#popup button {
+  padding: 5px;
+}

@@ -62,7 +62,7 @@
 		update event_tb
 			set eventCnt = #{eventCnt}
 			, eventTitle = #{eventTitle}
-			where userIndex = #{userIndex}
+			where eventIndex = #{eventIndex}
 	</update>
 	
 	<delete id="delete" parameterType="int">
