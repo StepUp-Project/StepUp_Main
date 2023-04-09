@@ -3,6 +3,8 @@ package proj.stepUp.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,10 +25,13 @@ import com.google.gson.JsonObject;
 
 import proj.stepUp.service.CartService;
 import proj.stepUp.service.MarkService;
+import proj.stepUp.service.ReviewService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.NaverSMS;
+import proj.stepUp.util.PagingUtil;
 import proj.stepUp.vo.CartVO;
 import proj.stepUp.vo.MarkVO;
+import proj.stepUp.vo.ReviewVO;
 
 @RequestMapping(value="/ajax")
 @Controller
@@ -39,6 +45,9 @@ public class AjaxController {
 	
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	@ResponseBody
 	@RequestMapping(value="/checkId.do", method = RequestMethod.POST)
@@ -160,5 +169,27 @@ public class AjaxController {
 			}
 			
 			return "1";
-		}			
+		}
+		
+			
+		@ResponseBody
+		@RequestMapping(value="/prdPaging.do", method = RequestMethod.GET)	
+		public List<ReviewVO> prdPaging(int nowPage, ReviewVO vo, Model model, HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			int totalCount = reviewService.selectCount(vo.getPrdIndex());//해당 제품페이지에 존재하는 총 상품리뷰 수
+			System.out.println(nowPage);
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 2);
+			System.out.println("현재번호"+paging.getNowPage());
+			System.out.println("시작번호"+paging.getStartPage());
+			System.out.println("끝번호"+paging.getEndPage());
+			System.out.println("게시글 시작"+paging.getStart());
+			System.out.println("게시글 끝"+paging.getEnd());
+			vo.setStart(paging.getStart());
+			vo.setPerPage(paging.getPerPage());
+			model.addAttribute("paging", paging);
+			List<ReviewVO> reviewVO = reviewService.selectReview(vo);	
+			session.setAttribute("paging", paging); // 세션에 paging을 저장
+			
+			return reviewVO;
+		}
 }

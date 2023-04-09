@@ -20,7 +20,13 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public List<ReviewVO> selectByPrdIndex(int prdIndex) {//상품 리뷰 검색(제품인덱스 기준)
-		return reviewDAO.selectByPrdIndex(prdIndex);
+	public List<ReviewVO> selectReview(ReviewVO vo) {//상품 리뷰 검색(제품인덱스 기준)
+		return reviewDAO.selectReview(vo);
+	}
+
+	@Override
+	public int selectCount(int prdIndex) {
+		// TODO Auto-generated method stub
+		return reviewDAO.selectCount(prdIndex);
 	}
 }

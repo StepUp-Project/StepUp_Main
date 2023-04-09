@@ -6,5 +6,6 @@ import proj.stepUp.vo.ReviewVO;
 
 public interface ReviewService {
 	public int insertRivew(ReviewVO vo);
-	public List<ReviewVO> selectByPrdIndex(int prdIndex);
+	public List<ReviewVO> selectReview(ReviewVO vo);
+	public int selectCount(int prdIndex);
 }

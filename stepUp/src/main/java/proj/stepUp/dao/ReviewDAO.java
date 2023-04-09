@@ -18,7 +18,11 @@ public class ReviewDAO {
 		return sqlSession.insert("proj.stepUp.mapper.reviewMapper.insertRivew", vo);
 	}
 	
-	public List<ReviewVO> selectByPrdIndex(int prdIndex) {//상품 리뷰 추가
-		return sqlSession.selectList("proj.stepUp.mapper.reviewMapper.selectByPrdIndex", prdIndex);
+	public List<ReviewVO> selectReview(ReviewVO vo) {//상품 리뷰 추가
+		return sqlSession.selectList("proj.stepUp.mapper.reviewMapper.selectReview", vo);
+	}
+	
+	public int selectCount(int prdIndex) {
+		return sqlSession.selectOne("proj.stepUp.mapper.reviewMapper.selectCount", prdIndex);
 	}
 }
