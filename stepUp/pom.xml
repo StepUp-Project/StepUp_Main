@@ -194,8 +194,15 @@
 		  <groupId>com.google.code.gson</groupId>
 		  <artifactId>gson</artifactId>
 		  <version>2.8.6</version>
-		</dependency>								 		      
+		</dependency>		
+		<!-- XSS 보안 -->
+		<dependency>
+		    <groupId>org.owasp.encoder</groupId>
+		    <artifactId>encoder</artifactId>
+		    <version>1.2.2</version>
+		</dependency>
 	</dependencies>
+
     <build>
         <plugins>
             <plugin>

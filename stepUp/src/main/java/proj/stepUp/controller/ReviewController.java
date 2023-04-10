@@ -1,5 +1,8 @@
 package proj.stepUp.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.owasp.encoder.Encode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +19,12 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	@RequestMapping(value="/insert.do", method = RequestMethod.POST)
-	public String insertReview(ReviewVO vo) {
+	public String insertReview(ReviewVO vo, HttpServletRequest req) {
+		
+		if(req.getAttribute("reviewContent") != null){
+			vo.setReviewContent(Encode.forHtmlAttribute((String) req.getAttribute("reviewContent")));
+		}
+	
 		System.out.println(vo.getPrdIndex());
 		System.out.println(vo.getReviewContent());
 		System.out.println(vo.getReviewScore());
