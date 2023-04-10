@@ -50,7 +50,7 @@
 	</servlet-mapping>
  	
  	
-	<!-- ProfanityFilter --> 	
+	<!-- ProfanityFilter(비속어필터) --> 	
  	 <filter>
         <filter-name>ProfanityFilter</filter-name>
         <filter-class>proj.stepUp.util.ProfanityFilter</filter-class>

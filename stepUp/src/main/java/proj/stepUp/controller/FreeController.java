@@ -71,9 +71,7 @@ public class FreeController {
 		if(req.getAttribute("freeTitle") != null){
 			vo.setFreeTitle((String) req.getAttribute("freeTitle"));
 		}
-		
-		
-		
+
 		UserVO loginUserVO = (UserVO)session.getAttribute("login");
 		vo.setUserIndex(loginUserVO.getUserIndex());
 		int result = freeService.insert(vo);
@@ -98,6 +96,8 @@ public class FreeController {
 		FreeBoardVO vo = freeService.selectByIndex(freeIndex);
 		model.addAttribute("vo", vo);
 		
+		
+		
 		System.out.println(vo.getFreeIndex());
 		System.out.println(vo.getFreeTitle());
 		System.out.println(vo.getUserIndex());
@@ -107,7 +107,6 @@ public class FreeController {
 	
 	@RequestMapping(value="/free_modify.do", method = RequestMethod.POST)
 	public String modify(FreeBoardVO vo , HttpServletRequest req) {
-		
 		
 		if(req.getAttribute("freeCnt") != null) {
 			vo.setFreeCnt((String) req.getAttribute("freeCnt"));

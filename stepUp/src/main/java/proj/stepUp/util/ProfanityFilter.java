@@ -26,7 +26,7 @@ public class ProfanityFilter implements Filter{
 	       HttpServletResponse res = (HttpServletResponse) response;
 
 	       
-	       // POST 메서드에 대해서만 필터링 수행
+	       // POST 메서드에 대해서만 필터링 수행하기
 	       if (req.getMethod().equalsIgnoreCase("POST")) {
 	           String freeCnt = req.getParameter("freeCnt");
 	           String freeTitle = req.getParameter("freeTitle");
