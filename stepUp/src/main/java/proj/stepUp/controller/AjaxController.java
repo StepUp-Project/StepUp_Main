@@ -194,4 +194,16 @@ public class AjaxController {
 			
 			return paging;
 		}
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/search.do", method = RequestMethod.GET)	//페이징 버튼 ajax 처리
+		public PagingUtil search(int nowPage, ReviewVO vo, Model model, HttpServletRequest request) {		
+			HttpSession session = request.getSession();
+			int totalCount = reviewService.selectCount(vo.getPrdIndex());//해당 제품페이지에 존재하는 총 상품리뷰 수
+			System.out.println(nowPage);
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 5);
+			
+			return paging;
+		}			
 }

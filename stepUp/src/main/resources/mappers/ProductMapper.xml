@@ -28,4 +28,17 @@
   	left join Order_Item_Tb o ON s.sizeIndex = o.sizeIndex
 	GROUP BY p.prdIndex, p.prdName ORDER BY prdSales DESC limit 0, #{maxPrd};
   	</select>
+  	
+  	<select id="">
+  		select  p.prdIndex, p.prdCode, p.prdName, p.prdPrice, p.prdRname from product_tb p left join Size_Tb s on p.prdIndex = s.prdIndex
+  		where p.prdIndex = s.prdIndex
+		<if test="">
+		and ( 1 = 1
+		<foreach collection="" item="">
+			or 
+		</foreach>
+		)
+		</if>
+  		GROUP BY p.prdIndex
+  	</select>
   </mapper>
