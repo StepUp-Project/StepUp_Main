@@ -3,7 +3,6 @@ package proj.stepUp.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -173,23 +172,26 @@ public class AjaxController {
 		
 			
 		@ResponseBody
-		@RequestMapping(value="/prdPaging.do", method = RequestMethod.GET)	
-		public List<ReviewVO> prdPaging(int nowPage, ReviewVO vo, Model model, HttpServletRequest request) {
+		@RequestMapping(value="/prdPaging.do", method = RequestMethod.GET)	//review리스트 페이징 ajax 처리
+		public List<ReviewVO> prdPagingList(int nowPage, ReviewVO vo, Model model, HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			int totalCount = reviewService.selectCount(vo.getPrdIndex());//해당 제품페이지에 존재하는 총 상품리뷰 수
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 5);
+			vo.setStart(paging.getStart());
+			vo.setPerPage(paging.getPerPage());
+			List<ReviewVO> reviewVO = reviewService.selectReview(vo);	
+			
+			return reviewVO;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/prdPaging.do", method = RequestMethod.POST)	//페이징 버튼 ajax 처리
+		public PagingUtil prdPagingBtn(int nowPage, ReviewVO vo, Model model, HttpServletRequest request) {		
 			HttpSession session = request.getSession();
 			int totalCount = reviewService.selectCount(vo.getPrdIndex());//해당 제품페이지에 존재하는 총 상품리뷰 수
 			System.out.println(nowPage);
-			PagingUtil paging = new PagingUtil(totalCount, nowPage, 2);
-			System.out.println("현재번호"+paging.getNowPage());
-			System.out.println("시작번호"+paging.getStartPage());
-			System.out.println("끝번호"+paging.getEndPage());
-			System.out.println("게시글 시작"+paging.getStart());
-			System.out.println("게시글 끝"+paging.getEnd());
-			vo.setStart(paging.getStart());
-			vo.setPerPage(paging.getPerPage());
-			model.addAttribute("paging", paging);
-			List<ReviewVO> reviewVO = reviewService.selectReview(vo);	
-			session.setAttribute("paging", paging); // 세션에 paging을 저장
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 5);
 			
-			return reviewVO;
+			return paging;
 		}
 }

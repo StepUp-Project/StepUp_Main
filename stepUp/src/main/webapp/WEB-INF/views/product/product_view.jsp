@@ -465,16 +465,17 @@
 	    //상품 리뷰 paging ajax
 	    function goPage(nowPage){
 	    	let prdIndex = <c:out value="${prdVO.prdIndex}"/>
+	    	let loginIndex = <c:out value="${login.userIndex}"/>
 	    	$.ajax({
 	    		url:"<%=request.getContextPath()%>/ajax/prdPaging.do",
 	    		type:"get",
 	    		data:{nowPage : nowPage, prdIndex : prdIndex},
 	    	    success: function(data) { // Ajax 요청이 성공한 경우 실행될 콜백 함수
-	    	    	let reviewHtml = '';
-	    	    	let pagingHtml = '';
+	    	    	let reviewHtml = ''
 	    	    	console.log(data);
 	    	    	for(let i = 0; i < data.length; i++){
 	    	    		let reviewList = data[i];
+	    	    		console.log(reviewList);
 	    	    		let reviewDate = moment(reviewList.reviewDate).format('YYYY-MM-DD');
 	    	    		reviewHtml += '<li>';
 	    	    		reviewHtml += '<span class="review_star">';
@@ -489,25 +490,50 @@
 	    	    		reviewHtml += '<span class="review_wdate">';
 	    	    		reviewHtml += ''+reviewDate+''
 	    	    		reviewHtml += '</span>';
-	    	    		reviewHtml += '<input class="review_del"  type="button" value="삭제">';
-	    	    		reviewHtml += '<input class="review_edit"  type="button" value="수정">';
+	    	    		if(loginIndex == reviewList.userIndex){
+		    	    		reviewHtml += '<input class="review_del"  type="button" value="삭제">';
+		    	    		reviewHtml += '<input class="review_edit"  type="button" value="수정">';
+	    	    		}
 	    	    		reviewHtml += '</div>';
 	    	    		reviewHtml += '<div class="review_note">'+reviewList.reviewContent+'</div>';
 	    	    		reviewHtml += '</li>'
+	    	    		paging(nowPage, prdIndex);
 	    	    	}
-	    	    	pagingHtml += '<li>';
-	    	    	pagingHtml += '<a href="#" class="xi-angle-left"  onclick="goPage(${paging.startPage - 1})" style= "display:${paging.startPage - 11 > 0 ? 'block' : 'none'}"></a>';
-	    	    	pagingHtml += '<div id="pagingNumBtn">';
-	    	    	pagingHtml += '<c:forEach var="pageNum" begin="${paging.startPage}" end="${paging.endPage}">';
-	    	    	pagingHtml += '<a href="#" onclick="goPage(${pageNum})">${pageNum}</a>';
-	    	    	pagingHtml += '</c:forEach>';
-	    	    	pagingHtml += '</div> ';
-	    	    	pagingHtml += '<a href="#" class="xi-angle-right" onclick="goPage(${paging.endPage + 1})" style= "display:${paging.endPage * paging.perPage < paging.total ? 'block' : 'none'}"></a>';
-	    	    	pagingHtml += '</li>';
-	    	    	$("#reeview_page").html(pagingHtml);
 	    	    	$("#review_ctn").html(reviewHtml);
+	    	    	
 	    	    }
 	    	})
+	    }
+	    
+	    //리뷰 페이징 버튼 ajax 처리
+	    function paging(nowPage, prdIndex){
+	    	let pagingHtml = '';
+	    	$.ajax({
+	    		url:"<%=request.getContextPath()%>/ajax/prdPaging.do",
+	    		type:"post",
+	    		data:{nowPage : nowPage, prdIndex : prdIndex},
+	    		success: function(data) {
+				let startPage = Number(data.startPage);
+				let endPage = Number(data.endPage);
+				let perPage = Number(data.perPage);
+				let total = Number(data.total);
+				let now = Number(data.nowPage);
+		    	pagingHtml += '<li class="d-flex justify-content-center">';
+		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-left"  onclick="goPage('+(startPage - 1)+')" style= "display:'+(startPage - 10 > 0 ? 'block' : 'none')+'"></a>';
+		    	pagingHtml += '<div id="pagingNumBtn">';
+		    	for(let i = startPage; i <= endPage; i ++){
+		    		if(now != i){
+		    			pagingHtml += '<a href="javascript:void(0);" class="pe-1" onclick="goPage('+i+')">'+i+'</a>';
+		    		}else{
+		    			pagingHtml += '<span class="pe-1 text-primary">'+i+'</span>';
+		    		}
+		    	}
+		    	pagingHtml += '</div> ';
+		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-right" onclick="goPage('+(endPage+ 1)+')" style= "display:'+(endPage * perPage < total ? 'block' : 'none')+'"></a>';
+		    	pagingHtml += '</li>';
+		    	$("#reeview_page").html(pagingHtml);
+ 	    		}
+	    	}) 
 	    }
 	    
 	 	//상품 리뷰 paging 페이지 로드시 호출
