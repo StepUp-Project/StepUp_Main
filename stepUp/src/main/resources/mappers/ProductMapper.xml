@@ -29,16 +29,50 @@
 	GROUP BY p.prdIndex, p.prdName ORDER BY prdSales DESC limit 0, #{maxPrd};
   	</select>
   	
-  	<select id="">
+  	<select id="selectBrandPage" parameterType="searchVO" resultType="productVO">
   		select  p.prdIndex, p.prdCode, p.prdName, p.prdPrice, p.prdRname from product_tb p left join Size_Tb s on p.prdIndex = s.prdIndex
   		where p.prdIndex = s.prdIndex
-		<if test="">
+  		and p.prdCode like '%#{searchType}%'
+  		<if test="priceMin != null and priceMax != null">
+  			and p.prdPrice BETWEEN #{priceMin} AND #{priceMax}
+  		</if>
+		<if test="sizeKind != null">
 		and ( 1 = 1
-		<foreach collection="" item="">
-			or 
+		<foreach item="sizeKind" collection="${sizeKind}">
+			or s.sizeKind = #{sizeKind}
 		</foreach>
 		)
 		</if>
+		<if test="prdType != null}">
+		and ( 1 = 1
+		<foreach item="prdType" collection="${prdType}">
+			or p.prdCode = '__#{prdType}%'
+		</foreach>
+		)
+		</if>		
   		GROUP BY p.prdIndex
+  	</select>
+  	
+  	<select id="selectBrandToal" parameterType="searchVO" resultType="int">
+  		select count(DISTINCT p.prdIndex) as total from product_tb p left join Size_Tb s on p.prdIndex = s.prdIndex
+  		where p.prdIndex = s.prdIndex
+  		and p.prdCode like '%#{searchType}%'
+  		<if test="priceMin != null and priceMax != null">
+  			and p.prdPrice BETWEEN #{priceMin} AND #{priceMax}
+  		</if>
+		<if test="sizeKind != null">
+		and ( 1 = 1
+		<foreach item="sizeKind" collection="${sizeKind}">
+			or s.sizeKind = #{sizeKind}
+		</foreach>
+		)
+		</if>
+		<if test="prdType != null}">
+		and ( 1 = 1
+		<foreach item="prdType" collection="${prdType}">
+			or p.prdCode = '__#{prdType}%'
+		</foreach>
+		)
+		</if>
   	</select>
   </mapper>

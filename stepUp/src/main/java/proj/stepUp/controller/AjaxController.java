@@ -24,13 +24,16 @@ import com.google.gson.JsonObject;
 
 import proj.stepUp.service.CartService;
 import proj.stepUp.service.MarkService;
+import proj.stepUp.service.ProductService;
 import proj.stepUp.service.ReviewService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.NaverSMS;
 import proj.stepUp.util.PagingUtil;
 import proj.stepUp.vo.CartVO;
 import proj.stepUp.vo.MarkVO;
+import proj.stepUp.vo.ProductVO;
 import proj.stepUp.vo.ReviewVO;
+import proj.stepUp.vo.SearchVO;
 
 @RequestMapping(value="/ajax")
 @Controller
@@ -47,6 +50,9 @@ public class AjaxController {
 	
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private ProductService productService;
 	
 	@ResponseBody
 	@RequestMapping(value="/checkId.do", method = RequestMethod.POST)
@@ -197,13 +203,12 @@ public class AjaxController {
 		
 		
 		@ResponseBody
-		@RequestMapping(value="/search.do", method = RequestMethod.GET)	//페이징 버튼 ajax 처리
-		public PagingUtil search(int nowPage, ReviewVO vo, Model model, HttpServletRequest request) {		
-			HttpSession session = request.getSession();
-			int totalCount = reviewService.selectCount(vo.getPrdIndex());//해당 제품페이지에 존재하는 총 상품리뷰 수
-			System.out.println(nowPage);
-			PagingUtil paging = new PagingUtil(totalCount, nowPage, 5);
+		@RequestMapping(value="/search.do", method = RequestMethod.GET)	
+		public List<ProductVO> search(SearchVO searchVO) {
+			int totalCount = productService.selectBrandToal(searchVO);
+			PagingUtil paging = new PagingUtil(totalCount, 1, 20);
+			List<ProductVO> productVO = productService.selectBrandPage(searchVO);
 			
-			return paging;
+			return productVO;
 		}			
 }

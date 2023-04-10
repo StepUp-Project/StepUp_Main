@@ -8,13 +8,22 @@ public class SearchVO extends PagingUtil {
 	private int[] sizeKind;
 	private int priceMin;
 	private int priceMax;
-	private String[] prdType;
-	
+	private int[] prdType;
+		
 	public int[] getSizeKind() {
 		return sizeKind;
 	}
 	public void setSizeKind(int[] sizeKind) {
 		this.sizeKind = sizeKind;
+	}
+	public int[] getPrdType() {
+		return prdType;
+	}
+	public void setPrdType(int[] prdType) {
+		this.prdType = prdType;
+	}
+	public String getSearchType() {
+		return searchType;
 	}
 	public int getPriceMin() {
 		return priceMin;
@@ -27,15 +36,6 @@ public class SearchVO extends PagingUtil {
 	}
 	public void setPriceMax(int priceMax) {
 		this.priceMax = priceMax;
-	}
-	public String[] getPrdType() {
-		return prdType;
-	}
-	public void setPrdType(String[] prdType) {
-		this.prdType = prdType;
-	}
-	public String getSearchType() {
-		return searchType;
 	}
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
