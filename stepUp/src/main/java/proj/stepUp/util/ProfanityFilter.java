@@ -31,7 +31,7 @@ public class ProfanityFilter implements Filter{
 	           String freeCnt = req.getParameter("freeCnt");
 	           String freeTitle = req.getParameter("freeTitle");
 	           String reCnt = req.getParameter("reCnt");
-
+	           String reviewContent = req.getParameter("reviewContent");
 	           System.out.println("freeCnt::"+freeCnt);
 	           System.out.println("freeTitle::"+freeTitle);
 	           System.out.println("reCnt::"+reCnt);
@@ -56,6 +56,15 @@ public class ProfanityFilter implements Filter{
 	               System.out.println("filteredContent::"+filteredContent);
 	               req.setAttribute("reCnt", filteredContent);
 	           }
+	           if (reviewContent != null) {
+	        	   String filteredContent = pattern.matcher(reviewContent).replaceAll("***");
+	        	   req.removeAttribute("reviewContent");
+	        	   System.out.println("filteredContent::"+filteredContent);
+	        	   req.setAttribute("reviewContent", filteredContent);
+	           }
+	           
+	           
+	           
 	       }
 	       chain.doFilter(req, res);
 	   }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.owasp.encoder.Encode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,15 +64,15 @@ public class FreeController {
 	public String freewrite(FreeBoardVO vo, HttpServletRequest req) {
 		
 		HttpSession session = req.getSession();
-		
+
 		if(req.getAttribute("freeCnt") != null) {
-			vo.setFreeCnt((String) req.getAttribute("freeCnt"));
+			vo.setFreeCnt((String)req.getAttribute("freeCnt"));
 		}
 		
 		if(req.getAttribute("freeTitle") != null){
-			vo.setFreeTitle((String) req.getAttribute("freeTitle"));
+			vo.setFreeTitle(Encode.forHtmlAttribute((String) req.getAttribute("freeTitle")));
 		}
-
+		
 		UserVO loginUserVO = (UserVO)session.getAttribute("login");
 		vo.setUserIndex(loginUserVO.getUserIndex());
 		int result = freeService.insert(vo);
@@ -109,11 +110,11 @@ public class FreeController {
 	public String modify(FreeBoardVO vo , HttpServletRequest req) {
 		
 		if(req.getAttribute("freeCnt") != null) {
-			vo.setFreeCnt((String) req.getAttribute("freeCnt"));
+			vo.setFreeCnt((String)req.getAttribute("freeCnt"));
 		}
 		
 		if(req.getAttribute("freeTitle") != null){
-			vo.setFreeTitle((String) req.getAttribute("freeTitle"));
+			vo.setFreeTitle(Encode.forHtmlAttribute((String) req.getAttribute("freeTitle")));
 		}
 		
 		System.out.println(vo.getFreeIndex());
@@ -146,7 +147,7 @@ public class FreeController {
 		HttpSession session = req.getSession();
 		
 		if(req.getAttribute("reCnt") != null){
-			vo.setReCnt((String) req.getAttribute("reCnt"));
+			vo.setReCnt(Encode.forHtmlAttribute((String) req.getAttribute("reCnt")));
 		}
 		
 		
@@ -168,7 +169,7 @@ public class FreeController {
 	public String reedit(ReVO vo, HttpServletRequest req) {
 		
 		if(req.getAttribute("reCnt") != null){
-			vo.setReCnt((String) req.getAttribute("reCnt"));
+			vo.setReCnt(Encode.forHtmlAttribute((String) req.getAttribute("reCnt")));
 		}
 		
 		int result = reService.update(vo);
