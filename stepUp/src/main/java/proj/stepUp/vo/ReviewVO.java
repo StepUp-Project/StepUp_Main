@@ -8,7 +8,21 @@ public class ReviewVO {
 	private int userIndex;
 	private int prdIndex;
 	private String userNick;
+	private int start;
+	private int perPage;
 			
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
+	}
+	public int getPerPage() {
+		return perPage;
+	}
+	public void setPerPage(int perPage) {
+		this.perPage = perPage;
+	}
 	public String getUserNick() {
 		return userNick;
 	}

@@ -8,7 +8,12 @@
 		insert into review_tb (reviewContent, reviewScore, userIndex, prdIndex) values(#{reviewContent}, #{reviewScore}, #{userIndex}, #{prdIndex})
 	</insert>
 	  
-	<select id="selectByPrdIndex" resultType="reviewVO" parameterType="int">
-		SELECT * FROM review_tb r, user_tb u where r.userIndex = u.userIndex and prdIndex = #{prdIndex}
-	</select>	
+	<select id="selectReview" resultType="reviewVO" parameterType="reviewVO">
+		SELECT * FROM review_tb r, user_tb u where r.userIndex = u.userIndex and prdIndex = #{prdIndex} order by reviewDate desc limit #{start}, #{perPage}
+	</select>
+	
+	<select id="selectCount" resultType="int" parameterType="int">
+		select count(*) as total from review_tb where prdIndex = #{prdIndex}
+	</select>
+		
   </mapper>

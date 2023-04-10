@@ -22,6 +22,7 @@ import proj.stepUp.service.ProductImgService;
 import proj.stepUp.service.ProductService;
 import proj.stepUp.service.ReviewService;
 import proj.stepUp.service.SizeService;
+import proj.stepUp.util.PagingUtil;
 import proj.stepUp.vo.MarkVO;
 import proj.stepUp.vo.ProductImgVO;
 import proj.stepUp.vo.ProductVO;
@@ -128,12 +129,12 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/view.do", method = RequestMethod.GET)
-	public String view(int prdIndex, MarkVO markVO, Model model, HttpSession session) {
+	public String view(int prdIndex, ReviewVO vo, MarkVO markVO, Model model, HttpSession session) {
 		ProductVO prdVO = productService.selectProductIndex(prdIndex);
 		List<ProductImgVO> prdImgVO = producImgService.selectByProductIndex(prdIndex);
-		List<ReviewVO> reviewVO = reviewService.selectByPrdIndex(prdIndex);
 		UserVO userVO = (UserVO)session.getAttribute("login");
 		List<SizeVO> sizeVO = sizeService.selectByPrdIndex(prdIndex);
+
 		try {
 			if(userVO != null) {
 				markVO.setUserIndex(userVO.getUserIndex());
@@ -146,9 +147,6 @@ public class ProductController {
 			if(prdVO != null) {
 				model.addAttribute("prdVO", prdVO);//상품 정보
 				model.addAttribute("prdImgVO", prdImgVO);//상품 서브 이미지
-			}
-			if(reviewVO != null) {
-				model.addAttribute("reviewVO", reviewVO);//상품 리뷰
 			}
 			if(sizeVO != null) {
 				model.addAttribute("sizeVO", sizeVO);//상품 사이즈 정보

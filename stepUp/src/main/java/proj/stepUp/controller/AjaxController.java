@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,10 +22,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
 
+import proj.stepUp.service.CartService;
 import proj.stepUp.service.MarkService;
+import proj.stepUp.service.ReviewService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.NaverSMS;
+import proj.stepUp.util.PagingUtil;
+import proj.stepUp.vo.CartVO;
 import proj.stepUp.vo.MarkVO;
+import proj.stepUp.vo.ReviewVO;
 
 @RequestMapping(value="/ajax")
 @Controller
@@ -36,6 +41,12 @@ public class AjaxController {
 	
 	@Autowired
 	private MarkService markService;
+	
+	@Autowired
+	private CartService cartService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	@ResponseBody
 	@RequestMapping(value="/checkId.do", method = RequestMethod.POST)
@@ -140,9 +151,47 @@ public class AjaxController {
 		
 		@ResponseBody
 		@RequestMapping(value="/inputCart.do", method = RequestMethod.POST)
-		public String inputCart(@RequestParam Map<String, String> params){	//cart 데이터 넘기는중
-			System.out.println("에이작스 카트"+params.get("sizeIndex"));
-			System.out.println("에이작스 카트"+params.get("sizeStock"));
-			return "";
-		}			
+		public String inputCart(String[] sizeIndex, String[] sizeStock, CartVO vo){	//cart 데이터 넘기는중
+			try {
+				for(int i = 0; i < sizeIndex.length; i++) {
+					int size = Integer.parseInt(sizeIndex[i]);
+					int stock =Integer.parseInt(sizeStock[i]);				
+					vo.setSizeIndex(size);
+					vo.setCartStock(stock);
+					int result = cartService.insertCart(vo);
+					if(result != 1) {
+						return "0";
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return "1";
+		}
+		
+			
+		@ResponseBody
+		@RequestMapping(value="/prdPaging.do", method = RequestMethod.GET)	//review리스트 페이징 ajax 처리
+		public List<ReviewVO> prdPagingList(int nowPage, ReviewVO vo, Model model, HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			int totalCount = reviewService.selectCount(vo.getPrdIndex());//해당 제품페이지에 존재하는 총 상품리뷰 수
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 5);
+			vo.setStart(paging.getStart());
+			vo.setPerPage(paging.getPerPage());
+			List<ReviewVO> reviewVO = reviewService.selectReview(vo);	
+			
+			return reviewVO;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/prdPaging.do", method = RequestMethod.POST)	//페이징 버튼 ajax 처리
+		public PagingUtil prdPagingBtn(int nowPage, ReviewVO vo, Model model, HttpServletRequest request) {		
+			HttpSession session = request.getSession();
+			int totalCount = reviewService.selectCount(vo.getPrdIndex());//해당 제품페이지에 존재하는 총 상품리뷰 수
+			System.out.println(nowPage);
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 5);
+			
+			return paging;
+		}
 }
