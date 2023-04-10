@@ -64,6 +64,16 @@ public class FreeController {
 		
 		HttpSession session = req.getSession();
 		
+		if(req.getAttribute("freeCnt") != null) {
+			vo.setFreeCnt((String) req.getAttribute("freeCnt"));
+		}
+		
+		if(req.getAttribute("freeTitle") != null){
+			vo.setFreeTitle((String) req.getAttribute("freeTitle"));
+		}
+		
+		
+		
 		UserVO loginUserVO = (UserVO)session.getAttribute("login");
 		vo.setUserIndex(loginUserVO.getUserIndex());
 		int result = freeService.insert(vo);
@@ -96,7 +106,17 @@ public class FreeController {
 	}
 	
 	@RequestMapping(value="/free_modify.do", method = RequestMethod.POST)
-	public String modify(FreeBoardVO vo) {
+	public String modify(FreeBoardVO vo , HttpServletRequest req) {
+		
+		
+		if(req.getAttribute("freeCnt") != null) {
+			vo.setFreeCnt((String) req.getAttribute("freeCnt"));
+		}
+		
+		if(req.getAttribute("freeTitle") != null){
+			vo.setFreeTitle((String) req.getAttribute("freeTitle"));
+		}
+		
 		System.out.println(vo.getFreeIndex());
 		System.out.println(vo.getFreeTitle());
 		System.out.println(vo.getUserIndex());
@@ -117,9 +137,7 @@ public class FreeController {
 		
 		return "redirect:/free/free.do";
 	}
-	
-	
-	
+
 	
 	// 댓글 컨트롤러 부분
 	
@@ -127,6 +145,11 @@ public class FreeController {
 	public String rewrite(ReVO vo, HttpServletRequest req) {
 		
 		HttpSession session = req.getSession();
+		
+		if(req.getAttribute("reCnt") != null){
+			vo.setReCnt((String) req.getAttribute("reCnt"));
+		}
+		
 		
 		UserVO loginUserVO = (UserVO)session.getAttribute("login");
 		vo.setUserIndex(loginUserVO.getUserIndex());
@@ -143,8 +166,12 @@ public class FreeController {
 	}
 	
 	@RequestMapping(value="/re_edit.do", method = RequestMethod.POST)
-	public String reedit(ReVO vo) {
-	
+	public String reedit(ReVO vo, HttpServletRequest req) {
+		
+		if(req.getAttribute("reCnt") != null){
+			vo.setReCnt((String) req.getAttribute("reCnt"));
+		}
+		
 		int result = reService.update(vo);
 		if(result>0) {
 			return "redirect:/free/free_view.do?freeIndex="+vo.getFreeIndex();
