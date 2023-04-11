@@ -16,11 +16,29 @@ public class NoticeBoardDAO {
 	private SqlSession sqlSession;
 	
 	public List<NoticeBoardVO> list(SearchVO svo){
-	
-		
-		
+
 		return sqlSession.selectList("proj.stepUp.mapper.noticeBoardMapper.selectAll", svo);
 	}
 	
+	public List<NoticeBoardVO> cntTotal(SearchVO svo){
+		return sqlSession.selectList("proj.stepUp.mapper.noticeBoardMapper.cntTotal", svo);
+	}
+	
+	public NoticeBoardVO selectByIndex(int noticeIndex) {
+		
+		return sqlSession.selectOne("proj.stepUp.mapper.noticeBoardMapper.selectByIndex", noticeIndex);
+	}
+	
+	public int insert(NoticeBoardVO vo) {
+		return sqlSession.insert("proj.stepUp.mapper.noticeBoardMapper.insert", vo);
+	}
+	
+	public int update(NoticeBoardVO vo) {
+		return sqlSession.update("proj.stepUp.mapper.noticeBoardMapper.update", vo);
+	}
+	
+	public int delete(int noticeIndex) {
+		return sqlSession.delete("proj.stepUp.mapper.noticeBoardMapper.delete", noticeIndex);
+	}
 	
 }
