@@ -83,11 +83,11 @@
     <main>
         <article id="board_write">
             <div id="board_ttl">공지사항 글쓰기</div>
-            <form method="post">
-                <input class="input_title" type="text" placeholder="제목을 입력해주세요">
-                <textarea id="summernote" name="editordata"></textarea>
+            <form method="post" action="notice_write.do">
+                <input class="input_title" name="noticeTitle" type="text" placeholder="제목을 입력해주세요">
+                <textarea id="summernote"  name="noticeCnt"></textarea>
                 <div id="board_button">
-                    <input type="submit" value="저 장">
+                    <input type="submit" value="저 장" onclick="return confirm('저장하시겠습니까?')">
                     <input type="button" value="돌아가기">
                 </div>
             </form>

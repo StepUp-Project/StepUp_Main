@@ -1,3 +1,4 @@
+<%@page import="proj.stepUp.util.PagingUtil"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -6,7 +7,9 @@
 <%@ page import="java.util.*" %>
 <% 
 	List<NoticeBoardVO> blist = (List<NoticeBoardVO>)request.getAttribute("blist");
+	PagingUtil paging = (PagingUtil)request.getAttribute("paging");
 %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -93,10 +96,10 @@
                     </tr>
                 </thead>
               <tbody>
-                 <c:forEach var="vo" items="${blist}">
+                 <c:forEach var="vo" items="${blist}" begin="${(paging.nowPage*10)-10}" end="${(paging.nowPage*10) -1}">
                     <tr>
                         <td><span>${vo.noticeIndex}</span></td>
-                        <td><a href="notice_view.do"><div>${vo.noticeTitle}</div></a></td>
+                        <td><a href="notice_view.do?noticeIndex=${vo.noticeIndex}"><div>${vo.noticeTitle}</div></a></td>
                         <td><span>
                         <% 
                                 Date date = new Date();
@@ -121,8 +124,38 @@
                  </c:forEach>
                 </tbody>
                 <tfoot>
-                    <tr class="board_page" >
-                        <td colspan="5">◀ 1 2 3 4 5 6 7 8 9 ▶</td>
+                     <tr class="board_page" >
+                       <td colspan="5">
+						<%  
+							// 페이징 출력 영역
+							if(paging.getStartPage()> 1){
+						%>
+							<a href="event.do?nowPage=<%= paging.getStartPage()-1%>"> </a>
+						<%		
+							}
+				
+							for(int i = paging.getStartPage(); i<=paging.getEndPage(); i++){
+							
+								if(paging.getNowPage() != i){
+						%>
+							<a href="event.do?nowPage=<%= i %>"> <%= i %> </a>	
+						<%
+								}else{
+						%>
+							<b><%= i %></b>
+							
+						<%	
+								}
+							}
+							
+							if(paging.getEndPage() < paging.getLastPage()){
+						%>	
+							<a href="event.do?nowPage=<%= paging.getEndPage()+1%>"> </a>
+						<%
+							}
+						%>
+		
+						</td>
                     </tr>
                     <tr>
                         <td class="board_search" colspan="5">

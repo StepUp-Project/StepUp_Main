@@ -6,7 +6,7 @@ public class NoticeBoardVO {
 	private String noticeTitle;
 	private String noticeCnt;
 	private String noticeWdate;
-	
+	private int total;
 	
 	public int getNoticeIndex() {
 		return noticeIndex;
@@ -31,5 +31,11 @@ public class NoticeBoardVO {
 	}
 	public void setNoticeWdate(String noticeWdate) {
 		this.noticeWdate = noticeWdate;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
 	}
 }
