@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-    <style type="text/css">
+    <style type="text/css"><!-- 추후 css 페이지로 옴길것! -->
 .price-range-slider {
             width: 100%;
             border: 0;
@@ -177,8 +177,9 @@
             font-size: 1em;
             width: 100%;
             pointer-events: none;
-            text-align: center;
+            text-align: right;
             width: 30%;
+            
         }
 
         /* Style for active state input */
@@ -191,6 +192,13 @@
         .price-range-slider .price-field input[type=range]:active::-webkit-slider-thumb {
             box-shadow: 0 0 0 0.5px #242424;
             transition-duration: 0.3s;
+        }
+        .w-7{
+        	width:7%;
+        }
+        .sbtn{
+        	height:4%;
+        	width:22%;
         }
     </style>
 </head>
@@ -357,127 +365,23 @@
                     </label>
                 </li>
             </ul>
-            <button type="button" onclick="search()">검색</button>
+            <button class="sbtn" type="button" onclick="searchPrdList(1)">검색</button>
         </article>
         <article id="prd_cnt">
             <div id="brand_main"></div>
-            <div id="prd_sort">
-                <a href="#">최신순</a>
-                <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                <a href="#">판매순</a> 
-                <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                <a href="#">가격순</a>  
+            <div id="prd_sort" class="d-flex justify-content-end">
+            	<select name="sort" id="sortList" class="form-select w-7" onchange="searchPrdList(1)">
+            		<option value="new">최신순</option>
+            		<option value="sale">판매순</option>
+            		<option value="low">낮은가격순</option>
+            		<option value="high">높은가격순</option>
+            	</select>
             </div>
 
-            <ul id="cnt_list">
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt03.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt01.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt03.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt01.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt03.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt01.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt03.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt02.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                <li class="cnt_info">
-                    <a href="#">
-                        <div><p class="cnt_img1" style="background-image:url(../image/brand/Brand_cnt01.jpg)"></div></p>
-                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                        <P class="cnt_prc"><span>49,800원</span></P>
-                    </a>
-                </li>
-                
+            <ul id="cnt_list"><!-- 상품 출력 영역 -->
             </ul>
-
+            <div id="pagingBtn"><!-- 페이징 버튼 출력 영역 -->
+            </div>
         </article>
     </main><!--메인 끝-->
 
@@ -521,6 +425,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
     <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
     <script type="text/javascript">
+    	//range(가격 검색)관련 스크립트
 	    var lowerSlider = document.querySelector('#lower');
 	    var upperSlider = document.querySelector('#upper');
 	
@@ -555,12 +460,14 @@
 	        document.querySelector('#price-min').value = this.value
 	    };
 	    
-	    function search(){//검색 필터 ajax호출 함수
+	    function searchPrdList(nowPage){//상품 리스트ajax호출 함수
+	    	console.log("ajax실행");
 	    	let searchType = '<c:out value="${searchVO.searchType}"/>';
 	    	let sizeKind = [];
 	    	let prdType = [];
 	    	let priceMin = $("#price-min").val();
-	    	let priceMax = $("#price-max").val();	    	
+	    	let priceMax = $("#price-max").val();
+	    	let sort = $('select[name=sort]').val();
 	    	$('input[name=sizeKind]:checked').each(function() {
 	    		sizeKind.push($(this).val());
 	    	});
@@ -576,17 +483,84 @@
 	    			searchType : searchType,
 	    			prdType : prdType,
 	    			priceMin : priceMin,
-	    			priceMax : priceMax
+	    			priceMax : priceMax,
+	    			nowPage : nowPage,
+	    			sort : sort
 	    			},
 	    		success:function(data){
-	    			console.log(data);
+	    			let prdHtml='';
+	    			for(let i=0; i < data.length; i++){
+	    				let prdList = data[i];
+	    				let price = new Intl.NumberFormat('ko-kr', { maximumSignificantDigits: 3 }).format(prdList.prdPrice);
+	    				prdHtml += '<li class="cnt_info">';
+	    				prdHtml += '<a href="<%=request.getContextPath()%>/product/view.do?prdIndex='+prdList.prdIndex+'">';
+	    				prdHtml += '<div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/'+prdList.prdRname+')"></div></p>';
+	    				prdHtml += '<P class="cnt_name"><span>'+prdList.prdName+'</span></P>';
+	    				prdHtml += '<P class="cnt_prc"><span>'+price+'원</span></P>';
+	    				prdHtml += '</a>';
+	    				prdHtml += '</li>';	    				
+	    				paging(nowPage, searchType)
+	    			}
+	    			$("#cnt_list").html(prdHtml);
 	    		}
 	    	});
 	    }
 	    
-	    function prdList(){
-	    	
+	    function paging(nowPage, searchType){//페이징 버튼 ajax 처리 함수
+	    	let sizeKind = [];
+	    	let prdType = [];
+	    	let priceMin = $("#price-min").val();
+	    	let priceMax = $("#price-max").val();	
+	    	let sort = $('select[name=sort]').val();
+	    	$('input[name=sizeKind]:checked').each(function() {
+	    		sizeKind.push($(this).val());
+	    	});
+	    	$('input[name=prdType]:checked').each(function() {
+	    		prdType.push($(this).val());
+	    	});
+	    	let pagingHtml = '';
+	    	$.ajax({
+	    		url:"<%=request.getContextPath()%>/ajax/searchPaging.do",
+	    		type:"get",
+	    		traditional : true,
+	    		data:{
+	    			sizeKind : sizeKind,
+	    			searchType : searchType,
+	    			prdType : prdType,
+	    			priceMin : priceMin,
+	    			priceMax : priceMax,
+	    			nowPage : nowPage,
+	    			sort : sort
+	    			},
+	    		success: function(data) {
+				let startPage = Number(data.startPage);
+				let endPage = Number(data.endPage);
+				let perPage = Number(data.perPage);
+				let total = Number(data.total);
+				let now = Number(data.nowPage);
+				let lastPage = Number(data.lastPage);
+		    	pagingHtml += '<li class="d-flex justify-content-center">';
+		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-left"  onclick="searchPrdList('+(now - 1)+')" style= "display:'+(now != 1 ? 'block' : 'none')+'"></a>';
+		    	pagingHtml += '<div id="pagingNumBtn">';
+		    	for(let i = startPage; i <= endPage; i ++){
+		    		if(now != i){
+		    			pagingHtml += '<a href="javascript:void(0);" class="pe-1" onclick="searchPrdList('+i+')">'+i+'</a>';
+		    		}else{
+		    			pagingHtml += '<span class="pe-1 text-primary">'+i+'</span>';
+		    		}
+		    	}
+		    	pagingHtml += '</div> ';
+		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-right" onclick="searchPrdList('+(now+ 1)+')" style= "display:'+(now != lastPage ? 'block' : 'none')+'"></a>';
+		    	pagingHtml += '</li>';
+		    	$("#pagingBtn").html(pagingHtml);
+ 	    		}
+	    	});
 	    }
+	    
+	 	//brand paging 페이지 로드시 호출
+	    $(document).ready(function(){
+	    	searchPrdList(1);
+	    });
     </script>
 </body>
 </html>

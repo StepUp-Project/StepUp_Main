@@ -471,7 +471,7 @@
 	    		type:"get",
 	    		data:{nowPage : nowPage, prdIndex : prdIndex},
 	    	    success: function(data) { // Ajax 요청이 성공한 경우 실행될 콜백 함수
-	    	    	let reviewHtml = ''
+	    	    	let reviewHtml = '';
 	    	    	console.log(data);
 	    	    	for(let i = 0; i < data.length; i++){
 	    	    		let reviewList = data[i];
@@ -518,8 +518,9 @@
 				let perPage = Number(data.perPage);
 				let total = Number(data.total);
 				let now = Number(data.nowPage);
+				let lastPage = Number(data.lastPage);
 		    	pagingHtml += '<li class="d-flex justify-content-center">';
-		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-left"  onclick="goPage('+(startPage - 1)+')" style= "display:'+(startPage - 10 > 0 ? 'block' : 'none')+'"></a>';
+		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-left"  onclick="goPage('+(now - 1)+')" style= "display:'+(now != 1  ? 'block' : 'none')+'"></a>';
 		    	pagingHtml += '<div id="pagingNumBtn">';
 		    	for(let i = startPage; i <= endPage; i ++){
 		    		if(now != i){
@@ -529,7 +530,7 @@
 		    		}
 		    	}
 		    	pagingHtml += '</div> ';
-		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-right" onclick="goPage('+(endPage+ 1)+')" style= "display:'+(endPage * perPage < total ? 'block' : 'none')+'"></a>';
+		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-right" onclick="goPage('+(now+ 1)+')" style= "display:'+(now != lastPage ? 'block' : 'none')+'"></a>';
 		    	pagingHtml += '</li>';
 		    	$("#reeview_page").html(pagingHtml);
  	    		}
