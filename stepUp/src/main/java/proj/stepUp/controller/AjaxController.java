@@ -24,13 +24,16 @@ import com.google.gson.JsonObject;
 
 import proj.stepUp.service.CartService;
 import proj.stepUp.service.MarkService;
+import proj.stepUp.service.ProductService;
 import proj.stepUp.service.ReviewService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.NaverSMS;
 import proj.stepUp.util.PagingUtil;
 import proj.stepUp.vo.CartVO;
 import proj.stepUp.vo.MarkVO;
+import proj.stepUp.vo.ProductVO;
 import proj.stepUp.vo.ReviewVO;
+import proj.stepUp.vo.SearchVO;
 
 @RequestMapping(value="/ajax")
 @Controller
@@ -47,6 +50,9 @@ public class AjaxController {
 	
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private ProductService productService;
 	
 	@ResponseBody
 	@RequestMapping(value="/checkId.do", method = RequestMethod.POST)
@@ -186,11 +192,31 @@ public class AjaxController {
 		
 		@ResponseBody
 		@RequestMapping(value="/prdPaging.do", method = RequestMethod.POST)	//페이징 버튼 ajax 처리
-		public PagingUtil prdPagingBtn(int nowPage, ReviewVO vo, Model model, HttpServletRequest request) {		
-			HttpSession session = request.getSession();
+		public PagingUtil prdPagingBtn(int nowPage, ReviewVO vo) {		
 			int totalCount = reviewService.selectCount(vo.getPrdIndex());//해당 제품페이지에 존재하는 총 상품리뷰 수
-			System.out.println(nowPage);
 			PagingUtil paging = new PagingUtil(totalCount, nowPage, 5);
+			
+			return paging;
+		}
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/search.do", method = RequestMethod.GET)	
+		public List<ProductVO> search(SearchVO searchVO, int nowPage) {
+			int totalCount = productService.selectBrandToal(searchVO);
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+			searchVO.setStart(paging.getStart());
+			searchVO.setPerPage(paging.getPerPage());
+			List<ProductVO> productVO = productService.selectBrandPage(searchVO);
+			return productVO;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/searchPaging.do", method = RequestMethod.GET)	
+		public PagingUtil searchPaging(SearchVO searchVO, int nowPage) {
+			int totalCount = productService.selectBrandToal(searchVO);
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+			
 			
 			return paging;
 		}

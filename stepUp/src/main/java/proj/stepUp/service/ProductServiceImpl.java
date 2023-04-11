@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import proj.stepUp.dao.ProductDAO;
 import proj.stepUp.vo.ProductVO;
+import proj.stepUp.vo.SearchVO;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -15,26 +16,32 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public int insertProduct(ProductVO vo) {
-		// TODO Auto-generated method stub
 		return productDAO.insertProduct(vo);
 	}
 
 	@Override
 	public ProductVO selectProductIndex(int prdIndex) {
-		// TODO Auto-generated method stub
 		return productDAO.selectProductIndex(prdIndex);
 	}
 
 	@Override
 	public List<ProductVO> selectProductByDate(int maxPrd) {
-		// TODO Auto-generated method stub
 		return productDAO.selectProductByDate(maxPrd);
 	}
 
 	@Override
 	public List<ProductVO> selectProductSales(int maxPrd) {
-		// TODO Auto-generated method stub
 		return productDAO.selectProductSales(maxPrd);
+	}
+
+	@Override
+	public List<ProductVO> selectBrandPage(SearchVO searchVO) {
+		return productDAO.selectBrandPage(searchVO);
+	}
+
+	@Override
+	public int selectBrandToal(SearchVO searchVO) {
+		return productDAO.selectBrandToal(searchVO);
 	}
 	
 }

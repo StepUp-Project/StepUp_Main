@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import proj.stepUp.vo.ProductVO;
+import proj.stepUp.vo.SearchVO;
 
 @Repository
 public class ProductDAO {
@@ -28,5 +29,13 @@ public class ProductDAO {
 	
 	public List<ProductVO> selectProductSales(int maxPrd){
 		return sqlSession.selectList("proj.stepUp.mapper.productMapper.selectProductSales", maxPrd);
+	}
+	
+	public List<ProductVO> selectBrandPage(SearchVO searchVO){
+		return sqlSession.selectList("proj.stepUp.mapper.productMapper.selectBrandPage",searchVO);
+	}
+	
+	public int selectBrandToal(SearchVO searchVO){
+		return sqlSession.selectOne("proj.stepUp.mapper.productMapper.selectBrandToal",searchVO);
 	}
 }

@@ -22,11 +22,11 @@ import proj.stepUp.service.ProductImgService;
 import proj.stepUp.service.ProductService;
 import proj.stepUp.service.ReviewService;
 import proj.stepUp.service.SizeService;
-import proj.stepUp.util.PagingUtil;
 import proj.stepUp.vo.MarkVO;
 import proj.stepUp.vo.ProductImgVO;
 import proj.stepUp.vo.ProductVO;
 import proj.stepUp.vo.ReviewVO;
+import proj.stepUp.vo.SearchVO;
 import proj.stepUp.vo.SizeVO;
 import proj.stepUp.vo.UserVO;
 
@@ -157,5 +157,23 @@ public class ProductController {
 
 		
 		return "product/product_view";
+	}
+	
+	@RequestMapping(value = "/best.do", method = RequestMethod.GET)//best페이지
+	public String best(Model model) {
+		
+		//상품정보(판매순)
+		int maxPrd = 20;
+		List<ProductVO> bestProduct = productService.selectProductSales(maxPrd);
+		model.addAttribute("bestProduct", bestProduct);
+		
+		return "product/best";
+	}
+	
+	@RequestMapping(value = "/brand.do", method = RequestMethod.GET)//brand페이지
+	public String brand(SearchVO searchVO, Model model) {
+		model.addAttribute("searchVO", searchVO);
+				
+		return "product/brand" ;
 	}
 }
