@@ -224,22 +224,36 @@ public class AjaxController {
 		}
 		
 		@ResponseBody
-		@RequestMapping(value="/ordernum.do", method = RequestMethod.POST)	
-		public String orderNum() {					
+		@RequestMapping(value="/ordernum.do", method = RequestMethod.POST)//결제 요청전 실행ajax
+		public String orderNum(int totalPrice) {					
 			PaymentUtil paymentUtil = new PaymentUtil();
-			String orderNum = paymentUtil.createNum();
-		    int result = orderService.selectOrderNum(orderNum);
+			String orderNum = paymentUtil.createNum();//주문번호 생성
+		    int result = orderService.selectOrderNum(orderNum);//주문번호 중복 체크
 		    try {
-		    	while(result > 0) {
-		    		System.out.println("주문번호 중복");
+		    	while(result > 0) {//주문번호중복시
 		    		orderNum = paymentUtil.createNum();
 		    		result = orderService.selectOrderNum(orderNum);
-		    	}		    	
+		    	}
+		    	String accessToken = paymentUtil.getAccessToken();//엑세스 토큰 발급
+		    	int code = paymentUtil.prepare(orderNum, totalPrice, accessToken);//결제금액 사전등록
+		    	if(code != 0) {
+		    		System.out.println("존재하지 않는 결제입니다.");//경고창 출력할지 미정
+		    	}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
-		    System.out.println("주문번호 미중복"); 
 		    return orderNum;		    
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/createOrder.do", method = RequestMethod.POST)	
+		public String createOrder(String imp_uid, String merchant_uid, int totalPrice) {
+			PaymentUtil paymentUtil = new PaymentUtil();
+			String accessToken = paymentUtil.getAccessToken();//엑세스 토큰 발급
+			String mesage = paymentUtil.paymentHistory(imp_uid, accessToken, totalPrice);
+			System.out.println(mesage);
+			
+			return mesage;
 		}
 }

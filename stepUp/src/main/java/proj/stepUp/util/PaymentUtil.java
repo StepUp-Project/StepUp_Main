@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 public class PaymentUtil {
 	
-	public String getAccessToken() {
+	public String getAccessToken() {//access토큰 발급
 		String accessToken = "";
 		String requrl = "https://api.iamport.kr/users/getToken";
 		String impKey = "5141870845668140";
@@ -34,7 +34,6 @@ public class PaymentUtil {
 	         bw.flush();
 	         
 	         int responseCode = conn.getResponseCode();
-	         System.out.println("responseCode : " + responseCode);
 	         
 	         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	         String line = "";
@@ -45,14 +44,9 @@ public class PaymentUtil {
 	         }
 	         
 	         //json 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-	         System.out.println("결과"+result);
-	         System.out.println(line);
 	         JSONObject jsonObject = new JSONObject(result);
 	         JSONObject responseObj = jsonObject.getJSONObject("response");
 	         accessToken = responseObj.getString("access_token");
-
-	          
-	          System.out.println("access_token : " + accessToken);
 	          
 	          br.close();
 	          bw.close();
@@ -62,7 +56,7 @@ public class PaymentUtil {
 		return accessToken;
 	}
 	
-	public String createNum() {
+	public String createNum() {//주문번호 생성
 	    Random random = new Random();
 	    int createNum = 0;
 	    String ranNum = "";
@@ -82,5 +76,96 @@ public class PaymentUtil {
 	    String orderNum = resultNum+"-"+formattedDateTime;//생성된 주문 번호
 	    
 	    return orderNum;
+	}
+	
+	public int prepare(String orderNum, int totalPrice, String accessToken) {//결제금액 사전등록 
+		int resultCode = 1;
+		String requrl = "https://api.iamport.kr/payments/prepare";
+		String merchant_uid = orderNum;
+		String authorization = "Bearer " + accessToken;
+		int amount = totalPrice;
+		
+		try {
+			 URL url = new URL(requrl);
+			 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			 conn.setRequestMethod("POST");
+			 conn.setDoOutput(true);
+			 conn.setRequestProperty("Authorization", authorization);
+			 
+			 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			 StringBuilder sb = new StringBuilder();
+			 sb.append("merchant_uid="+orderNum);
+			 sb.append("&amount="+totalPrice);
+	         bw.write(sb.toString());
+	         bw.flush();
+	         
+	         
+	         int responseCode = conn.getResponseCode();
+	         
+	         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	         String line = "";
+	         String result = "";
+	         
+	         while ((line = br.readLine()) != null) {
+	             result += line;
+	         }
+	         
+	         //json 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+	         JSONObject jsonObject = new JSONObject(result);
+	         resultCode = jsonObject.getInt("code");	
+	          
+	          br.close();
+	          bw.close();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return resultCode;
+	}
+	
+	
+	public String paymentHistory(String imp_uid, String accessToken, int totalPrice) {
+		String requrl = "https://api.iamport.kr/payments/"+imp_uid;
+		String authorization = "Bearer " + accessToken;
+		String mesage = "";
+		try {
+			 URL url = new URL(requrl);
+			 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			 conn.setRequestMethod("GET");
+			 conn.setDoOutput(true);
+			 conn.setRequestProperty("Authorization", authorization);
+			 
+			 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			 StringBuilder sb = new StringBuilder();
+			 sb.append("imp_uid="+imp_uid);
+	         bw.write(sb.toString());
+	         bw.flush();
+
+	         int responseCode = conn.getResponseCode();
+	         
+	         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	         String line = "";
+	         String result = "";
+	         
+	         while ((line = br.readLine()) != null) {
+	             result += line;
+	         }
+	         
+	         //json 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+	         System.out.println("결과"+result);
+	         JSONObject jsonObject = new JSONObject(result);
+	         JSONObject responseObj = jsonObject.getJSONObject("response");
+	         int amount = responseObj.getInt("amount");
+	         if(amount == totalPrice) {
+	        	 mesage = "일반 결제 성공";
+	         }else {
+	        	 mesage = "위조된 결제시도";
+	         }
+	         
+	          br.close();
+	          bw.close();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return mesage;
 	}
 }
