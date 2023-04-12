@@ -24,11 +24,13 @@ import com.google.gson.JsonObject;
 
 import proj.stepUp.service.CartService;
 import proj.stepUp.service.MarkService;
+import proj.stepUp.service.OrderService;
 import proj.stepUp.service.ProductService;
 import proj.stepUp.service.ReviewService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.NaverSMS;
 import proj.stepUp.util.PagingUtil;
+import proj.stepUp.util.PaymentUtil;
 import proj.stepUp.vo.CartVO;
 import proj.stepUp.vo.MarkVO;
 import proj.stepUp.vo.ProductVO;
@@ -54,11 +56,13 @@ public class AjaxController {
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private OrderService orderService;
+	
 	@ResponseBody
 	@RequestMapping(value="/checkId.do", method = RequestMethod.POST)
 	public String checkId(String userId){
-		
-		int result = result = userService.checkId(userId);	
+		int result = userService.checkId(userId);
 		if(result > 0) {
 			return "failse";
 		}else {
@@ -69,8 +73,7 @@ public class AjaxController {
 	@ResponseBody
 	@RequestMapping(value="/checkNick.do", method = RequestMethod.POST)
 	public String checkNick(String userNick){
-		
-		int result = result = userService.checkNick(userNick);	
+		int result = userService.checkNick(userNick);	
 		if(result > 0) {
 			return "failse";
 		}else {
@@ -213,11 +216,30 @@ public class AjaxController {
 		
 		@ResponseBody
 		@RequestMapping(value="/searchPaging.do", method = RequestMethod.GET)	
-		public PagingUtil searchPaging(SearchVO searchVO, int nowPage) {
+		public PagingUtil searchPaging(SearchVO searchVO, int nowPage) {					
 			int totalCount = productService.selectBrandToal(searchVO);
 			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
-			
-			
+
 			return paging;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/ordernum.do", method = RequestMethod.POST)	
+		public String orderNum() {					
+			PaymentUtil paymentUtil = new PaymentUtil();
+			String orderNum = paymentUtil.createNum();
+		    int result = orderService.selectOrderNum(orderNum);
+		    try {
+		    	while(result > 0) {
+		    		System.out.println("주문번호 중복");
+		    		orderNum = paymentUtil.createNum();
+		    		result = orderService.selectOrderNum(orderNum);
+		    	}		    	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		    System.out.println("주문번호 미중복"); 
+		    return orderNum;		    
 		}
 }
