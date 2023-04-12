@@ -29,7 +29,7 @@
 				<br/>
 				로그인 후 킥스허브의 다양한 서비스를 이용하실 수 있습니다.
 			</p>
-			<button type="button" id="joid_btn" onclick="location.href='login.jsp'">로그인</button>
+			<button type="button" id="joid_btn" onclick="location.href='login.do'">로그인</button>
 		</article><!--end:#joinok-->
 	</main>
 

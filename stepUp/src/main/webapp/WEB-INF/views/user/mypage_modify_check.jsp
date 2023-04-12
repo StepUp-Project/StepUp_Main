@@ -72,6 +72,7 @@
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
     	</div>
     </header><!--헤더 끝--> 
+    
     <main><!--메인 시작-->
         <div class="mypagemain">
             <div class="mypage_menu"><!--마이페이지 메뉴 시작-->
@@ -85,10 +86,35 @@
                     <span><a href="#">QnA</a></span>
                     <span><a href="#">내가 작성한 글</a></span>
                     <span><a href="#">개인정보수정</a></span>
+                    <span><a href="#">회원탈퇴</a></span>
                 </div>
             </div><!--마이페이지 메뉴 끝-->
             
-            
+            <article id="mypage_contain"><!--개인정보수정-비번확인 페이지 시작-->
+                <div id="mypage_title">
+                    <h2>
+                       	 개인정보수정
+                    </h2>
+                </div>
 
+                <div id="mypage_subtitle">
+                    <h3>비밀번호 확인</h3>
+                    <p>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한 번 확인합니다.</p>
+                </div>
+                <form action="" method="post" class="mpmc">
+                    <div class="form-floating mb-3">
+                    	<input type="hidden" name="userId" value="${login.userId}">
+                        <input type="password" class="form-control" id="userPw" name="userPw" placeholder="userPw">
+                        <label for="userPw">비밀번호</label>
+                    </div>
+                    <div class="mb-3 mt-3" id="mypage_btn">
+                        <input type="submit" value="확인">
+                    </div>
+                </form>
+                <p class="modifypre">회원님의 개인정보를 신중히 취급하며, 회원님의 동의 없이는<br/>
+                    기재하신 회원정보를 공개 및 변경하지 않습니다.</p>
+            </article><!--개인정보수정-비번확인 페이지 끝-->
+        </div>
+	</main>
 </body>
 </html>
