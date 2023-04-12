@@ -30,6 +30,15 @@ public class UserDAO {
 		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.login", vo);
 	}
 	
+	public UserVO mypage(String userId) {
+		
+		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.mypage", userId);
+	}
+
+	public int mypageUpdate(UserVO vo) {
+		return sqlSession.update("proj.stepUp.mapper.userMapper.mypageUpdate", vo);
+	}
+	
 	public UserVO kakaoLogin(String userKakaoId) {
 		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.kakaoLogin", userKakaoId);
 	}

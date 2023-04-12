@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,8 +27,34 @@ public class UserController {
 	private UserService userService;
 	
 	
+	@RequestMapping(value="/join_terms.do", method = RequestMethod.GET)
+	public String joinTerms(HttpServletRequest req) {
+		
+		HttpSession seesion = req.getSession();
+		if(seesion.getAttribute("login") != null) {
+			return "home";
+		}else {
+			return "user/join_terms";
+		}
+	}
+
+	
 	@RequestMapping(value="/join.do", method = RequestMethod.GET)
-	public String join(HttpServletRequest req) {
+	public String join(UserVO vo, HttpServletRequest req,Model model) {
+		
+		//jointerms에서 항목을 가져올 때 선택하지 않은 것에 N을 넣어줌
+		 if(vo.getEveChk() == null) {
+			 vo.setEveChk("N");
+		 }
+		 if(vo.getLoChk() == null) {
+			 vo.setLoChk("N");
+		 }
+		 
+		System.out.println(vo.getEveChk());
+		System.out.println(vo.getLoChk());
+		
+		model.addAttribute("vo", vo);
+		
 		HttpSession seesion = req.getSession();
 		if(seesion.getAttribute("login") != null) {
 			return "home";
@@ -39,19 +66,25 @@ public class UserController {
 	
 	@RequestMapping(value="/join.do", method = RequestMethod.POST)
 	public String join(UserVO vo) {
-		
-		
-		 int result = userService.insertUser(vo);
 		 
-		 if(result == 0) { 
-			return "user/join"; 
+		 int result = userService.insertUser(vo);
+		 if(result > 0) { 
+			return "redirect:/user/joinok.do";
 		 }else { 
-			return "home"; 
+			return "redirect:/user/join.do"; 
 		 }
 	}
+
+	
+	@RequestMapping(value="/joinok.do", method = RequestMethod.GET)
+	public String joinok(UserVO vo) {
+		return "user/joinok";
+	}
+	
 	
 	@RequestMapping(value="/login.do", method = RequestMethod.GET)
 	public String login(HttpServletRequest req) {
+		
 		HttpSession seesion = req.getSession();
 		if(seesion.getAttribute("login") != null) {
 			return "home";
@@ -59,6 +92,7 @@ public class UserController {
 			return "user/login";
 		}
 	}
+	
 	
 	@RequestMapping(value="/login.do", method = RequestMethod.POST)
 	public void login(UserVO vo, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
@@ -78,8 +112,10 @@ public class UserController {
 		pw.flush();
 	}
 	
+	
 	@RequestMapping(value="/kakaoLogin.do", method = RequestMethod.GET)
 	public String kakaoLogin(@RequestParam String code, HttpServletRequest req, HttpServletResponse rsp) throws IOException{
+		
 		KakaoLogin kakaoLogin = new KakaoLogin();//로그인 요청 후 코드 발급
 		String token = kakaoLogin.getKakaoAccessToken(code);//발급받은 코드를 이용하여 토큰 발급		
 		String userKakaoId = kakaoLogin.createKakaoUser(token);//토큰을 이용하여 사용자 정보 조회 후 아이디 반환
@@ -117,7 +153,6 @@ public class UserController {
 			pw.flush();
 		}
 		
-		
 		return "home";
 	}
 	
@@ -130,6 +165,7 @@ public class UserController {
 		System.out.println(request);
 		return "redirect:"+request;
 	}
+	
 	
 	@RequestMapping(value="naverLoginOk.do")
 	public String naverLoginOk(@RequestParam String code, String state, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
@@ -175,11 +211,96 @@ public class UserController {
 	}
 	
 	
-	
 	@RequestMapping(value="/logout.do", method = RequestMethod.GET)
 	public String kakaoLogout(HttpServletRequest req) {		
 		HttpSession seesion = req.getSession();
 		seesion.removeAttribute("login");
 		return "home";
 	}
+	
+	
+	
+	
+	
+	//개인정보수정 비밀번호 확인
+	@RequestMapping(value="/mypage_modify_check.do", method = RequestMethod.GET)
+	public String mpModifyCheck(HttpServletRequest req) {
+		HttpSession seesion = req.getSession();
+		if(seesion.getAttribute("login") != null) {
+			return "user/mypage_modify_check";
+		}else {
+			return "user/login";
+		}
+	}
+	
+	
+	@RequestMapping(value="/mypage_modify_check.do", method = RequestMethod.POST)
+	public void mpModifyCheck(UserVO vo, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		
+		 UserVO loginVO = userService.login(vo);
+		 rsp.setContentType("text/html;charset=utf-8");
+		 PrintWriter pw = rsp.getWriter();
+			if(loginVO != null) {
+				System.out.println("비밀번호가 확인되었습니다.");
+				HttpSession seesion = req.getSession();
+				seesion.setAttribute("login", loginVO);
+				pw.append("<script>location.href='"+req.getContextPath()+"/user/mypage_modify.do'</script>");
+			}else {
+				System.out.println("비밀번호가 정확하지 않습니다.");
+				pw.append("<script>alert('비밀번호가 정확하지 않습니다.');location.href='"+req.getContextPath()+"/user/mypage_modify_check.do'</script>");
+			}
+			pw.flush();
+		}
+	
+	
+	//개인정보수정 기존정보 불러오기
+	@RequestMapping(value="/mypage_modify.do", method = RequestMethod.GET)
+	public String mpModify(HttpServletRequest req, Model model) {
+		
+		HttpSession session = req.getSession();  //로그인정보는 세션에 있는거라서 세션에서 가져와야함
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		System.out.println( loginUser.getUserName() );
+		System.out.println( loginUser.getUserNick() );
+		System.out.println( loginUser.getUserAddr() );
+		System.out.println( loginUser.getUserId() );
+		UserVO mypage = userService.mypage(loginUser.getUserId());
+		model.addAttribute("mypage", mypage);
+			return "user/mypage_modify";
+	}
+	
+	
+	//개인정보수정 후 업데이트
+	@RequestMapping(value="/mypage_modify.do", method = RequestMethod.POST)
+	public void mpModify(UserVO vo, String userNPw, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		
+		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
+		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
+		vo.setUserId(loginUser.getUserId());  //그 로그인정보에 있는 사용자의 아이디를 vo에 넣어준다
+
+		vo.setUserPw(userNPw);  //새로운 비밀번호를 기존의 비밀번호에 넣어주는
+		
+		int result = userService.mypageUpdate(vo);
+		System.out.println( vo.getUserName() );
+		System.out.println( vo.getUserNick() );
+		System.out.println( vo.getUserPw() );
+		
+		 rsp.setContentType("text/html;charset=utf-8");
+		 PrintWriter pw = rsp.getWriter();
+		if(result > 0) {
+			System.out.println("정보가 수정되었습니다.");
+			//return "redirect:/user/mypage_modify.do";
+			//result가 0일 때
+			pw.append("<script>alert('정보가 수정되었습니다.');location.href='"+req.getContextPath()+"/user/mypage_modify.do'</script>");
+		}else {
+			System.out.println("정보가 수정되지 않았습니다.");
+			//return "redirect:/user/mypage_modify.do?updateYN=N";
+			//result가 1일 때
+			pw.append("<script>alert('정보가 수정되지 않았습니다.');location.href='"+req.getContextPath()+"/user/mypage_modify.do'</script>");
+		}
+		pw.flush();
+	}
+
 }
+	
+	
+

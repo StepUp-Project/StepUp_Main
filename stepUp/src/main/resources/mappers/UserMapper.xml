@@ -14,13 +14,32 @@
  	
  	<insert id="insertUser" parameterType="userVO">
  		insert into user_tb
- 		(userid , userpw, username, usernick, userphone, useraddr, userzipcode, userphac, useraddrdetail, usermail) 
- 		values (#{userId}, md5(#{userPw}), #{userName}, #{userNick}, #{userPhone},#{userAddr}, #{userZipCode}, #{userPhAc}, #{userAddrDetail}, #{userMail})
+ 		(userid , userpw, username, usernick, userphone, useraddr, userzipcode, userphac, useraddrdetail, usermail, lochk, evechk)
+ 		values (#{userId}, md5(#{userPw}), #{userName}, #{userNick}, #{userPhone},#{userAddr}, #{userZipCode}, #{userPhAc}, #{userAddrDetail}, #{userMail}, #{loChk}, #{eveChk})
  	</insert>
- 	
+
  	<select id="login" resultType="userVO" parameterType="userVO">
  		select userindex ,userid, username, usernick, usergrade from user_tb where userid = #{userId} and userpw = md5(#{userPw})
  	</select>
+ 	
+ 	<select id="mypage" resultType="userVO" parameterType="String">
+ 		select * from user_tb where userid = #{userId}
+ 	</select>
+ 
+ 	<update id="mypageUpdate" parameterType="userVO">
+ 		update user_tb set username = #{userName}
+ 		                 , usernick = #{userNick}
+ 	<if test="userPw != null and userPw != ''">
+ 						 , userpw = md5(#{userPw})
+ 	</if>
+ 		                 , userphone = #{userPhone}
+ 		                 , usermail = #{userMail}
+ 		                 , userphac = #{userPhAc}
+ 		                 , userzipcode = #{userZipCode}
+ 		                 , useraddr = #{userAddr}
+ 		                 , useraddrdetail = #{userAddrDetail} 
+ 		             where userId = #{userId}
+ 	</update>
  	
  	<select id="kakaoLogin" resultType="userVO" parameterType="String">
  		select userindex ,userid, username, usernick, usergrade, userKakaoId from user_tb where userKakaoId = #{userKakaoId} 

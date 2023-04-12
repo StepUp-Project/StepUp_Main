@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,11 +32,16 @@
         </div>
         <article id="join_contain">
             <form name="frm" action="join.do" method="post" onsubmit = "return joinCheck()">
+            
+                <input type="hidden" name="loChk" id="loChk" value="${vo.loChk}">
+                <input type="hidden" name="eveChk" id="eveChk" value="${vo.eveChk}">
+                
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="userId" name="userId" placeholder="userId" oninput="checkId()">
                     <label for="userId">아이디</label>
                 </div>
                 <div id="checkIdResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3" >
                     <input type="password" class="form-control" id="userPw" name="userPw" placeholder="userPw" onblur="checkPw()">
                     <label for="userPw">비밀번호</label>
@@ -43,6 +50,7 @@
                     </div>
                 </div>
                 <div id="checkPwResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3">
                     <input type="password" class="form-control" id="userPwc" name="userPwc"  placeholder="userPwc" onblur="checkPwc()">
                     <label for="userPwc">비밀번호 확인</label>
@@ -51,54 +59,65 @@
                     </div>
                 </div>
                 <div id="checkPwcResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="userName"  name="userName"  placeholder="이름" onblur="nameCheck()">
                     <label for="userName">이름</label>
                 </div>
                 <div id="checkNameResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="userNick" name="userNick" placeholder="닉네임" oninput="checkNick()">
                     <label for="userNick">닉네임</label>
                 </div>
                 <div id="checkNickResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3 d-flex justify-content-between">
                     <input type="text" class="form-control w-80" id="userPhone" name="userPhone" placeholder="연락처" onblur="PhoneCheck()">
                     <label for="userPhone">연락처</label>
                     <button type="button" onclick="call()" class="btn btn-secondary btn-sm">인증번호 발송</button>
                 </div>
+                
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="userPchNum" name="userPchNum" placeholder="인증번호" onblur="Pch()" disabled>
                     <label for="userPchNum">인증번호</label>
-                    <span id="check-Phone"></span>
                 </div>
+                <div id="check-Phone" style="margin-top: 16px; font-size:13px;"></div>
                	<div id="PchResult" class="mb-3" style="font-size:13px;"></div>
+               	
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="userMail" name="userMail" placeholder="이메일" onblur="checkEmail()">
                     <label for="userMail">이메일</label>         
                 </div>
                 <div id="checkEmailResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3 mt-3">
-                    <input type="radio" id="userPhAc"  name="userPhAc" value="Y" checked>연락처 수신동의
+                    <input type="radio" id="userPhAc"  name="userPhAc" value="Y">연락처 수신동의
                     <input type="radio" id="userPhAc" class="upa2" name="userPhAc" value="N">연락처 수신비동의
                 </div>
+                
                 <div class="form-floating mb-3 mt-3 d-flex justify-content-between">
                     <input type="text" class="form-control" id="userZipCode" name="userZipCode" placeholder="우편번호" readonly oninput="clearCheck()">
                     <label for="userZipCode">우편번호</label>
                     <button type="button" onclick="sample6_execDaumPostcode()" class="btn btn-secondary btn-sm">우편번호 찾기</button>
                 </div>
+                
                 <div class="form-floating mb-3 mt-3">
                     <input type="text" class="form-control" id="userAddr" name="userAddr" placeholder="주소" readonly>
                     <label for="userAddr">주소</label>
                 </div>
+                
                 <div class="form-floating mb-3 mt-3">
                     <input type="text" class="form-control" id="userAddrDetail" name="userAddrDetail" placeholder="상세주소">
                     <label for="userAddrDetail">상세주소</label>
                 </div>
-                <div id="checkAddrResult" class="mb-3"></div>
+                
+                <div id="checkAddrResult" class="mb-3" style="font-size:13px;"></div>
                 <div class="mb-3 mt-3" id="join_btn">
                     <input type="button" value="취소" onclick="history.back()">
                     <input type="submit" value="가입하기">
                 </div>
+                
             </form>
         </article>
 	</main><!-- 메인 끝 -->
@@ -110,6 +129,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
     <script>
+    
     	//비밀번호, 비밀번호 확인 보이기 숨기기
         let eyes = document.getElementById("eyes");
         let iEyes = document.getElementById("i-eyes");
@@ -187,7 +207,7 @@
 	      		$.ajax({
 	      			url: "${pageContext.request.contextPath}/ajax/checkId.do",
 	      			type: "post",
-	      			data:{UserId : UserId},
+	      			data:{userId : UserId},
 	      			success:function(data){ 
 	   					 if(data != "failse"){
 	      					let html = "사용가능한 아이디 입니다."
@@ -291,7 +311,7 @@
 	      		$.ajax({
 	      			url: "${pageContext.request.contextPath}/ajax/checkNick.do",
 	      			type: "post",
-	      			data:{UserNick : UserNick},
+	      			data:{userNick : UserNick},
 	      			success:function(data){
 	   					if(data != "failse"){
 	      					let html = "사용가능한 닉네임 입니다."
@@ -380,13 +400,13 @@
 				success:function(data){
 					if(data == 1){
 		     			PchOk = 1;
-		     			$("#check-Phone").html("일치");
+		     			$("#check-Phone").html("인증번호가 일치합니다.");
 		     			checkPhone.style.color = "#008000";
 		     			UserPchNumStyle.style.borderColor = "#008000";
 		     			UserPchNumStyle.disabled = true;
 					}else{
 		     			PchOk = 0;
-		     			$("#check-Phone").html("불일치");
+		     			$("#check-Phone").html("인증번호가 일치하지 않습니다.");
 		     			checkPhone.style.color = "#ff0000";
 		     			UserPchNumStyle.style.borderColor = "#ff0000";
 					}

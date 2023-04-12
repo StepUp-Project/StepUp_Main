@@ -15,8 +15,25 @@ public class UserVO {
 	private String userGrade;
 	private String userKakaoId;
 	private String userNaverId;
+	private String loChk;
+	private String eveChk;
+
 	
 	
+	
+
+	public String getLoChk() {
+		return loChk;
+	}
+	public void setLoChk(String loChk) {
+		this.loChk = loChk;
+	}
+	public String getEveChk() {
+		return eveChk;
+	}
+	public void setEveChk(String eveChk) {
+		this.eveChk = eveChk;
+	}
 	public String getUserKakaoId() {
 		return userKakaoId;
 	}
