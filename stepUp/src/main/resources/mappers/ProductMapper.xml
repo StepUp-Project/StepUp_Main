@@ -34,7 +34,9 @@
   		from product_tb p left join Size_Tb s on p.prdIndex = s.prdIndex
   		LEFT JOIN Order_Item_Tb oi ON s.sizeIndex = oi.sizeIndex
   		where p.prdIndex = s.prdIndex
-  		and p.prdCode like concat('%',#{searchType},'%')
+  		<if test="searchType != null">
+  			and p.prdCode like concat('%',#{searchType},'%')
+  		</if>
   		<if test="priceMin != null and priceMax != null">
   				
   		</if>
@@ -68,7 +70,9 @@
   	<select id="selectBrandToal" parameterType="searchVO" resultType="int">
   		select count(DISTINCT p.prdIndex) as total from product_tb p left join Size_Tb s on p.prdIndex = s.prdIndex
   		where p.prdIndex = s.prdIndex
-  		and p.prdCode like concat('%',#{searchType},'%')
+  		<if test="searchType != null">
+  			and p.prdCode like concat('%',#{searchType},'%')
+  		</if>
   		<if test="priceMin != null and priceMax != null">
   			and p.prdPrice BETWEEN #{priceMin, jdbcType=INTEGER} AND #{priceMax, jdbcType=INTEGER}
   		</if>

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-    <style type="text/css"><!-- 추후 css 페이지로 옴길것! -->
+        <style type="text/css"><!-- 추후 css 페이지로 옴길것! -->
 .price-range-slider {
             width: 100%;
             border: 0;
@@ -200,11 +200,11 @@
         	height:4%;
         	width:22%;
         }
-    </style>
+    </style>   
 </head>
 <body>
     <header id="header"><!--헤더 시작-->
-        <div class="d-flex justify-content-between pt-5"><!--d-flex 영역 시작-->
+        <div class="d-flex justify-content-between pt-5"><!--d-flex영역시작-->
             <div class="p-2 logo-wrap" ><!-- 로고 영역 시작-->
                 <h1 class="logo">
                     <a href="/">
@@ -261,114 +261,161 @@
                 <a href="#"><i class="xi-user-o"></i></a>
                 <a href="#"><i class="xi-cart-o"></i></a>
             </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
-	    </div><!--d-flex 영역 끝-->
-    </header><!--헤더 끝-->   
-    <main class="d-flex justify-content-between "><!--메인 시작-->
-        <article id="prd_filter">
-            <div id="prd_addr">
-                <a href="#">HOME</a>
-                <span> > </span>
-                <a href="#">BRAND</a>
-                <span> > </span>
-                <a href="#">NIKE</a>
-            </div>
-            <p class="filter_ttl">사이즈</p>
-            <ul  id="size_check">
-                <li class="size_box">
-                    <input type="checkbox" name="sizeKind" value="210" id="size01">
-                    <label for="size01">
-                        <span>210</span>
-                    </label>
-                </li>
-                <li class="size_box">
-                    <input type="checkbox" name="sizeKind" value="220" id="size02">
-                    <label for="size02">
-                        <span>220</span>
-                    </label>
-                </li>
-                <li class="size_box">
-                    <input type="checkbox" name="sizeKind" value="230" id="size03">
-                    <label for="size03">
-                        <span>230</span>
-                    </label>
-                </li>
-                <li class="size_box">
-                    <input type="checkbox" name="sizeKind" value="240" id="size04">
-                    <label for="size04">
-                        <span>240</span>
-                    </label>
-                </li>
-                <li class="size_box">
-                    <input type="checkbox" name="sizeKind" value="250" id="size05">
-                    <label for="size05">
-                        <span>250</span>
-                    </label>
-                </li>
-                <li class="size_box">
-                    <input type="checkbox" name="sizeKind" value="260" id="size06">
-                    <label for="size06">
-                        <span>260</span>
-                    </label>
-                </li>
-                <li class="size_box">
-                    <input type="checkbox" name="sizeKind" value="270" id="size07">
-                    <label for="size07">
-                        <span>270</span>
-                    </label>
-                </li>
-                <li class="size_box">
-                    <input type="checkbox" name="sizeKind" value="280" id="size08">
-                    <label for="size08">
-                        <span>280</span>
-                    </label>
-                </li>
-            </ul>
-            <p class="filter_ttl">가격</p>
-            <div id="prc_check">
-				<fieldset class="price-range-slider">
-					<div class="price-field">
-						<input type="range" min="0" max="178000" value="0" id="lower">
-						<input type="range" min="0" max="178000" value="178000" id="upper">
-					</div>
-					<div class="price-wrap align-items-baseline justify-content-end">
-						<input disabled type="number" id="price-min" name="priceMin">
-						<span>~</span>
-						<input disabled type="number" id="price-max" name="priceMax">
-						<span>원</span>
-					</div>								
-				</fieldset>			
-            </div>
-            <p class="filter_ttl">종류</p>
-            <ul id="type_check">
-                <li class="type_box">
-                    <input type="checkbox" name="prdType" value="01" id="type01">
-                    <label for="type01">
-                        <span>운동화</span>
-                    </label>
-                </li>
-                <li class="type_box">
-                    <input type="checkbox" name="prdType" value="02" id="type02">
-                    <label for="type02">
-                        <span>스니커즈</span>
-                    </label>
-                </li>
-                <li class="type_box">
-                    <input type="checkbox" name="prdType" value="03" id="type03">
-                    <label for="type03">
-                        <span>크록스</span>
-                    </label>
-                </li>
-                <li class="type_box">
-                    <input type="checkbox" name="prdType" value="04" id="4">
-                    <label for="type04">
-                        <span>샌들</span>
-                    </label>
-                </li>
-            </ul>
-            <button class="sbtn" type="button" onclick="searchPrdList(1)">검색</button>
-        </article>
-        <article id="prd_cnt">
-            <div id="brand_main"></div>
+            </div><!--d-flex영역 -->
+    </header><!--헤더 끝-->  
+    
+    <main id="newjsp"><!--메인 시작-->
+        <div class="new-banner-area d-flex" id="new-banner">
+            <a href="#">
+                <div class="newlogo"></div>
+            </a>
+            <a href="#">
+                <div class="newlogo"></div>
+            </a>
+            <a href="#">
+                <div class="newlogo"></div>
+            </a>
+            <a href="#">
+                <div class="newlogo"></div>
+            </a>
+        </div>
+
+        <ul id="brandlist">
+            <li class="brandlogo">
+                <a href="#"><p class="bl_img" onclick="colorchange()" id="colall"></p></a>
+            </li>
+            <li class="brandlogo">
+                <a href="<%=request.getContextPath()%>/product/brand.do?searchType=NK"><p class="bl_img"></p></a>
+            </li>
+            <li class="brandlogo">
+                <a href="<%=request.getContextPath()%>/product/brand.do?searchType=AD"><p class="bl_img"></p></a>
+            </li>
+            <li class="brandlogo">
+                <a href="<%=request.getContextPath()%>/product/brand.do?searchType=PM"><p class="bl_img"></p></a>
+            </li>
+            <li class="brandlogo">
+                <a href="<%=request.getContextPath()%>/product/brand.do?searchType=FL"><p class="bl_img"></p></a>
+            </li>
+            <li class="brandlogo">
+                <a href="<%=request.getContextPath()%>/product/brand.do?searchType=CV"><p class="bl_img"></p></a>
+            </li>
+            <li class="brandlogo">
+                <a href="<%=request.getContextPath()%>/product/brand.do?searchType=VS"><p class="bl_img"></p></a>
+            </li>
+            <li class="brandlogo">
+                <a href="<%=request.getContextPath()%>/product/brand.do?searchType=CR"><p class="bl_img"></p></a>
+            </li>
+            <li class="brandlogo">
+                <a href="<%=request.getContextPath()%>/product/brand.do?searchType=NB"><p class="bl_img"></p></a>
+            </li>
+        </ul>
+
+        <div class="d-flex justify-content-between">
+            <article id="prd_filter">
+                <div id="prd_addr">
+                    <a href="#">HOME</a>
+                    <span> > </span>
+                    <a href="#">BRAND</a>
+                    <span> > </span>
+                    <a href="#">NIKE</a>
+                </div>
+                <p class="filter_ttl">사이즈</p>
+                <ul  id="size_check">
+                    <li class="size_box">
+                        <input type="checkbox" name="sizeKind" value="210" id="size01">
+                        <label for="size01">
+                            <span>210</span>
+                        </label>
+                    </li>
+                    <li class="size_box">
+                        <input type="checkbox" name="sizeKind" value="220" id="size02">
+                        <label for="size02">
+                            <span>220</span>
+                        </label>
+                    </li>
+                    <li class="size_box">
+                        <input type="checkbox" name="sizeKind" value="230" id="size03">
+                        <label for="size03">
+                            <span>230</span>
+                        </label>
+                    </li>
+                    <li class="size_box">
+                        <input type="checkbox" name="sizeKind" value="240" id="size04">
+                        <label for="size04">
+                            <span>240</span>
+                        </label>
+                    </li>
+                    <li class="size_box">
+                        <input type="checkbox" name="sizeKind" value="250" id="size05">
+                        <label for="size05">
+                            <span>250</span>
+                        </label>
+                    </li>
+                    <li class="size_box">
+                        <input type="checkbox" name="sizeKind" value="260" id="size06">
+                        <label for="size06">
+                            <span>260</span>
+                        </label>
+                    </li>
+                    <li class="size_box">
+                        <input type="checkbox" name="sizeKind" value="270" id="size07">
+                        <label for="size07">
+                            <span>270</span>
+                        </label>
+                    </li>
+                    <li class="size_box">
+                        <input type="checkbox" name="sizeKind" value="280" id="size08">
+                        <label for="size08">
+                            <span>280</span>
+                        </label>
+                    </li>
+                </ul>
+             	<p class="filter_ttl">가격</p>
+	            <div id="prc_check">
+					<fieldset class="price-range-slider">
+						<div class="price-field">
+							<input type="range" min="0" max="178000" value="0" id="lower">
+							<input type="range" min="0" max="178000" value="178000" id="upper">
+						</div>
+						<div class="price-wrap align-items-baseline justify-content-end">
+							<input disabled type="number" id="price-min" name="priceMin">
+							<span>~</span>
+							<input disabled type="number" id="price-max" name="priceMax">
+							<span>원</span>
+						</div>								
+					</fieldset>			
+	            </div>
+                <p class="filter_ttl">종류</p>
+                <ul id="type_check">
+                    <li class="type_box">
+                        <input type="checkbox" name="prdType" value="01" id="type01">
+                        <label for="type01">
+                            <span>운동화</span>
+                        </label>
+                    </li>
+                    <li class="type_box">
+                        <input type="checkbox" name="prdType" value="02" id="type02">
+                        <label for="type02">
+                            <span>스니커즈</span>
+                        </label>
+                    </li>
+                    <li class="type_box">
+                        <input type="checkbox" name="prdType" value="03" id="type03">
+                        <label for="type03">
+                            <span>크록스</span>
+                        </label>
+                    </li>
+                    <li class="type_box">
+                        <input type="checkbox" name="prdType" value="04" id="4">
+                        <label for="type04">
+                            <span>샌들</span>
+                        </label>
+                    </li>
+                </ul>
+                <button class="sbtn" type="button" onclick="searchPrdList(1)">검색</button>
+            </article>
+
+            <article id="prd_cnt">
             <div id="prd_sort" class="d-flex justify-content-end">
             	<select name="sort" id="sortList" class="form-select w-7" onchange="searchPrdList(1)">
             		<option value="new">최신순</option>
@@ -380,9 +427,10 @@
 
             <ul id="cnt_list"><!-- 상품 출력 영역 -->
             </ul>
-            <div id="pagingBtn"><!-- 페이징 버튼 출력 영역 -->
-            </div>
-        </article>
+           	<div id="pagingBtn" class="mb-5"><!-- 페이징 버튼 출력 영역 -->
+            </div>            
+            </article>
+        </div>
     </main><!--메인 끝-->
 
     <footer class="d-flex justify-content-between pt-2"> <!-- 하단 시작-->
@@ -421,10 +469,11 @@
             </ul>
         </div> <!--로고 및 sns 연결 끝-->
     </footer> <!-- 하단 끝-->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script><!-- swiper JS 연결 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
     <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
-    <script type="text/javascript">
+    <script>
     	//range(가격 검색)관련 스크립트
 	    var lowerSlider = document.querySelector('#lower');
 	    var upperSlider = document.querySelector('#upper');
@@ -488,6 +537,7 @@
 	    			sort : sort
 	    			},
 	    		success:function(data){
+	    			console.log(data);
 	    			let prdHtml='';
 	    			for(let i=0; i < data.length; i++){
 	    				let prdList = data[i];
@@ -498,9 +548,9 @@
 	    				prdHtml += '<P class="cnt_name"><span>'+prdList.prdName+'</span></P>';
 	    				prdHtml += '<P class="cnt_prc"><span>'+price+'원</span></P>';
 	    				prdHtml += '</a>';
-	    				prdHtml += '</li>';	    				
-	    				paging(nowPage, searchType)
+	    				prdHtml += '</li>';	    					    				
 	    			}
+	    			paging(nowPage, searchType)
 	    			$("#cnt_list").html(prdHtml);
 	    		}
 	    	});
@@ -539,6 +589,7 @@
 				let total = Number(data.total);
 				let now = Number(data.nowPage);
 				let lastPage = Number(data.lastPage);
+				console.log(data);
 		    	pagingHtml += '<li class="d-flex justify-content-center">';
 		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-left"  onclick="searchPrdList('+(now - 1)+')" style= "display:'+(now != 1 ? 'block' : 'none')+'"></a>';
 		    	pagingHtml += '<div id="pagingNumBtn">';
@@ -550,7 +601,7 @@
 		    		}
 		    	}
 		    	pagingHtml += '</div> ';
-		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-right" onclick="searchPrdList('+(now+ 1)+')" style= "display:'+(now != lastPage ? 'block' : 'none')+'"></a>';
+		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-right" onclick="searchPrdList('+(now+ 1)+')" style= "display:'+(now != lastPage && lastPage != 0 ? 'block' : 'none')+'"></a>';
 		    	pagingHtml += '</li>';
 		    	$("#pagingBtn").html(pagingHtml);
  	    		}
@@ -561,6 +612,10 @@
 	    $(document).ready(function(){
 	    	searchPrdList(1);
 	    });
+	 	
+        function colorchange(){
+            document.getElementById("colnk").style.background = "url('../image/new/new_logo_nk.png') no-repeat 0 0";
+        }
     </script>
 </body>
 </html>

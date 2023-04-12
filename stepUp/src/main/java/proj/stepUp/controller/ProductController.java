@@ -22,6 +22,7 @@ import proj.stepUp.service.ProductImgService;
 import proj.stepUp.service.ProductService;
 import proj.stepUp.service.ReviewService;
 import proj.stepUp.service.SizeService;
+import proj.stepUp.util.PaymentUtil;
 import proj.stepUp.vo.MarkVO;
 import proj.stepUp.vo.ProductImgVO;
 import proj.stepUp.vo.ProductVO;
@@ -114,16 +115,14 @@ public class ProductController {
 	
 	@RequestMapping(value="/test.do", method = RequestMethod.GET)
 	public String test() {
+		PaymentUtil paymentUtil = new PaymentUtil();
+		String token = paymentUtil.getAccessToken();
 		
 		return "product/test";
 	}
 	
 	@RequestMapping(value="/test.do", method = RequestMethod.POST)
-	public String testOK(int prdIndex, Model model, RedirectAttributes rttr) {
-		ProductVO prdVO = productService.selectProductIndex(prdIndex);
-		if(prdVO != null) {
-			rttr.addFlashAttribute("prdVO", prdVO);
-		}
+	public String testOK() {
 		
 		return "redirect:/product/test.do";
 	}
@@ -175,5 +174,12 @@ public class ProductController {
 		model.addAttribute("searchVO", searchVO);
 				
 		return "product/brand" ;
+	}
+	
+	@RequestMapping(value = "/new.do", method = RequestMethod.GET)//new페이지
+	public String newPage(SearchVO searchVO, Model model) {
+		model.addAttribute("searchVO", searchVO);
+				
+		return "product/new";
 	}
 }
