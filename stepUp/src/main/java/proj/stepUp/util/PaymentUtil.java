@@ -12,6 +12,8 @@ import java.util.Random;
 
 import org.json.JSONObject;
 
+import proj.stepUp.vo.OrderVO;
+
 public class PaymentUtil {
 	
 	public String getAccessToken() {//access토큰 발급
@@ -123,7 +125,8 @@ public class PaymentUtil {
 	}
 	
 	
-	public String paymentHistory(String imp_uid, String accessToken, int totalPrice) {
+	public OrderVO paymentHistory(String imp_uid, String accessToken, int totalPrice) {//결제 단건 내역 조회
+		OrderVO vo = new OrderVO();
 		String requrl = "https://api.iamport.kr/payments/"+imp_uid;
 		String authorization = "Bearer " + accessToken;
 		String mesage = "";
@@ -154,11 +157,21 @@ public class PaymentUtil {
 	         System.out.println("결과"+result);
 	         JSONObject jsonObject = new JSONObject(result);
 	         JSONObject responseObj = jsonObject.getJSONObject("response");
-	         int amount = responseObj.getInt("amount");
-	         if(amount == totalPrice) {
-	        	 mesage = "일반 결제 성공";
+	         int orderTotalPrice = responseObj.getInt("amount");
+	         String orderAddr = responseObj.getString("buyer_addr");
+	         String orderPost = responseObj.getString("buyer_postcode");
+	         String orderPhone = responseObj.getString("buyer_tel");	        
+	         String orderNum = responseObj.getString("merchant_uid");	        
+	         String orderPay = responseObj.getString("pay_method");	
+	         if(orderTotalPrice == totalPrice) {
+	        	 vo.setOrderTotalPrice(orderTotalPrice);
+	        	 vo.setOrderAddr(orderAddr);
+	        	 vo.setOrderNum(orderNum);
+	        	 vo.setOrderPhone(orderPhone);
+	        	 vo.setOrderPost(orderPost);
+	        	 vo.setOrderPay(orderPay);
 	         }else {
-	        	 mesage = "위조된 결제시도";
+
 	         }
 	         
 	          br.close();
@@ -166,6 +179,6 @@ public class PaymentUtil {
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		return mesage;
+		return vo;
 	}
 }

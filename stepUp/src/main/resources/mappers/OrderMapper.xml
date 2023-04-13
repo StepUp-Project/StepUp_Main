@@ -7,4 +7,14 @@
   	<select id="selectOrderNum" resultType="int" parameterType="String">
   		select count(*) from order_tb where orderNum = #{orderNum}
   	</select>
+  	
+  	<insert id="insertOrder" parameterType="orderVO">
+  		<![CDATA[
+  		insert into order_tb (orderAddr, orderPhone, orderTotalPrice, orderPay, userIndex, orderNum, orderPost)
+  		values (#{orderAddr}, #{orderPhone}, #{orderTotalPrice}, #{orderPay}, #{userIndex}, #{orderNum}, #{orderPost})
+  		]]>
+  		<selectKey resultType="int" order="AFTER" keyProperty="orderIndex">
+  			select MAX(orderIndex) from order_tb
+  		</selectKey>
+  	</insert>
   </mapper>

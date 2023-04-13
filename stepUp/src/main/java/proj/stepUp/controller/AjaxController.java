@@ -24,6 +24,7 @@ import com.google.gson.JsonObject;
 
 import proj.stepUp.service.CartService;
 import proj.stepUp.service.MarkService;
+import proj.stepUp.service.OrderItemService;
 import proj.stepUp.service.OrderService;
 import proj.stepUp.service.ProductService;
 import proj.stepUp.service.ReviewService;
@@ -33,6 +34,8 @@ import proj.stepUp.util.PagingUtil;
 import proj.stepUp.util.PaymentUtil;
 import proj.stepUp.vo.CartVO;
 import proj.stepUp.vo.MarkVO;
+import proj.stepUp.vo.OrderItemVO;
+import proj.stepUp.vo.OrderVO;
 import proj.stepUp.vo.ProductVO;
 import proj.stepUp.vo.ReviewVO;
 import proj.stepUp.vo.SearchVO;
@@ -42,22 +45,19 @@ import proj.stepUp.vo.SearchVO;
 public class AjaxController {
 
 	@Autowired
-	private UserService userService;
-	
+	private UserService userService;	
 	@Autowired
-	private MarkService markService;
-	
+	private MarkService markService;	
 	@Autowired
-	private CartService cartService;
-	
+	private CartService cartService;	
 	@Autowired
-	private ReviewService reviewService;
-	
+	private ReviewService reviewService;	
 	@Autowired
-	private ProductService productService;
-	
+	private ProductService productService;	
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private OrderItemService orderItemService;
 	
 	@ResponseBody
 	@RequestMapping(value="/checkId.do", method = RequestMethod.POST)
@@ -248,12 +248,32 @@ public class AjaxController {
 		
 		@ResponseBody
 		@RequestMapping(value="/createOrder.do", method = RequestMethod.POST)	
-		public String createOrder(String imp_uid, String merchant_uid, int totalPrice) {
+		public String createOrder(String imp_uid, String merchant_uid, int totalPrice, int userIndex,
+				int[] sizeindex, int[] orderitemStock, OrderItemVO oiVO
+				) {
+			String success = "0";
+			System.out.println(sizeindex);//매개변수 넘어왔는지 체크 넘어 왔을시 주소값 들어있음(정상 작동시 삭제 요망)
+			System.out.println(orderitemStock);//매개변수 넘어왔는지 체크 넘어 왔을시 주소값 들어있음(정상 작동시 삭제 요망)
 			PaymentUtil paymentUtil = new PaymentUtil();
 			String accessToken = paymentUtil.getAccessToken();//엑세스 토큰 발급
-			String mesage = paymentUtil.paymentHistory(imp_uid, accessToken, totalPrice);
-			System.out.println(mesage);
+			OrderVO vo = paymentUtil.paymentHistory(imp_uid, accessToken, totalPrice);
+			vo.setUserIndex(userIndex);
+			int orderIndex = orderService.insertOrder(vo);
 			
-			return mesage;
+			oiVO.setOrderIndex(vo.getOrderIndex());
+			for(int i = 0; i < sizeindex.length; i++) {
+				oiVO.setSizeIndex(sizeindex[i]);
+				oiVO.setOrderItemStock(orderitemStock[i]);
+				System.out.println(oiVO.getOrderIndex());//주문번호 인덱스(정상 작동시 삭제 요망)
+				System.out.println(oiVO.getOrderItemStock());//주문 수향(정상 작동시 삭제 요망)
+				System.out.println(oiVO.getSizeIndex());//상품 사이즈 인덱스(정상 작동시 삭제 요망)
+				
+				int result = orderItemService.insertOrderItem(oiVO);
+				if(result != 1) {
+					success = "1";
+				}
+			}
+			
+			return success;
 		}
 }

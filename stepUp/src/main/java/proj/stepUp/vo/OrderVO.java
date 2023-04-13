@@ -3,11 +3,20 @@ package proj.stepUp.vo;
 public class OrderVO {
 	private int orderIndex;
 	private String orderAddr;
+	private String orderPost;
 	private String orderPhone;
 	private int orderTotalPrice;
 	private String orderPay;
 	private int userIndex;
 	private String orderNum;
+	
+	
+	public String getOrderPost() {
+		return orderPost;
+	}
+	public void setOrderPost(String orderPost) {
+		this.orderPost = orderPost;
+	}
 	public int getOrderIndex() {
 		return orderIndex;
 	}
