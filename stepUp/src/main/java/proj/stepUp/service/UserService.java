@@ -14,4 +14,5 @@ public interface UserService {
 	public int upDateKakaoId(UserVO vo);
 	public UserVO naverLogin(String userNaverId);
 	public int upDateNaverId(UserVO vo);
+	public int userDelete(String userid);
 }
