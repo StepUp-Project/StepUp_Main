@@ -56,4 +56,9 @@
  	<update id="upDateNaverId" parameterType="userVO">
  		update user_tb set userNaverId = #{userNaverId} where userindex = #{userIndex}
  	</update>
+ 	
+ 	<update id="userDelete" parameterType="String">
+		update user_tb set usergrade = 'Q' where userid = #{value}
+	</update>
+	
  </mapper>

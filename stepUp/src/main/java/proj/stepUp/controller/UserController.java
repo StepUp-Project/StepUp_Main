@@ -29,7 +29,6 @@ public class UserController {
 	
 	@RequestMapping(value="/join_terms.do", method = RequestMethod.GET)
 	public String joinTerms(HttpServletRequest req) {
-		
 		HttpSession seesion = req.getSession();
 		if(seesion.getAttribute("login") != null) {
 			return "home";
@@ -53,7 +52,7 @@ public class UserController {
 		System.out.println(vo.getEveChk());
 		System.out.println(vo.getLoChk());
 		
-		model.addAttribute("vo", vo);
+		model.addAttribute("vo", vo);  //join_terms에서 선택한 체크박스  값을 join으로 넘겨줌
 		
 		HttpSession seesion = req.getSession();
 		if(seesion.getAttribute("login") != null) {
@@ -100,12 +99,18 @@ public class UserController {
 		rsp.setContentType("text/html;charset=utf-8");
 		UserVO loginVO = userService.login(vo);
 		PrintWriter pw = rsp.getWriter();
-		if(loginVO != null) {
-			System.out.println("로그인 성공");
-			HttpSession seesion = req.getSession();
-			seesion.setAttribute("login", loginVO);
-			pw.append("<script>location.href='"+req.getContextPath()+"'</script>");
-		}else {
+		
+		if(loginVO != null ) {
+			if(loginVO.getUserGrade().equals("Q")){
+				System.out.println("탈퇴한 사용자 아이디 :: " + vo.getUserGrade());
+				pw.append("<script>alert('탈퇴한 사용자입니다.');location.href='"+req.getContextPath()+"/user/login.do'</script>");
+			}else {
+				System.out.println("로그인 성공");
+				HttpSession seesion = req.getSession();
+				seesion.setAttribute("login", loginVO);
+				pw.append("<script>location.href='"+req.getContextPath()+"'</script>");
+			}
+		}else{
 			System.out.println("로그인 실패");
 			pw.append("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.');location.href='"+req.getContextPath()+"/user/login.do'</script>");
 		}
@@ -300,6 +305,62 @@ public class UserController {
 		pw.flush();
 	}
 
+	
+	
+	//회원탈퇴
+	@RequestMapping(value="/mypage_withdrawal.do", method = RequestMethod.GET)
+	public String mpwd(HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		if(session.getAttribute("login") != null) {
+		    return "user/mypage_withdrawal";
+		}else {
+		    return "user/login";
+		}
+		
+	}
+
+
+	//회원탈퇴 비밀번호 입력하는 페이지
+	@RequestMapping(value="/mypage_withdrawal.do", method = RequestMethod.POST)
+	public void mpwd(UserVO vo, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		
+		//disabled를 사용하면 값이 안넘어감. userId 값 넘기려면 아래 세 줄써야함
+		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
+		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
+		vo.setUserId(loginUser.getUserId());  //그 로그인정보에 있는 사용자의 아이디를 vo에 넣어준다
+		
+		 UserVO loginVO = userService.login(vo);  //db에 정보가 있는지 확인
+		 
+		 System.out.println("vo.getUserId()::" + vo.getUserId());
+		 System.out.println("vo.getUserPw()::" + vo.getUserPw());
+		 
+		 rsp.setContentType("text/html;charset=utf-8");
+		 PrintWriter pw = rsp.getWriter();
+			if( loginVO != null) {
+				int result = userService.userDelete(vo.getUserId());
+				if(result > 0) {
+					System.out.println("탈퇴 되었습니다.");
+					HttpSession seesion = req.getSession();
+					seesion.invalidate();  //세션에서 회원의 모든 정보를 브라우저에서 지운다
+					pw.append("<script>location.href='"+req.getContextPath()+"/user/mypage_withdrawal_ok.do'</script>");
+				}else {
+					System.out.println("탈퇴되지 않았습니다.");
+					pw.append("<script>alert('탈퇴되지 않았습니다.');location.href='"+req.getContextPath()+"/user/mypage_withdrawal.do'</script>");
+				}
+			}else {
+				System.out.println("비밀번호가 정확하지 않습니다.");
+				pw.append("<script>alert('비밀번호가 정확하지 않습니다.');location.href='"+req.getContextPath()+"/user/mypage_withdrawal.do'</script>");
+			}
+			pw.flush();
+		} 
+	
+	
+	@RequestMapping(value="/mypage_withdrawal_ok.do", method = RequestMethod.GET)
+	public String mpwdok(UserVO vo) {
+		return "user/mypage_withdrawal_ok";
+	}
+		
 }
 	
 	

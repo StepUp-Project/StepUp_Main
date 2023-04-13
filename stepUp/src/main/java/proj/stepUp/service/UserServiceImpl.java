@@ -1,3 +1,4 @@
+
 package proj.stepUp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int upDateNaverId(UserVO vo) {
 		return userDAO.upDateNaverId(vo);
+	}
+
+	@Override
+	public int userDelete(String userid) {
+		return userDAO.userDelete(userid);
 	}
 
 
