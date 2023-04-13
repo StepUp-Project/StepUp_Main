@@ -145,7 +145,8 @@
             </div><!-- brand-best 영역 끝-->
         </div><!-- 메인 콘텐츠 영역 끝 -->
     </main><!-- 메인 끝 -->
-<%@ include file="./include/header.jsp" %>
+
+
     <script src="<%=request.getContextPath()%>/resources/JS/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script><!-- swiper JS 연결 -->
     <script>
@@ -207,5 +208,6 @@
                 }, 1000); // 3초 후에 업데이트
             });
     </script>
+<%@ include file="./include/footer.jsp" %>
 </body>
 </html>
