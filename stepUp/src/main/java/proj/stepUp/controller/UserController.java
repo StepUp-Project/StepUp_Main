@@ -374,8 +374,6 @@ public class UserController {
 	@RequestMapping(value="/mypage_posting.do", method = RequestMethod.GET)
 	public String myposting(Model model, HttpServletRequest req, SearchVO svo) {
 		
-		System.out.println("mypage__posting page!!");
-		
 		int nowPage = 1;
 		if(svo.getNowPage() != 0 ) {
 			nowPage = svo.getNowPage();
@@ -386,7 +384,7 @@ public class UserController {
 			totalCnt = cntTotal.get(0).getTotal();
 		}
 		
-		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 10);
+		PagingUtil paging = new PagingUtil(totalCnt, nowPage, 10);
 		
 		
 		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
@@ -398,7 +396,20 @@ public class UserController {
 		model.addAttribute("paging", paging);
 		
 		return "user/mypage_posting";
-	}	
+	}
+	
+	
+	@RequestMapping(value="/myposting_delete.do", method = RequestMethod.POST)
+	public String mpdelete(int[] freeIndex) { //name이 같은 애들을 삭제하는거라 배열로..
+		
+		System.out.println("freeIndex:"+freeIndex.length);  //선택한 체크박스의 개수
+		
+		for(int idx : freeIndex) {
+			int result = freeService.delete(idx);
+		}
+		
+		return "redirect:/user/mypage_posting.do";
+	}
 		
 }
 	
