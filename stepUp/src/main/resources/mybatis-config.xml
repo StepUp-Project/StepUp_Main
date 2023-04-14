@@ -18,6 +18,7 @@
         <typeAlias type="proj.stepUp.vo.MarkVO" alias="markVO"/>
         <typeAlias type="proj.stepUp.vo.CartVO" alias="cartVO"/>
         <typeAlias type="proj.stepUp.vo.OrderVO" alias="orderVO"/>
+        <typeAlias type="proj.stepUp.vo.SlideVO" alias="slideVO"/>
     </typeAliases>
 
 </configuration>
