@@ -19,6 +19,24 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
+    
+    <script src="<%=request.getContextPath()%>/resources/JS/jquery-3.6.1.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("#cbx_chkAll").click(function() {
+				if($("#cbx_chkAll").is(":checked")) $("input[class=chk]").prop("checked", true);
+				else $("input[class=chk]").prop("checked", false);
+			});
+			
+			$("input[class=chk]").click(function() {
+				var total = $("input[class=chk]").length;
+				var checked = $("input[class=chk]:checked").length;
+				
+				if(total != checked) $("#cbx_chkAll").prop("checked", false);
+				else $("#cbx_chkAll").prop("checked", true); 
+			});
+		});
+	</script>
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
@@ -50,13 +68,13 @@
                         	회원님께서 작성하신 자유게시판의 글을 모아보실 수 있습니다.
                     </p>
                 </div>
-
+  				<form  name="delfrm" action="myposting_delete.do" method="post">
                 <table class="order_board" style="font-family: 'SpoqaHanSansNeo-Regular';">
                     <thead>
                         <tr id="allcheck">
                             <td colspan="5">
-                                <input class="poallch" type="checkbox" name="poallcheck">전체선택
-                                <input class="post_del"  type="button" value="삭제">
+                                <input class="poallch" type="checkbox" id="cbx_chkAll" name="poallcheck">전체선택
+                                <input class="post_del"  type="button" value="삭제" onclick="if(confirm('정말로 삭제하시겠습니까?')) {document.delfrm.submit();}">
                             </td>
                         </tr>
                         <tr>
@@ -70,7 +88,7 @@
                     <tbody>
                     <c:forEach var="vo" items="${blist}" begin="${(paging.nowPage*10)-10}" end="${(paging.nowPage*10) -1}">
                         <tr>
-                            <td><input type="checkbox" name="pocheck"></td>
+                            <td><input type="checkbox" name="freeIndex" value="${vo.freeIndex}" class="chk"></td>
                             <td><span>${vo.freeIndex}</span></td>
                             <td><a href="free_view.do?freeIndex=${vo.freeIndex}"><div>${vo.freeTitle}</div></a></td>
                             <td><span>
@@ -131,6 +149,7 @@
                         </tr>
                     </tfoot>
                 </table>
+            </form>
             </article><!--내가 작성한 글 페이지 끝-->
         </div>
 	</main>
