@@ -21,6 +21,10 @@ public class FreeBoardDAO {
 		return sqlSession.selectList("proj.stepUp.mapper.freeBoardMapper.selectAll", svo);
 	}
 	
+	public List<FreeBoardVO> listByUserIdx(int userIndex){
+		return sqlSession.selectList("proj.stepUp.mapper.freeBoardMapper.userFree", userIndex);
+	}
+	
 	public List<FreeBoardVO> cntTotal(SearchVO svo){
 		return sqlSession.selectList("proj.stepUp.mapper.freeBoardMapper.cntTotal", svo);
 	}
@@ -40,4 +44,5 @@ public class FreeBoardDAO {
 	public int delete(int freeIndex) {
 		return sqlSession.delete("proj.stepUp.mapper.freeBoardMapper.delete", freeIndex);
 	}
+
 }
