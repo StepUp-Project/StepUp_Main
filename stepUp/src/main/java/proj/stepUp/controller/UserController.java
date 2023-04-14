@@ -2,6 +2,7 @@ package proj.stepUp.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,9 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import proj.stepUp.service.FreeService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.KakaoLogin;
 import proj.stepUp.util.NaverLogin;
+import proj.stepUp.util.PagingUtil;
+import proj.stepUp.vo.FreeBoardVO;
+import proj.stepUp.vo.SearchVO;
 import proj.stepUp.vo.UserVO;
 
 @RequestMapping(value="/user")
@@ -25,6 +30,8 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private FreeService freeService;
 	
 	
 	@RequestMapping(value="/join_terms.do", method = RequestMethod.GET)
@@ -359,6 +366,49 @@ public class UserController {
 	@RequestMapping(value="/mypage_withdrawal_ok.do", method = RequestMethod.GET)
 	public String mpwdok(UserVO vo) {
 		return "user/mypage_withdrawal_ok";
+	}
+	
+
+	//mypage 내가쓴 글
+	
+	@RequestMapping(value="/mypage_posting.do", method = RequestMethod.GET)
+	public String myposting(Model model, HttpServletRequest req, SearchVO svo) {
+		
+		int nowPage = 1;
+		if(svo.getNowPage() != 0 ) {
+			nowPage = svo.getNowPage();
+		}
+		List<FreeBoardVO> cntTotal = freeService.cntTotal(svo);
+		int totalCnt = 0;
+		if(cntTotal.size()>0) {
+			totalCnt = cntTotal.get(0).getTotal();
+		}
+		
+		PagingUtil paging = new PagingUtil(totalCnt, nowPage, 10);
+		
+		
+		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
+		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
+		
+		List<FreeBoardVO> list = freeService.listByUserIdx(loginUser.getUserIndex());
+		
+		model.addAttribute("blist", list);
+		model.addAttribute("paging", paging);
+		
+		return "user/mypage_posting";
+	}
+	
+	
+	@RequestMapping(value="/myposting_delete.do", method = RequestMethod.POST)
+	public String mpdelete(int[] freeIndex) { //name이 같은 애들을 삭제하는거라 배열로..
+		
+		System.out.println("freeIndex:"+freeIndex.length);  //선택한 체크박스의 개수
+		
+		for(int idx : freeIndex) {
+			int result = freeService.delete(idx);
+		}
+		
+		return "redirect:/user/mypage_posting.do";
 	}
 		
 }

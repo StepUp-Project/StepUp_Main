@@ -10,8 +10,16 @@ public class SearchVO extends PagingUtil {
 	private int priceMax;
 	private String[] prdType;
 	private String sort; 
+	private int userIndex;
 	
 	
+	
+	public int getUserIndex() {
+		return userIndex;
+	}
+	public void setUserIndex(int userIndex) {
+		this.userIndex = userIndex;
+	}
 	public String getSort() {
 		return sort;
 	}

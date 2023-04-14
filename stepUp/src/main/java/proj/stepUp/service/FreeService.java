@@ -7,6 +7,7 @@ import proj.stepUp.vo.SearchVO;
 
 public interface FreeService {
 	public List<FreeBoardVO> list(SearchVO svo);
+	public List<FreeBoardVO> listByUserIdx(int userIndex);
 	public List<FreeBoardVO> cntTotal(SearchVO svo);
 	public FreeBoardVO selectByIndex(int freeIndex);
 	public int insert(FreeBoardVO vo);
