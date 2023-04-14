@@ -1,13 +1,18 @@
 package proj.stepUp.util;
 
-import javax.servlet.*;
+import java.io.IOException;
+import java.util.regex.Pattern;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.util.regex.Pattern;
 
 @Component
 public class ProfanityFilter implements Filter{
@@ -32,6 +37,10 @@ public class ProfanityFilter implements Filter{
 	           String freeTitle = req.getParameter("freeTitle");
 	           String reCnt = req.getParameter("reCnt");
 	           String reviewContent = req.getParameter("reviewContent");
+	           String qnaCnt = req.getParameter("qnaCnt");
+	           String qnaTitle = req.getParameter("qnaTitle");
+	           String qnareCnt = req.getParameter("qnareCnt");
+	           
 	           System.out.println("freeCnt::"+freeCnt);
 	           System.out.println("freeTitle::"+freeTitle);
 	           System.out.println("reCnt::"+reCnt);
@@ -63,7 +72,25 @@ public class ProfanityFilter implements Filter{
 	        	   req.setAttribute("reviewContent", filteredContent);
 	           }
 	           
-	           
+	           if (qnaCnt != null) {
+	               String filteredContent = pattern.matcher(qnaCnt).replaceAll("***");
+	               req.removeAttribute("qnaCnt");
+	               System.out.println("filteredContent::"+filteredContent);
+	               req.setAttribute("qnaCnt", filteredContent);
+	           }
+	           if (qnaTitle != null) {
+	        	   String filteredContent = pattern.matcher(qnaTitle).replaceAll("***");
+	        	   req.removeAttribute("qnaTitle");
+	        	   System.out.println("filteredContent::"+filteredContent);
+	        	   req.setAttribute("qnaTitle", filteredContent);
+	           }	           
+	           if (qnareCnt != null) {
+	        	   String filteredContent = pattern.matcher(qnareCnt).replaceAll("***");
+	        	   req.removeAttribute("qnareCnt");
+	        	   System.out.println("filteredContent::"+filteredContent);
+	        	   req.setAttribute("qnareCnt", filteredContent);
+	           }	           
+
 	           
 	       }
 	       chain.doFilter(req, res);

@@ -9,5 +9,9 @@ public interface ReService {
 	public int insert(ReVO vo);
 	public int update(ReVO vo);
 	public int delete(int reIndex);
-
+	
+	public List<ReVO> qnalist(int qnaIndex);
+	public int qnainsert(ReVO vo);
+	public int qnaupdate(ReVO vo);
+	public int qnadelete(int qnareIndex);
 }

@@ -14,7 +14,7 @@
                         <li class="blank"><a href="#">관심있는 상품</a></li>
                         <hr/>
                         <li class="blank"><a href="#">상품후기</a></li>
-                        <li class="blank"><a href="#">QnA</a></li>
+                        <li class="blank"><a href="<%=request.getContextPath()%>/qna/qna.do">QnA</a></li>
                         <li class="blank"><a href="#">내가 작성한 글</a></li>
                         <hr/>
                         <li class="blank"><a href="#">개인정보수정</a></li>
@@ -87,7 +87,7 @@
                         <a href="#">CUSTOMER</a>
                         <ul class="mt-5"><!--sub 네비게이션 -->
                             <li><a href="<%=request.getContextPath()%>/notice/notice.do">공지사항</a></li>
-                            <li><a href="#">QnA</a></li>
+                            <li><a href="<%=request.getContextPath()%>/qna/qna.do">QnA</a></li>
                         </ul><!--sub 네비게이션 -->
                     </li>
                 </ul>

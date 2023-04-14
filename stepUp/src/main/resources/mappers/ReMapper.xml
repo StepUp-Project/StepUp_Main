@@ -39,4 +39,40 @@
 	</delete>
  	
  	
+ 	
+ 	<select id="qnaselectAll" parameterType="int" resultType="ReVO">
+ 		select r.*, u.*, f.*, sub.total
+		from qnare_tb r
+		inner join user_tb u on r.userIndex = u.userIndex
+		inner join qna_tb f on r.qnaIndex = f.qnaIndex
+		inner join (select qnaIndex, count(*) as total from qnare_tb group by qnaIndex) sub on sub.qnaIndex = f.qnaIndex
+		where f.qnaIndex = #{qnaIndex}
+ 	</select>
+	
+	<insert id="qnainsert" parameterType="ReVO">
+	
+		insert into qnare_tb(
+			qnareCnt 
+			, qnaIndex
+			, userIndex 
+			)values(
+			#{qnareCnt} 
+			, #{qnaIndex}
+			, #{userIndex} 
+			)
+	</insert>
+	
+	<update id="qnaupdate" parameterType="ReVO">
+		update qnare_tb
+			set qnareCnt = #{qnareCnt}
+			where qnareIndex = #{qnareIndex}
+	</update>
+	
+	<delete id="qnadelete" parameterType="int">
+		delete
+			from qnare_tb
+ 			where qnareIndex = #{qnareIndex}
+	</delete>
+ 	
+ 	
 </mapper>

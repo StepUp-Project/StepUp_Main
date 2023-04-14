@@ -35,9 +35,10 @@
 	
 	
 	<select id="selectByIndex" resultType="EventBoardVO" parameterType="int">
-		select *
- 			from event_tb
- 			where eventIndex = #{eventIndex}
+ 		select *
+ 			from event_tb b, user_tb u
+ 			where b.userIndex = u.userIndex
+ 			  and b.eventIndex = #{eventIndex}
 	</select>
 	
 	<insert id="insert" parameterType="EventBoardVO">
