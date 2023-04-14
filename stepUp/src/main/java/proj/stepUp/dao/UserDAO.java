@@ -54,4 +54,8 @@ public class UserDAO {
 	public int upDateNaverId(UserVO vo) {
 		return sqlSession.update("proj.stepUp.mapper.userMapper.upDateNaverId", vo);
 	}
+	
+	public int userDelete(String userid) {
+		return sqlSession.update("proj.stepUp.mapper.userMapper.userDelete", userid);
+	}
 }

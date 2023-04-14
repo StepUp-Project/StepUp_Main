@@ -11,7 +11,11 @@ public class OrderDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public int selectOrderNum(String num) {
+	public int selectOrderNum(String num) {//주문번호 중복 확인
 		return sqlSession.selectOne("proj.stepUp.mapper.orderMapper.selectOrderNum", num);
+	}
+	
+	public int insertOrder(OrderVO vo) {//주문 생성
+		return sqlSession.insert("proj.stepUp.mapper.orderMapper.insertOrder", vo);
 	}
 }
