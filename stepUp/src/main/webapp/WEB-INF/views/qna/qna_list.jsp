@@ -1,13 +1,15 @@
+<%@page import="proj.stepUp.vo.QnaVO"%>
 <%@page import="proj.stepUp.util.PagingUtil"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="proj.stepUp.vo.NoticeBoardVO" %>
+<%@ page import="proj.stepUp.vo.QnaVO" %>
 <%@ page import="java.util.*" %>
 <% 
-	List<NoticeBoardVO> blist = (List<NoticeBoardVO>)request.getAttribute("blist");
+	List<QnaVO> blist = (List<QnaVO>)request.getAttribute("blist");
 	PagingUtil paging = (PagingUtil)request.getAttribute("paging");
+
 %>
 
 <!DOCTYPE html>
@@ -16,16 +18,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QnA 게시판</title>
+    <title>QnA게시판</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
+    
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>
     <main><!--메인 시작-->
         <article id="board_contain">
-            <div class="board_title">QnA 게시판</div>
+            <div class="board_title">QnA게시판</div>
             <table class="nomal_board">
                 <thead>
                     <tr>
@@ -33,23 +36,23 @@
                         <th class="boardTtl">제목</th>
                         <th class="wDate">작성일</th>
                         <th class="wID">작성자</th>
-                        
+                        <th class="boardHit">답변여부</th>
                     </tr>
                 </thead>
-              <tbody>
+                <tbody>
                  <c:forEach var="vo" items="${blist}" begin="${(paging.nowPage*10)-10}" end="${(paging.nowPage*10) -1}">
                     <tr>
-                        <td><span>${vo.noticeIndex}</span></td>
-                        <td><a href="notice_view.do?noticeIndex=${vo.noticeIndex}"><div>${vo.noticeTitle}</div></a></td>
+                        <td><span>${vo.qnaIndex}</span></td>
+                        <td><a href="qna_view.do?qnaIndex=${vo.qnaIndex}"><div>${vo.qnaTitle}</div></a></td>
                         <td><span>
                         <% 
                                 Date date = new Date();
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                 String nowDate = sdf.format(date);
 
-                                NoticeBoardVO dbWDate = (NoticeBoardVO)pageContext.getAttribute("vo");
-                                String dbDate = dbWDate.getNoticeWdate().substring(0,10);
-                                String dbTime = dbWDate.getNoticeWdate().substring(11, 16);
+                                QnaVO dbWDate = (QnaVO)pageContext.getAttribute("vo");
+                                String dbDate = dbWDate.getQnaWdate().substring(0,10);
+                                String dbTime = dbWDate.getQnaWdate().substring(11, 16);
 
                                 if (nowDate.equals(dbDate)) {
                                     out.print(dbTime);
@@ -60,18 +63,19 @@
                                 }
                         %>
                         </span></td>
-                        <td><span>관리자</span></td>
+                        <td><span>${vo.userNick}</span></td>
+                        <td><span>${vo.qnaRsp}</span></td>
                     </tr>
                  </c:forEach>
                 </tbody>
                 <tfoot>
-                     <tr class="board_page" >
-                       <td colspan="5">
+                    <tr class="board_page" >
+                         <td colspan="5">
 						<%  
 							// 페이징 출력 영역
 							if(paging.getStartPage()> 1){
 						%>
-							<a href="event.do?nowPage=<%= paging.getStartPage()-1%>"> </a>
+							<a href="qna.do?nowPage=<%= paging.getStartPage()-1%>"> </a>
 						<%		
 							}
 				
@@ -79,7 +83,7 @@
 							
 								if(paging.getNowPage() != i){
 						%>
-							<a href="event.do?nowPage=<%= i %>"> <%= i %> </a>	
+							<a href="qna.do?nowPage=<%= i %>"> <%= i %> </a>	
 						<%
 								}else{
 						%>
@@ -91,7 +95,7 @@
 							
 							if(paging.getEndPage() < paging.getLastPage()){
 						%>	
-							<a href="event.do?nowPage=<%= paging.getEndPage()+1%>"> </a>
+							<a href="qna.do?nowPage=<%= paging.getEndPage()+1%>"> </a>
 						<%
 							}
 						%>
@@ -100,17 +104,18 @@
                     </tr>
                     <tr>
                         <td class="board_search" colspan="5">
-                           <form name="frm" action="<%=request.getContextPath()%>/free/free.do" class="search_select" method="get">
+                           <form name="frm" action="<%=request.getContextPath()%>/qna/qna.do" class="search_select" method="get">
                                 <div>
                                     <select name="searchType" class="search_css">
                                         <option value="title" selected>제목</option>
                                         <option value="content">내용</option>
+                                        <option value="writer">작성자</option>
                                     </select>
                                     <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
                                     <button class="srch-bt" >검 색</button>
-								<c:if test="${not empty login}">
-                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='notice_write.do'">
-                           		</c:if> 
+								<c:if test="${not empty login }">
+                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='qna_write.do'">
+                           		</c:if>    
                                 </div>
                             </form>  
                         </td> 

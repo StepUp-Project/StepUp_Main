@@ -9,7 +9,31 @@ public class ReVO {
 	private int freeIndex;
 	private int total;
 	
+	// Qna게시판 댓글
+	private int qnareIndex;
+	private int qnaIndex;
+	private String qnareCnt;
+
 	
+	
+	public int getQnareIndex() {
+		return qnareIndex;
+	}
+	public void setQnareIndex(int qnareIndex) {
+		this.qnareIndex = qnareIndex;
+	}
+	public int getQnaIndex() {
+		return qnaIndex;
+	}
+	public void setQnaIndex(int qnaIndex) {
+		this.qnaIndex = qnaIndex;
+	}
+	public String getQnareCnt() {
+		return qnareCnt;
+	}
+	public void setQnareCnt(String qnareCnt) {
+		this.qnareCnt = qnareCnt;
+	}
 	public int getReIndex() {
 		return reIndex;
 	}

@@ -34,11 +34,15 @@
 <P>  The time on the server is ${serverTime}. </P>
 <a href="<%=request.getContextPath()%>/user/join.do">회원가입 테스트 이동!</a>
 <a href="<%=request.getContextPath()%>/user/login.do">로그인 테스트 이동!</a>
+<a href="<%=request.getContextPath()%>/location.do">위치 테스트 이동!</a>
+<a href="<%=request.getContextPath()%>/weare.do">소개 페이지  이동!</a>
 <a href="<%=request.getContextPath()%>/free/free.do">자유게시판으로 이동!</a>
 <a href="<%=request.getContextPath()%>/event/event.do">이벤트게시판으로 이동!</a>
 <a href="<%=request.getContextPath()%>/notice/notice.do">공지사항으로 이동!</a>
 <a href="<%=request.getContextPath()%>/product/registration.do">상품등록페이지로 이동!</a>
+<a href="<%=request.getContextPath()%>/product/new.do">신상품 페이지로 이동!</a>
 <a href="<%=request.getContextPath()%>/product/test.do">상품등록 확인 테스트!</a>
+<a href="<%=request.getContextPath()%>/admin.do">관리자 페이지 테스트!</a>
 <a href="https://kauth.kakao.com/oauth/logout?client_id=0575c28de27e26d54b189d1b04528e6b&logout_redirect_uri=http://localhost:8080/controller/user/logout.do">카카오 로그아웃</a>
 <a href="#" onclick="logout()">로그아웃</a>
 <c:if test="${not empty login}">
@@ -54,13 +58,13 @@
 </c:if>
 
 <h3>menu</h3>
-	<a href="<%=request.getContextPath()%>/registration.do">INDEX로 이동!</a>
+	<a href="<%=request.getContextPath()%>/index.do">INDEX로 이동!</a>
 	<br/>
-	<a href="<%=request.getContextPath()%>/registration.do">BRAND로 이동!</a>
+	<a href="<%=request.getContextPath()%>/product/brand.do">BRAND로 이동!</a>
 	<br/>
-	<a href="<%=request.getContextPath()%>/registration.do">NEW로 이동!</a>
+	<a href="<%=request.getContextPath()%>/product/new.do">NEW로 이동!</a>
 	<br/>
-	<a href="<%=request.getContextPath()%>/registration.do">BEST로 이동!</a>
+	<a href="<%=request.getContextPath()%>/product/best.do">BEST로 이동!</a>
 
 <h3>board</h3>
 	<a href="<%=request.getContextPath()%>/free/free.do">자유게시판으로 이동!</a>

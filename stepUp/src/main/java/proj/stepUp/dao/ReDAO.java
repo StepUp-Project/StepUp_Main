@@ -28,4 +28,21 @@ public class ReDAO {
 	public int delete(int reIndex) {
 		return sqlSession.delete("proj.stepUp.mapper.reMapper.delete", reIndex);
 	}
+	
+	
+	
+	public List<ReVO> qnalist(int qnaIndex){
+		return sqlSession.selectList("proj.stepUp.mapper.reMapper.qnaselectAll", qnaIndex);
+	}
+	
+	public int qnainsert(ReVO vo) {
+		return sqlSession.insert("proj.stepUp.mapper.reMapper.qnainsert", vo);
+	}
+	public int qnaupdate(ReVO vo) {
+		return sqlSession.update("proj.stepUp.mapper.reMapper.qnaupdate", vo);
+	}
+	
+	public int qnadelete(int qnareIndex) {
+		return sqlSession.delete("proj.stepUp.mapper.reMapper.qnadelete", qnareIndex);
+	}
 }
