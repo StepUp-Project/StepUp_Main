@@ -19,7 +19,14 @@
  			</if>
  	</select>
  	
- 	 	<select id="cntTotal" resultType="freeBoardVO" parameterType="searchVO">
+ 	<select id="userFree" resultType="FreeBoardVO" parameterType="int">
+ 		select *
+ 			from free_tb b, user_tb u
+ 			where b.userIndex = u.userIndex
+ 			  and u.userIndex = #{userIndex}
+ 	</select>
+ 	
+ 	<select id="cntTotal" resultType="freeBoardVO" parameterType="searchVO">
  		select count(*) over () as total from free_tb
  			<if test='searchType != null and searchType eq "title"'>
  				where freeTitle like concat('%',#{searchValue},'%')
@@ -31,8 +38,6 @@
  				where userNick like concat('%',#{searchValue},'%')
  			</if>
  	</select>
-	
-	
 	
 	<select id="selectByIndex" resultType="FreeBoardVO" parameterType="int">
 		select *

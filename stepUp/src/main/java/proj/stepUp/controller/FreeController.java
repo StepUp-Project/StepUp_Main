@@ -179,4 +179,5 @@ public class FreeController {
 			return "redirect:/free/free_view.do?freeIndex="+vo.getFreeIndex()+"&updateYN=N";
 		}
 	}
+	
 }
