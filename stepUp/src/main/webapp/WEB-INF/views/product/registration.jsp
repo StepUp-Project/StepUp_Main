@@ -30,7 +30,7 @@
                         <h2>상품코드</h2>
                     </div>
                     <input type="hidden" name="prdCode" value="">
-                    <div class="d-flex">
+                    <div class="d-flex justify-content-start">
                         <div class="w-25 me-4">
                             <label for="brand" class="form-label">브랜드</label>
                             <select name="brandCode" class="form-select" id="brandCode">
@@ -56,8 +56,9 @@
                         </div>  
                         <div class="w-25">
                             <label for="code" class="form-label">코드</label>
-                            <input type="text" name="inputCode" class="form-control" id="inputCode" value=""/>
-                        </div>
+                            <input type="text" name="inputCode" class="form-control" id="inputCode" value=""/>                       
+                        </div> 
+                        <button type="button" class="btn btn-light mt-auto mx-3" onclick="prdCodeCheck()">중복체크</button> 
                     </div>
                 </div>
                 <div class="mt-4">
@@ -94,21 +95,15 @@
                             <h2>메인 이미지</h2>
                             <div class="file-input-container d-flex">
                                 <input type="file" class="sm-input-file" name="mainFile" id="MainImg"/>
-                                <label class="for-sm-input-file" for="MainImg">이미지 등록</label>
-                                <div class="span-text" id="file-name"></div>
                             </div>
                         </div>
                         <div class="mt-2 subImg">
                             <h2>서브 이미지</h2>
                             <div class="file-input-container d-flex">
                                 <input type="file" class="sm-input-file" name="subFile" id="subImg1"/>
-                                <label class="for-sm-input-file" for="subImg1">이미지 등록</label>
-                                <div class="span-text" id="file-name1"></div>
                             </div>
                             <div class="file-input-container d-flex pt-0">
                                 <input type="file" class="sm-input-file" name="subFile" id="subImg2"/>
-                                <label class="for-sm-input-file" for="subImg2">이미지 등록</label>
-                                <div class="span-text" id="file-name2"></div>
                             </div>
                         </div>
                     </div>
@@ -123,28 +118,25 @@
                     </div>
                 </div>
                 <div>
-                <button type="button" class="btn btn-outline-secondary" onclick="add()">재고 추가</button>
-                <button type="button" class="btn btn-outline-secondary" onclick="removeer()">재고 삭제</button>
-                	<ul id="sizeWrap">
-                		<li class="d-flex mt-4">
-                			<div class="w-25 me-5">
-                				<label for="sizeKind" class="form-label">상품 사이즈</label>
-	                            <select name="sizeKind" class="form-select" id="sizeKind">
-	                                <option value="210">210</option>
-	                                <option value="220">220</option>
-	                                <option value="230">230</option>
-	                                <option value="240">240</option>
-	                                <option value="250">250</option>
-	                                <option value="260">260</option>
-	                                <option value="270">270</option>
-	                                <option value="280">280</option>
-	                            </select>
-                			</div>
-			                <div class="w-25">
-			                    <label for="sizeStock" class="form-label">제고 수량</label>
-			                    <input type="number" name="sizeStock" class="form-control" id="sizeStock" value="0" required="required"/>
-			                </div>
-                		</li>              		
+                <div class="d-flex justify-content-start">
+				    <select name="inputSize" class="form-select" id="inputSize">
+				        <option value="210">210</option>
+				        <option value="220">220</option>
+				        <option value="230">230</option>
+				        <option value="240">240</option>
+				        <option value="250">250</option>
+				        <option value="260">260</option>
+				        <option value="270">270</option>
+				        <option value="280">280</option>
+				    </select>
+	                <button type="button" class="btn btn-outline-secondary" onclick="add()">사이즈 추가</button>
+	                <button type="button" class="btn btn-outline-secondary mx-2" onclick="removeer()">사이즈 삭제</button>
+                </div>
+                <div class="my-4 d-flex justify-content-start">
+	                <span class="w-25 me-5">사이즈</span>
+	                <span>재고수량</span>
+                </div>
+                	<ul id="sizeWrap">             		
                 	</ul>
                 </div>
                 <div class="detail-info">
@@ -197,7 +189,33 @@
           	});
         }
         
-        
+        let prdCheck = "";
+        function prdCodeCheck(){
+        	let brandCode = $("#brandCode").val();
+        	let crdCode =  $("#typeCode").val();
+        	let inputCode = $('#inputCode').val();
+        	let checkCode = /^[0-9]{4}$/;
+        	if($("#inputCode").val() == "" || !checkCode.test(inputCode)){
+        		alert("상품코드를 입력해주세요(숫자 4자리로 이루어진 코드여야합니다.)");
+        		$("#inputCode").focus();
+        		return false;
+        	}
+        	let prdCode = brandCode+crdCode+inputCode;
+        	$.ajax({
+        		url:"<%=request.getContextPath()%>/ajax/prdCodeCheck.do",
+        		type:"GET",
+        		data:{prdCode : prdCode},
+        		success:function(data){
+        			
+        			if(data > 0){
+        				alert("중복된 상품 코드입니다.");
+        			}else{
+        				alert("사용가능한 상품 코드입니다.");
+        				prdCheck = data;
+        			}
+        		}
+        	});        	
+        }
         
        
         function check(){//코드 조합 및 유효성 검사       	
@@ -211,6 +229,10 @@
         		return false;
         	}
         	let prdCode = brandCode+crdCode+inputCode;
+        	if(prdCheck == ""){
+        		alert("상품 코드 중복확인을 실행해 주세요");
+        		return false;
+        	}
         	$('input[name=prdCode]').attr('value',prdCode);
         	if($("#prdName").val() == ""){
         		alert("상품명을 입력해주세요");
@@ -260,7 +282,7 @@
         
         
 
-        $('#MainImg').on('change',function(event){//이미지 등록시 이미지명 텍스트 출력
+/*         $('#MainImg').on('change',function(event){//이미지 등록시 이미지명 텍스트 출력
             var name = event.target.files[0].name;
             $('#file-name').text(name);
             });
@@ -271,30 +293,36 @@
         $('#subImg2').on('change',function(event){
             var name = event.target.files[0].name;
             $('#file-name2').text(name);
-            });
+            }); */
         
-        let size = '';
-        size += '<li class="d-flex mt-2 size">';
-        size += '	<div class="w-25 me-5">';
-		size += '		<select name="sizeKind" class="form-select" id="sizeKind">'
-		size += '			<option value="210">210</option>';
-        size += '			<option value="220">220</option>';  
-        size += '			<option value="230">230</option>';  
-        size += '			<option value="240">240</option>';  
-        size += '			<option value="250">250</option>';  
-        size += '			<option value="260">260</option>';  
-        size += '			<option value="270">270</option>';  
-        size += '			<option value="280">280</option>';  
-        size += '		</select>';  
-        size += '	</div>';  
-        size += '	<div class="w-25">';
-        size += '		<input type="number" name="sizeStock" class="form-control" id="sizeStock" value="0" required="required"/>';  
-        size += '	</div>';  
-        size += '</li>';  
+
                 
 
         function add(){//재고 추가 버튼 클릭시 실행 함수
+        	let check = 0;
+        	let inputSize = $("#inputSize").val();
+        	let sizeKind = document.querySelectorAll('input[name="sizeKind"]');
+        	console.log(sizeKind);
+    		if(sizeKind.length != 0){
+    			sizeKind.forEach(function(i){
+    				if(inputSize == i.value){
+    					alert("중복된 사이즈 입니다.");
+    					check = 1;
+    				}
+    			});
+    		}
+        	if(check == 0 ){
+            let size = '';
+            size += '<li class="d-flex mt-2 size my-2 justify-content-start">';
+            size += '	<div class="w-25 me-5">';
+    		size += '		<input type="text" name="sizeKind" class="form-control" id="sizeKind" value="'+inputSize+'" readonly>' ;
+    		size += '	</div>';
+            size += '	<div class="w-25">';
+            size += '		<input type="number" name="sizeStock" class="form-control" id="sizeStock" value="0" required="required"/>';  
+            size += '	</div>';  
+            size += '</li>';  
         	$("#sizeWrap").append(size);
+        	}
         }
         
         function removeer(){//재고 삭제 버튼 클릭시 실행 함수

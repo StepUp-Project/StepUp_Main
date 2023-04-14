@@ -90,6 +90,7 @@ public class AjaxController {
 		String result =  sms.sendSMS(userPhone);
 		HttpSession session = req.getSession();	
 		session.setAttribute("phoneCode", result);
+		session.setMaxInactiveInterval(300);
 		return;
 	}
 	
@@ -275,5 +276,13 @@ public class AjaxController {
 			}
 			
 			return success;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/prdCodeCheck.do", method = RequestMethod.GET)
+		public String prdCodeCheck(String prdCode) {
+			int result = productService.selectByPrdCode(prdCode);
+			
+			return result+"";
 		}
 }

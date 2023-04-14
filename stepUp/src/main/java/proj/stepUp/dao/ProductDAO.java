@@ -38,4 +38,8 @@ public class ProductDAO {
 	public int selectBrandToal(SearchVO searchVO){
 		return sqlSession.selectOne("proj.stepUp.mapper.productMapper.selectBrandToal",searchVO);
 	}
+	
+	public int selectByPrdCode(String prdCode) {
+		return sqlSession.selectOne("proj.stepUp.mapper.productMapper.selectByPrdCode", prdCode);
+	}
 }
