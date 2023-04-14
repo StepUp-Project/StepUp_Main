@@ -2,7 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="proj.stepUp.vo.SlideVO" %>
+<%@ page import="java.util.*" %>
+<% 
+	List<SlideVO> blist = (List<SlideVO>)request.getAttribute("blist");
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,18 +29,20 @@
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
                 <!-- Slides -->
-                <div class="swiper-slide">
-                    <a href="#" class="banner-link"></a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="#" class="banner-link"></a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="#" class="banner-link"></a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="#" class="banner-link"></a>
-                </div>
+				<div class="swiper-slide" style="background-image: url('<%=request.getContextPath()%>/resources/image/main/<%=blist.get(0).getSlideFileRname()%>');">
+                    <a href="<%=blist.get(0).getSlideUrl()%>" class="banner-link"></a>
+               </div>
+               <div class="swiper-slide" style="background-image: url('<%=request.getContextPath()%>/resources/image/main/<%=blist.get(1).getSlideFileRname()%>');">
+                    <a href="<%=blist.get(1).getSlideUrl()%>" class="banner-link"></a>
+               </div>
+               <div class="swiper-slide" style="background-image: url('<%=request.getContextPath()%>/resources/image/main/<%=blist.get(2).getSlideFileRname()%>');">
+
+                    <a href="<%=blist.get(2).getSlideUrl()%>" class="banner-link"></a>
+               </div>
+               <div class="swiper-slide" style="background-image: url('<%=request.getContextPath()%>/resources/image/main/<%=blist.get(3).getSlideFileRname()%>');">
+
+                    <a href="<%=blist.get(3).getSlideUrl()%>" class="banner-link"></a>
+               </div>
             </div>
             <!-- If we need pagination -->
             <div class="swiper-pagination"></div>
