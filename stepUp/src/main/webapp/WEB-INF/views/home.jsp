@@ -42,6 +42,7 @@
 <a href="<%=request.getContextPath()%>/product/registration.do">상품등록페이지로 이동!</a>
 <a href="<%=request.getContextPath()%>/product/new.do">신상품 페이지로 이동!</a>
 <a href="<%=request.getContextPath()%>/product/test.do">상품등록 확인 테스트!</a>
+<a href="<%=request.getContextPath()%>/cart/cart.do">장바구니 확인 테스트!</a>	
 <a href="<%=request.getContextPath()%>/admin.do">관리자 페이지 테스트!</a>
 <a href="https://kauth.kakao.com/oauth/logout?client_id=0575c28de27e26d54b189d1b04528e6b&logout_redirect_uri=http://localhost:8080/controller/user/logout.do">카카오 로그아웃</a>
 <a href="#" onclick="logout()">로그아웃</a>
