@@ -44,16 +44,26 @@
                 </thead><!--표상단 끝-->
                 <tbody><!--장바구니 상품 표시-->
                 <c:forEach var="vo" items="${clist}">
-                    <tr class="cart-menu">
+                   <tr class="cart-menu">
                     	<input type="hidden" value="${vo.cartIndex}" name="cart_hid">
-                        <th class="th1"><div><input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true"></div></th>
-                        <th class="th2 th7"><div><!--제품 대표이미지 업로드 필요--><img src="<%=request.getContextPath() %>/resources/prdmainimg/${vo.prdRname}"></div></th>
+                        <th class="th1">
+	                        <div>
+	                        	<input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true">
+	                        </div>
+                        </th>
+                        <th class="th2 th7">
+	                        <div>
+	                        	<a href="product_view?prdName=${vo.prdName}"><img src="<%=request.getContextPath() %>/resources/prdmainimg/${vo.prdRname}"></a>
+	                        </div>
+                        </th>
                         <th class="th2 th6"><div>${vo.prdName}<br/><span>사이즈 : ${vo.sizeKind}</span></div></th>
                         <th class="th3"><div id="cart-price_${vo.cartIndex}"><fmt:formatNumber value="${vo.prdPrice}" pattern="#,###"/> 원</div></th>
                         <th class="th3 th5">
-	                        <div><button type="button" onclick="decrease(${vo.cartIndex})">&#45;</button>
-	                        <input type="text" id="quantity_${vo.cartIndex}" value="${vo.cartStock}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); totalPrice(${vo.cartIndex});" min="1" max="${vo.sizeStock}">
-	                        <button type="button" onclick="increase(${vo.cartIndex})">&#43;</button></div>
+	                        <div>
+		                        <button type="button" onclick="decrease(${vo.cartIndex})">&#45;</button>
+		                        <input type="text" id="quantity_${vo.cartIndex}" value="${vo.cartStock}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); totalPrice(${vo.cartIndex});" min="1" max="${vo.sizeStock}">
+		                        <button type="button" onclick="increase(${vo.cartIndex})">&#43;</button>
+	                        </div>
                         </th>
                         <th class="th3 th8"><div id="totalPrice_${vo.cartIndex}"></div></th>
                         <th class="th3"><!--고정--><div>무료배송</div></th>
