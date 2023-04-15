@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="proj.stepUp.mapper.qnaMapper">
+ 	<select id="selectAll" resultType="QnaVO" parameterType="searchVO">
+ 		select *
+ 			from qna_tb b, user_tb u
+ 			where b.userIndex = u.userIndex
+ 			<if test='searchType != null and searchType eq "title"'>
+ 				and qnaTitle like concat('%',#{searchValue},'%')
+ 			</if>
+ 			<if test='searchType != null and searchType eq "content"'>
+ 				and qnaCnt like concat('%',#{searchValue},'%')
+ 			</if>
+ 			<if test='searchType != null and searchType eq "writer"'>
+ 				and userNick like concat('%',#{searchValue},'%')
+ 			</if>
+ 	</select>
+ 	
+ 	<select id="userQna" resultType="QnaVO" parameterType="int">
+ 		select *
+ 			from qna_tb b, user_tb u
+ 			where b.userIndex = u.userIndex
+ 			  and u.userIndex = #{userIndex}
+ 	</select>
+ 	
+ 	<select id="cntTotal" resultType="QnaVO" parameterType="searchVO">
+ 		select count(*) over () as total from qna_tb
+ 			<if test='searchType != null and searchType eq "title"'>
+ 				where qnaTitle like concat('%',#{searchValue},'%')
+ 			</if>
+ 			<if test='searchType != null and searchType eq "content"'>
+ 				where qnaCnt like concat('%',#{searchValue},'%')
+ 			</if>
+ 			<if test='searchType != null and searchType eq "writer"'>
+ 				where userNick like concat('%',#{searchValue},'%')
+ 			</if>
+ 	</select>
+	
+	<select id="selectByIndex" resultType="QnaVO" parameterType="int">
+ 		select *
+ 			from qna_tb b, user_tb u
+ 			where b.userIndex = u.userIndex
+ 			  and b.qnaIndex = #{qnaIndex}
+	</select>
+	
+	<insert id="insert" parameterType="QnaVO">
+	
+		insert into qna_tb(
+		<![CDATA[
+			qnaCnt 
+			, qnaTitle 
+			, userIndex 
+			)values(
+			#{qnaCnt} 
+			, #{qnaTitle} 
+			, #{userIndex} 
+			)
+			]]>
+		<selectKey resultType="int" order="AFTER" keyProperty="qnaIndex">
+			select max(qnaIndex) from qna_tb
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="QnaVO">
+		update qna_tb
+			set qnaCnt = #{qnaCnt}
+			, qnaTitle = #{qnaTitle}
+			where qnaIndex = #{qnaIndex}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete
+			from qna_tb
+ 			where qnaIndex = #{qnaIndex}
+	</delete>
+ 	
+ 	
+</mapper>
