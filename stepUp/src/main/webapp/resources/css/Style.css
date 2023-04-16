@@ -2492,6 +2492,36 @@ notice_view.jsp(공지사항 리스트)
 	background-repeat: no-repeat; background-size: contain;
 }
 
+/*장바구니페이지 시작*/
+.cart-top h1{font-size:50px; margin-left: 210px; margin-top:130px; font-weight: bold; width: 200px;}
+.cart-right{position: absolute; top:210px; right:170px; font-size:20px; font-weight: bold;}
+.cart-line{position: absolute; top:250px; left: 200px; width:1150px; height:15px; border-bottom: 10px solid #f00;}
+.cart-table{width:1150px; position:relative; top:250px; left:-190px; text-align: center; margin-bottom:330px; height: auto;}
+.cart-table thead{border-top: 4px solid #000; height: 60px; font-size:17px; border-bottom:1px solid #a5a5a5;}
+.cart-table img{width:120px; height:80px;}
+.cart-table tbody{border-bottom:1px solid #a5a5a5;}
+.cart-table tfoot{height:100px;}
+.cart-table .th1{width: 20px; height: 40px;}
+.cart-table .th2{width: 430px;}
+.cart-table .th3{width: 130px; line-height: 25px;}
+.cart-table .th5 input{width:35px; height:25px; margin:0; margin-top:-20px;}
+.cart-table .th5 input[type="text"] {text-align: center;}
+.cart-table .th5 button{width:30px; border:none; background: none; font-size: 20px;}
+.cart-table .th4 input{background-color:#fff; border: 1px solid #000; padding: 5px 15px;}
+.cart-table .th4 input:hover{background-color:#000; color:#fff}
+.cart-menu .th6{text-align:left; width:360px; line-height:30px;}
+.cart-menu .th6 span{font-size:10px;}
+.cart-menu .th7{width:200px;}
+.cart-menu{height: 200px;}
+.cart-table .cart-foot{height:50px; text-align: right;}
+.cart-table tfoot .cash-1{font-size:20px; font-weight:bold;}
+.cart-table tfoot .cash-2{font-size:20px;}
+.cart-button{margin-top:5%; float:right;}
+.cart-button a{border:1px solid #000; padding:15px 30px; font-size:20px; margin-right:30px; margin-top:50px; text-decoration:none;}
+.cart-button a:nth-child(1){background-color: #fff; color:#000; cursor: pointer;}
+.cart-button a:nth-child(2){background-color: #000; color:#fff; cursor: pointer;}
+/*장바구니페이지 끝*/
+  
 
 /*관리자 페이지*/
 
