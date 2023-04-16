@@ -207,15 +207,6 @@
             <ul id="review_ctn"><!-- 리뷰 보여주는 곳 -->	
             </ul>
             <ul id="reeview_page">
-<%--                 <li>
-               		<a href="#" class="xi-angle-left"  onclick="goPage(${paging.startPage - 1})" style= "display:${paging.startPage - 11 > 0 ? 'block' : 'none'}"></a>
-               		<div id="pagingNumBtn">
-		    	    	<c:forEach var="pageNum" begin="${paging.startPage}" end="${paging.endPage}">
-		    	    		<a href="#" onclick="goPage(${pageNum})">${pageNum}</a>
-		    	    	</c:forEach>
-                	</div> 
-                	<a href="#" class="xi-angle-right" onclick="goPage(${paging.endPage + 1})" style= "display:${paging.endPage * paging.perPage < paging.total ? 'block' : 'none'}"></a>
-                </li> --%>
             </ul>
         </article> 
 	</main>
@@ -379,9 +370,11 @@
 	    	    	console.log(data);
 	    	    	for(let i = 0; i < data.length; i++){
 	    	    		let reviewList = data[i];
-	    	    		console.log(reviewList);
 	    	    		let reviewDate = moment(reviewList.reviewDate).format('YYYY-MM-DD');
 	    	    		reviewHtml += '<li>';
+	    	    		reviewHtml += '<form name="rfrm" action="<%=request.getContextPath()%>/review/delete.do" method="post" onsubmit="reviewDel()">';
+	    	    		reviewHtml += '<input type="hidden" name="reviewIndex" value="'+reviewList.reviewIndex+'">';
+	    	    		reviewHtml += '<input type="hidden" name="prdIndex" value="'+reviewList.prdIndex+'">';
 	    	    		reviewHtml += '<span class="review_star">';
 	    	    		for(let j = 1; j <= reviewList.reviewScore; j++){
 	    	    			reviewHtml += '&#9733;';
@@ -395,11 +388,12 @@
 	    	    		reviewHtml += ''+reviewDate+''
 	    	    		reviewHtml += '</span>';
 	    	    		if(loginIndex == reviewList.userIndex){
-		    	    		reviewHtml += '<input class="review_del"  type="button" value="삭제">';
-		    	    		reviewHtml += '<input class="review_edit"  type="button" value="수정">';
+		    	    		reviewHtml += '<input class="review_del" type="submit" value="삭제">';
+		    	    		reviewHtml += '<input class="review_edit"  type="button" value="수정"  onclick="reviewModify('+reviewList.reviewIndex+')">';
 	    	    		}
 	    	    		reviewHtml += '</div>';
 	    	    		reviewHtml += '<div class="review_note">'+reviewList.reviewContent+'</div>';
+	    	    		reviewHtml += '</form>'
 	    	    		reviewHtml += '</li>'
 	    	    		paging(nowPage, prdIndex);
 	    	    	}
@@ -408,7 +402,7 @@
 	    	    }
 	    	})
 	    }
-	    
+
 	    //리뷰 페이징 버튼 ajax 처리
 	    function paging(nowPage, prdIndex){
 	    	let pagingHtml = '';
@@ -445,7 +439,18 @@
 	    $(document).ready(function(){
 	    	goPage(1);
 	    });
-    			
+	    
+	    
+	 	function reviewDel(){
+	    	if(confirm("해당 리뷰를 삭제하시겠습니까?") == 0){
+	    		return false;
+	    	}
+	    		return true;
+	    }
+	    
+	    function reviewModify(reviewIndex){
+	    	 window.open("<%=request.getContextPath()%>/review/modify.do?reviewIndex="+reviewIndex, "리뷰수정", "width=900%,height=150%, top=250%, left=300%");
+	    }
 	</script>
 </body>
 </html>

@@ -14,6 +14,10 @@ public class CartDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public int insertCart(CartVO vo) {
+		return sqlSession.insert("proj.stepUp.mapper.cartMapper.insertCart", vo);
+	}
+	
 	public List<CartVO> list(int userIndex){
 		return sqlSession.selectList("proj.stepUp.mapper.cartMapper.selectAll", userIndex);
 	}

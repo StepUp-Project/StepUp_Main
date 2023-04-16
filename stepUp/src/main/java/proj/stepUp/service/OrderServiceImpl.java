@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import proj.stepUp.dao.OrderDAO;
 import proj.stepUp.vo.OrderVO;
+import proj.stepUp.vo.ReviewVO;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -19,6 +20,12 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public int insertOrder(OrderVO vo) {
 		return orderDAO.insertOrder(vo);
+	}
+
+	@Override
+	public int selectByOrder(ReviewVO vo) {
+		System.out.println("서비스 진입");
+		return orderDAO.selectByOrder(vo);
 	}
 
 }

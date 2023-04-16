@@ -15,6 +15,11 @@ public class CartServiceImpl implements CartService{
 	private CartDAO cartDAO;
 	
 	@Override
+	public int insertCart(CartVO vo) {
+		return cartDAO.insertCart(vo);
+	}
+	
+	@Override
 	public List<CartVO> list(int userIndex){
 		return cartDAO.list(userIndex);
 	}

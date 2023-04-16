@@ -15,5 +15,20 @@
 	<select id="selectCount" resultType="int" parameterType="int">
 		select count(*) as total from review_tb where prdIndex = #{prdIndex}
 	</select>
-		
+	
+	<select id="selectCheckReview" resultType="int" parameterType="reviewVO">
+		select count(*) from review_tb where userIndex = #{userIndex} and prdIndex = #{prdIndex}
+	</select>
+	
+	<delete id="deleteReview" parameterType="reviewVO">
+		delete from review_tb where reviewIndex = #{reviewIndex}
+	</delete>
+	
+	<select id="selectReviewModify" resultType="reviewVO" parameterType="int">
+		select * from review_tb where reviewIndex = #{reviewIndex}
+	</select>
+	
+	<update id="updateReview" parameterType="reviewVO">
+		update review_tb set reviewContent = #{reviewContent}, reviewScore = #{reviewScore} where reviewIndex = #{reviewIndex}
+	</update>
   </mapper>
