@@ -42,4 +42,12 @@ public class ProductDAO {
 	public int selectByPrdCode(String prdCode) {
 		return sqlSession.selectOne("proj.stepUp.mapper.productMapper.selectByPrdCode", prdCode);
 	}
+	
+	public int selectManageCount(SearchVO searchVO){
+		return sqlSession.selectOne("proj.stepUp.mapper.productMapper.selectManageCount",searchVO);
+	}
+	
+	public List<ProductVO> selectManageList(SearchVO searchVO){
+		return sqlSession.selectList("proj.stepUp.mapper.productMapper.selectManageList",searchVO);
+	}
 }

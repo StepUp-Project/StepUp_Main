@@ -182,4 +182,11 @@ public class ProductController {
 				
 		return "product/new";
 	}
+	
+	@RequestMapping(value="/management.do", method = RequestMethod.GET)
+	public String management() {
+		
+		
+		return "product/management";
+	}
 }

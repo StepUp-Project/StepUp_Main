@@ -13,4 +13,6 @@ public interface ProductService {
 	public List<ProductVO> selectBrandPage(SearchVO searchVO);
 	public int selectBrandToal(SearchVO searchVO);
 	public int selectByPrdCode(String prdCode);
+	public int selectManageCount(SearchVO searchVO);
+	public List<ProductVO> selectManageList(SearchVO searchVO);
 }

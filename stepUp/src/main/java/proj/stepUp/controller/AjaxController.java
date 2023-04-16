@@ -285,4 +285,25 @@ public class AjaxController {
 			
 			return result+"";
 		}
+		
+		@ResponseBody
+		@RequestMapping(value="/manageSearch.do", method = RequestMethod.GET)
+		public List<ProductVO> manageSearch(SearchVO searchVO, int nowPage) {
+			int totalCount = productService.selectManageCount(searchVO);
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+			searchVO.setStart(paging.getStart());
+			searchVO.setPerPage(paging.getPerPage());
+			List<ProductVO> vo = productService.selectManageList(searchVO);
+			
+			return vo;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/manageSearchPaging.do", method = RequestMethod.GET)	
+		public PagingUtil manageSearchPaging(SearchVO searchVO, int nowPage) {					
+			int totalCount = productService.selectManageCount(searchVO);
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+
+			return paging;
+		}
 }

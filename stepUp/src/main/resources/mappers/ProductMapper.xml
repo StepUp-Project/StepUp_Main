@@ -95,4 +95,25 @@
   	<select id="selectByPrdCode" parameterType="String" resultType="int">
   		select count(*) from product_tb where prdCode = #{prdCode}
   	</select>
+  	
+  	<select id="selectManageCount" resultType="int" parameterType="searchVO">
+  		select count(*) from product_tb where 1 = 1
+  		<if test="searchValue != '' and searchType eq 'code'">
+  			and prdCode like concat('%', #{searchValue}, '%')
+  		</if>
+  		<if test="searchValue != '' and searchType eq 'name'">
+  			and prdName like concat('%', #{searchValue}, '%')
+  		</if>
+  	</select>
+  	
+  	<select id="selectManageList" parameterType="searchVO" resultType="productVO">
+  		select * from product_tb where 1 = 1 
+  		<if test="searchValue != '' and searchType eq 'code'">
+  			and prdCode like concat('%', #{searchValue}, '%')
+  		</if>
+  		<if test="searchValue != '' and searchType eq 'name'">
+  			and prdName like concat('%', #{searchValue}, '%')
+  		</if>
+  		limit #{start}, #{perPage}
+  	</select>
   </mapper>

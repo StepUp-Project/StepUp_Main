@@ -48,5 +48,15 @@ public class ProductServiceImpl implements ProductService {
 	public int selectByPrdCode(String prdCode) {
 		return productDAO.selectByPrdCode(prdCode);
 	}
+
+	@Override
+	public int selectManageCount(SearchVO searchVO) {
+		return productDAO.selectManageCount(searchVO);
+	}
+
+	@Override
+	public List<ProductVO> selectManageList(SearchVO searchVO) {
+		return productDAO.selectManageList(searchVO);
+	}
 	
 }
