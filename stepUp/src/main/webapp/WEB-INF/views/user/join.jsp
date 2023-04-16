@@ -82,6 +82,7 @@
                     <input type="text" class="form-control" id="userPchNum" name="userPchNum" placeholder="인증번호" onblur="Pch()" disabled>
                     <label for="userPchNum">인증번호</label>
                 </div>
+                <span id="timer"></span>
                 <div id="check-Phone" style="margin-top: 16px; font-size:13px;"></div>
                	<div id="PchResult" class="mb-3" style="font-size:13px;"></div>
                	
@@ -366,8 +367,9 @@
      				type:"post",
      				data:{userPhone : UserPhone},
      				success:function(data){
+     					sendAuthNum();
      					alert("인증번호가 전송되었습니다.");
-     					UserPchNumStyle.disabled = false;
+     					UserPchNumStyle.disabled = false;	
      				},
      				error:function(){
      					alert("인증번호 전송에 실패했습니다.");
@@ -404,6 +406,9 @@
 		     			checkPhone.style.color = "#008000";
 		     			UserPchNumStyle.style.borderColor = "#008000";
 		     			UserPchNumStyle.disabled = true;
+	                    clearInterval(timer);
+	                    document.querySelector('#timer').textContent = "";
+	                    isRunning = false;
 					}else{
 		     			PchOk = 0;
 		     			$("#check-Phone").html("인증번호가 일치하지 않습니다.");
@@ -494,6 +499,42 @@
      		}
      		return true;
      	}
+     	
+     	
+     	//인증번호 타이머
+        var timer;
+        var isRunning = false;
+
+        // 인증번호 발송 및 타이머 함수 실행
+        function sendAuthNum(){
+            // 남은 시간(초)
+            var leftSec = 300,
+            display = document.querySelector('#timer');
+            // 이미 타이머가 작동중이면 중지
+            if (isRunning){
+                clearInterval(timer);
+            }
+            startTimer(leftSec, display);
+        }
+
+        function startTimer(count, display) {
+            var minutes, seconds;
+            timer = setInterval(function () {
+                minutes = parseInt(count / 60, 10);
+                seconds = parseInt(count % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = minutes + ":" + seconds;
+                // 타이머 종료
+                if (--count < 0) {
+                    clearInterval(timer);
+                    display.textContent = "";
+                    isRunning = false;
+                }
+            }, 1000);
+            isRunning = true;
+        }
+    </script>
     </script>
 </body>
 </html>

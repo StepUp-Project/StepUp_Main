@@ -91,4 +91,8 @@
 		)
 		</if>
   	</select>
+  	
+  	<select id="selectByPrdCode" parameterType="String" resultType="int">
+  		select count(*) from product_tb where prdCode = #{prdCode}
+  	</select>
   </mapper>

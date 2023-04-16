@@ -17,4 +17,11 @@
   			select MAX(orderIndex) from order_tb
   		</selectKey>
   	</insert>
+  	
+  	<select id="selectByOrder" parameterType="reviewVO" resultType="int">
+  		select count(*) from order_tb o left join order_item_tb oi on oi.orderIndex = o.orderIndex
+  		left join size_tb s on oi.sizeIndex = s.sizeIndex
+  		where o.userIndex = #{userIndex}
+  		and s.prdIndex = #{prdIndex}
+  	</select>
   </mapper>

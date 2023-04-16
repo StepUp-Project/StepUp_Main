@@ -29,4 +29,24 @@ public class ReviewServiceImpl implements ReviewService{
 		// TODO Auto-generated method stub
 		return reviewDAO.selectCount(prdIndex);
 	}
+
+	@Override
+	public int selectCheckReview(ReviewVO vo) {
+		return reviewDAO.selectCheckReview(vo);
+	}
+
+	@Override
+	public int deleteReview(ReviewVO vo) {
+		return reviewDAO.deleteReview(vo);
+	}
+
+	@Override
+	public ReviewVO selectReviewModify(int reviewIndex) {
+		return reviewDAO.selectReviewModify(reviewIndex);
+	}
+
+	@Override
+	public int updateReview(ReviewVO vo) {
+		return reviewDAO.updateReview(vo);
+	}
 }

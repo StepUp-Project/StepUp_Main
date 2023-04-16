@@ -11,5 +11,6 @@ public interface ProductService {
 	public List<ProductVO> selectProductByDate(int maxPrd);
 	public List<ProductVO> selectProductSales(int maxPrd);
 	public List<ProductVO> selectBrandPage(SearchVO searchVO);
-	public int selectBrandToal(SearchVO searchVO);	
+	public int selectBrandToal(SearchVO searchVO);
+	public int selectByPrdCode(String prdCode);
 }

@@ -43,5 +43,10 @@ public class ProductServiceImpl implements ProductService {
 	public int selectBrandToal(SearchVO searchVO) {
 		return productDAO.selectBrandToal(searchVO);
 	}
+
+	@Override
+	public int selectByPrdCode(String prdCode) {
+		return productDAO.selectByPrdCode(prdCode);
+	}
 	
 }

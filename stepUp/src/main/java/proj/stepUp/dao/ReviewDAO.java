@@ -25,4 +25,20 @@ public class ReviewDAO {
 	public int selectCount(int prdIndex) {
 		return sqlSession.selectOne("proj.stepUp.mapper.reviewMapper.selectCount", prdIndex);
 	}
+	
+	public int selectCheckReview(ReviewVO vo) {
+		return sqlSession.selectOne("proj.stepUp.mapper.reviewMapper.selectCheckReview", vo);
+	}
+	
+	public int deleteReview(ReviewVO vo) {
+		return sqlSession.delete("proj.stepUp.mapper.reviewMapper.deleteReview", vo);
+	}
+	
+	public ReviewVO selectReviewModify(int reviewIndex) {
+		return sqlSession.selectOne("proj.stepUp.mapper.reviewMapper.selectReviewModify", reviewIndex);
+	}
+	
+	public int updateReview(ReviewVO vo) {
+		return sqlSession.update("proj.stepUp.mapper.reviewMapper.updateReview", vo);
+	}
 }
