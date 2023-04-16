@@ -46,6 +46,7 @@
                 <c:forEach var="vo" items="${clist}">
                    <tr class="cart-menu">
                     	<input type="hidden" value="${vo.cartIndex}" name="cart_hid">
+			<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
                         <th class="th1">
 	                        <div>
 	                        	<input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true">
@@ -53,7 +54,7 @@
                         </th>
                         <th class="th2 th7">
 	                        <div>
-	                        	<a href="product_view?prdName=${vo.prdName}"><img src="<%=request.getContextPath() %>/resources/prdmainimg/${vo.prdRname}"></a>
+	                        	<a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${vo.prdIndex}"><img src="<%=request.getContextPath() %>/resources/prdmainimg/${vo.prdRname}"></a>
 	                        </div>
                         </th>
                         <th class="th2 th6"><div>${vo.prdName}<br/><span>사이즈 : ${vo.sizeKind}</span></div></th>
