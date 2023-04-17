@@ -25,7 +25,7 @@
                     <div>${vo.userNick}</div><span>|</span><div>조회수 : ${vo.eventHit}</div><p>${vo.eventWdate}</p>
                 </li>
                 <li id="board_wctn">
-                    ${vo.eventCnt}	
+                    ${vo.eventCnt}
                 </li>
             </ul>
             <div>

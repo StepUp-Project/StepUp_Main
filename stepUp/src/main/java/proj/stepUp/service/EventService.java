@@ -12,5 +12,6 @@ public interface EventService {
 	public int insert(EventBoardVO vo);
 	public int update(EventBoardVO vo);
 	public int delete(int eventIndex);
+	public int hitcount(int eventIndex);
 	
 }

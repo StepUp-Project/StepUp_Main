@@ -73,4 +73,9 @@
  			where eventIndex = #{eventIndex}
 	</delete>
 	
+	<update id="hitcount" parameterType="int">
+		update event_tb
+			set eventHit = eventHit + 1
+			where eventIndex = #{eventIndex}
+	</update>
 </mapper>

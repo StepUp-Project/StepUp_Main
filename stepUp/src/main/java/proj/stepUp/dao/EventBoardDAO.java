@@ -38,5 +38,8 @@ public class EventBoardDAO {
 	public int delete(int eventIndex) {
 		return sqlSession.delete("proj.stepUp.mapper.eventBoardMapper.delete", eventIndex);
 	}
+	public int hitcount(int eventIndex) {
+		return sqlSession.update("proj.stepUp.mapper.eventBoardMapper.hitcount", eventIndex);
+	}
 	
 }

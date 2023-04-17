@@ -53,6 +53,12 @@ public class EventServiceImpl implements EventService {
 		return eventBoardDAO.cntTotal(svo);
 	}
 
+	@Override
+	public int hitcount(int eventIndex) {
+
+		return eventBoardDAO.hitcount(eventIndex);
+	}
+
 
 	
 	

@@ -62,4 +62,10 @@ public class FreeServiceImpl implements FreeService {
 		return freeBoardDAO.listByUserIdx(userIndex);
 	}
 
+
+	@Override
+	public int hitcount(int freeIndex) {
+		return freeBoardDAO.hitcount(freeIndex);
+	}
+
 }
