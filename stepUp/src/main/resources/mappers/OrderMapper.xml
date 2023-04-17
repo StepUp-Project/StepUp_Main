@@ -24,4 +24,14 @@
   		where o.userIndex = #{userIndex}
   		and s.prdIndex = #{prdIndex}
   	</select>
+  	
+  	<select id="selectManager" parameterType="searchVO" resultType="orderVO">
+  		select * from order_tb where 1 = 1 		
+  		order by orderDate desc
+  		limit #{start}, #{perPage}
+  	</select>
+  	
+  	<select id="selectManagerCount" parameterType="searchVO" resultType="int">
+  		select count(*) from order_tb where 1 = 1 
+  	</select>
   </mapper>

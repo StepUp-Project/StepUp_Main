@@ -1,11 +1,14 @@
 package proj.stepUp.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import proj.stepUp.vo.OrderVO;
 import proj.stepUp.vo.ReviewVO;
+import proj.stepUp.vo.SearchVO;
 
 @Repository
 public class OrderDAO {
@@ -23,5 +26,13 @@ public class OrderDAO {
 	public int selectByOrder(ReviewVO vo) {//해당 상품 주문 기록이 존재하는지 확인
 		System.out.println("dao 진입");
 		return sqlSession.selectOne("proj.stepUp.mapper.orderMapper.selectByOrder", vo);
+	}
+	
+	public List<OrderVO> selectManager(SearchVO vo) {
+		return sqlSession.selectList("proj.stepUp.mapper.orderMapper.selectManager", vo);
+	}
+	
+	public int selectManagerCount(SearchVO vo) {
+		return sqlSession.selectOne("proj.stepUp.mapper.orderMapper.selectManagerCount", vo);
 	}
 }

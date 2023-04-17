@@ -1,7 +1,8 @@
 package proj.stepUp.vo;
 
-public class OrderVO {
+public class OrderVO extends UserVO {
 	private int orderIndex;
+	private String orderDate;
 	private String orderAddr;
 	private String orderPost;
 	private String orderPhone;
@@ -9,8 +10,28 @@ public class OrderVO {
 	private String orderPay;
 	private int userIndex;
 	private String orderNum;
+	private String orderStatus;
+	private String orderName;
 	
 	
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	public String getOrderName() {
+		return orderName;
+	}
+	public void setOrderName(String orderName) {
+		this.orderName = orderName;
+	}
 	public String getOrderPost() {
 		return orderPost;
 	}
