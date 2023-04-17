@@ -44,5 +44,8 @@ public class FreeBoardDAO {
 	public int delete(int freeIndex) {
 		return sqlSession.delete("proj.stepUp.mapper.freeBoardMapper.delete", freeIndex);
 	}
+	public int hitcount(int freeIndex) {
+		return sqlSession.update("proj.stepUp.mapper.freeBoardMapper.hitcount", freeIndex);
+	}
 
 }

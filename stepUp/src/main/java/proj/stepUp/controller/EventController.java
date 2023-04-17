@@ -2,7 +2,9 @@ package proj.stepUp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +78,29 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/event_view.do")
-	public String eventview(int eventIndex, Model model) {
+	public String eventview(int eventIndex, Model model , HttpServletRequest req, HttpServletResponse res) {
+		
+		 Cookie[] cookies = req.getCookies();
+		    boolean isExists = false;
+		    if (cookies != null) {
+		        for (Cookie cookie : cookies) {
+		            if (cookie.getName().equals("eventIndex_" + eventIndex)) {
+		                isExists = true;
+		                break;
+		            }
+		        }
+		    }
+		    // 쿠키 생성 후 조회수 증가
+		    if (!isExists) {
+		        Cookie cookie = new Cookie("eventIndex_" + eventIndex, String.valueOf(eventIndex));
+		        cookie.setMaxAge(60 * 60 * 24); // 쿠키 유효 1일
+		        res.addCookie(cookie);
+		        eventService.hitcount(eventIndex);
+		    }
+		
+		
+		
+		
 		EventBoardVO vo = eventService.selectByIndex(eventIndex);
 		model.addAttribute("vo", vo);
 		

@@ -13,4 +13,5 @@ public interface FreeService {
 	public int insert(FreeBoardVO vo);
 	public int update(FreeBoardVO vo);
 	public int delete(int freeIndex);
+	public int hitcount(int freeIndex);
 }

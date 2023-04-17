@@ -78,5 +78,10 @@
  			where freeIndex = #{freeIndex}
 	</delete>
  	
+	<update id="hitcount" parameterType="int">
+		update free_tb
+			set freeHit = freeHit + 1
+			where freeIndex = #{freeIndex}
+	</update>
  	
 </mapper>
