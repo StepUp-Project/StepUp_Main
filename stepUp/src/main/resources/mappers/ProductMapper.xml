@@ -15,17 +15,18 @@
   	</insert>
   	
   	<select id="selectProductIndex" parameterType="int" resultType="productVO">
-  		select * from product_tb where prdIndex = #{prdIndex}
+  		select * from product_tb where prdDel != 'Y' and prdIndex = #{prdIndex}
   	</select>
   	
   	<select id="selectProductByDate" resultType="productVO" parameterType="int">
-  		select prdIndex, prdCode, prdName, prdPrice, prdRname from product_tb order by prdDate desc limit 0, #{maxPrd}
+  		select prdIndex, prdCode, prdName, prdPrice, prdRname from product_tb where prdDel != 'Y' order by prdDate desc limit 0, #{maxPrd}
   	</select>
   	
   	<select id="selectProductSales" resultType="productVO" parameterType="int">
   	SELECT p.prdIndex, p.prdCode, p.prdName, p.prdPrice, p.prdRname, COALESCE(SUM(o.orderItemStock), 0) as prdSales 
   	FROM product_tb p left join Size_Tb s on p.prdIndex = s.prdIndex
   	left join Order_Item_Tb o ON s.sizeIndex = o.sizeIndex
+  	where p.prdDel != 'Y'
 	GROUP BY p.prdIndex, p.prdName ORDER BY prdSales DESC limit 0, #{maxPrd};
   	</select>
   	
@@ -34,6 +35,7 @@
   		from product_tb p left join Size_Tb s on p.prdIndex = s.prdIndex
   		LEFT JOIN Order_Item_Tb oi ON s.sizeIndex = oi.sizeIndex
   		where p.prdIndex = s.prdIndex
+  		and p.prdDel != 'Y'
   		<if test="searchType != null">
   			and p.prdCode like concat('%',#{searchType},'%')
   		</if>
@@ -70,6 +72,7 @@
   	<select id="selectBrandToal" parameterType="searchVO" resultType="int">
   		select count(DISTINCT p.prdIndex) as total from product_tb p left join Size_Tb s on p.prdIndex = s.prdIndex
   		where p.prdIndex = s.prdIndex
+  		and p.prdDel != 'Y'
   		<if test="searchType != null">
   			and p.prdCode like concat('%',#{searchType},'%')
   		</if>
@@ -93,6 +96,41 @@
   	</select>
   	
   	<select id="selectByPrdCode" parameterType="String" resultType="int">
-  		select count(*) from product_tb where prdCode = #{prdCode}
+  		select count(*) from product_tb where prdCode = #{prdCode} and prdDel != 'Y'
   	</select>
+  	
+  	<select id="selectManageCount" resultType="int" parameterType="searchVO">
+  		select count(*) from product_tb where 1 = 1 and prdDel != 'Y'
+  		<if test="searchValue != '' and searchType eq 'code'">
+  			and prdCode like concat('%', #{searchValue}, '%')
+  		</if>
+  		<if test="searchValue != '' and searchType eq 'name'">
+  			and prdName like concat('%', #{searchValue}, '%')
+  		</if>
+  	</select>
+  	
+  	<select id="selectManageList" parameterType="searchVO" resultType="productVO">
+  		select * from product_tb where 1 = 1 and prdDel != 'Y'
+  		<if test="searchValue != '' and searchType eq 'code'">
+  			and prdCode like concat('%', #{searchValue}, '%')
+  		</if>
+  		<if test="searchValue != '' and searchType eq 'name'">
+  			and prdName like concat('%', #{searchValue}, '%')
+  		</if>
+  		limit #{start}, #{perPage}
+  	</select>
+  	
+  	<update id="updatePrdDel" parameterType="int">
+  		update product_tb set prdDel = 'Y' where prdIndex = #{prdIndex}
+  	</update>
+  	
+  	<update id="updateProduct" parameterType="productVO">
+  		update product_tb set prdCode = #{prdCode}, prdName = #{prdName}, prdPrice = #{prdPrice},
+  		prdMadeIn = #{prdMadeIn}, prdMt = #{prdMt}, prdCnt = #{prdCnt}, prdQc = #{prdQc}, prdCare = #{prdCare},
+  		prdMadeDate = #{prdMadeDate}
+  		<if test="prdOname != null">
+  		, prdOname = #{prdOname}, prdRname = #{prdRname}
+  		</if>
+  		where prdIndex = #{prdIndex}
+  	</update>
   </mapper>

@@ -12,4 +12,8 @@
   	<select id="selectByProductIndex" parameterType="int" resultType="productimgVO">
   		select * from product_img_tb where prdIndex = #{prdIndex}
   	</select>
+  	
+  	<update id="updateSubImg" parameterType="productimgVO">
+  		update product_img_tb set prdImgOname = #{prdImgOname}, prdImgRname = #{prdImgRname} where prdImgIndex = #{prdImgIndex}
+  	</update>
   </mapper>

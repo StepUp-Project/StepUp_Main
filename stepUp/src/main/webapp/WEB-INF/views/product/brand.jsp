@@ -443,7 +443,7 @@
 	    			let prdHtml='';
 	    			for(let i=0; i < data.length; i++){
 	    				let prdList = data[i];
-	    				let price = new Intl.NumberFormat('ko-kr', { maximumSignificantDigits: 3 }).format(prdList.prdPrice);
+	    				let price = new Intl.NumberFormat('ko-kr').format(prdList.prdPrice);
 	    				prdHtml += '<li class="cnt_info">';
 	    				prdHtml += '<a href="<%=request.getContextPath()%>/product/view.do?prdIndex='+prdList.prdIndex+'">';
 	    				prdHtml += '<div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/'+prdList.prdRname+')"></div></p>';

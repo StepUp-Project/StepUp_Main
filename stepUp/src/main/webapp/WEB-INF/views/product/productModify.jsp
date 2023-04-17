@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,77 +26,82 @@
     <main class="prd-registration">
         <article id="board_write">
             <div id="board_ttl">브랜드별 상품등록</div>
-            <form name="frm" action="registration.do" method="post" onsubmit="return check()" enctype="multipart/form-data">
+            <form name="frm" action="productModify.do" method="post" onsubmit="return check()" enctype="multipart/form-data">
+            	<input type="hidden" name="prdIndex" value="${prdVO.prdIndex}">
                 <div class="prd-Kategorie-area">
                     <div class="prdCode-title">
                         <h2>상품코드</h2>
                     </div>
                     <input type="hidden" name="prdCode" value="">
+                    <c:set var="brandCode" value="${fn:substring(prdVO.prdCode,0,2)}"/>
+                    <c:set var="typeCode" value="${fn:substring(prdVO.prdCode,2,4)}"/>
+                    <c:set var="inputCode" value="${fn:substring(prdVO.prdCode,4,8)}"/>
                     <div class="d-flex justify-content-start">
                         <div class="w-25 me-4">
                             <label for="brand" class="form-label">브랜드</label>
                             <select name="brandCode" class="form-select" id="brandCode">
-                                <option value="NK">나이키</option>
-                                <option value="NB">뉴발</option>
-                                <option value="VS">반스</option>
-                                <option value="AD">아디다스</option>
-                                <option value="CV">컨버스</option>
-                                <option value="CR">크록스</option>
-                                <option value="PM">푸마</option>
-                                <option value="FL">휠라</option>
+                                <option value="NK" <c:if test="${brandCode eq 'NK'}">selected</c:if>>나이키</option>
+                                <option value="NB" <c:if test="${brandCode eq 'NB'}">selected</c:if>>뉴발</option>
+                                <option value="VS" <c:if test="${brandCode eq 'VS'}">selected</c:if>>반스</option>
+                                <option value="AD" <c:if test="${brandCode eq 'AD'}">selected</c:if>>아디다스</option>
+                                <option value="CV" <c:if test="${brandCode eq 'CV'}">selected</c:if>>컨버스</option>
+                                <option value="CR" <c:if test="${brandCode eq 'CR'}">selected</c:if>>크록스</option>
+                                <option value="PM" <c:if test="${brandCode eq 'PM'}">selected</c:if>>푸마</option>
+                                <option value="FL" <c:if test="${brandCode eq 'FL'}">selected</c:if>>휠라</option>
                             </select>
                         </div>   
                         <div class="w-25 me-4">
                             <label for="type" class="form-label">종류</label>
                             <select name="typeCode" class="form-select" id="typeCode">
-                                <option value="01">운동화</option>
-                                <option value="02">스포츠화</option>
-                                <option value="03">크록스</option>
-                                <option value="04">슬리퍼</option>
-                                <option value="05">샌들</option>
+                                <option value="01" <c:if test="${typeCode eq '01'}">selected</c:if>>운동화</option>
+                                <option value="02" <c:if test="${typeCode eq '02'}">selected</c:if>>스포츠화</option>
+                                <option value="03" <c:if test="${typeCode eq '03'}">selected</c:if>>크록스</option>
+                                <option value="04" <c:if test="${typeCode eq '04'}">selected</c:if>>슬리퍼</option>
+                                <option value="05" <c:if test="${typeCode eq '05'}">selected</c:if>>샌들</option>
                              </select>
                         </div>  
                         <div class="w-25">
                             <label for="code" class="form-label">코드</label>
-                            <input type="text" name="inputCode" class="form-control" id="inputCode" value=""/>                       
+                            <input type="text" name="inputCode" class="form-control" id="inputCode" value="${inputCode}"/>                       
                         </div> 
                         <button type="button" class="btn btn-light mt-auto mx-3" onclick="prdCodeCheck()">중복체크</button> 
                     </div>
                 </div>
                 <div class="mt-4">
                     <label for="prdName" class="form-label">상품명</label>
-                    <input type="text" name="prdName" class="form-control" id="prdName"/>
+                    <input type="text" name="prdName" class="form-control" id="prdName" value="${prdVO.prdName}"/>
                 </div>
                 <div class="mt-4">
                     <label for="prdPrice" class="form-label">상품가격</label>
-                    <input type="number" name="prdPrice" class="form-control" id="prdPrice" value="0"/>
+                    <input type="number" name="prdPrice" class="form-control" id="prdPrice" value="${prdVO.prdPrice}"/>
                 </div>
                 <div class="mt-4">
                     <label for="prdMadeIn" class="form-label">상품 제조국</label>
-                    <input type="text" name="prdMadeIn" class="form-control" id="prdMadeIn"/>
+                    <input type="text" name="prdMadeIn" class="form-control" id="prdMadeIn" value="${prdVO.prdMadeIn}"/>
                 </div>
                 <div class="mt-4">
                     <label for="prdMt" class="form-label">상품 소재</label>
-                    <input type="text" name="prdMt" class="form-control" id="prdMt"/>
+                    <input type="text" name="prdMt" class="form-control" id="prdMt" value="${prdVO.prdMt}"/>
                 </div>
                                 <div class="mt-4">
                     <label for="prdQc" class="form-label">품질 보증기준</label>
-                    <input type="text" name="prdQc" class="form-control" id="prdQc"/>
+                    <input type="text" name="prdQc" class="form-control" id="prdQc" value="${prdVO.prdQc}"/>
                 </div>
                 <div class="mt-4">
                     <label for="prdCare" class="form-label">소재관리 방법</label>
-                    <input type="text" name="prdCare" class="form-control" id="prdCare"/>
+                    <input type="text" name="prdCare" class="form-control" id="prdCare" value="${prdVO.prdCare}"/>
                 </div>
                 <div class="mt-4">
                     <label for="prdMadeDate" class="form-label">제조일</label>
-                    <input type="text" name="prdMadeDate" class="form-control" id="prdMadeDate"/>
+                    <input type="text" name="prdMadeDate" class="form-control" id="prdMadeDate" value="${prdVO.prdMadeDate}"/>
                 </div>
                 <div class="d-flex">
                     <div class="file-area">
                         <div class="mt-4 mainImg">
                             <h2>메인 이미지</h2>
                             <div class="file-input-container d-flex">
-                                <input type="file" class="sm-input-file" name="mainFile" id="MainImg"/>
+                                <input type="file" class="sm-input-file" name="mainFile" id="MainImg" value=""/>
+                                <input type="hidden" name="mainPrdRname" value="${prdVO.prdRname}">
                             </div>
                         </div>
                         <div class="mt-2 subImg">
@@ -105,6 +112,10 @@
                             <div class="file-input-container d-flex pt-0">
                                 <input type="file" class="sm-input-file" name="subFile" id="subImg2"/>
                             </div>
+                            <c:forEach var="subImg" items="${prdImgList}">
+                            	<input type="hidden" name="subPrdImgIndex" value="${subImg.prdImgIndex}"/>
+                            	<input type="hidden" name="subPrdImgRname" value="${subImg.prdImgRname}"/>
+                            </c:forEach>
                         </div>
                     </div>
                     <div class="file-info-area">
@@ -116,33 +127,10 @@
                         <br/>
                         <span>3. 메인 이미지는 상품 리스트 출력시 노출되는 사진입니다.</span>
                     </div>
-                </div>
-                <div>
-                <div class="d-flex justify-content-start">
-				    <select name="inputSize" class="form-select" id="inputSize">
-				        <option value="210">210</option>
-				        <option value="220">220</option>
-				        <option value="230">230</option>
-				        <option value="240">240</option>
-				        <option value="250">250</option>
-				        <option value="260">260</option>
-				        <option value="270">270</option>
-				        <option value="280">280</option>
-				    </select>
-	                <button type="button" class="btn btn-outline-secondary" onclick="add()">사이즈 추가</button>
-	                <button type="button" class="btn btn-outline-secondary mx-2" onclick="removeer()">사이즈 삭제</button>
-                </div>
-                <div class="my-4 d-flex justify-content-start">
-	                <span class="w-25 me-5">사이즈</span>
-	                <span>재고수량</span>
-                </div>
-                <div>
-                	<ul id="sizeWrap">             		
-                	</ul>
-                </div>
+                </div>            
                 <div class="detail-info">
                     <h2>상품 상세 정보</h2>
-                    <textarea id="summernote" name="prdCnt" id="prdCnt"></textarea>
+                    <textarea id="summernote" name="prdCnt" id="prdCnt">${prdVO.prdCnt}</textarea>
                 </div>
                 <div id="board_button">
                     <input type="submit" class="btn btn-outline-secondary" value="저 장">
@@ -153,7 +141,7 @@
     </main>
 <%@ include file="../include/footer.jsp" %>
     <script>
-        $(document).ready(function() {//썸머노트
+        $(document).ready(function() {//썸머노트     
         //여기 아래 부분
         $('#summernote').summernote({
               height: 450,                 // 에디터 높이
@@ -230,6 +218,10 @@
         		return false;
         	}
         	let prdCode = brandCode+crdCode+inputCode;
+        	let orignalCode = "<c:out value='${prdVO.prdCode}'/>";
+        	if(prdCode == orignalCode){
+        		prdCheck = 1;
+        	}
         	if(prdCheck == ""){
         		alert("상품 코드 중복확인을 실행해 주세요");
         		return false;
@@ -260,19 +252,6 @@
         		$("#prdQc").focus();
         		return false;
         	}
-        	if($("#MainImg").val() == ""){
-        		alert("메인이미지를 등록해주세요");
-        		$("#MainImg").focus();
-        		return false;
-        	}
-        	if($("#subImg1").val() == ""){
-        		alert("서브이미지를 등록해주세요");
-        		return false;
-        	}
-        	if($("#subImg2").val() == ""){
-        		alert("서브이미지를 등록해주세요");
-        		return false;
-        	}
         	if($("#prdCnt").val() == ""){
         		alert("상품 상세내용을 입력해주세요");
         		$("#prdCnt").focus();
@@ -280,24 +259,7 @@
         	}
         	return true
         }
-        
-        
-
-/*         $('#MainImg').on('change',function(event){//이미지 등록시 이미지명 텍스트 출력
-            var name = event.target.files[0].name;
-            $('#file-name').text(name);
-            });
-        $('#subImg1').on('change',function(event){
-            var name = event.target.files[0].name;
-            $('#file-name1').text(name);
-            });
-        $('#subImg2').on('change',function(event){
-            var name = event.target.files[0].name;
-            $('#file-name2').text(name);
-            }); */
-        
-
-                
+                     
 
         function add(){//재고 추가 버튼 클릭시 실행 함수
         	let check = 0;
@@ -324,11 +286,7 @@
             size += '</li>';  
         	$("#sizeWrap").append(size);
         	}
-        }
-        
-        function removeer(){//재고 삭제 버튼 클릭시 실행 함수
-        	$("#sizeWrap").find(".size").last().remove();
-        }        
+        }     
     </script>
 </body>
 </html>
