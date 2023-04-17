@@ -535,6 +535,5 @@
             isRunning = true;
         }
     </script>
-    </script>
 </body>
 </html>
