@@ -15,7 +15,14 @@ public class ProductVO {
 	private String prdCare;
 	private String prdMadeDate;
 	private int prdSales;
+	private String prdDel;
 	
+	public String getPrdDel() {
+		return prdDel;
+	}
+	public void setPrdDel(String prdDel) {
+		this.prdDel = prdDel;
+	}
 	public int getPrdSales() {
 		return prdSales;
 	}

@@ -25,4 +25,9 @@ public class SizeServiceImpl implements SizeService{
 		return sizeDAO.selectByPrdIndex(prdIndex);
 	}
 
+	@Override
+	public int updateSizeStock(SizeVO vo) {
+		return sizeDAO.updateSizeStock(vo);
+	}
+
 }

@@ -11,4 +11,8 @@
   	<select id="selectByPrdIndex" parameterType="int" resultType="sizeVO">
   		select * from size_tb where prdIndex = #{prdIndex} order by sizeKind
   	</select>
+  	
+  	<update id="updateSizeStock" parameterType="sizeVO">
+  		update size_tb set sizeStock = #{sizeStock} where sizeIndex = #{sizeIndex}
+  	</update>
   </mapper>

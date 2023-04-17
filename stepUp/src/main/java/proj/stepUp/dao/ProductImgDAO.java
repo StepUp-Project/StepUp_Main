@@ -21,4 +21,8 @@ public class ProductImgDAO {
 	public List<ProductImgVO> selectByProductIndex(int prdIndex){//상품 인덱스를 이용하여 제품 서브이미지 검색
 		return sqlSession.selectList("proj.stepUp.mapper.productImgMapper.selectByProductIndex", prdIndex);
 	}
+	
+	public int updateSubImg(ProductImgVO vo) {
+		return sqlSession.update("proj.stepUp.mapper.productImgMapper.updateSubImg", vo);
+	}
 }
