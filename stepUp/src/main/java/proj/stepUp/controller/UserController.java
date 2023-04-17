@@ -227,7 +227,7 @@ public class UserController {
 	public String kakaoLogout(HttpServletRequest req) {		
 		HttpSession seesion = req.getSession();
 		seesion.removeAttribute("login");
-		return "home";
+		return "index";
 	}
 	
 	
