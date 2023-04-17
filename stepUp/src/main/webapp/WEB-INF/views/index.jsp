@@ -20,7 +20,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/><!-- swiper CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-    
 </head>
 <body>
 <%@ include file="./include/header.jsp" %>
@@ -29,20 +28,13 @@
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
                 <!-- Slides -->
-				<div class="swiper-slide" style="background-image: url('<%=request.getContextPath()%>/resources/image/main/<%=blist.get(0).getSlideFileRname()%>');">
-                    <a href="<%=blist.get(0).getSlideUrl()%>" class="banner-link"></a>
-               </div>
-               <div class="swiper-slide" style="background-image: url('<%=request.getContextPath()%>/resources/image/main/<%=blist.get(1).getSlideFileRname()%>');">
-                    <a href="<%=blist.get(1).getSlideUrl()%>" class="banner-link"></a>
-               </div>
-               <div class="swiper-slide" style="background-image: url('<%=request.getContextPath()%>/resources/image/main/<%=blist.get(2).getSlideFileRname()%>');">
-
-                    <a href="<%=blist.get(2).getSlideUrl()%>" class="banner-link"></a>
-               </div>
-               <div class="swiper-slide" style="background-image: url('<%=request.getContextPath()%>/resources/image/main/<%=blist.get(3).getSlideFileRname()%>');">
-
-                    <a href="<%=blist.get(3).getSlideUrl()%>" class="banner-link"></a>
-               </div>
+                <c:if test="${not empty blist}">
+	                <c:forEach var="vo" items="${blist}" >
+	               		<div class="swiper-slide" style="background-image: url('<%=request.getContextPath()%>/resources/image/main/${vo.slideFileRname}');">
+	                    	<a href="${vo.slideUrl}" class="banner-link"></a>
+	               		</div>
+	                </c:forEach>
+                </c:if>
             </div>
             <!-- If we need pagination -->
             <div class="swiper-pagination"></div>
