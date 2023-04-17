@@ -22,7 +22,7 @@
    <%@ include file="../include/header.jsp" %>
     <main>
         <article id="board_write">
-            <div id="board_ttl">자유게시판 글쓰기</div>
+            <div id="board_ttl">QnA 글쓰기</div>
             <form method="post" action="qna_write.do">
                 <input class="input_title" name="qnaTitle" type="text" placeholder="제목을 입력해주세요">
                 <textarea id="summernote"  name="qnaCnt"></textarea>

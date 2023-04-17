@@ -21,10 +21,10 @@
                     <p>안녕하세요, ${login.getUserNick()} 님!</p>
                 </div>
                 <div class="mypage_gnb">
-                    <span><a href="#">주문배송조회</a></span>
-                    <span><a href="#">상품후기</a></span>
-                    <span><a href="#">관심목록</a></span>
-                    <span><a href="#">QnA</a></span>
+                    <span><a href="<%=request.getContextPath()%>/user/mypage_order.do">주문배송조회</a></span>
+                    <span><a href="<%=request.getContextPath()%>/user/mypage_review.do">상품후기</a></span>
+                    <span><a href="<%=request.getContextPath()%>/user/mypage_like.do">관심목록</a></span>
+                    <span><a href="<%=request.getContextPath()%>/user/mypage_qna.do">QnA</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_posting.do">내가 작성한 글</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_modify_check.do">개인정보수정</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_withdrawal.do">회원탈퇴</a></span>
@@ -71,7 +71,7 @@
                                         <a href="#">
                                             <P class="cnt_brand"><span>NIKE</span></P>
                                             <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                            <P class="cnt_size"><span>사이즈 250</span></P>
+                                            <P class="cnt_size"><span>사이즈 : 250</span><span> / </span><span>수량 : 1개</span></P>
                                         </a>
                                     </td>
                                     <td><span>2022-04-02</span></td>
@@ -88,7 +88,7 @@
                                         <a href="#">
                                             <P class="cnt_brand"><span>NIKE</span></P>
                                             <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                            <P class="cnt_size"><span>사이즈 250</span></P>
+                                            <P class="cnt_size"><span>사이즈 : 250</span><span> / </span><span>수량 : 1개</span></P>
                                         </a>
                                     </td>
                                     <td><span>2022-04-02</span></td>
@@ -105,7 +105,7 @@
                                         <a href="#">
                                             <P class="cnt_brand"><span>NIKE</span></P>
                                             <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                            <P class="cnt_size"><span>사이즈 250</span></P>
+                                            <P class="cnt_size"><span>사이즈 : 250</span><span> / </span><span>수량 : 1개</span></P>
                                         </a>
                                     </td>
                                     <td><span>2022-04-02</span></td>
@@ -131,8 +131,8 @@
 	
 	<%@ include file="../include/footer.jsp" %>
     <script>
-        function showPopupWrite() { window.open("review.jsp", "a", "width=800, height=500, left=200, top=50"); }
-        function showPopupChange() { window.open("reviewmodify.jsp", "a", "width=800, height=500, left=200, top=50"); }
+        function showPopupWrite() { window.open("<%=request.getContextPath()%>/user/review.do", "a", "width=800, height=420, left=200, top=80"); }
+        function showPopupChange() { window.open("<%=request.getContextPath()%>/user/review_modify.do", "a", "width=800, height=420, left=200, top=80"); }
     </script>
 
 </body>

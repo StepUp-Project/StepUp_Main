@@ -43,5 +43,8 @@ public class QnaDAO {
 	public int delete(int qnaIndex) {
 		return sqlSession.delete("proj.stepUp.mapper.qnaMapper.delete", qnaIndex);
 	}
-
+	public int qnarsp(QnaVO vo) {
+		return sqlSession.update("proj.stepUp.mapper.qnaMapper.qnarsp", vo);
+	}
+	
 }

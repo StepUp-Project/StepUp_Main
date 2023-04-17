@@ -2,7 +2,9 @@ package proj.stepUp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.owasp.encoder.Encode;
@@ -81,7 +83,28 @@ public class FreeController {
 	}
 	
 	@RequestMapping(value="/free_view.do", method = RequestMethod.GET)
-	public String freeview(int freeIndex, Model model) {
+	public String freeview(int freeIndex, Model model, HttpServletRequest req, HttpServletResponse res) {
+		
+		 Cookie[] cookies = req.getCookies();
+		    boolean isExists = false;
+		    if (cookies != null) {
+		        for (Cookie cookie : cookies) {
+		            if (cookie.getName().equals("freeIndex_" + freeIndex)) {
+		                isExists = true;
+		                break;
+		            }
+		        }
+		    }
+		    // 쿠키 생성 후 조회수 증가
+		    if (!isExists) {
+		        Cookie cookie = new Cookie("freeIndex_" + freeIndex, String.valueOf(freeIndex));
+		        cookie.setMaxAge(60 * 60 * 24); // 쿠키 유효 1일
+		        res.addCookie(cookie);
+		        freeService.hitcount(freeIndex);
+		    }
+		
+		
+		
 		FreeBoardVO vo = freeService.selectByIndex(freeIndex);
 		List<ReVO> rList = reService.list(freeIndex);
 		model.addAttribute("vo", vo);

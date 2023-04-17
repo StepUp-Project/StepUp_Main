@@ -147,7 +147,7 @@ public class QnaController {
 		HttpSession session = req.getSession();
 		
 		if(req.getAttribute("qnareCnt") != null){
-			vo.setReCnt(Encode.forHtmlAttribute((String) req.getAttribute("qnareCnt")));
+			vo.setQnareCnt(Encode.forHtmlAttribute((String) req.getAttribute("qnareCnt")));
 		}
 		
 		
@@ -168,11 +168,24 @@ public class QnaController {
 	@RequestMapping(value="/qnare_edit.do", method = RequestMethod.POST)
 	public String reedit(ReVO vo, HttpServletRequest req) {
 		
-		if(req.getAttribute("reCnt") != null){
-			vo.setReCnt(Encode.forHtmlAttribute((String) req.getAttribute("reCnt")));
+		if(req.getAttribute("qnareCnt") != null){
+			vo.setQnareCnt(Encode.forHtmlAttribute((String) req.getAttribute("qnareCnt")));
 		}
 		
 		int result = reService.qnaupdate(vo);
+		if(result>0) {
+			return "redirect:/qna/qna_view.do?qnaIndex="+vo.getQnaIndex();
+		}else {
+			return "redirect:/qna/qna_view.do?qnaIndex="+vo.getQnaIndex()+"&updateYN=N";
+		}
+	}
+	
+	@RequestMapping(value = "qna_rsp.do",method = RequestMethod.POST)
+	public String rersp(QnaVO vo) {
+		
+		
+		int result = qnaService.qnarsp(vo);
+		
 		if(result>0) {
 			return "redirect:/qna/qna_view.do?qnaIndex="+vo.getQnaIndex();
 		}else {

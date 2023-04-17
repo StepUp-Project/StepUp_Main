@@ -17,6 +17,7 @@
  			<if test='searchType != null and searchType eq "writer"'>
  				and userNick like concat('%',#{searchValue},'%')
  			</if>
+ 			order by eventIndex desc
  	</select>
  	
  	<select id="cntTotal" resultType="EventBoardVO" parameterType="searchVO">
@@ -72,4 +73,9 @@
  			where eventIndex = #{eventIndex}
 	</delete>
 	
+	<update id="hitcount" parameterType="int">
+		update event_tb
+			set eventHit = eventHit + 1
+			where eventIndex = #{eventIndex}
+	</update>
 </mapper>

@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import proj.stepUp.service.FreeService;
+import proj.stepUp.service.QnaService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.KakaoLogin;
 import proj.stepUp.util.NaverLogin;
 import proj.stepUp.util.PagingUtil;
 import proj.stepUp.vo.FreeBoardVO;
+import proj.stepUp.vo.QnaVO;
 import proj.stepUp.vo.SearchVO;
 import proj.stepUp.vo.UserVO;
 
@@ -32,6 +34,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private FreeService freeService;
+	@Autowired
+	private QnaService qnaService;
 	
 	
 	@RequestMapping(value="/join_terms.do", method = RequestMethod.GET)
@@ -227,7 +231,7 @@ public class UserController {
 	public String kakaoLogout(HttpServletRequest req) {		
 		HttpSession seesion = req.getSession();
 		seesion.removeAttribute("login");
-		return "home";
+		return "index";
 	}
 	
 	
@@ -370,7 +374,6 @@ public class UserController {
 	
 
 	//mypage 내가쓴 글
-	
 	@RequestMapping(value="/mypage_posting.do", method = RequestMethod.GET)
 	public String myposting(Model model, HttpServletRequest req, SearchVO svo) {
 		
@@ -399,8 +402,9 @@ public class UserController {
 	}
 	
 	
+	//내가 쓴 글 삭제
 	@RequestMapping(value="/myposting_delete.do", method = RequestMethod.POST)
-	public String mpdelete(int[] freeIndex) { //name이 같은 애들을 삭제하는거라 배열로..
+	public String mppdelete(int[] freeIndex) { //name이 같은 애들을 삭제하는거라 배열로..
 		
 		System.out.println("freeIndex:"+freeIndex.length);  //선택한 체크박스의 개수
 		
@@ -411,6 +415,98 @@ public class UserController {
 		return "redirect:/user/mypage_posting.do";
 	}
 		
+	
+	
+	//mypage qna
+	@RequestMapping(value="/mypage_qna.do", method = RequestMethod.GET)
+	public String myqna(Model model, HttpServletRequest req, SearchVO svo) {
+		
+		int nowPage = 1;
+		if(svo.getNowPage() != 0 ) {
+			nowPage = svo.getNowPage();
+		}
+		List<QnaVO> cntTotal = qnaService.cntTotal(svo);
+		int totalCnt = 0;
+		if(cntTotal.size()>0) {
+			totalCnt = cntTotal.get(0).getTotal();
+		}
+		
+		PagingUtil paging = new PagingUtil(totalCnt, nowPage, 10);
+		
+		
+		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
+		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
+		
+		List<QnaVO> list = qnaService.listByUserIdx(loginUser.getUserIndex());
+		
+		model.addAttribute("blist", list);
+		model.addAttribute("paging", paging);
+		
+		return "user/mypage_qna";
+	}
+	
+	
+	//qna 삭제
+	@RequestMapping(value="/myqna_delete.do", method = RequestMethod.POST)
+	public String mpqdelete(int[] qnaIndex) { //name이 같은 애들을 삭제하는거라 배열로..
+		
+		System.out.println("freeIndex:"+qnaIndex.length);  //선택한 체크박스의 개수
+		
+		for(int idx : qnaIndex) {
+			int result = qnaService.delete(idx);
+		}
+		
+		return "redirect:/user/mypage_qna.do";
+	}
+	
+	
+	
+	//mypage 관심목록
+	@RequestMapping(value="/mypage_like.do", method = RequestMethod.GET)
+	public String mylike(UserVO vo) {
+		return "user/mypage_like";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//mypage 리뷰
+	@RequestMapping(value = "/mypage_review.do", method = RequestMethod.GET)
+	public String mpreview() {
+
+		return "user/mypage_review";
+	}
+	
+	
+	//후기 작성
+	@RequestMapping(value = "/review.do", method = RequestMethod.GET)
+	public String review() {
+
+		return "user/review";
+	}
+	
+	
+	//후기 수정
+	@RequestMapping(value = "/review_modify.do", method = RequestMethod.GET)
+	public String reviewmodify() {
+
+		return "user/review_modify";
+	}
 }
 	
 	

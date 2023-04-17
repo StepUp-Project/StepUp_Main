@@ -42,6 +42,22 @@
 		           		<input type="hidden" name="qnaIndex" value="${vo.qnaIndex}">
 		           	</form>
 	           </c:if>
+	           <c:if test="${not empty login}">
+					<c:if test="${login.userGrade eq 'A' and vo.qnaRsp eq 'N'}">
+						<form action="qna_rsp.do" method="post" onsubmit="return confirm('답변을 완료하시겠습니까?');">
+							<input type="hidden" name="qnaIndex" value="${vo.qnaIndex}">
+							<input type="hidden" name="qnaRsp" value="Y">
+							<input class="board_btn" type="submit" value="답변완료">
+						</form>
+					</c:if>
+					<c:if test="${login.userGrade eq 'A' and vo.qnaRsp eq 'Y'}">
+						<form action="qna_rsp.do" method="post" onsubmit="return confirm('답변을 취소하시겠습니까?');">
+							<input type="hidden" name="qnaIndex" value="${vo.qnaIndex}">
+							<input type="hidden" name="qnaRsp" value="N">
+							<input class="board_btn" type="submit" value="답변취소">
+						</form>
+					</c:if>
+           		</c:if>
             </div>
         </article>
         <article id=""><!--댓글란-->
@@ -62,6 +78,9 @@
                 </c:if>
                 </div>
             </div> 
+            <br/>
+
+            <br/>
             <ul id="re_ctn">
             <c:if test="${not empty rList}">
 	            <c:forEach var="rList" items="${rList}" >
@@ -81,7 +100,7 @@
 		                        <div id="popup">
 								  <form name="editForm" action="qnare_edit.do" method="post" onsubmit="return confirm('수정하시겠습니까?')">
 								    <p>댓글 수정</p>
-								    <textarea id="qnare_editCnt" name="qnareCnt"></textarea>
+								    <textarea id="qnare_editCnt" name="qnareCnt">${rList.qnareCnt}</textarea>
 								    <input name="qnareIndex" value="${rList.qnareIndex}" type="hidden">
    									<input type="hidden" name="qnaIndex" value="${rList.qnaIndex}">
 								    <input class="qnare_edit" type="submit" value="수정">
