@@ -17,6 +17,7 @@
  			<if test='searchType != null and searchType eq "writer"'>
  				and userNick like concat('%',#{searchValue},'%')
  			</if>
+ 			order by eventIndex desc
  	</select>
  	
  	<select id="cntTotal" resultType="EventBoardVO" parameterType="searchVO">

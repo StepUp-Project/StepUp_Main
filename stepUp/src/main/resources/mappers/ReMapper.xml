@@ -11,6 +11,7 @@
 		inner join free_tb f on r.freeIndex = f.freeIndex
 		inner join (select freeIndex, count(*) as total from re_tb group by freeIndex) sub on sub.freeIndex = f.freeIndex
 		where f.freeIndex = #{freeIndex}
+		order by reIndex desc
  	</select>
 	
 	<insert id="insert" parameterType="ReVO">
@@ -47,6 +48,7 @@
 		inner join qna_tb f on r.qnaIndex = f.qnaIndex
 		inner join (select qnaIndex, count(*) as total from qnare_tb group by qnaIndex) sub on sub.qnaIndex = f.qnaIndex
 		where f.qnaIndex = #{qnaIndex}
+		order by qnareIndex desc
  	</select>
 	
 	<insert id="qnainsert" parameterType="ReVO">

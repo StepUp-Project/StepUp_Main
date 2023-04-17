@@ -27,7 +27,7 @@
 			<br/> <br/>
 			<input type="file" name="mainFile" style="width:300px; height: 40px;" />
 			 <br/> <br/>
-			<input type="text" name="slideUrl"  placeholder="해당 슬라이드에 연결할 url을 입력해주세요" style="width:800px; height: 40px;" /> <input type="submit" value="저장" style="width:100px; height: 40px;" >
+			<input type="text" name="slideUrl"  placeholder="해당 슬라이드에 연결할 url을 입력해주세요" style="width:600px; height: 40px;" /> <input type="submit" value="저장" style="width:100px; height: 40px;" >
 		</form>
 	</div>
 	
@@ -35,7 +35,7 @@
 		<div>회원 제재</div>
 		<form action="">
 			<br/> <br/>
-			<input type="text" name="userId" placeholder="제재할 회원이 ID를 입력해주세요"  style="width:800px; height: 40px;" /> <input type="submit" value="저장" style="width:100px; height: 40px;" >
+			<input type="text" name="userId" placeholder="제재할 회원이 ID를 입력해주세요"  style="width:600px; height: 40px;" /> <input type="submit" value="저장" style="width:100px; height: 40px;" >
 		
 		</form>
 	</div>

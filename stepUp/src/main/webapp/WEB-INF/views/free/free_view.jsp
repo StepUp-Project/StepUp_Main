@@ -79,7 +79,7 @@
 		                        <div id="popup">
 								  <form name="editForm" action="re_edit.do" method="post" onsubmit="return confirm('수정하시겠습니까?')">
 								    <p>댓글 수정</p>
-								    <textarea id="re_editCnt" name="reCnt"></textarea>
+								    <textarea id="re_editCnt" name="reCnt">${rList.reCnt}</textarea>
 								    <input name="reIndex" value="${rList.reIndex}" type="hidden">
    									<input type="hidden" name="freeIndex" value="${rList.freeIndex}">
 								    <input class="re_edit" type="submit" value="수정">

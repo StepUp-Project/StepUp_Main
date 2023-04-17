@@ -81,7 +81,7 @@
 		                        <div id="popup">
 								  <form name="editForm" action="qnare_edit.do" method="post" onsubmit="return confirm('수정하시겠습니까?')">
 								    <p>댓글 수정</p>
-								    <textarea id="qnare_editCnt" name="qnareCnt"></textarea>
+								    <textarea id="qnare_editCnt" name="qnareCnt">${rList.qnareCnt}</textarea>
 								    <input name="qnareIndex" value="${rList.qnareIndex}" type="hidden">
    									<input type="hidden" name="qnaIndex" value="${rList.qnaIndex}">
 								    <input class="qnare_edit" type="submit" value="수정">
