@@ -14,6 +14,7 @@
  			<if test='searchType != null and searchType eq "content"'>
  				where  noticeCnt like concat('%',#{searchValue},'%')
  			</if>
+ 			order by noticeIndex desc
 	</select>
 	
 	<select id="cntTotal" resultType="NoticeBoardVO" parameterType="searchVO">

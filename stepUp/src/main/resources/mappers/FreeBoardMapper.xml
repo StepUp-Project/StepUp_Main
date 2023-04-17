@@ -17,6 +17,7 @@
  			<if test='searchType != null and searchType eq "writer"'>
  				and userNick like concat('%',#{searchValue},'%')
  			</if>
+ 			order by freeIndex desc
  	</select>
  	
  	<select id="userFree" resultType="FreeBoardVO" parameterType="int">
