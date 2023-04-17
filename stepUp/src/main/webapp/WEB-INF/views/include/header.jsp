@@ -1,29 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
     <div id="aaaa">
         <ul class="p-2 me-4" id="user"><!-- 로그인, 장바구니, 마이페이지 영역 시작-->
             <li>
-                <a href="#"><i class="xi-search"></i></a>
-            </li>
-            <li>
-                <a href="#"><i class="xi-user-o"></i></a>
+            	<c:if test="${empty login}">
+            		<a href="<%=request.getContextPath()%>/user/login.do"><i class="xi-user-o"></i></a>
+                </c:if>
+                <c:if test="${not empty login}">
+                	<a href="#"><i class="xi-user-o"></i></a>
+                </c:if>
                 <div class="sub">
+                    <c:if test="${not empty login}">
                     <ul><!-- 서브메뉴 -->
-                        <li class="blank"><a href="#">주문배송조회</a></li>
-                        <li class="blank"><a href="#">관심있는 상품</a></li>
+                        <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_order.do">주문배송조회</a></li>
+                        <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_like.do">관심있는 상품</a></li>
                         <hr/>
-                        <li class="blank"><a href="#">상품후기</a></li>
-                        <li class="blank"><a href="<%=request.getContextPath()%>/qna/qna.do">QnA</a></li>
-                        <li class="blank"><a href="#">내가 작성한 글</a></li>
+                        <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_review.do">상품후기</a></li>
+                        <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_qna.do">QnA</a></li>
+                        <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_posting.do">내가 작성한 글</a></li>
                         <hr/>
-                        <li class="blank"><a href="#">개인정보수정</a></li>
-                        <li><a href="#">로그아웃</a></li>
+                        <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_modify_check.do">개인정보수정</a></li>
+                        <li><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></li>
                     </ul>
+                    </c:if>
                 </div><!--//.sub-->
             </li>
             <li>
-                <a href="#"><i class="xi-cart-o"></i></a>
+            	<c:if test="${empty login}">
+                	<a href="<%=request.getContextPath()%>/user/login.do"><i class="xi-cart-o"></i></a>
+                </c:if>
+                <c:if test="${not empty login}">
+                	<a href="<%=request.getContextPath()%>/cart/cart.do"><i class="xi-cart-o"></i></a>
+            	</c:if>
             </li>
         </ul><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
     </div>
@@ -38,16 +48,6 @@
                 </h1>
             </div><!-- 로고 영역 끝-->
 
-            <aside id="search"><!--돋보기 누르면 뜨는 창-->
-                <div class="inner">
-                    <form class="searchbox">
-                        <input type="text" placeholder="  검색">
-                        <a href="#" class="searchicon"><i class="xi-search"></i></a>
-                    </form>
-                </div>
-                <a class="close_search show"><i class="xi-close"></i></a>
-            </aside><!--//#search-->
-            
             <nav><!--메인 네비게이션 영역 시작-->
                 <ul class="d-flex" id="gnb">
                     <li>
@@ -60,14 +60,14 @@
                     <li>
                         <a href="<%=request.getContextPath()%>/product/brand.do">BRAND</a>
                         <ul class="mt-5"><!--sub 네비게이션 -->
-                            <li><a href="<%=request.getContextPath()%>/product/brand.do">나이키</a></li>
-                            <li><a href="<%=request.getContextPath()%>/product/brand.do">뉴발란스</a></li>
-                            <li><a href="<%=request.getContextPath()%>/product/brand.do">아디다스</a></li>
-                            <li><a href="<%=request.getContextPath()%>/product/brand.do">반스</a></li>
-                            <li><a href="<%=request.getContextPath()%>/product/brand.do">푸마</a></li>
-                            <li><a href="<%=request.getContextPath()%>/product/brand.do">크록스</a></li>
-                            <li><a href="<%=request.getContextPath()%>/product/brand.do">컨버스</a></li>
-                            <li><a href="<%=request.getContextPath()%>/product/brand.do">휠라</a></li>
+                            <li><a href="<%=request.getContextPath()%>/product/brand.do?searchType=NK">나이키</a></li>
+                            <li><a href="<%=request.getContextPath()%>/product/brand.do?searchType=NB">뉴발란스</a></li>
+                            <li><a href="<%=request.getContextPath()%>/product/brand.do?searchType=AD">아디다스</a></li>
+                            <li><a href="<%=request.getContextPath()%>/product/brand.do?searchType=VS">반스</a></li>
+                            <li><a href="<%=request.getContextPath()%>/product/brand.do?searchType=PM">푸마</a></li>
+                            <li><a href="<%=request.getContextPath()%>/product/brand.do?searchType=CR">크록스</a></li>
+                            <li><a href="<%=request.getContextPath()%>/product/brand.do?searchType=CV">컨버스</a></li>
+                            <li><a href="<%=request.getContextPath()%>/product/brand.do?searchType=FL">휠라</a></li>
                         </ul><!--sub 네비게이션 -->
                     </li>
                     <li>
@@ -92,15 +92,13 @@
                     </li>
                 </ul>
             </nav><!--메인 네비게이션 영역 끝-->
+            
             <ul class="p-2 me-4" id="iop"><!-- 안보이는 로그인, 장바구니, 마이페이지 영역 시작-->
-                <li>
-                    <a href="#"><i class="xi-search"></i></a>
-                </li>
                 <li>
                     <a href="<%=request.getContextPath()%>/user/login.do"><i class="xi-user-o"></i></a>
                 </li>
                 <li>
-                    <a href="#"><i class="xi-cart-o"></i></a>
+                    <a href="<%=request.getContextPath()%>/cart/cart.do"><i class="xi-cart-o"></i></a>
                 </li>
             </ul><!-- 안보이는  로그인, 장바구니, 마이페이지 영역 끝-->
     </header><!--헤더 끝-->

@@ -97,7 +97,7 @@ public class UserController {
 		
 		HttpSession seesion = req.getSession();
 		if(seesion.getAttribute("login") != null) {
-			return "home";
+			return "index";
 		}else {
 			return "user/login";
 		}

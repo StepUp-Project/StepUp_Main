@@ -43,6 +43,11 @@
                     </tr>
                 </thead><!--표상단 끝-->
                 <tbody><!--장바구니 상품 표시-->
+                <c:if test="${empty clist}">
+	                <tr>
+	                	<th colspan="8" style="padding:150px 0; background-color:#f5f5f5; font-size:30px;"><a>장바구니가 비었습니다</a></th>
+	                </tr>
+                </c:if>
                 <c:forEach var="vo" items="${clist}">
                    <tr class="cart-menu">
                     	<input type="hidden" value="${vo.cartIndex}" name="cart_hid">
