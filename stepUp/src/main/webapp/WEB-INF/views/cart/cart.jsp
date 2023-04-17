@@ -79,7 +79,10 @@
                     </tr>
                 </tfoot>
             </table>
-            <div class="cart-button"><a href="#"><!--메인페이지로 이동-->쇼핑 계속하기</a><a href="#"><!--결제 API연결 필요-->결제하기</a></div>
+           	<div class="cart-button">
+		    <a href="<%=request.getContextPath()%>/index.do"><!--메인페이지로 이동-->쇼핑 계속하기</a>
+		    <a href="#"><!--결제 API연결 필요-->결제하기</a>
+		</div>
         </section><!--표입력 끝-->
     </main><!--메인 끝-->
 	<script>
