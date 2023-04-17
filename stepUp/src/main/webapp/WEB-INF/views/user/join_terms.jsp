@@ -33,7 +33,7 @@
 <body style="background-color: #fafafa;">
         <div class="jointermslogo">
             <h1 class="jointerms_title">
-                <a href="/">
+                <a href="<%=request.getContextPath()%>/index.do">
                     <img src="<%=request.getContextPath()%>/resources/image/kickshublogo.png" alt="kickshub">
                 </a>
             </h1>
@@ -46,7 +46,7 @@
                             <li class="joinline">
                             	이용약관, 개인정보 수집 및 이용, 위치정보 이용약관(선택), 프로모션 안내
  								메일 수신(선택)에 모두 동의합니다.
- 							</li>
+ 			    </li>
                             <li class="checkAllBtn">
                                 <input type="checkbox" name="chkAll" id="cbx_chkAll" class="chkAll">
                             </li>
@@ -102,7 +102,6 @@
                                 <input type="checkbox" name="eveChk" id="eveChk" class="chk" value='Y'>
                             </li>
                         </ul>
-    
                     </li>
                 </ul>
                 <div id="jt_btn">
@@ -128,7 +127,6 @@
         			return false;
         		}
         	}
-        	
         	
         	function locationCheck(){
         		if(document.getElementById("loChk").checked){
