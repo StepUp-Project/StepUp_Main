@@ -50,4 +50,12 @@ public class ProductDAO {
 	public List<ProductVO> selectManageList(SearchVO searchVO){
 		return sqlSession.selectList("proj.stepUp.mapper.productMapper.selectManageList",searchVO);
 	}
+	
+	public int updatePrdDel(int prdIndex){
+		return sqlSession.update("proj.stepUp.mapper.productMapper.updatePrdDel", prdIndex);
+	}
+	
+	public int updateProduct(ProductVO vo){
+		return sqlSession.update("proj.stepUp.mapper.productMapper.updateProduct", vo);
+	}
 }

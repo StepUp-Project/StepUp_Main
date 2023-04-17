@@ -21,4 +21,8 @@ public class SizeDAO {
 	public List<SizeVO> selectByPrdIndex(int prdIndex) {
 		return sqlSession.selectList("proj.stepUp.mapper.sizeMapper.selectByPrdIndex", prdIndex);
 	}
+	
+	public int updateSizeStock(SizeVO vo) {
+		return sqlSession.update("proj.stepUp.mapper.sizeMapper.updateSizeStock", vo);
+	}
 }

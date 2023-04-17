@@ -58,5 +58,15 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> selectManageList(SearchVO searchVO) {
 		return productDAO.selectManageList(searchVO);
 	}
+
+	@Override
+	public int updatePrdDel(int prdIndex) {
+		return productDAO.updatePrdDel(prdIndex);
+	}
+
+	@Override
+	public int updateProduct(ProductVO vo) {
+		return productDAO.updateProduct(vo);
+	}
 	
 }

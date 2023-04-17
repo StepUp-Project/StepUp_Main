@@ -134,15 +134,15 @@
 	    			let prdHtml='';
 	    			for(let i=0; i < data.length; i++){
 	    				let prdList = data[i];
-	    				let price = new Intl.NumberFormat('ko-kr', { maximumSignificantDigits: 3 }).format(prdList.prdPrice);
+	    				let price = new Intl.NumberFormat('ko-kr').format(prdList.prdPrice);
 	    				prdHtml += '<tr class="al-c">';
-	    				prdHtml += '<td><button class="btns">수정</button></td>';
-	    				prdHtml += '<td><button class="btns">삭제</button></td>';
+	    				prdHtml += '<td><button class="btns" onclick="goPrdModify('+prdList.prdIndex+')">수정</button></td>';
+	    				prdHtml += '<td><button class="btns" onclick="prdDel('+prdList.prdIndex+')">삭제</button></td>';
 	    				prdHtml += '<td>'+prdList.prdCode+'</td>';
 	    				prdHtml += '<td>'+prdList.prdName+'</td>';
 	    				prdHtml += '<td>'+price+'원</td>';
-	    				prdHtml += '<td><button class="btns">재고정보</button></td>';	    					    				
-	    				prdHtml += '<td><button class="btns">상세보기</button></td>';	    					    				
+	    				prdHtml += '<td><button class="btns" onclick="sizeInfo('+prdList.prdIndex+')">재고정보</button></td>';	    					    				
+	    				prdHtml += '<td><button class="btns" onclick="goPrdView('+prdList.prdIndex+')">상세보기</button></td>';	    					    				
 	    				prdHtml += '</tr>';	    					    				
 	    			}
 	    			paging(nowPage);
@@ -193,6 +193,37 @@
 	    $(document).ready(function(){
 	    	searchPrdList(1);
 	    });
+	 	
+	 	function prdDel(prdIndex){
+	 		if(confirm("해당 상품을 삭제 하시겠습니까?") == 0){
+	 			console.log("삭제 안함");
+	 			return false;
+	 		}
+	 		$.ajax({
+	 			url:"<%=request.getContextPath()%>/ajax/prdDel.do",
+	 			type:"POST",
+	 			data:{
+	 				prdIndex : prdIndex
+	 			},
+	 			success:function(data){
+	 				if(data == 1){
+	 					searchPrdList(1);
+	 				}
+	 			}
+	 		})
+	 	}
+	 	
+	 	function goPrdView(prdIndex){
+	 		location.href="<%=request.getContextPath()%>/product/view.do?prdIndex="+prdIndex+"";
+	 	}
+	 	
+	 	function sizeInfo(prdIndex){
+	 		window.open("<%=request.getContextPath()%>/product/size.do?prdIndex="+prdIndex+"", "상품재고", "width=900,height=1000%, top=50, left=600");
+	 	}
+	 	
+	 	function goPrdModify(prdIndex){
+	 		location.href="<%=request.getContextPath()%>/product/productModify.do?prdIndex="+prdIndex+"";
+	 	}
     </script>
 </body>
 </html>

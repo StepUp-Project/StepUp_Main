@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import proj.stepUp.service.MarkService;
 import proj.stepUp.service.ProductImgService;
@@ -189,4 +188,78 @@ public class ProductController {
 		
 		return "product/management";
 	}
+	
+	@RequestMapping(value="/size.do", method = RequestMethod.GET)
+	public String size(int prdIndex, Model model){
+		List<SizeVO> vo = sizeService.selectByPrdIndex(prdIndex);
+		model.addAttribute("sizeList", vo);
+		model.addAttribute("prdIndex", prdIndex);
+		return "product/size";
+	}
+	
+	@RequestMapping(value="/productModify.do", method = RequestMethod.GET)
+	public String productModify(int prdIndex, Model model){
+		ProductVO prdVO = productService.selectProductIndex(prdIndex);
+		List<ProductImgVO> prdImgVO = producImgService.selectByProductIndex(prdIndex);
+		model.addAttribute("prdVO", prdVO);
+		model.addAttribute("prdImgList", prdImgVO);
+		
+		return "product/productModify";
+	}
+	
+	@RequestMapping(value="/productModify.do", method = RequestMethod.POST)
+	public String productModifyOk(ProductVO vo, MultipartHttpServletRequest subFile,MultipartFile mainFile, ProductImgVO subVO,
+			String mainPrdRname, String[] subPrdImgRname, int[] subPrdImgIndex, HttpServletRequest req) throws IOException {
+		String rootPath = req.getSession().getServletContext().getRealPath("/");
+		String uploadMainFolder = rootPath+"resources/prdmainimg";
+		String uploadSubFolder = rootPath+"resources/prdsubimg";
+		String prdOname = mainFile.getOriginalFilename();
+		List<MultipartFile> subFileList =  subFile.getFiles("subFile");
+		System.out.println("패스경로:"+uploadMainFolder);
+		System.out.println("패스경로:"+uploadSubFolder);
+		
+		if(prdOname.equals("")) {
+			int result = productService.updateProduct(vo);
+		}else {
+			File deleteFile = new File(uploadMainFolder+"/"+mainPrdRname);
+			if(deleteFile.exists()) {
+				 deleteFile.delete();
+					String prdRname = System.currentTimeMillis()+"_"+prdOname;//저장용 파일이름
+					prdRname = new String(prdRname.getBytes("utf-8"),"8859_1");
+					mainFile.transferTo(new File(uploadMainFolder, prdRname));//새로운 파일이름으로 저장
+					vo.setPrdOname(prdOname);
+					vo.setPrdRname(prdRname);
+					
+					int result = productService.updateProduct(vo);
+			}
+		}
+		int count = 0;
+		for(MultipartFile sub : subFileList) {			
+			String prdSubOname = sub.getOriginalFilename();
+			if(prdSubOname != "") {
+				File deleteFile = new File(uploadSubFolder+"/"+subPrdImgRname[count]);
+				if(deleteFile.exists()) {
+					System.out.println("진입");
+					deleteFile.delete();
+					String prdImgOname = sub.getOriginalFilename();
+					String prdImgRname = System.currentTimeMillis() + "_" + prdImgOname;
+					prdImgRname = new String(prdImgRname.getBytes("utf-8"),"8859_1");
+					sub.transferTo(new File(uploadSubFolder, prdImgRname));
+					subVO.setPrdImgOname(prdImgOname);
+					subVO.setPrdImgRname(prdImgRname);
+					subVO.setPrdImgIndex(subPrdImgIndex[count]);
+					
+					int subresult = producImgService.updateSubImg(subVO);
+
+				}		
+			}else{
+
+			}
+			count++;
+		}
+		
+		
+		return "redirect:/product/management.do";
+	}
+	
 }

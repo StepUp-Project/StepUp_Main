@@ -28,6 +28,7 @@ import proj.stepUp.service.OrderItemService;
 import proj.stepUp.service.OrderService;
 import proj.stepUp.service.ProductService;
 import proj.stepUp.service.ReviewService;
+import proj.stepUp.service.SizeService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.NaverSMS;
 import proj.stepUp.util.PagingUtil;
@@ -39,6 +40,7 @@ import proj.stepUp.vo.OrderVO;
 import proj.stepUp.vo.ProductVO;
 import proj.stepUp.vo.ReviewVO;
 import proj.stepUp.vo.SearchVO;
+import proj.stepUp.vo.SizeVO;
 
 @RequestMapping(value="/ajax")
 @Controller
@@ -58,6 +60,8 @@ public class AjaxController {
 	private OrderService orderService;
 	@Autowired
 	private OrderItemService orderItemService;
+	@Autowired
+	private SizeService sizeService;
 	
 	@ResponseBody
 	@RequestMapping(value="/checkId.do", method = RequestMethod.POST)
@@ -305,5 +309,33 @@ public class AjaxController {
 			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
 
 			return paging;
+		}
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/ prdDel.do", method = RequestMethod.POST)	
+		public String prdDel(int prdIndex) {
+			int result = productService.updatePrdDel(prdIndex);
+			
+			return result+"";
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/sizeModify.do", method = RequestMethod.POST)
+		public String sizeModify(SizeVO vo) {
+			int result = sizeService.updateSizeStock(vo);
+			
+			return result+"";
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/sizeinsert.do", method = RequestMethod.POST)
+		public String sizeinsert(SizeVO vo, String inputSize) {
+			vo.setSizeKind(inputSize);
+			vo.setSizeStock(0);
+			
+			int result = sizeService.insertSize(vo);
+			
+			return result+"";
 		}
 }

@@ -24,4 +24,9 @@ public class ProductImgServiceImpl implements ProductImgService{
 		return productImgDAO.selectByProductIndex(prdIndex);
 	}
 
+	@Override
+	public int updateSubImg(ProductImgVO vo) {
+		return productImgDAO.updateSubImg(vo);
+	}
+
 }
