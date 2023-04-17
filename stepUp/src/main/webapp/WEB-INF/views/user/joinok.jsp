@@ -13,11 +13,10 @@
 </head>
 
 <body style="background-color: #fafafa;">
-
 	<main class="joinoklogo">
         <div class="jointermslogo">
             <h1 class="jointerms_title">
-                <a href="/">
+                <a href="<%=request.getContextPath()%>/index.do">
                     <img src="<%=request.getContextPath()%>/resources/image/kickshublogo.png" alt="kickshub">
                 </a>
             </h1>
@@ -32,7 +31,6 @@
 			<button type="button" id="joid_btn" onclick="location.href='login.do'">로그인</button>
 		</article><!--end:#joinok-->
 	</main>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
 </body>
 </html>
