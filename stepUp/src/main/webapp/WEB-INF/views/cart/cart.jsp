@@ -51,7 +51,7 @@
                 <c:forEach var="vo" items="${clist}">
                    <tr class="cart-menu">
                     	<input type="hidden" value="${vo.cartIndex}" name="cart_hid">
-						<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
+			<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
                         <th class="th1">
 	                        <div>
 	                        	<input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true">
