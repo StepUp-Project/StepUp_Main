@@ -1,93 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main</title>
+    <title>join-</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
+
+	<!-- ㅆㅁㄴㅌ 연결-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="/plugin/summernote/summernote-lite.js"></script>
+    <script src="/plugin/summernote/summernote-ko-KR.min.js"></script>
+    <link rel="stylesheet" href="/plugin/summernote/summernote-lite.css">
 </head>
-<body>
-    <header id="header"><!--헤더 시작-->
-        <div class="d-flex justify-content-between pt-5">
-            <div class="p-2 logo-wrap" ><!-- 로고 영역 시작-->
-                <h1 class="logo">
-                    <a href="<%=request.getContextPath()%>">
-                        <span>kikshub</span>
-                    </a>    
-                </h1>
-            </div><!-- 로고 영역 끝-->
-            <nav><!--메인 네비게이션 영역 시작-->
-                <ul class="d-flex" id="gnb">
-                    <li>
-                        <a href="#">WE ARE</a>
-                        <ul class="mt-5"><!--sub 네비게이션 -->
-                            <li><a href="#">소개</a></li>
-                            <li><a href="#">위치</a></li>
-                        </ul><!--sub 네비게이션 끝-->
-                    </li>
-                    <li>
-                        <a href="#">BRAND</a>
-                        <ul class="mt-5"><!--sub 네비게이션 -->
-                            <li><a href="#">나이키</a></li>
-                            <li><a href="#">뉴발란스</a></li>
-                            <li><a href="#">아디다스</a></li>
-                            <li><a href="#">반스</a></li>
-                            <li><a href="#">푸마</a></li>
-                            <li><a href="#">크록스</a></li>
-                            <li><a href="#">컨버스</a></li>
-                            <li><a href="#">휠라</a></li>
-                        </ul><!--sub 네비게이션 -->
-                    </li>
-                    <li>
-                        <a href="#">NEW</a>
-                    </li>
-                    <li><a href="#">BEST</a></li>
-                    <li><a href="#">EVENT</a></li>
-                    <li>
-                        <a href="#">COMMUNITY</a>
-                        <ul class="mt-5"><!--sub 네비게이션 -->
-                            <li><a href="#">자유게시판</a></li>
-                            <li><a href="#">중고거래</a></li>
-                            <li><a href="#">경매</a></li>
-                        </ul><!--sub 네비게이션 -->
-                    </li>
-                    <li>
-                        <a href="#">CUSTOMER</a>
-                        <ul class="mt-5"><!--sub 네비게이션 -->
-                            <li><a href="#">공지사항</a></li>
-                            <li><a href="#">QnA</a></li>
-                        </ul><!--sub 네비게이션 -->
-                    </li>
-                </ul>
-            </nav><!--메인 네비게이션 영역 끝-->
-            <div class="p-2 me-4" id="user"><!-- 로그인, 장바구니, 마이페이지 영역 시작-->
-                <a href="#"><i class="xi-search"></i></a><!-- 검색 -->
-                <a href='
-                <c:if test="${empty login}"><%=request.getContextPath()%>/user/login.do</c:if>
-                <c:if test="${not empty login}"><%=request.getContextPath()%></c:if>
-                '><i class="xi-user-o"></i></a><!-- 로그인 및 마이페이지 -->
-                <a href="#"><i class="xi-cart-o"></i></a><!-- 장바구니 -->
-            </div><!-- 로그인, 장바구니, 마이페이지 영역 끝-->
-    </header><!--헤더 끝--> 
-    
-    
-    
+
+<body style="background-color: #fafafa;">
     <main><!--메인 시작-->
+        <div class="jointermslogo">
+            <h1 class="jointerms_title">
+                <a href="/">
+                    <img src="<%=request.getContextPath()%>/resources/image/kickshublogo.png" alt="kickshub">
+                </a>
+            </h1>
+        </div>
         <article id="join_contain">
-            <div id="join_title"> 회원 가입
-            </div>
             <form name="frm" action="join.do" method="post" onsubmit = "return joinCheck()">
+            
+                <input type="hidden" name="loChk" id="loChk" value="${vo.loChk}">
+                <input type="hidden" name="eveChk" id="eveChk" value="${vo.eveChk}">
+                
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="userId" name="userId" placeholder="userId" oninput="checkId()">
                     <label for="userId">아이디</label>
                 </div>
-                <div id="checkIdResult" class="mb-3"></div>
+                <div id="checkIdResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3" >
                     <input type="password" class="form-control" id="userPw" name="userPw" placeholder="userPw" onblur="checkPw()">
                     <label for="userPw">비밀번호</label>
@@ -95,7 +49,8 @@
                         <i class="xi-eye-o" id="i-eyes"></i>
                     </div>
                 </div>
-                <div id="checkPwResult" class="mb-3"></div>
+                <div id="checkPwResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3">
                     <input type="password" class="form-control" id="userPwc" name="userPwc"  placeholder="userPwc" onblur="checkPwc()">
                     <label for="userPwc">비밀번호 확인</label>
@@ -103,96 +58,70 @@
                         <i class="xi-eye-o" id="c-eyes"></i>
                     </div>
                 </div>
-                <div id="checkPwcResult" class="mb-3"></div>
+                <div id="checkPwcResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="userName"  name="userName"  placeholder="이름" onblur="nameCheck()">
                     <label for="userName">이름</label>
                 </div>
-                <div id="checkNameResult" class="mb-3"></div>
+                <div id="checkNameResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="userNick" name="userNick" placeholder="닉네임" oninput="checkNick()">
                     <label for="userNick">닉네임</label>
                 </div>
-                <div id="checkNickResult" class="mb-3"></div>
+                <div id="checkNickResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3 d-flex justify-content-between">
                     <input type="text" class="form-control w-80" id="userPhone" name="userPhone" placeholder="연락처" onblur="PhoneCheck()">
                     <label for="userPhone">연락처</label>
                     <button type="button" onclick="call()" class="btn btn-secondary btn-sm">인증번호 발송</button>
                 </div>
+                
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="userPchNum" name="userPchNum" placeholder="인증번호" onblur="Pch()" disabled>
                     <label for="userPchNum">인증번호</label>
-                    <span id="check-Phone"></span>
                 </div>
-               	<div id="PchResult" class="mb-3"></div>
+                <span id="timer"></span>
+                <div id="check-Phone" style="margin-top: 16px; font-size:13px;"></div>
+               	<div id="PchResult" class="mb-3" style="font-size:13px;"></div>
+               	
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="userMail" name="userMail" placeholder="이메일" onblur="checkEmail()">
                     <label for="userMail">이메일</label>         
                 </div>
-                <div id="checkEmailResult" class="mb-3"></div>
+                <div id="checkEmailResult" class="mb-3" style="font-size:13px;"></div>
+                
                 <div class="form-floating mb-3 mt-3">
-                    <input type="radio" id="userPhAc"  name="userPhAc" value="Y" checked> 연락처 수신동의
-                    <input type="radio" id="userPhAc"  name="userPhAc" value="N"> 연락처 비동의
+                    <input type="radio" id="userPhAc"  name="userPhAc" value="Y">연락처 수신동의
+                    <input type="radio" id="userPhAc" class="upa2" name="userPhAc" value="N">연락처 수신비동의
                 </div>
+                
                 <div class="form-floating mb-3 mt-3 d-flex justify-content-between">
                     <input type="text" class="form-control" id="userZipCode" name="userZipCode" placeholder="우편번호" readonly oninput="clearCheck()">
                     <label for="userZipCode">우편번호</label>
                     <button type="button" onclick="sample6_execDaumPostcode()" class="btn btn-secondary btn-sm">우편번호 찾기</button>
                 </div>
+                
                 <div class="form-floating mb-3 mt-3">
                     <input type="text" class="form-control" id="userAddr" name="userAddr" placeholder="주소" readonly>
                     <label for="userAddr">주소</label>
                 </div>
+                
                 <div class="form-floating mb-3 mt-3">
                     <input type="text" class="form-control" id="userAddrDetail" name="userAddrDetail" placeholder="상세주소">
                     <label for="userAddrDetail">상세주소</label>
                 </div>
-                <div id="checkAddrResult" class="mb-3"></div>
+                
+                <div id="checkAddrResult" class="mb-3" style="font-size:13px;"></div>
                 <div class="mb-3 mt-3" id="join_btn">
-                    <input type="submit" value="회원가입">
-                    <input type="button" value="돌아가기" onclick="history.back()">
+                    <input type="button" value="취소" onclick="history.back()">
+                    <input type="submit" value="가입하기">
                 </div>
+                
             </form>
         </article>
 	</main><!-- 메인 끝 -->
-	
-	
-    <footer class="d-flex justify-content-between pt-2"> <!-- 하단 시작-->
-        <div class="d-flex justify-content-between pt-3, footinfo"> <!-- 회사 정보 -->
-            <ul>
-                <li>(주)스텝업 / 대표자: 이상훈, 곽진훈, 조범준 / 사업장소재지 : 전라북도 전주시 덕진구 백제대로 572 5층</li>
-                <li>사업자등록번호 : 257-67-74617 / 통신판매업 신고번호: 제2022-2875호</li>
-                <li>이메일: service@kickshub.com / 개인정보관리책임자 : 배유진</li>
-                <li></li>
-                <li>Copyright Ⓒ kickshub All rights reserved,</li>
-            </ul>
-            <ul>
-                <li>고객센터 : 1660-2875</li>
-                <li>운영시간 : 10:00 ~ 17:00 (주말/공휴일 휴무)</li>
-                <li>점심시간 : 11:50 ~ 13:00</li>
-                <li>반품주소 : 전라북도 전주시 덕진구 백제대로 572 5층</li>
-                <li></li>
-            </ul>
-            <ul>
-                <li><a href="#">회사소개</a></li>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">QnA</a></li>
-                <li><a href="#">운영정책관리자</a></li>
-                <li></li>
-            </ul>
-        </div> <!-- 회사 정보 끝 -->
-        <div id="footlogosns"> <!--로고 및 sns 연결 시작-->
-            <h1 id="footlogo"><a href="<%=request.getContextPath()%>">
-                <span>kickshub</span>
-            </a></h1>
-            <ul id="footsns" class="d-flex justify-content-between "> <!--SNS 링크 부분-->
-                <li id="sns_fb"><a href="#"><span>facebook</span></a></li>
-                <li id="sns_tw"><a href="#"><span>twitter</span></a></li>
-                <li id="sns_ist"><a href="#"><span>instagram</span></a></li>
-                <li id="sns_ytb"><a href="#"><span>Youtube</span></a></li>
-            </ul>
-        </div> <!--로고 및 sns 연결 끝-->
-    </footer> <!-- 하단 끝-->
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
@@ -201,6 +130,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
     <script>
+    
     	//비밀번호, 비밀번호 확인 보이기 숨기기
         let eyes = document.getElementById("eyes");
         let iEyes = document.getElementById("i-eyes");
@@ -278,7 +208,7 @@
 	      		$.ajax({
 	      			url: "${pageContext.request.contextPath}/ajax/checkId.do",
 	      			type: "post",
-	      			data:{UserId : UserId},
+	      			data:{userId : UserId},
 	      			success:function(data){ 
 	   					 if(data != "failse"){
 	      					let html = "사용가능한 아이디 입니다."
@@ -382,7 +312,7 @@
 	      		$.ajax({
 	      			url: "${pageContext.request.contextPath}/ajax/checkNick.do",
 	      			type: "post",
-	      			data:{UserNick : UserNick},
+	      			data:{userNick : UserNick},
 	      			success:function(data){
 	   					if(data != "failse"){
 	      					let html = "사용가능한 닉네임 입니다."
@@ -424,7 +354,6 @@
 	     	
      	// 핸드폰 문자 인증 및 유효성 체크
      	let PchOk = 0;
-     	let PchNum;			//문자인증요청시 인증 번호 저장 변수
      	function call(){
      		let UserPchNumStyle = document.getElementById("userPchNum");
      		let UserPhone = $("#userPhone").val();
@@ -438,9 +367,9 @@
      				type:"post",
      				data:{userPhone : UserPhone},
      				success:function(data){
+     					sendAuthNum();
      					alert("인증번호가 전송되었습니다.");
-     					PchNum = data;
-     					UserPchNumStyle.disabled = false;
+     					UserPchNumStyle.disabled = false;	
      				},
      				error:function(){
      					alert("인증번호 전송에 실패했습니다.");
@@ -462,23 +391,32 @@
      	}
      	
      	//인증번호 일치 확인
-     	function Pch(){
-     		let UserPchNum = $("#userPchNum").val();
+     	function Pch(){//ajax로 처리 보안 문제(완료)
+     		let PchNum = $("#userPchNum").val();
      		let checkPhone =  document.getElementById("check-Phone");
      		let UserPchNumStyle = document.getElementById("userPchNum");
-     		if(PchNum == UserPchNum){
-     			PchOk = 1;
-     			$("#check-Phone").html("일치");
-     			checkPhone.style.color = "#008000";
-     			UserPchNumStyle.style.borderColor = "#008000";
-     			UserPchNumStyle.disabled = true;
-     		}else{
-     			PchOk = 0;
-     			$("#check-Phone").html("불일치");
-     			checkPhone.style.color = "#ff0000";
-     			UserPchNumStyle.style.borderColor = "#ff0000";
-     			
-     		}
+			$.ajax({
+				url:"<%=request.getContextPath()%>/ajax/checkPchNum.do",
+				type:"post",
+				data:{PchNum : PchNum},
+				success:function(data){
+					if(data == 1){
+		     			PchOk = 1;
+		     			$("#check-Phone").html("인증번호가 일치합니다.");
+		     			checkPhone.style.color = "#008000";
+		     			UserPchNumStyle.style.borderColor = "#008000";
+		     			UserPchNumStyle.disabled = true;
+	                    clearInterval(timer);
+	                    document.querySelector('#timer').textContent = "";
+	                    isRunning = false;
+					}else{
+		     			PchOk = 0;
+		     			$("#check-Phone").html("인증번호가 일치하지 않습니다.");
+		     			checkPhone.style.color = "#ff0000";
+		     			UserPchNumStyle.style.borderColor = "#ff0000";
+					}
+				}
+			});
      	}
      	
      	//이름 유효성 검사
@@ -499,8 +437,6 @@
      			checkNameOk = 1;
      		}
      	}
-     	UserZipCode
-     	UserAddr
      	
      	//주소 입력 여부 체크
     	function addrCheck(){
@@ -563,6 +499,42 @@
      		}
      		return true;
      	}
+     	
+     	
+     	//인증번호 타이머
+        var timer;
+        var isRunning = false;
+
+        // 인증번호 발송 및 타이머 함수 실행
+        function sendAuthNum(){
+            // 남은 시간(초)
+            var leftSec = 300,
+            display = document.querySelector('#timer');
+            // 이미 타이머가 작동중이면 중지
+            if (isRunning){
+                clearInterval(timer);
+            }
+            startTimer(leftSec, display);
+        }
+
+        function startTimer(count, display) {
+            var minutes, seconds;
+            timer = setInterval(function () {
+                minutes = parseInt(count / 60, 10);
+                seconds = parseInt(count % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = minutes + ":" + seconds;
+                // 타이머 종료
+                if (--count < 0) {
+                    clearInterval(timer);
+                    display.textContent = "";
+                    isRunning = false;
+                }
+            }, 1000);
+            isRunning = true;
+        }
+    </script>
     </script>
 </body>
 </html>
