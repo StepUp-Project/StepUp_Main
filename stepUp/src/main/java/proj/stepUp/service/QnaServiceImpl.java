@@ -62,4 +62,11 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDAO.listByUserIdx(userIndex);
 	}
 
+
+	@Override
+	public int qnarsp(QnaVO vo) {
+		
+		return qnaDAO.qnarsp(vo);
+	}
+
 }

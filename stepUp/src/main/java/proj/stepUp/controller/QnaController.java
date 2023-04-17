@@ -180,4 +180,17 @@ public class QnaController {
 		}
 	}
 	
+	@RequestMapping(value = "qna_rsp.do",method = RequestMethod.POST)
+	public String rersp(QnaVO vo) {
+		
+		
+		int result = qnaService.qnarsp(vo);
+		
+		if(result>0) {
+			return "redirect:/qna/qna_view.do?qnaIndex="+vo.getQnaIndex();
+		}else {
+			return "redirect:/qna/qna_view.do?qnaIndex="+vo.getQnaIndex()+"&updateYN=N";
+		}
+	}
+	
 }

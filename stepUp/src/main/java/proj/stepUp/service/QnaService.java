@@ -13,5 +13,5 @@ public interface QnaService {
 	public int insert(QnaVO vo);
 	public int update(QnaVO vo);
 	public int delete(int qnaIndex);
-
+	public int qnarsp(QnaVO vo);
 }
