@@ -76,6 +76,11 @@
 			from qna_tb
  			where qnaIndex = #{qnaIndex}
 	</delete>
- 	
+
+ 	<update id="qnarsp" parameterType="QnaVO">
+		update qna_tb
+			set qnaRsp = #{qnaRsp}
+			where qnaIndex = #{qnaIndex}
+ 	</update>
  	
 </mapper>
