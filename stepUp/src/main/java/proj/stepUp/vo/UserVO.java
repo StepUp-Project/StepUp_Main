@@ -17,11 +17,7 @@ public class UserVO {
 	private String userNaverId;
 	private String loChk;
 	private String eveChk;
-
 	
-	
-	
-
 	public String getLoChk() {
 		return loChk;
 	}

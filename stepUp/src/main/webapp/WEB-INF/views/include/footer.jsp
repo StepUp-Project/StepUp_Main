@@ -17,15 +17,15 @@
                 <li></li>
             </ul>
             <ul>
-                <li><a href="#">회사소개</a></li>
-                <li><a href="#">공지사항</a></li>
-                <li><a href="#">QnA</a></li>
+                <li><a href="<%=request.getContextPath()%>/weare.do">회사소개</a></li>
+                <li><a href="<%=request.getContextPath()%>/notice/notice.do">공지사항</a></li>
+                <li><a href="<%=request.getContextPath()%>/qna/qna.do">QnA</a></li>
                 <li><a href="#">운영정책관리자</a></li>
                 <li></li>
             </ul>
         </div> <!-- 회사 정보 끝 -->
         <div id="footlogosns"> <!--로고 및 sns 연결 시작-->
-            <h1 id="footlogo"><a href="#">
+            <h1 id="footlogo"><a>
                 <span>kickshub</span>
             </a></h1>
             <ul id="footsns" class="d-flex justify-content-between "> <!--SNS 링크 부분-->

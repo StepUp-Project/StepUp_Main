@@ -51,7 +51,7 @@
                 <c:forEach var="vo" items="${clist}">
                    <tr class="cart-menu">
                     	<input type="hidden" value="${vo.cartIndex}" name="cart_hid">
-			<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
+						<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
                         <th class="th1">
 	                        <div>
 	                        	<input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true">
@@ -73,7 +73,7 @@
                         </th>
                         <th class="th3 th8"><div id="totalPrice_${vo.cartIndex}"></div></th>
                         <th class="th3"><!--고정--><div>무료배송</div></th>
-                        <th class="th3 th4"><!--제품정보 삭제 기능 구현할 스크립트 작성 필요--><div><input type="button" value="삭제하기" onclick="del(${vo.cartIndex})"></div></th>
+                        <th class="th3 th4"><div><input type="button" value="삭제하기" onclick="del(${vo.cartIndex})"></div></th>
                     </tr>
                 </c:forEach>
                 </tbody><!--장바구니 상품 표시 끝-->
@@ -154,10 +154,11 @@
           });
           
           function del(cartIndex){
+        	  let userIndex = "<c:out value='${login.userIndex}'/>";
         	  if(confirm("삭제하시겠습니까?") == 0){
         		  return false;
         	  }
-        	  location.href="<%=request.getContextPath()%>/cart/cartdel.do?cartIndex="+cartIndex;
+        	  location.href="<%=request.getContextPath()%>/cart/cartdel.do?cartIndex="+cartIndex+"&userIndex="+userIndex;
           
         	  }
         </script>
