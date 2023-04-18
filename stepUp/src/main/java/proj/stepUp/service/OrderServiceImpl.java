@@ -41,4 +41,16 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.selectManagerCount(vo);
 	}
 
+	@Override
+	public OrderVO selectByOrderIndex(int orderIndex) {
+		return orderDAO.selectByOrderIndex(orderIndex);
+	}
+
+	@Override
+	public int updateOrderStatus(OrderVO vo) {
+		System.out.println(vo.getOrderIndex());
+		System.out.println(vo.getOrderStatus());
+		return orderDAO.updateOrderStatus(vo);
+	}
+
 }

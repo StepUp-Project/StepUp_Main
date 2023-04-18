@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +21,12 @@
         }
         .al-c{
             text-align: center;
+        }
+        .fs-7{
+        	font-size: 0.7rem;
+        }
+        .h-100{
+        	height: 100%
         }
     </style>
 </head>
@@ -53,8 +62,8 @@
                             <div >
                                 <label class="visually-hidden" for="specificSizeSelect">Preference</label>
                                 <select class="form-select" id="searchType" name="searchType">
-                                    <option value="code">상품코드</option>
-                                    <option value="name">상품명</option>
+                                    <option value="num">주문번호</option>
+                                    <option value="name">주문명</option>
                                 </select>
                             </div>
                             <div >
@@ -62,9 +71,19 @@
                                 <input type="text" class="form-control" id="searchValue" name="searchValue" placeholder="검색창">
                             </div>
                             <div>
-                                <button type="button" class="btns mx-2" onclick="searchPrdList(1)">검색</button>
+                                <button type="button" class="btns mx-2" onclick="orderList(1)">검색</button>
                             </div>
-                        </div>
+                        </div>                       
+                        <div class="d-flex"><!-- 정렬 필터 영역 -->
+							<div class="form-check">
+							  <input type="checkbox" class="btn-check" id="statusShow" name="statusShow" onclick="show()">
+							  <label class="btn btn-outline-secondary" for="statusShow">발송 상품 안보기</label>
+							</div>                           	
+	                       	<select class="h-100 ms-2" name="sort" id="sort" onchange="orderList(1)">
+	                       		<option value="new">최신순</option>
+	                       		<option value="old">오래된순</option>
+	                       	</select>
+                        </div>                                           
                     </div>
                 </div>
                 <table class="order_board" style="font-family: 'SpoqaHanSansNeo-Regular';">
@@ -89,33 +108,54 @@
 
 	<%@ include file="../include/footer.jsp" %>
 	
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
     <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
     <script type="text/javascript">
+    	
+		function show(){
+			let nowpage = $("#now").text();
+			orderList(nowpage);
+		}    
+    
+    
     	function orderList(nowPage){
-    		console.log("ajax 진입");
+    		let check = $("#statusShow").is(":checked");
+    		let statusShow = "hidden";
+    		let sort = $("#sort").val();
+    		let searchType = $("#searchType").val();
+    		let searchValue = $("#searchValue").val();
+			if(check){
+				statusShow = "show";
+			}
     		$.ajax({
     			url:"<%=request.getContextPath()%>/ajax/orderList.do",
     			type:"get",
     			data:{
-    				nowPage : nowPage
+    				nowPage : nowPage,
+    				statusShow : statusShow,
+    				sort : sort,
+    				searchType : searchType,
+    				searchValue : searchValue
     			},
     			success:function(data){
     				let orderHtml='';
 	    			for(let i=0; i < data.length; i++){
 	    				let orderList = data[i];
 	    				let totalPrice = new Intl.NumberFormat('ko-kr').format(orderList.orderTotalPrice);
+	    				let orderDate = moment(orderList.orderDate).format('YYYY-MM-DD');
+	    				let orderIndex = orderList.orderIndex;
+	    				let orderStatus = orderList.orderStatus;
 	    				orderHtml += '<tr>';
 	    				orderHtml += '<td><span>'+orderList.orderNum+'</span></td>';
-	    				orderHtml += '<td><span>'+orderList.orderDate+'</span></td>';
+	    				orderHtml += '<td><span>'+orderDate+'</span></td>';
 	    				orderHtml += '<td><a href="javascript:void(0);" onclick="orderInfo('+orderList.orderIndex+')"><div>'+orderList.orderName+'</div></a></td>';
 	    				orderHtml += '<td><span>'+totalPrice+'원</span></td>';
-	    				if(orderList.orderStatus == "Y"){
-	    					orderHtml += '<td><span>발송완료</span></td>';
+	    				if(orderStatus == "Y"){
+	    					orderHtml += '<td><button type="button" class="btn btn-success fs-7" onclick="changeStatus('+orderIndex+',\''+orderStatus+'\');">발송완료</button></td>';
 	    				}else{
-	    					orderHtml += '<td><span>미발송</span></td>';
+	    					orderHtml += '<td><button type="button" class="btn btn-danger fs-7" onclick="changeStatus('+orderIndex+',\''+orderStatus+'\');">발송대기</button></td>';
 	    				}
 	    				
 	    				orderHtml += '</tr>';	    					    				    					    				
@@ -127,12 +167,24 @@
     	}
 	    function paging(nowPage){//페이징 버튼 ajax 처리 함수
 	    	let pagingHtml = '';
+	    	let check = $("#statusShow").is(":checked");
+    		let statusShow = "hidden";
+    		let sort = $("#sort").val();
+    		let searchType = $("#searchType").val();
+    		let searchValue = $("#searchValue").val();
+			if(check){
+				statusShow = "show";
+			}
 	    	$.ajax({
 	    		url:"<%=request.getContextPath()%>/ajax/orderListPaging.do",
 	    		type:"get",
 	    		traditional : true,
 	    		data:{
-	    			nowPage : nowPage,
+    				nowPage : nowPage,
+    				statusShow : statusShow,
+    				sort : sort,
+    				searchType : searchType,
+    				searchValue : searchValue
 	    			},
 	    		success: function(data) {
 				let startPage = Number(data.startPage);
@@ -148,7 +200,7 @@
 		    		if(now != i){
 		    			pagingHtml += '<a href="javascript:void(0);" class="pe-1" onclick="orderList('+i+')">'+i+'</a>';
 		    		}else{
-		    			pagingHtml += '<span class="pe-1 text-primary">'+i+'</span>';
+		    			pagingHtml += '<span class="pe-1 text-primary" id="now">'+i+'</span>';
 		    		}
 		    	}
 		    	pagingHtml += '</div> ';
@@ -159,15 +211,35 @@
 	    	});
 	    }
 	    
-	    function orderInfo(orderindex){
-	    	window.open("<%=request.getContextPath()%>/order/managerInfo.do?orderindex="+orderindex+"", "상품재고", "width=900,height=1000%, top=50, left=600");
-	    	console.log(orderindex);
+	    function orderInfo(orderIndex){
+	    	window.open("<%=request.getContextPath()%>/order/managerInfo.do?orderIndex="+orderIndex+"", "상품재고", "width=900,height=1000%, top=50, left=600");
 	    }
+	    
+	    function changeStatus(orderIndex, OrderStatus){
+			let orderStatus = OrderStatus+"S";
+			let nowpage = $("#now").text();
+			console.log(nowpage);
+	    	$.ajax({
+	    		url:"<%=request.getContextPath()%>/ajax/orderStatus.do",
+	    		type:"get",
+	    		data:{
+	    			orderIndex : orderIndex,
+	    			orderStatus : orderStatus
+	    		},
+	    		success:function(data){
+	    			if(data == 0){
+	    				orderList(nowpage);
+	    			}
+	    		}
+	    	})
+	    }
+	    
 	    
 	 	//페이지 로드시 호출
 	    $(document).ready(function(){
 	    	orderList(1);
 	    });
+	 		 	
     </script>
 </body>
 </html>

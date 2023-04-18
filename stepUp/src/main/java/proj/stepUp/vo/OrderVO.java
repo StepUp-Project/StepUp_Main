@@ -13,7 +13,6 @@ public class OrderVO extends UserVO {
 	private String orderStatus;
 	private String orderName;
 	
-	
 	public String getOrderDate() {
 		return orderDate;
 	}

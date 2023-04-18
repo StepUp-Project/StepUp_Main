@@ -360,4 +360,13 @@ public class AjaxController {
 						
 			return paging;
 		}
+				
+		@ResponseBody
+		@RequestMapping(value="/orderStatus.do	", method = RequestMethod.GET)
+		public String orderStatus(OrderVO vo) {
+
+			orderService.updateOrderStatus(vo);
+			
+			return "";
+		}			
 }

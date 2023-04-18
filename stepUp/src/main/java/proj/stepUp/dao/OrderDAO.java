@@ -24,7 +24,6 @@ public class OrderDAO {
 	}
 	
 	public int selectByOrder(ReviewVO vo) {//해당 상품 주문 기록이 존재하는지 확인
-		System.out.println("dao 진입");
 		return sqlSession.selectOne("proj.stepUp.mapper.orderMapper.selectByOrder", vo);
 	}
 	
@@ -34,5 +33,15 @@ public class OrderDAO {
 	
 	public int selectManagerCount(SearchVO vo) {
 		return sqlSession.selectOne("proj.stepUp.mapper.orderMapper.selectManagerCount", vo);
+	}
+	
+	public OrderVO selectByOrderIndex(int orderIndex) {//해당 상품 주문 기록이 존재하는지 확인
+		return sqlSession.selectOne("proj.stepUp.mapper.orderMapper.selectByOrderIndex", orderIndex);
+	}
+	
+	public int updateOrderStatus(OrderVO vo) {
+		System.out.println(vo.getOrderIndex());
+		System.out.println(vo.getOrderStatus());
+		return sqlSession.update("proj.stepUp.mapper.orderMapper.updateOrderStatus", vo);
 	}
 }
