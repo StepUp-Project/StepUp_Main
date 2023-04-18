@@ -365,8 +365,8 @@ public class AjaxController {
 		@RequestMapping(value="/orderStatus.do	", method = RequestMethod.GET)
 		public String orderStatus(OrderVO vo) {
 
-			orderService.updateOrderStatus(vo);
+			int result = orderService.updateOrderStatus(vo);
 			
-			return "";
+			return result+"";
 		}			
 }

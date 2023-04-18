@@ -48,8 +48,6 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public int updateOrderStatus(OrderVO vo) {
-		System.out.println(vo.getOrderIndex());
-		System.out.println(vo.getOrderStatus());
 		return orderDAO.updateOrderStatus(vo);
 	}
 

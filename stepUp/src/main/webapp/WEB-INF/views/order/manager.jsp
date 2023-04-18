@@ -218,7 +218,6 @@
 	    function changeStatus(orderIndex, OrderStatus){
 			let orderStatus = OrderStatus+"S";
 			let nowpage = $("#now").text();
-			console.log(nowpage);
 	    	$.ajax({
 	    		url:"<%=request.getContextPath()%>/ajax/orderStatus.do",
 	    		type:"get",
@@ -227,7 +226,7 @@
 	    			orderStatus : orderStatus
 	    		},
 	    		success:function(data){
-	    			if(data == 0){
+	    			if(data == 1){
 	    				orderList(nowpage);
 	    			}
 	    		}

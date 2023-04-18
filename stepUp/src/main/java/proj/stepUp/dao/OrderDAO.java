@@ -40,8 +40,6 @@ public class OrderDAO {
 	}
 	
 	public int updateOrderStatus(OrderVO vo) {
-		System.out.println(vo.getOrderIndex());
-		System.out.println(vo.getOrderStatus());
 		return sqlSession.update("proj.stepUp.mapper.orderMapper.updateOrderStatus", vo);
 	}
 }
