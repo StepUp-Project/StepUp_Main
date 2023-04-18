@@ -38,4 +38,10 @@ public class OrderController {
 		
 		return "order/managerInfo";
 	}
+	
+	@RequestMapping(value = "payment.do", method = RequestMethod.GET)
+	public String payment() {
+				
+		return "order/payment";
+	}
 }
