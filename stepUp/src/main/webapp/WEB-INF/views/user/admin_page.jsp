@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="proj.stepUp.vo.UserVO" %>
+<%@ page import="java.util.*" %>
+<% 
+	List<UserVO> blist = (List<UserVO>)request.getAttribute("blist");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,11 +39,19 @@
 	
 	<div style="width:60%; margin:30px auto;">
 		<div>회원 제재</div>
-		<form action="">
+		<form action="qna/restrict.do" method="post">
 			<br/> <br/>
+			<input type="hidden" name="userGrade" value="F" >
 			<input type="text" name="userId" placeholder="제재할 회원이 ID를 입력해주세요"  style="width:600px; height: 40px;" /> <input type="submit" value="저장" style="width:100px; height: 40px;" >
-		
 		</form>
+		<br> <br>
+		<div>제재회원 목록</div>
+		<ul>
+		 <c:forEach var="vo" items="${blist}">
+		 	<li>회원아이디 : ${vo.userId} // 회원번호 : ${vo.userIndex} // 회원상태 : ${vo.userGrade}</li>
+
+		 </c:forEach>
+		 </ul>
 	</div>
 	<div style="width:60%; margin:30px auto;">
 		<a href="<%=request.getContextPath()%>/product/registration.do">상품등록페이지로 이동!</a>

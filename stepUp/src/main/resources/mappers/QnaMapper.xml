@@ -83,4 +83,20 @@
 			where qnaIndex = #{qnaIndex}
  	</update>
  	
+ 	<select id="restrictList" parameterType="UserVO" resultType="UserVO">
+ 		select *
+ 			from user_tb
+ 			where userGrade = 'F'
+ 	</select>
+ 	
+ 	<update id="restrict" parameterType="UserVO" >
+	   
+	    update user_tb 
+	    	set userGrade=#{userGrade} where userId=#{userId}
+	</update>
+ 	
+ 	
+ 	
+ 	
+ 	
 </mapper>
