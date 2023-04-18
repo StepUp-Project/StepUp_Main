@@ -74,6 +74,16 @@
            </ul>
 	           <ul class="size_selected" id="prdSizeArea">
 	           </ul>
+	       <div class="cart_pop">
+	           	<div class="cart_pop1"><a>장바구니 담기</a><button type="button" id="popclose1"><i class="xi-close"></i></button></a></div>
+	           	<div class="cart_popimg"><img alt="대표사진" src="<%=request.getContextPath()%>/resources/prdmainimg/${prdVO.prdRname}">
+	           	<p>선택한 상품이</p>
+	           	<p>장바구니에 담겼습니다.</p></div>
+	           	<div class="cart_popbtn">
+		           	<button type="button" id="popclose2">쇼핑 계속하기</button>
+		           	<button type="button"><a href="<%=request.getContextPath()%>/cart/cart.do?userIndex=${login.userIndex}">장바구니 바로가기</a></button>
+	       		</div>
+	       </div>
            <div class="total_price"></div>
            <button id="cart_btn" onclick="inputCart()">장바구니</button>
            <button id="buy_btn">바로구매</button>
@@ -352,10 +362,22 @@
 					userIndex : userIndex
 				},
 				success:function(){
-					
+					const cartpop = document.querySelector('.cart_pop');
+					cartpop.style.display = 'block';
 				}
 			})
 	    }
+	    
+	    //장바구니 팝 지우기
+	    const closeBtn1 = document.getElementById('popclose1');
+	    const closeBtn2 = document.getElementById('popclose2');
+		const cartpop = document.querySelector('.cart_pop');
+		closeBtn1.addEventListener('click', function() {
+			cartpop.style.display = 'none';
+		});
+		closeBtn2.addEventListener('click', function() {
+			cartpop.style.display = 'none';
+		});
         
 	    //상품 리뷰 paging ajax
 	    function goPage(nowPage){

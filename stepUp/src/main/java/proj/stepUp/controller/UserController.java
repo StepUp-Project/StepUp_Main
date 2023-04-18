@@ -119,7 +119,7 @@ public class UserController {
 				System.out.println("로그인 성공");
 				HttpSession seesion = req.getSession();
 				seesion.setAttribute("login", loginVO);
-				pw.append("<script>location.href='"+req.getContextPath()+"'</script>");
+				pw.append("<script>location.href='"+req.getContextPath()+"/index.do'</script>");
 			}
 		}else{
 			System.out.println("로그인 실패");
