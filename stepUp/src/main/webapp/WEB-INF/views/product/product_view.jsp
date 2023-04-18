@@ -87,11 +87,11 @@
            <div class="total_price"></div>
            <c:if test="${empty login}">
 	           <button type="button" id="cart_btnout">장바구니</button>
-	           <button id="buy_btn">바로구매</button>
+	           <button id="buy_btnout">바로구매</button>
            </c:if>
            <c:if test="${not empty login}">
 	           <button id="cart_btnlogin" onclick="inputCart()">장바구니</button>
-	           <button id="buy_btn">바로구매</button>
+	           <button id="buy_btnlogin">바로구매</button>
            </c:if>
         </article>
         <article id="info_link"> <!--상품 관련 링크 탭-->
@@ -388,6 +388,11 @@
        	    //로그인 안했을때 버튼 클릭시
 	    const cartbtnout = document.getElementById('cart_btnout');
 	   	cartbtnout.addEventListener('click', function() {
+			alert("로그인이 필요한 서비스입니다.");
+			window.location.href = '<%=request.getContextPath()%>/user/login.do';
+		});
+	    const buybtnout = document.getElementById('buy_btnout');
+	    	buybtnout.addEventListener('click', function() {
 			alert("로그인이 필요한 서비스입니다.");
 			window.location.href = '<%=request.getContextPath()%>/user/login.do';
 		});
