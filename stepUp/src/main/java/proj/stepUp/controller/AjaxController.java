@@ -338,4 +338,35 @@ public class AjaxController {
 			
 			return result+"";
 		}
+		
+		@ResponseBody
+		@RequestMapping(value="/orderList.do", method = RequestMethod.GET)
+		public List<OrderVO> orderList(SearchVO searchVO, int nowPage) {
+			int totalCount = orderService.selectManagerCount(searchVO);
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+			searchVO.setStart(paging.getStart());
+			searchVO.setPerPage(paging.getPerPage());
+			List<OrderVO> orderList = orderService.selectManager(searchVO);
+			
+			
+			return orderList;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/orderListPaging.do	", method = RequestMethod.GET)
+		public PagingUtil orderListPaging(SearchVO searchVO, int nowPage) {
+			int totalCount = orderService.selectManagerCount(searchVO);
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+						
+			return paging;
+		}
+				
+		@ResponseBody
+		@RequestMapping(value="/orderStatus.do	", method = RequestMethod.GET)
+		public String orderStatus(OrderVO vo) {
+
+			int result = orderService.updateOrderStatus(vo);
+			
+			return result+"";
+		}			
 }

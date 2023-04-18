@@ -8,4 +8,10 @@
   		insert into order_item_tb (sizeIndex, orderIndex, orderItemStock) 
   		values (#{sizeIndex}, #{orderIndex}, #{orderItemStock})
   	</insert>
+  	
+  	<select id="selectOrderInfo" parameterType="int" resultType="orderItemVO">
+  		select * from order_item_tb oi left join size_tb s on oi.sizeIndex = s.sizeIndex 
+  		left join product_tb p  on s.prdIndex = p.prdIndex where oi.orderIndex = #{orderIndex}
+  		order by s.sizeKind
+  	</select>
   </mapper>

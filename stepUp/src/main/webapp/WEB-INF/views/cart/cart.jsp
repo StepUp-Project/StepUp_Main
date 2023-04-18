@@ -51,7 +51,7 @@
                 <c:forEach var="vo" items="${clist}">
                    <tr class="cart-menu">
                     	<input type="hidden" value="${vo.cartIndex}" name="cart_hid">
-						<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
+			<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
                         <th class="th1">
 	                        <div>
 	                        	<input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true">
@@ -134,8 +134,8 @@
           	const mainPriceElement = document.getElementById('mainPrice');
 			mainPriceElement.innerText = new Intl.NumberFormat('ko-kr').format(mainprice) + "원";
           }
+	  //체크박스 선택
           let allChecked = true;
-          //체크박스 선택
           const checkboxAll = document.querySelector('#cart-checkbox-all');
           let checkboxes = document.querySelectorAll('input[name="cart_check"]');
           checkboxes.forEach(function(i){       	  
