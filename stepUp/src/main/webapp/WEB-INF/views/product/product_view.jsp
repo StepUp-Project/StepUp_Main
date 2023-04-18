@@ -91,7 +91,7 @@
            </c:if>
            <c:if test="${not empty login}">
 	           <button id="cart_btnlogin" onclick="inputCart()">장바구니</button>
-	           <button id="buy_btnlogin">바로구매</button>
+	           <button id="buy_btnlogin" onclick="goPayment()">바로구매</button>
            </c:if>
         </article>
         <article id="info_link"> <!--상품 관련 링크 탭-->
@@ -224,7 +224,12 @@
             </ul>
             <ul id="reeview_page">
             </ul>
-        </article> 
+        </article>
+        <form action="<%=request.getContextPath()%>/order/payment.do" id="payFrm" method="get">
+        	<input type="hiddne" name="sizeIndex" id="sizeIndexPay" value="">
+        	<input type="hiddne" name="sizeStock" id="sizeStockPay" value="">
+        	<input type="hiddne" name="userIndex" id="userIndexPay" value="">
+        </form> 
 	</main>
 <%@ include file="../include/footer.jsp" %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -488,6 +493,33 @@
 	    }
 	    function reviewModify(reviewIndex){
 	    	 window.open("<%=request.getContextPath()%>/review/modify.do?reviewIndex="+reviewIndex, "리뷰수정", "width=900%,height=150%, top=250%, left=300%");
+	    }
+	    
+	    function goPayment(){
+	    	let userIndex =  "<c:out value='${login.userIndex}'/>";
+	    	let sizeIndex = [];
+	    	let sizeStock = [];
+	    	const sIndex = document.querySelectorAll("input#sizeIndex");
+	    	sIndex.forEach(function(sIndex) {
+	    		sizeIndex.push(sIndex.value);
+	    	});
+	    	
+	    	const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
+	    	if (selectedSizes.length !== 0) {
+		    	selectedSizes.forEach(function(size){
+		    	const sStock = document.querySelectorAll("input#quantity_"+size.value);	
+			    	sStock.forEach(function(sStock){
+			    		sizeStock.push(sStock.value);
+			    	});
+		    		
+		    	});
+	    	}
+	    	
+	    	console.log("실행");
+	    	$("#userIndexPay").val(userIndex);
+	    	$("#sizeIndexPay").val(sizeIndex);
+	    	$("#sizeStockPay").val(sizeStock);
+	    	$("#payFrm").submit();
 	    }
 	</script>
 </body>
