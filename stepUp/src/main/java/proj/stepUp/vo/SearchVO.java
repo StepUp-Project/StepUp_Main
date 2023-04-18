@@ -5,15 +5,22 @@ import proj.stepUp.util.PagingUtil;
 public class SearchVO extends PagingUtil {
 	private String searchType;
 	private String searchValue;
+	private String sort;
+	private String statusShow;
 	private int[] sizeKind;
 	private int priceMin;
 	private int priceMax;
 	private String[] prdType;
-	private String sort; 
 	private int userIndex;
 	
 	
 	
+	public String getStatusShow() {
+		return statusShow;
+	}
+	public void setStatusShow(String statusShow) {
+		this.statusShow = statusShow;
+	}
 	public int getUserIndex() {
 		return userIndex;
 	}

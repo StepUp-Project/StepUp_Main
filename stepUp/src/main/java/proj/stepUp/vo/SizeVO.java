@@ -1,6 +1,6 @@
 package proj.stepUp.vo;
 
-public class SizeVO {
+public class SizeVO extends ProductVO {
 	private int sizeIndex;
 	private int prdIndex;
 	private String sizeKind;

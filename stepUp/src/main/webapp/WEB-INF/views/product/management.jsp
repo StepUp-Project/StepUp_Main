@@ -130,7 +130,6 @@
 	    			searchValue : searchValue
 	    			},
 	    		success:function(data){
-	    			console.log(data);
 	    			let prdHtml='';
 	    			for(let i=0; i < data.length; i++){
 	    				let prdList = data[i];
@@ -189,7 +188,7 @@
 	    	});
 	    }
         
-	 	//brand paging 페이지 로드시 호출
+	 	//페이지 로드시 호출
 	    $(document).ready(function(){
 	    	searchPrdList(1);
 	    });
