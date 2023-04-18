@@ -28,7 +28,6 @@
             });
         }
     
-    
     	function kakaoLogin(){
 			location.href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=0575c28de27e26d54b189d1b04528e6b&redirect_uri=http://localhost:8080/controller/user/kakaoLogin.do"
     	}
@@ -39,16 +38,14 @@
     </script>
 </head>
 <body style="background-color: #fafafa;">
-
      <main class="loginlogo">
         <div class="jointermslogo">
             <h1 class="jointerms_title">
-                <a href="/">
+                <a href="<%=request.getContextPath()%>/index.do">
                     <img src="<%=request.getContextPath()%>/resources/image/kickshublogo.png" alt="kickshub">
                 </a>
             </h1>
         </div>
-     
     	<div class="login-area">
 	        <div class="login-main"><!--로그인 main 영역 시작-->
 	            <form name="frm" action="login.do" method="post">
@@ -84,7 +81,6 @@
 	        </div><!--로그인 main 영역 끝-->
         </div>
         </main>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
 </body>
 </html>
