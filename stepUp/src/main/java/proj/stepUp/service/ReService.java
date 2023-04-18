@@ -2,6 +2,7 @@ package proj.stepUp.service;
 
 import java.util.List;
 
+import proj.stepUp.vo.QnaVO;
 import proj.stepUp.vo.ReVO;
 
 public interface ReService {
@@ -14,4 +15,5 @@ public interface ReService {
 	public int qnainsert(ReVO vo);
 	public int qnaupdate(ReVO vo);
 	public int qnadelete(int qnareIndex);
+	
 }

@@ -20,8 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import proj.stepUp.service.AdminService;
 import proj.stepUp.service.ProductService;
+import proj.stepUp.service.QnaService;
+import proj.stepUp.vo.FreeBoardVO;
 import proj.stepUp.vo.ProductVO;
 import proj.stepUp.vo.SlideVO;
+import proj.stepUp.vo.UserVO;
 
 /**
  * Handles requests for the application home page.
@@ -31,9 +34,11 @@ public class HomeController {
 	
 	@Autowired
 	private ProductService productService;
-	
+	@Autowired
+	private QnaService qnaService;
 	@Autowired
 	private AdminService adminservice;
+	
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -90,8 +95,11 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/admin.do", method = RequestMethod.GET)
-	public String admin() {
-
+	public String admin(Model model, UserVO vo) {
+		
+		List<UserVO> list = qnaService.restrictList(vo);
+		model.addAttribute("blist", list);	
+		
 		return "user/admin_page";
 	}
 	

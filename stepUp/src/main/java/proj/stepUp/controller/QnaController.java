@@ -192,5 +192,17 @@ public class QnaController {
 			return "redirect:/qna/qna_view.do?qnaIndex="+vo.getQnaIndex()+"&updateYN=N";
 		}
 	}
+	//제재
+	
+	@RequestMapping(value = "restrict.do",method = RequestMethod.POST)
+	public String restrict(UserVO vo) {
+		
+		int result = qnaService.restrict(vo);
+		
+		return "redirect:/admin.do";
+	}
+	
+	
+
 	
 }
