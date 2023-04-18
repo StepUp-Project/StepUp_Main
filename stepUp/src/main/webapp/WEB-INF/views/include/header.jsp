@@ -32,7 +32,7 @@
                 	<a href="<%=request.getContextPath()%>/user/login.do"><i class="xi-cart-o"></i></a>
                 </c:if>
                 <c:if test="${not empty login}">
-                	<a href="<%=request.getContextPath()%>/cart/cart.do"><i class="xi-cart-o"></i></a>
+                	<a href="<%=request.getContextPath()%>/cart/cart.do?userIndex=${login.userIndex}"><i class="xi-cart-o"></i></a>
             	</c:if>
             </li>
         </ul><!-- 로그인, 장바구니, 마이페이지 영역 끝-->

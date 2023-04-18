@@ -73,7 +73,7 @@
                         </th>
                         <th class="th3 th8"><div id="totalPrice_${vo.cartIndex}"></div></th>
                         <th class="th3"><!--고정--><div>무료배송</div></th>
-                        <th class="th3 th4"><!--제품정보 삭제 기능 구현할 스크립트 작성 필요--><div><input type="button" value="삭제하기" onclick="del(${vo.cartIndex})"></div></th>
+                        <th class="th3 th4"><div><input type="button" value="삭제하기" onclick="del(${vo.cartIndex})"></div></th>
                     </tr>
                 </c:forEach>
                 </tbody><!--장바구니 상품 표시 끝-->
@@ -134,8 +134,8 @@
           	const mainPriceElement = document.getElementById('mainPrice');
 			mainPriceElement.innerText = new Intl.NumberFormat('ko-kr').format(mainprice) + "원";
           }
+	  //체크박스 선택
           let allChecked = true;
-          //체크박스 선택
           const checkboxAll = document.querySelector('#cart-checkbox-all');
           let checkboxes = document.querySelectorAll('input[name="cart_check"]');
           checkboxes.forEach(function(i){       	  
@@ -154,10 +154,11 @@
           });
           
           function del(cartIndex){
+        	  let userIndex = "<c:out value='${login.userIndex}'/>";
         	  if(confirm("삭제하시겠습니까?") == 0){
         		  return false;
         	  }
-        	  location.href="<%=request.getContextPath()%>/cart/cartdel.do?cartIndex="+cartIndex;
+        	  location.href="<%=request.getContextPath()%>/cart/cartdel.do?cartIndex="+cartIndex+"&userIndex="+userIndex;
           
         	  }
         </script>

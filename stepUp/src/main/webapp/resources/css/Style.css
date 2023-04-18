@@ -1484,6 +1484,19 @@ font-size: 16px;
 font-size: 20px;
 font-weight: bold;
 }
+
+/*장바구니 팝업창*/
+.cart_pop{position:absolute; top:450px; left:700px; width:350px; height:200px; border:1px solid #000; background-color:#fff; display:none;}
+.cart_pop1{background-color:#f0f0f0; height:30px; font-size:15px;}
+.cart_pop1 a{margin-left:5px; line-height:35px;}
+.cart_pop1 button{float:right; width:20px; height:20px;}
+.cart_popimg{margin-left:10px; margin-top:20px; font-size:13px;}
+.cart_popimg img{width:90px; height:90px;}
+.cart_popimg p{display:inline;}
+.cart_popbtn{margin-left:10px; margin-top:10px;}
+.cart_pop button{padding:5px 20px; font-size:15px; margin-left:10px; border:none; background-color:none;}
+.cart_popbtn a{line-height:20px;}
+
 /*좋아요 찜 관심*/
 #prd_name span:nth-child(2){
   font-family: 'IBMPlexSansKR-Regular';
