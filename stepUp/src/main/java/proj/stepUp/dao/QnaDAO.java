@@ -6,8 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import proj.stepUp.vo.FreeBoardVO;
 import proj.stepUp.vo.QnaVO;
 import proj.stepUp.vo.SearchVO;
+import proj.stepUp.vo.UserVO;
 
 @Repository
 
@@ -45,6 +47,12 @@ public class QnaDAO {
 	}
 	public int qnarsp(QnaVO vo) {
 		return sqlSession.update("proj.stepUp.mapper.qnaMapper.qnarsp", vo);
+	}
+	public List<UserVO> restrictList(UserVO vo) {
+		return sqlSession.selectList("proj.stepUp.mapper.qnaMapper.restrictList", vo);
+	}
+	public int restrict(UserVO vo) {
+		return sqlSession.update("proj.stepUp.mapper.qnaMapper.restrict", vo);
 	}
 	
 }

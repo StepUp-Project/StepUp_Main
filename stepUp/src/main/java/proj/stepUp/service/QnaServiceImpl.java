@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import proj.stepUp.dao.QnaDAO;
 import proj.stepUp.vo.QnaVO;
 import proj.stepUp.vo.SearchVO;
+import proj.stepUp.vo.UserVO;
 
 @Service
 public class QnaServiceImpl implements QnaService {
@@ -67,6 +68,18 @@ public class QnaServiceImpl implements QnaService {
 	public int qnarsp(QnaVO vo) {
 		
 		return qnaDAO.qnarsp(vo);
+	}
+
+
+	@Override
+	public List<UserVO> restrictList(UserVO vo) {
+		return qnaDAO.restrictList(vo);
+	}
+
+
+	@Override
+	public int restrict(UserVO vo) {
+		return qnaDAO.restrict(vo);
 	}
 
 }

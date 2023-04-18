@@ -85,8 +85,14 @@
 	       		</div>
 	       </div>
            <div class="total_price"></div>
-           <button id="cart_btn" onclick="inputCart()">장바구니</button>
-           <button id="buy_btn">바로구매</button>
+           <c:if test="${empty login}">
+	           <button type="button" id="cart_btnout">장바구니</button>
+	           <button id="buy_btnout">바로구매</button>
+           </c:if>
+           <c:if test="${not empty login}">
+	           <button id="cart_btnlogin" onclick="inputCart()">장바구니</button>
+	           <button id="buy_btnlogin">바로구매</button>
+           </c:if>
         </article>
         <article id="info_link"> <!--상품 관련 링크 탭-->
             <div><a href="#prdinfo_tap1">상품정보</a></div>
@@ -378,7 +384,19 @@
 		closeBtn2.addEventListener('click', function() {
 			cartpop.style.display = 'none';
 		});
-        
+		
+       	    //로그인 안했을때 버튼 클릭시
+	    const cartbtnout = document.getElementById('cart_btnout');
+	   	cartbtnout.addEventListener('click', function() {
+			alert("로그인이 필요한 서비스입니다.");
+			window.location.href = '<%=request.getContextPath()%>/user/login.do';
+		});
+	    const buybtnout = document.getElementById('buy_btnout');
+	    	buybtnout.addEventListener('click', function() {
+			alert("로그인이 필요한 서비스입니다.");
+			window.location.href = '<%=request.getContextPath()%>/user/login.do';
+		});
+		
 	    //상품 리뷰 paging ajax
 	    function goPage(nowPage){
 	    	let prdIndex = <c:out value="${prdVO.prdIndex}"/>
@@ -461,15 +479,13 @@
 	    $(document).ready(function(){
 	    	goPage(1);
 	    });
-	    
-	    
+
 	 	function reviewDel(){
 	    	if(confirm("해당 리뷰를 삭제하시겠습니까?") == 0){
 	    		return false;
 	    	}
 	    		return true;
 	    }
-	    
 	    function reviewModify(reviewIndex){
 	    	 window.open("<%=request.getContextPath()%>/review/modify.do?reviewIndex="+reviewIndex, "리뷰수정", "width=900%,height=150%, top=250%, left=300%");
 	    }
