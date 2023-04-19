@@ -1,9 +1,10 @@
 package proj.stepUp.vo;
 
-public class MarkVO {
+public class MarkVO extends ProductVO{
 	private int markIndex;
 	private int userIndex;
 	private int prdIndex;
+	private int total;
 	
 	public int getMarkIndex() {
 		return markIndex;
@@ -22,6 +23,12 @@ public class MarkVO {
 	}
 	public void setPrdIndex(int prdIndex) {
 		this.prdIndex = prdIndex;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	
 	

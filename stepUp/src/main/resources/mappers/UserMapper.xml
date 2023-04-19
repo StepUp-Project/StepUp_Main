@@ -83,6 +83,22 @@
 		update user_tb set userPw = md5(#{userPw}) where userIndex = #{userIndex}
 	</update>
  	
+ 	<select id="cntTotal" resultType="userVO" parameterType="userVO">
+ 		select count(*) over () as total from user_tb
+ 			<if test='searchType != null and searchType eq "title"'>
+ 				where prdName like concat('%',#{searchValue},'%')
+ 			</if>
+ 			<if test='searchType != null and searchType eq "content"'>
+ 				where prdCnt like concat('%',#{searchValue},'%')
+ 			</if>
+ 			<if test='searchType != null and searchType eq "writer"'>
+ 				where userNick like concat('%',#{searchValue},'%')
+ 			</if>
+ 			<if test='userIndex != 0'>  
+ 				where userIndex = #{userIndex}
+ 			</if>
+ 	</select>
+ 	
  	
  	
  	

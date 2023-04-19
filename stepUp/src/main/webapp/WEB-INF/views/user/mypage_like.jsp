@@ -1,6 +1,18 @@
+<%@page import="proj.stepUp.util.PagingUtil"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="proj.stepUp.vo.MarkVO" %>
+<%@ page import="proj.stepUp.vo.ProductVO" %>
+<%@ page import="proj.stepUp.vo.UserVO" %>
+<%@ page import="java.util.*" %>
+<% 
+	List<MarkVO> blist = (List<MarkVO>)request.getAttribute("blist");
+	PagingUtil paging = (PagingUtil)request.getAttribute("paging");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +31,7 @@
         <div class="mypagemain">
             <div class="mypage_menu"><!--마이페이지 메뉴 시작-->
                 <div class="mypagehi">
-                    <p>안녕하세요, 배유진님!</p>
+                    <p>안녕하세요, ${login.getUserNick()} 님!</p>
                 </div>
                 <div class="mypage_gnb">
                     <span><a href="<%=request.getContextPath()%>/user/mypage_order.do">주문배송조회</a></span>
@@ -46,135 +58,73 @@
                 <div class="mplikecontain">
                     <div class="like-items">
                         <div class="main-brandBest-items-area">
-                            <ul id="cnt_list">
-                                <li class="cnt_info">
-                                    <div class="likeheart">
-                                        <span>♥</span>
-                                    </div>
-                                    <a href="#">
-                                    <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt03.jpg)"></div></p>
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_prc"><span>49,800원</span></P>
-                                    </a>
-                                </li>
-                                <li class="cnt_info">
-                                    <div class="likeheart">
-                                        <span>♥</span>
-                                    </div>
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt02.jpg)"></div></p>
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_prc"><span>49,800원</span></P>
-                                    </a>
-                                </li>
-                                <li class="cnt_info">
-                                    <div class="likeheart">
-                                        <span>♥</span>
-                                    </div>
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt01.jpg)"></div></p>
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_prc"><span>49,800원</span></P>
-                                    </a>
-                                </li>
-                                <li class="cnt_info">
-                                    <div class="likeheart">
-                                        <span>♥</span>
-                                    </div>
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt02.jpg)"></div></p>
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_prc"><span>49,800원</span></P>
-                                    </a>
-                                </li>
-                                <li class="cnt_info">
-                                    <div class="likeheart">
-                                        <span>♥</span>
-                                    </div>
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt03.jpg)"></div></p>
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_prc"><span>49,800원</span></P>
-                                    </a>
-                                </li>
-                                <li class="cnt_info">
-                                    <div class="likeheart">
-                                        <span>♥</span>
-                                    </div>
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt02.jpg)"></div></p>
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_prc"><span>49,800원</span></P>
-                                    </a>
-                                </li>
-                                <li class="cnt_info">
-                                    <div class="likeheart">
-                                        <span>♥</span>
-                                    </div>
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt01.jpg)"></div></p>
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_prc"><span>49,800원</span></P>
-                                    </a>
-                                </li>
-                                <li class="cnt_info">
-                                    <div class="likeheart">
-                                        <span>♥</span>
-                                    </div>
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt02.jpg)"></div></p>
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_prc"><span>49,800원</span></P>
-                                    </a>
-                                </li>
-                                <li class="cnt_info">
-                                    <div class="likeheart">
-                                        <span>♥</span>
-                                    </div>
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt03.jpg)"></div></p>
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_prc"><span>49,800원</span></P>
-                                    </a>
-                                </li>
-                                <li class="cnt_info">
-                                    <div class="likeheart">
-                                        <span>♥</span>
-                                    </div>
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt02.jpg)"></div></p>
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_prc"><span>49,800원</span></P>
-                                    </a>
-                                </li>
-                                <li class="cnt_info">
-                                    <div class="likeheart">
-                                        <span>♥</span>
-                                    </div>
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt01.jpg)"></div></p>
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_prc"><span>49,800원</span></P>
-                                    </a>
-                                </li>
-                            </ul>  
+                            
+			                <ul id="cnt_list">
+				               	<c:forEach var="markPrd" items="${blist}">
+   								<c:set var="BrandCode" value="${fn:substring(markPrd.prdCode,0,2)}"/>
+   								
+				                    <li class="cnt_info" style="border: 1px solid lime;">
+
+			                                    <div class="likeheart">
+			                                         <span class="xi-heart" id="mark" onclick="">
+												     <span class="xi-heart-o" id="mark">
+			                                    </div>
+			                                    
+				                        <a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${markPrd.prdIndex}">
+				                        <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${markPrd.prdRname})"></div></p>
+				                            <P class="cnt_brand">
+				                            	<span>
+							                         <c:choose>
+							                         	<c:when test='${BrandCode eq "NK"}'>나이키</c:when>
+							                         	<c:when test='${BrandCode eq "AD"}'>아디다스</c:when>
+							                         	<c:when test='${BrandCode eq "VS"}'>반스</c:when>
+							                         	<c:when test='${BrandCode eq "CV"}'>컨버스</c:when>
+							                         	<c:when test='${BrandCode eq "PM"}'>퓨마</c:when>
+							                         	<c:when test='${BrandCode eq "FL"}'>휠라</c:when>
+							                         	<c:when test='${BrandCode eq "CR"}'>크록스</c:when>
+							                         	<c:when test='${BrandCode eq "NB"}'>뉴발란스</c:when>
+							                         </c:choose>	                                    
+				                            	</span>
+				                            </P>
+				                            <P class="cnt_name"><span>${markPrd.prdName}</span></P>
+				                            <P class="cnt_prc"><span><fmt:formatNumber value="${markPrd.prdPrice}" pattern="#,###"/>원</span></P>
+				                        </a>
+				                    </li>
+				                </c:forEach>
+			                </ul>
                         </div>
                     </div>
                 </div>
 
                 <article id="mplikepage">
-                        	◀ 1 2 3 4 5 6 7 8 9 ▶
+								<%  
+									// 페이징 출력 영역
+									if(paging.getStartPage()> 1){
+								%>
+									<a href="mypage_like.do?nowPage=<%= paging.getStartPage()-1%>"> </a>
+								<%		
+									}
+						
+									for(int i = paging.getStartPage(); i<=paging.getEndPage(); i++){
+									
+										if(paging.getNowPage() != i){
+								%>
+									<a href="mypage_like.do?nowPage=<%= i %>"> <%= i %> </a>	
+								<%
+										}else{
+								%>
+									<b><%= i %></b>
+									
+								<%	
+										}
+									}
+									
+									if(paging.getEndPage() < paging.getLastPage()){
+								%>	
+									<a href="mypage_like.do?nowPage=<%= paging.getEndPage()+1%>"> </a>
+								<%
+									}
+								%>
                 </article>
 
             </article><!--관심목록 페이지 끝-->
