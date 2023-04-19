@@ -70,4 +70,14 @@
 		</choose>
   		where orderIndex = #{orderIndex}
   	</update>
+  	
+  	<select id="selectUser" parameterType="searchVO" resultType="orderVO">
+  		select * from order_tb where userIndex = #{userIndex}
+  		order by orderDate desc
+  		limit #{start}, #{perPage}
+  	</select>
+  	
+  	 <select id="selectUserCount" parameterType="int" resultType="int">
+  		select count(*) from order_tb where userIndex = #{userIndex}
+  	</select>
   </mapper>

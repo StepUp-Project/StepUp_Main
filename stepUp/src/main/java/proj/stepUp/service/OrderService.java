@@ -14,4 +14,6 @@ public interface OrderService {
 	public int selectManagerCount(SearchVO vo);
 	public OrderVO selectByOrderIndex(int orderIndex);
 	public int updateOrderStatus(OrderVO vo);
+	public List<OrderVO> selectUser(SearchVO searchVO);
+	public int selectUserCount(int userIndex);
 }

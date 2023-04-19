@@ -13,8 +13,10 @@ import proj.stepUp.service.OrderItemService;
 import proj.stepUp.service.OrderService;
 import proj.stepUp.service.SizeService;
 import proj.stepUp.service.UserService;
+import proj.stepUp.util.PagingUtil;
 import proj.stepUp.vo.OrderItemVO;
 import proj.stepUp.vo.OrderVO;
+import proj.stepUp.vo.SearchVO;
 import proj.stepUp.vo.SizeVO;
 import proj.stepUp.vo.UserVO;
 
@@ -66,5 +68,21 @@ public class OrderController {
 			model.addAttribute("stock", stock);
 			
 		return "order/payment";
+	}
+	
+	@RequestMapping(value = "user.do", method = RequestMethod.GET)
+	public String userOrder() {		
+		
+		return "order/user";
+	}
+		
+	@RequestMapping(value = "userOrderInfo.do", method = RequestMethod.GET)
+	public String userOrderInfo(int orderIndex, Model model) {
+		OrderVO orderVO = orederService.selectByOrderIndex(orderIndex);
+		List<OrderItemVO> orderItemVO = orderItemService.selectOrderInfo(orderIndex);
+		model.addAttribute("orderVO", orderVO);
+		model.addAttribute("orderItemVO", orderItemVO);
+		
+		return "order/user_order_info";
 	}
 }
