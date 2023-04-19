@@ -9,8 +9,7 @@
   	</insert>
   	
 	<select id="selectAll" resultType="CartVO" parameterType="int">
-		SELECT c.cartIndex, c.cartStock, s.sizeKind, s.sizeStock, p.prdIndex, p.prdName, p.prdPrice, p.prdRname
-			FROM cart_tb c
+		SELECT * FROM cart_tb c
 			LEFT JOIN size_tb s ON c.sizeIndex = s.sizeIndex
             left join product_tb p ON p.prdIndex = s.prdIndex
             where c.userIndex = #{userIndex}

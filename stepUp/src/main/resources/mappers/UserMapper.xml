@@ -68,7 +68,7 @@
  	
  	<select id="selectIndex" resultType="userVO" parameterType="int">
  		SELECT userIndex, userName, userPhone, userAddr, userZipCode, userAddrDetail 
-		FROM stepupdb.user_tb where = #{userIndex}
+		FROM user_tb where userIndex = #{userIndex}
  	</select>
  	
  </mapper>
