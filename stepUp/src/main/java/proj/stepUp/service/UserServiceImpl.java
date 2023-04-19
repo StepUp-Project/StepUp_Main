@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int selectIndex(int userIndex) {
+	public UserVO selectIndex(int userIndex) {
 		
 		return userDAO.selectIndex(userIndex);
 	}

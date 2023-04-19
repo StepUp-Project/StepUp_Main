@@ -63,7 +63,7 @@ public class UserDAO {
 		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.findId", vo);
 	}
 	
-	public int selectIndex(int userIndex) {
+	public UserVO selectIndex(int userIndex) {
 		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.selectIndex", userIndex);
 	}
 }
