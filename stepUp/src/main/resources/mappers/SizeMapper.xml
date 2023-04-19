@@ -15,4 +15,8 @@
   	<update id="updateSizeStock" parameterType="sizeVO">
   		update size_tb set sizeStock = #{sizeStock} where sizeIndex = #{sizeIndex}
   	</update>
+  	
+  	<select id="selectSizeIndex" parameterType="int" resultType="sizeVO">
+  		select * from size_tb s left join product_tb p on p.prdIndex = s.prdIndex where s.sizeIndex = #{sizeIndex}
+  	</select>
   </mapper>

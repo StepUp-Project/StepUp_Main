@@ -10,8 +10,8 @@
   	
   	<insert id="insertOrder" parameterType="orderVO">
   		<![CDATA[
-  		insert into order_tb (orderAddr, orderPhone, orderTotalPrice, orderPay, userIndex, orderNum, orderPost)
-  		values (#{orderAddr}, #{orderPhone}, #{orderTotalPrice}, #{orderPay}, #{userIndex}, #{orderNum}, #{orderPost})
+  		insert into order_tb (orderAddr, orderPhone, orderTotalPrice, orderPay, userIndex, orderNum, orderPost, orderName, orderBuyerName)
+  		values (#{orderAddr}, #{orderPhone}, #{orderTotalPrice}, #{orderPay}, #{userIndex}, #{orderNum}, #{orderPost}, #{orderName}, #{orderBuyerName})
   		]]>
   		<selectKey resultType="int" order="AFTER" keyProperty="orderIndex">
   			select MAX(orderIndex) from order_tb

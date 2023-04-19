@@ -161,8 +161,10 @@ public class PaymentUtil {
 	         String orderAddr = responseObj.getString("buyer_addr");
 	         String orderPost = responseObj.getString("buyer_postcode");
 	         String orderPhone = responseObj.getString("buyer_tel");	        
+	         String orderBuyerName = responseObj.getString("buyer_name");	        
 	         String orderNum = responseObj.getString("merchant_uid");	        
-	         String orderPay = responseObj.getString("pay_method");	
+	         String orderPay = responseObj.getString("pay_method");
+	         String orderName = responseObj.getString("name");
 	         if(orderTotalPrice == totalPrice) {
 	        	 vo.setOrderTotalPrice(orderTotalPrice);
 	        	 vo.setOrderAddr(orderAddr);
@@ -170,6 +172,8 @@ public class PaymentUtil {
 	        	 vo.setOrderPhone(orderPhone);
 	        	 vo.setOrderPost(orderPost);
 	        	 vo.setOrderPay(orderPay);
+	        	 vo.setOrderBuyerName(orderBuyerName);
+	        	 vo.setOrderName(orderName);
 	         }else {
 
 	         }

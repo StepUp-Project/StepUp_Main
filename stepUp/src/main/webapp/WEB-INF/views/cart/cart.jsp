@@ -23,7 +23,7 @@
 
 <body>
 <%@ include file="../include/header.jsp" %>    
-   <main class="d-flex justify-content-between "><!--메인 시작-->
+   <main class="d-flex justify-content-between"><!--메인 시작-->
         <section class="cart-top"><!--장바구니 탑메뉴-->
         <h1>장바구니</h1>
         <div class="cart-right">장바구니 > 주문결제 > 주문완료</div>
@@ -51,7 +51,7 @@
                 <c:forEach var="vo" items="${clist}">
                    <tr class="cart-menu">
                     	<input type="hidden" value="${vo.cartIndex}" name="cart_hid">
-			<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
+						<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
                         <th class="th1">
 	                        <div>
 	                        	<input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true">
@@ -67,7 +67,7 @@
                         <th class="th3 th5">
 	                        <div>
 		                        <button type="button" onclick="decrease(${vo.cartIndex})">&#45;</button>
-		                        <input type="text" id="quantity_${vo.cartIndex}" value="${vo.cartStock}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); totalPrice(${vo.cartIndex});" min="1" max="${vo.sizeStock}">
+		                        <input type="text" name="cartStock" id="quantity_${vo.cartIndex}" value="${vo.cartStock}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); totalPrice(${vo.cartIndex});" min="1" max="${vo.sizeStock}">
 		                        <button type="button" onclick="increase(${vo.cartIndex})">&#43;</button>
 	                        </div>
                         </th>
@@ -75,6 +75,7 @@
                         <th class="th3"><!--고정--><div>무료배송</div></th>
                         <th class="th3 th4"><div><input type="button" value="삭제하기" onclick="del(${vo.cartIndex})"></div></th>
                     </tr>
+                    <input type="hidden" name="sizeIndexs" value="${vo.sizeIndex}" />
                 </c:forEach>
                 </tbody><!--장바구니 상품 표시 끝-->
                 <tfoot>
@@ -86,11 +87,27 @@
             </table>
            	<div class="cart-button">
 		    <a href="<%=request.getContextPath()%>/index.do"><!--메인페이지로 이동-->쇼핑 계속하기</a>
-		    <a href="#"><!--결제 API연결 필요-->결제하기</a>
+		    <a href="#" onclick="goPayment()"><!--결제 API연결 필요-->결제하기</a>
 		</div>
+		<form action="<%=request.getContextPath()%>/order/payment.do" id="payFrm" method="get">
+        	<input type="hidden" name="sizeIndex" id="sizeIndexPay" value=""/>
+        	<input type="hidden" name="sizeStock" id="sizeStockPay" value=""/>
+        	<input type="hidden" name="userIndex" id="userIndexPay" value=""/>
+        </form> 
         </section><!--표입력 끝-->
     </main><!--메인 끝-->
-	<script>
+    
+<%@ include file="../include/footer.jsp" %>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+	<script type="text/javascript">
+		let carthidden = document.querySelectorAll('input[name="cart_hid"]');
+		if(carthidden.length != 0){
+			carthidden.forEach(function(c){
+				totalPrice(c.value);
+			})
+		}
+		
         //수량조작
         //마이너스
         function decrease(cartindex) {
@@ -161,15 +178,27 @@
         	  location.href="<%=request.getContextPath()%>/cart/cartdel.do?cartIndex="+cartIndex+"&userIndex="+userIndex;
           
         	  }
-        </script>
-<%@ include file="../include/footer.jsp" %>
-	<script type="text/javascript">
-		let carthidden = document.querySelectorAll('input[name="cart_hid"]');
-		if(carthidden.length != 0){
-			carthidden.forEach(function(c){
-				totalPrice(c.value);
-			})
-		}
+			
+	  	    function goPayment(){
+		    	let userIndex =  "<c:out value='${login.userIndex}'/>";
+		    	let sizeIndex = [];
+		    	let sizeStock = [];
+		    	const sIndex = document.querySelectorAll("input[name=sizeIndexs]");
+		    	sIndex.forEach(function(sIndex) {
+		    		sizeIndex.push(sIndex.value);
+		    	});
+		    	const selectedSizes = document.querySelectorAll('input[name="cartStock"]');
+		    	if (selectedSizes.length !== 0) {
+			    	selectedSizes.forEach(function(size){
+			    		sizeStock.push(size.value);
+			    	});
+		    	}
+	
+		    	$("#userIndexPay").val(userIndex);
+		    	$("#sizeIndexPay").val(sizeIndex);
+		    	$("#sizeStockPay").val(sizeStock);
+		    	$("#payFrm").submit();
+		    }          
 		mainPrice();
    	</script>
 </body>

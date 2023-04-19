@@ -76,7 +76,7 @@
 						<table class="table table-bordered">
 							<tr>
 								<th>주문자</th>
-								<td>${orderVO.userName}</td>
+								<td>${orderVO.orderBuyerName}</td>
 							</tr>
 							<tr>
 								<th>연락처</th>
