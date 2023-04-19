@@ -331,7 +331,6 @@ public class UserController {
 		
 	}
 
-
 	//회원탈퇴 비밀번호 입력하는 페이지
 	@RequestMapping(value="/mypage_withdrawal.do", method = RequestMethod.POST)
 	public void mpwd(UserVO vo, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
@@ -414,8 +413,7 @@ public class UserController {
 		
 		return "redirect:/user/mypage_posting.do";
 	}
-		
-	
+
 	
 	//mypage qna
 	@RequestMapping(value="/mypage_qna.do", method = RequestMethod.GET)
@@ -433,7 +431,6 @@ public class UserController {
 		
 		PagingUtil paging = new PagingUtil(totalCnt, nowPage, 10);
 		
-		
 		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
 		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
 		
@@ -445,7 +442,6 @@ public class UserController {
 		return "user/mypage_qna";
 	}
 	
-	
 	//qna 삭제
 	@RequestMapping(value="/myqna_delete.do", method = RequestMethod.POST)
 	public String mpqdelete(int[] qnaIndex) { //name이 같은 애들을 삭제하는거라 배열로..
@@ -455,11 +451,8 @@ public class UserController {
 		for(int idx : qnaIndex) {
 			int result = qnaService.delete(idx);
 		}
-		
 		return "redirect:/user/mypage_qna.do";
 	}
-	
-	
 	
 	//mypage 관심목록
 	@RequestMapping(value="/mypage_like.do", method = RequestMethod.GET)
@@ -467,24 +460,7 @@ public class UserController {
 		return "user/mypage_like";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	//mypage 리뷰
 	@RequestMapping(value = "/mypage_review.do", method = RequestMethod.GET)
 	public String mpreview() {
@@ -507,6 +483,29 @@ public class UserController {
 
 		return "user/review_modify";
 	}
+	
+	
+	// 아이디 찾기
+	@RequestMapping(value = "/find_id.do", method = RequestMethod.GET)
+	public String findId() {
+
+		return "user/find_id";
+	}
+	
+	@RequestMapping(value = "/find_id.do", method = RequestMethod.POST)
+	public String findId(UserVO vo, Model model) {
+		
+		
+		if(userService.findId(vo) != null){
+			UserVO id = userService.findId(vo);
+			model.addAttribute("vo", id);
+			return "user/find_idOK";
+		}else {
+			
+			return "user/find_idOK";
+		}
+	}
+	
 }
 	
 	
