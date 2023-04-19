@@ -30,4 +30,9 @@ public class SizeServiceImpl implements SizeService{
 		return sizeDAO.updateSizeStock(vo);
 	}
 
+	@Override
+	public SizeVO selectSizeIndex(int sizeIndex) {
+		return sizeDAO.selectSizeIndex(sizeIndex);
+	}
+
 }

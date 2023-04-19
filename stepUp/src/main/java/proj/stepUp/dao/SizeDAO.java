@@ -25,4 +25,8 @@ public class SizeDAO {
 	public int updateSizeStock(SizeVO vo) {
 		return sqlSession.update("proj.stepUp.mapper.sizeMapper.updateSizeStock", vo);
 	}
+	
+	public SizeVO selectSizeIndex(int sizeIndex) {
+		return sqlSession.selectOne("proj.stepUp.mapper.sizeMapper.selectSizeIndex", sizeIndex);
+	}
 }

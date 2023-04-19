@@ -12,7 +12,14 @@ public class OrderVO extends UserVO {
 	private String orderNum;
 	private String orderStatus;
 	private String orderName;
-	
+	private String orderBuyerName;
+		
+	public String getOrderBuyerName() {
+		return orderBuyerName;
+	}
+	public void setOrderBuyerName(String orderBuyerName) {
+		this.orderBuyerName = orderBuyerName;
+	}
 	public String getOrderDate() {
 		return orderDate;
 	}

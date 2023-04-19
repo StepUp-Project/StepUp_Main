@@ -62,13 +62,13 @@
 	</update>
 	
  	<select id="findId" resultType="userVO" parameterType="userVO">
- 		SELECT * FROM user_tb
-		where userName = '${userName}' and userMail =  '${userMail}'
+ 		SELECT userId FROM user_tb
+		where userName = '#{userName}' and userMail =  '#{userMail}'
  	</select>
  	
  	<select id="selectIndex" resultType="userVO" parameterType="int">
- 		SELECT * FROM user_tb
-		where userIndex = ${userIndex}
+ 		SELECT userIndex, userName, userPhone, userAddr, userZipCode, userAddrDetail 
+		FROM user_tb where userIndex = #{userIndex}
  	</select>
  	
  </mapper>
