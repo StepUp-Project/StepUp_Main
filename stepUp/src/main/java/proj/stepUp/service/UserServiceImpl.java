@@ -69,5 +69,10 @@ public class UserServiceImpl implements UserService{
 		return userDAO.userDelete(userid);
 	}
 
+	@Override
+	public UserVO findId(UserVO vo) {
+		return userDAO.findId(vo);
+	}
+
 
 }
