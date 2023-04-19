@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
- <mapper namespace="proj.stepUp.mapper.userMapper">
+  <mapper namespace="proj.stepUp.mapper.userMapper">
  	<select id="checkId" resultType="int" parameterType="String">
  		select count(*) from user_tb where userid = #{userId}
  	</select>
@@ -63,12 +63,27 @@
 	
  	<select id="findId" resultType="userVO" parameterType="userVO">
  		SELECT userId FROM user_tb
-		where userName = '#{userName}' and userMail =  '#{userMail}'
+		where userName = #{userName} and userMail =  #{userMail}
  	</select>
  	
  	<select id="selectIndex" resultType="userVO" parameterType="int">
  		SELECT userIndex, userName, userPhone, userAddr, userZipCode, userAddrDetail 
 		FROM user_tb where userIndex = #{userIndex}
  	</select>
+ 	
+ 	<select id="findPw" resultType="userVO" parameterType="userVO">
+ 		SELECT userIndex 
+		FROM user_tb 
+		where userId = #{userId} 
+		and  userName = #{userName} 
+		and userPhone = #{userPhone}
+ 	</select>
+ 	
+ 	<update id="chgPw" parameterType="UserVO">
+		update user_tb set userPw = md5(#{userPw}) where userIndex = #{userIndex}
+	</update>
+ 	
+ 	
+ 	
  	
  </mapper>
