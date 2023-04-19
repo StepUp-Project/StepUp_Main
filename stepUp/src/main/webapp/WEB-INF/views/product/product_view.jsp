@@ -79,7 +79,7 @@
 	           	<p>선택한 상품이</p>
 	           	<p>장바구니에 담겼습니다.</p></div>
 	           	<div class="cart_popbtn">
-		           	<button type="button" id="popclose2">쇼핑 계속하기</button>
+				<button type="button" id="popclose2"><a>쇼핑 계속하기</a></button>
 		           	<button type="button"><a href="<%=request.getContextPath()%>/cart/cart.do?userIndex=${login.userIndex}">장바구니 바로가기</a></button>
 	       		</div>
 	       </div>
