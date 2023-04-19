@@ -58,4 +58,12 @@ public class UserDAO {
 	public int userDelete(String userid) {
 		return sqlSession.update("proj.stepUp.mapper.userMapper.userDelete", userid);
 	}
+	
+	public UserVO findId(UserVO vo) {
+		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.findId", vo);
+	}
+	
+	public int selectIndex(int userIndex) {
+		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.selectIndex", userIndex);
+	}
 }
