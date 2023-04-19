@@ -46,10 +46,17 @@
 		</form>
 		<br> <br>
 		<div>제재회원 목록</div>
+		<br/>
 		<ul>
 		 <c:forEach var="vo" items="${blist}">
-		 	<li>회원아이디 : ${vo.userId} // 회원번호 : ${vo.userIndex} // 회원상태 : ${vo.userGrade}</li>
-
+		 	<li>회원아이디 : ${vo.userId} // 닉네임 : ${vo.userNick} //회원번호 : ${vo.userIndex} // 상태 : ${vo.userGrade}</li>
+ 			<form action="qna/restrict.do" method="post">
+			<br/>
+				<input type="hidden" name="userGrade" value="U" >
+				<input type="text" name="userId" value="${vo.userId}" readonly="readonly"> 
+				<input type="submit" value="해제" style="width:100px; height: 25px;" >
+			<br/><br/>
+			</form>
 		 </c:forEach>
 		 </ul>
 	</div>
