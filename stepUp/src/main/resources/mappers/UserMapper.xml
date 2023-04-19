@@ -65,7 +65,6 @@
  		SELECT * FROM user_tb
 		where userName = '${userName}' and userMail =  '${userMail}'
  	</select>
- 	
  	<select id="selectIndex" resultType="userVO" parameterType="int">
  		SELECT * FROM user_tb
 		where userIndex = ${userIndex}
