@@ -1486,7 +1486,7 @@ font-weight: bold;
 }
 
 /*장바구니 팝업창*/
-.cart_pop{position:absolute; top:450px; left:700px; width:350px; height:200px; border:1px solid #000; background-color:#fff; display:none;}
+.cart_pop{position:absolute; top:480px; left:982px; width:350px; height:200px; border:1px solid #000; background-color:#fff; display:none;}
 .cart_pop1{background-color:#f0f0f0; height:30px; font-size:15px;}
 .cart_pop1 a{margin-left:5px; line-height:35px;}
 .cart_pop1 button{float:right; width:20px; height:20px;}
@@ -1496,6 +1496,7 @@ font-weight: bold;
 .cart_popbtn{margin-left:10px; margin-top:10px;}
 .cart_pop button{padding:5px 20px; font-size:15px; margin-left:10px; border:none; background-color:none;}
 .cart_popbtn a{line-height:20px;}
+.cart_popbtn a:hover{color:#000;}
 
 /*좋아요 찜 관심*/
 #prd_name span:nth-child(2){
@@ -2269,15 +2270,15 @@ notice_view.jsp(공지사항 리스트)
 }
 
 /*장바구니페이지 시작*/
-.cart-top h1{font-size:50px; margin-left: 210px; margin-top:130px; font-weight: bold; width: 200px;}
-.cart-right{position: absolute; top:210px; right:170px; font-size:20px; font-weight: bold;}
-.cart-line{position: absolute; top:250px; left: 200px; width:1150px; height:15px; border-bottom: 10px solid #f00;}
-.cart-table{width:1150px; position:relative; top:250px; left:-190px; text-align: center; margin-bottom:330px; height: auto;}
+.cart-top h1{font-size:50px; margin-left: 300px; margin-top:130px; font-weight: bold; width: 200px;}
+.cart-right{position: absolute; top:210px; right:310px; font-size:20px; font-weight: bold;}
+.cart-line{position: absolute; top:250px; left:300px; width:1300px; height:15px; border-bottom: 10px solid #f00;}
+.cart-table{width:1300px; position:relative; top:250px; left:-270px; text-align: center; margin-bottom:330px; height: auto;}
 .cart-table thead{border-top: 4px solid #000; height: 60px; font-size:17px; border-bottom:1px solid #a5a5a5;}
 .cart-table img{width:120px; height:80px;}
 .cart-table tbody{border-bottom:1px solid #a5a5a5;}
 .cart-table tfoot{height:100px;}
-.cart-table .th1{width: 20px; height: 40px;}
+.cart-table .th1{width: 30px; height: 40px;}
 .cart-table .th2{width: 430px;}
 .cart-table .th3{width: 130px; line-height: 25px;}
 .cart-table .th5 input{width:35px; height:25px; margin:0; margin-top:-20px;}
@@ -2292,7 +2293,7 @@ notice_view.jsp(공지사항 리스트)
 .cart-table .cart-foot{height:50px; text-align: right;}
 .cart-table tfoot .cash-1{font-size:20px; font-weight:bold;}
 .cart-table tfoot .cash-2{font-size:20px;}
-.cart-button{margin-top:5%; float:right;}
+.cart-button{margin-top:5%; margin-left:65%;}
 .cart-button a{border:1px solid #000; padding:15px 30px; font-size:20px; margin-right:30px; margin-top:50px; text-decoration:none;}
 .cart-button a:nth-child(1){background-color: #fff; color:#000; cursor: pointer;}
 .cart-button a:nth-child(2){background-color: #000; color:#fff; cursor: pointer;}

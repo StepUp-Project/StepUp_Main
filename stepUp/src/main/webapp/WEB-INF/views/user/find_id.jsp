@@ -11,31 +11,6 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-    
-    <script>//비밀번호 입력창 암호 보이기 숨기기 JS
-        window.onload = function(){
-            let eyes = document.getElementById("eyes");
-            let iEyes = document.getElementById("i-eyes");
-            let UserPw = document.getElementById("userPw");
-            eyes.addEventListener("click", function(){
-                if(iEyes.classList.contains("xi-eye-o")){
-                    iEyes.classList.replace("xi-eye-o", "xi-eye-off-o");
-                    UserPw.setAttribute("type", "text");
-                }else{
-                    iEyes.classList.replace("xi-eye-off-o", "xi-eye-o");
-                    UserPw.setAttribute("type", "password");
-                }
-            });
-        }
-    
-    	function kakaoLogin(){
-			location.href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=0575c28de27e26d54b189d1b04528e6b&redirect_uri=http://localhost:8080/controller/user/kakaoLogin.do"
-    	}
-    	
-    	function naverLogin(){
-    		location.href="naverLogin.do"
-    	}
-    </script>
 </head>
 <body style="background-color: #fafafa;">
      <main class="loginlogo">

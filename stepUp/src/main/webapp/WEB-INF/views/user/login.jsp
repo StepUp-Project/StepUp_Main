@@ -63,7 +63,7 @@
 	                <div class="d-flex justify-content-end find-area">
 	                    <a href="find_id.do">아이디 찾기 </a>
 	                    <span>&nbsp; &nbsp; | &nbsp;</span>
-	                    <a href="" class="find-btn">비밀번호 찾기</a>
+	                    <a href="find_pw.do" class="find-btn">비밀번호 찾기</a>
 	                </div>
 	                <div class="d-grid gap-2 login-btn-area">
 		                <div class="btngroup">

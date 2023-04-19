@@ -42,4 +42,13 @@ public class OrderDAO {
 	public int updateOrderStatus(OrderVO vo) {
 		return sqlSession.update("proj.stepUp.mapper.orderMapper.updateOrderStatus", vo);
 	}
+	
+	public List<OrderVO> selectUser(SearchVO searchVO){
+		return sqlSession.selectList("proj.stepUp.mapper.orderMapper.selectUser", searchVO);
+	}
+	
+	public int selectUserCount(int userIndex) {
+		return sqlSession.selectOne("proj.stepUp.mapper.orderMapper.selectUserCount", userIndex);
+	}
+	
 }

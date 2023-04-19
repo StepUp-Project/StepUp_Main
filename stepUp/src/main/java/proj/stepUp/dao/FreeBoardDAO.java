@@ -27,10 +27,9 @@ public class FreeBoardDAO {
 	
 	public List<FreeBoardVO> cntTotal(SearchVO svo){
 		return sqlSession.selectList("proj.stepUp.mapper.freeBoardMapper.cntTotal", svo);
-	}
+	}	
 	
 	public FreeBoardVO selectByIndex(int freeIndex) {
-		
 		return sqlSession.selectOne("proj.stepUp.mapper.freeBoardMapper.selectByIndex", freeIndex);
 	}
 	

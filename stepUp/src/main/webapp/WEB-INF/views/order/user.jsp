@@ -18,10 +18,10 @@
         <div class="mypagemain">
             <div class="mypage_menu"><!--마이페이지 메뉴 시작-->
                 <div class="mypagehi">
-                    <p>안녕하세요, 배유진님!</p>
+                    <p>안녕하세요, ${login.userNick}님!</p>
                 </div>
                 <div class="mypage_gnb">
-                    <span><a href="<%=request.getContextPath()%>/user/mypage_order.do">주문배송조회</a></span>
+                    <span><a href="<%=request.getContextPath()%>/order/user.do">주문배송조회</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_review.do">상품후기</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_like.do">관심목록</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_qna.do">QnA</a></span>
@@ -34,7 +34,7 @@
             <article id="mypageod_contain"><!--주문배송조회 페이지 시작-->
                 <div id="mypage_title">
                     <h2>
-                        주문배송조회
+                        	주문배송조회
                     </h2>
                     <p>
                         <i class="xi-angle-right-min"></i>
@@ -52,37 +52,10 @@
                             <th class="orderstate">주문상태</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><span>22040212345</span></td>
-                            <td><span>2022-04-02</span></td>
-                            <td><a href="#"><div>ASICS 조그 100T</div></a></td>
-                            <td><span>150,000원</span></td>
-                            <td><span>배송완료</span></td>
-                        </tr>
-                        <tr>
-                            <td><span>22040212346</span></td>
-                            <td><span>2022-04-02</span></td>
-                            <td><a href="#"><div>NIKE 레볼루션6 넥스트 네이처</div></a></td>
-                            <td><span>80,000원</span></td>
-                            <td><span>반품완료</span></td>
-                           
-                        </tr>
-                        <tr>
-                            <td><span>22040212347</span></td>
-                            <td><span>2022-04-02</span></td>
-                            <td><a href="#"><div>ADIDAS 브레이크넷2.0</div></a></td>
-                            <td><span>230,000원</span></td>
-                            <td><span>환불완료</span></td>
-                        </tr>
+                    <tbody id="orderList">                        
                     </tbody>
-                    <tfoot>
-                        <tr class="order_page" >
-                            <td colspan="5">◀ 1 2 3 4 5 6 7 8 9 ▶</td>
-                        </tr>
-                    </tfoot>
                 </table>
-
+				<div id="order_paging" class="mt-3"></div>
                 <div class="orderhelp"><!--도움말?-->
                     <div>HELP</div>
                     <p>
@@ -101,7 +74,7 @@
                         <i class="xi-angle-right-min"></i>
                         배송 시작일로부터 2일 경과후에도 택배추적이 되지 않을 경우, 고객센터로 연락 부탁드립니다.
                     </p>
-                    <p><img src="/image/orderhelp.png"></p>
+                    <p><img src="<%=request.getContextPath()%>/resources/image/orderhelp.png"></p>
                 </div>
             </article><!--주문배송조회 페이지 끝-->
         </div>
@@ -109,9 +82,86 @@
 
 	<%@ include file="../include/footer.jsp" %>
 	
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
-    <script src="../JS/script.js"></script><!-- 자바 스크립트 연결 -->
-
+    <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
+	<script type="text/javascript">
+		function orderList(nowPage){
+			let userIndex = "<c:out value='${login.userIndex}'/>";
+			$.ajax({
+				url:"<%=request.getContextPath()%>/ajax/userOrderList.do",
+				type:"get",
+				data:{
+					nowPage : nowPage,
+					userIndex : userIndex
+				},
+				success:function(data){
+					let orderHtml='';
+	    			for(let i=0; i < data.length; i++){
+	    				let orderList = data[i];
+	    				let totalPrice = new Intl.NumberFormat('ko-kr').format(orderList.orderTotalPrice);
+	    				let orderDate = moment(orderList.orderDate).format('YYYY-MM-DD');
+	    				let orderIndex = orderList.orderIndex;
+	    				let orderStatus = orderList.orderStatus;
+	    				orderHtml += '<tr>';
+	    				orderHtml += '<td><span>'+orderList.orderNum+'</span></td>';
+	    				orderHtml += '<td><span>'+orderDate+'</span></td>';
+	    				orderHtml += '<td><a href="userOrderInfo.do?orderIndex='+orderIndex+'"><div>'+orderList.orderName+'</div></a></td>';
+	    				orderHtml += '<td><span>'+totalPrice+'원</span></td>';
+	    				if(orderStatus == "Y"){
+	    					orderHtml += '<td>발송완료</td>';
+	    				}else{
+	    					orderHtml += '<td>발송대기</td>';
+	    				}
+	    				
+	    				orderHtml += '</tr>';	    					    				    					    				
+	    			}
+	    			paging(nowPage);
+	    			$("#orderList").html(orderHtml);
+				}
+			})
+		}
+	    function paging(nowPage){//페이징 버튼 ajax 처리 함수
+	    	let pagingHtml = '';
+	    	let userIndex = "<c:out value='${login.userIndex}'/>";
+	    	$.ajax({
+	    		url:"<%=request.getContextPath()%>/ajax/userOrderListPaging.do",
+	    		type:"get",
+	    		traditional : true,
+	    		data:{
+					nowPage : nowPage,
+					userIndex : userIndex
+	    			},
+	    		success: function(data) {
+				let startPage = Number(data.startPage);
+				let endPage = Number(data.endPage);
+				let perPage = Number(data.perPage);
+				let total = Number(data.total);
+				let now = Number(data.nowPage);
+				let lastPage = Number(data.lastPage);
+		    	pagingHtml += '<li class="d-flex justify-content-center">';
+		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-left"  onclick="orderList('+(now - 1)+')" style= "display:'+(now != 1 ? 'block' : 'none')+'"></a>';
+		    	pagingHtml += '<div id="pagingNumBtn">';
+		    	for(let i = startPage; i <= endPage; i ++){
+		    		if(now != i){
+		    			pagingHtml += '<a href="javascript:void(0);" class="pe-1" onclick="orderList('+i+')">'+i+'</a>';
+		    		}else{
+		    			pagingHtml += '<span class="pe-1 text-primary" id="now">'+i+'</span>';
+		    		}
+		    	}
+		    	pagingHtml += '</div> ';
+		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-right" onclick="orderList('+(now+ 1)+')" style= "display:'+(now != lastPage && lastPage != 0 ? 'block' : 'none')+'"></a>';
+		    	pagingHtml += '</li>';
+		    	$("#order_paging").html(pagingHtml);
+		    		}
+	    	});
+	    }
+	    
+	 	//페이지 로드시 호출
+	    $(document).ready(function(){
+	    	orderList(1);
+	    });
+	</script>
 </body>
 </html>

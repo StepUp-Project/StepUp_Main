@@ -1,9 +1,12 @@
 package proj.stepUp.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import proj.stepUp.vo.SearchVO;
 import proj.stepUp.vo.UserVO;
 
 @Repository
@@ -63,7 +66,19 @@ public class UserDAO {
 		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.findId", vo);
 	}
 	
+	public UserVO findPw(UserVO vo) {
+		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.findPw", vo);
+	}
+	
 	public UserVO selectIndex(int userIndex) {
 		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.selectIndex", userIndex);
+	}
+	
+	public int chgPw(UserVO vo) {
+		return sqlSession.update("proj.stepUp.mapper.userMapper.chgPw", vo);
+	}
+	
+	public List<UserVO> cntTotal(SearchVO svo) {
+		return sqlSession.selectList("proj.stepUp.mapper.userMapper.cntTotal", svo);
 	}
 }

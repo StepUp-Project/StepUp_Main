@@ -368,5 +368,27 @@ public class AjaxController {
 			int result = orderService.updateOrderStatus(vo);
 			
 			return result+"";
-		}			
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/userOrderList.do", method = RequestMethod.GET)
+		public List<OrderVO> userOrderList(SearchVO searchVO, int nowPage) {
+			int totalCount = orderService.selectUserCount(searchVO.getUserIndex());
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+			searchVO.setStart(paging.getStart());
+			searchVO.setPerPage(paging.getPerPage());
+			List<OrderVO> orderList = orderService.selectUser(searchVO);
+			
+			
+			return orderList;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/userOrderListPaging.do", method = RequestMethod.GET)
+		public PagingUtil userOrderListPaging(SearchVO searchVO, int nowPage) {
+			int totalCount = orderService.selectUserCount(searchVO.getUserIndex());
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+						
+			return paging;
+		}		
 }
