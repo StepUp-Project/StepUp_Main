@@ -16,4 +16,5 @@ public interface UserService {
 	public int upDateNaverId(UserVO vo);
 	public int userDelete(String userid);
 	public UserVO findId(UserVO vo);
+	public int selectIndex(int userIndex);
 }
