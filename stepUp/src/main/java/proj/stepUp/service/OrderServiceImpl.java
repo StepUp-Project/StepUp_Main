@@ -51,4 +51,14 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.updateOrderStatus(vo);
 	}
 
+	@Override
+	public List<OrderVO> selectUser(SearchVO searchVO) {
+		return orderDAO.selectUser(searchVO);
+	}
+
+	@Override
+	public int selectUserCount(int userIndex) {
+		return orderDAO.selectUserCount(userIndex);
+	}
+
 }
