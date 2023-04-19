@@ -15,4 +15,16 @@
   	<select id="selectMarkByAll" resultType="markVO" parameterType="markVO">
   		select * from mark_tb where userIndex = #{userIndex} and prdIndex = #{prdIndex}
   	</select>
+  	
+  	<select id="marklist" resultType="markVO" parameterType="int">
+ 		SELECT *
+			FROM product_tb p, user_tb u, mark_tb m
+			WHERE m.userIndex = u.userIndex AND u.userIndex = #{userIndex} AND p.prdIndex = m.prdIndex
+	</select>
+	
+	<select id="cntTotal" resultType="markVO" parameterType="searchVO">
+ 		select count(*) over () as total from mark_tb
+			where userIndex = #{userIndex}
+ 	</select>
+ 	
   </mapper>

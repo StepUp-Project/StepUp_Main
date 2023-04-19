@@ -1,10 +1,13 @@
 
 package proj.stepUp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import proj.stepUp.dao.UserDAO;
+import proj.stepUp.vo.SearchVO;
 import proj.stepUp.vo.UserVO;
 
 @Service
@@ -90,5 +93,10 @@ public class UserServiceImpl implements UserService{
 		return userDAO.findPw(vo);
 	}
 
+	@Override
+	public List<UserVO> cntTotal(SearchVO svo) {
+		return userDAO.cntTotal(svo);
+	}
+	
 
 }

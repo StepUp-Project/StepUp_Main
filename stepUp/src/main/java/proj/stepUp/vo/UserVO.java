@@ -17,6 +17,7 @@ public class UserVO {
 	private String userNaverId;
 	private String loChk;
 	private String eveChk;
+	private int markIndex;
 	
 	public String getLoChk() {
 		return loChk;
@@ -114,6 +115,13 @@ public class UserVO {
 	public void setUserAddrDetail(String userAddrDetail) {
 		this.userAddrDetail = userAddrDetail;
 	}
+	public int getMarkIndex() {
+		return markIndex;
+	}
+	public void setMarkIndex(int markIndex) {
+		this.markIndex = markIndex;
+	}
+
 	
 
 	

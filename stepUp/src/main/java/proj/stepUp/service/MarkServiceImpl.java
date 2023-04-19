@@ -1,10 +1,13 @@
 package proj.stepUp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import proj.stepUp.dao.MarkDAO;
 import proj.stepUp.vo.MarkVO;
+import proj.stepUp.vo.SearchVO;
 
 @Service
 public class MarkServiceImpl implements MarkService{
@@ -26,5 +29,17 @@ public class MarkServiceImpl implements MarkService{
 	public MarkVO selectMarkByAll(MarkVO vo) {//찜목록 조회
 		return markDAO.selectMarkByAll(vo);
 	}
+	
+	@Override
+	public List<MarkVO> marklist(int userIndex) {
+		return markDAO.marklist(userIndex);
+	}
+	
+	@Override
+	public List<MarkVO> cntTotal(SearchVO svo) {
+		return markDAO.cntTotal(svo);
+	}
+	
+
 
 }
