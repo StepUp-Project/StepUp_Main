@@ -24,7 +24,7 @@
 <%@ include file="../include/header.jsp" %>
     <main>
         <article id="board_write">
-            <div id="board_ttl">게시글 수정</div>
+            <div id="board_ttl">공지사항 게시글 수정</div>
             <form method="post" action="notice_modify.do">
             	<input name="noticeIndex" value = "${vo.noticeIndex}" type="hidden">
                 <input class="input_title" 	 name="noticeTitle"	type="text" placeholder="제목을 입력해주세요" value="${vo.noticeTitle}">
