@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main</title>
+    <title>${vo.freeTitle}</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
@@ -50,12 +50,20 @@
                 <div>
                 <c:if test="${not empty login}">
    	                <form name="refrm" action="re_write.do" method="post">
-                        <textarea id="re_writeCnt" name="reCnt" placeholder="댓글을 남겨주세요"></textarea>
-                        <input name="userIndex" value="${login.userIndex}"	type="hidden">
-                        <input name="freeIndex" value="${vo.freeIndex}"		type="hidden">
-                        <div id="re_btn">
-                            <button>등록</button>
-                        </div>
+   	                	<c:if test="${login.userGrade != 'F'}">
+  	                		<textarea id="re_writeCnt" name="reCnt" placeholder="댓글을 남겨주세요"></textarea>
+	                        <input name="userIndex" value="${login.userIndex}"	type="hidden">
+	                        <input name="freeIndex" value="${vo.freeIndex}"		type="hidden">
+	                        <div id="re_btn">
+	                            <button>등록</button>
+	                        </div>
+   	                	</c:if>
+   	                	<c:if test="${login.userGrade == 'F'}">
+   	                		<textarea id="re_writeCnt" name="reCnt" placeholder="댓글을 남겨주세요"></textarea>
+   	                		<div id="re_btn">
+	                            <button type="button" onclick="alert('권한이 없습니다. 자세한 사항은 QnA 게시판을 통해 관리자에게 문의해주세요')">등록</button>
+	                        </div>
+   	                	</c:if>
                     </form>
                 </c:if>
                 </div>
