@@ -80,5 +80,15 @@ public class UserServiceImpl implements UserService{
 		return userDAO.selectIndex(userIndex);
 	}
 
+	@Override
+	public int chgPw(UserVO vo) {
+		return userDAO.chgPw(vo);
+	}
+
+	@Override
+	public UserVO findPw(UserVO vo) {
+		return userDAO.findPw(vo);
+	}
+
 
 }

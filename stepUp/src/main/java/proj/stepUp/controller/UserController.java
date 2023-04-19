@@ -488,7 +488,7 @@ public class UserController {
 	// 아이디 찾기
 	@RequestMapping(value = "/find_id.do", method = RequestMethod.GET)
 	public String findId() {
-
+		
 		return "user/find_id";
 	}
 	
@@ -506,6 +506,33 @@ public class UserController {
 		}
 	}
 	
+	// 비밀번호 찾기
+	@RequestMapping(value = "/find_pw.do", method = RequestMethod.GET)
+	public String findPw() {
+
+		return "user/find_pw";
+	}
+	
+	@RequestMapping(value = "/find_pw.do", method = RequestMethod.POST)
+	public String findPw(UserVO vo, Model model) {
+		
+		UserVO id = userService.findPw(vo);
+		model.addAttribute("vo", id);
+		
+		return "user/find_pwChg";
+	}
+	//비밀번호 변경
+	@RequestMapping(value = "/pwChg.do", method = RequestMethod.GET)
+	public String pwChg() {
+		
+		return "user/find_pwChg";
+	}
+	@RequestMapping(value = "/pwChg.do", method = RequestMethod.POST)
+	public String pwChg(UserVO vo) {
+
+		int result = userService.chgPw(vo);
+		return "user/find_pwOK";
+	}
 }
 	
 	
