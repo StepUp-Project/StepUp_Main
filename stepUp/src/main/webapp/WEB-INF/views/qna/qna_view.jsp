@@ -96,35 +96,34 @@
    									<input class="qnare_del" type="submit" value="삭제">
 		                        </form>
 								<input class="re_edit" type="button" value="수정" onclick="openPopup(${rList.qnareIndex})">
-		                        
-		                        <div id="popup">
+								<div id="popup" class="popup_${rList.qnareIndex}" style="display: none;">
 								  <form name="editForm" action="qnare_edit.do" method="post" onsubmit="return confirm('수정하시겠습니까?')">
 								    <p>댓글 수정</p>
-								    <textarea id="qnare_editCnt" name="qnareCnt">${rList.qnareCnt}</textarea>
-								    <input name="qnareIndex" value="${rList.qnareIndex}" type="hidden">
-   									<input type="hidden" name="qnaIndex" value="${rList.qnaIndex}">
-								    <input class="qnare_edit" type="submit" value="수정">
-								    <input class="qnare_edit" type="button" value="취소" onclick="closePopup(${rList.qnareIndex})">
+								    <textarea id="re_editCnt" name="qnareCnt">${rList.qnareCnt}</textarea>
+								    <input type="hidden" name="qnareIndex" value="${rList.qnareIndex}">
+								    <input type="hidden" name="qnaIndex" value="${rList.qnaIndex}">
+								    <input class="re_edit" type="submit" value="수정">
+								    <input class="re_edit" type="button" value="취소" onclick="closePopup(${rList.qnareIndex})">
 								  </form>
 								</div>
-		                        <script>
-									function openPopup(qnareIndex) {
-									  // 팝업 열기
-									  document.getElementById("popup").style.display = "block";
-									
-									  // 수정할 댓글 내용 가져오기
-									  var qnareCnt = document.querySelector("li[data-qnareIndex='" + qnareIndex + "'] .qnare_note").innerHTML.trim();
-									  document.getElementById("qnare_editCnt").value = qnareCnt;
-									
-									  // 수정할 댓글 인덱스 설정
-									  document.editForm.reIndex.value = qnareIndex;
-									}
-									
-									function closePopup() {
-									  // 팝업 닫기
-									  document.getElementById("popup").style.display = "none";
-									}
-							</script>
+								<script>
+								  function openPopup(qnareIndex) {
+								    // 팝업 열기
+								    document.getElementsByClassName("popup_"+qnareIndex)[0].style.display = "block";
+								  
+								    // 수정할 댓글 내용 가져오기
+								    var reCnt = document.querySelector("li[data-reIndex='" + qnareIndex + "'] .re_note").innerHTML.trim();
+								    document.getElementById("qnare_editCnt").value = qnareCnt;
+								  
+								    // 수정할 댓글 인덱스 설정
+								    document.getElementsByClassName("popup_"+qnareIndex)[0].querySelector("input[name='qnareIndex']").value = qnareIndex;
+								  }
+								  
+								  function closePopup(qnareIndex) {
+								    // 팝업 닫기
+								    document.getElementsByClassName("popup_"+qnareIndex)[0].style.display = "none";
+								  }
+								</script>
 	                        </c:if>
 	                    </div>
 	                    <div class="qnare_note">${rList.qnareCnt}</div>

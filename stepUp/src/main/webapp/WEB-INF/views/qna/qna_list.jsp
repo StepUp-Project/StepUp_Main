@@ -115,9 +115,7 @@
                                     <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
                                     <button class="srch-bt" >검 색</button>
 								<c:if test="${not empty login }">
-									<c:if test="${login.userGrade == 'A'}">
                                     	<input type="button" class="board_Write" value="글쓰기" onclick="location.href='qna_write.do'">
-                                    </c:if>
                            		</c:if>    
                                 </div>
                             </form>  

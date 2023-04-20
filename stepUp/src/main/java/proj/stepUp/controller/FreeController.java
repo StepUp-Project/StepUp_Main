@@ -219,6 +219,8 @@ public class FreeController {
 	@RequestMapping(value="/re_edit.do", method = RequestMethod.POST)
 	public String reedit(ReVO vo, HttpServletRequest req) {
 		
+		System.out.println("reIndex:::::"+vo.getReIndex());
+		
 		if(req.getAttribute("reCnt") != null){
 			vo.setReCnt(Encode.forHtmlAttribute((String) req.getAttribute("reCnt")));
 		}
