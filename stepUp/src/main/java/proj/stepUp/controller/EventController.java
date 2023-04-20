@@ -56,6 +56,7 @@ public class EventController {
 		
 		model.addAttribute("blist", list);
 		model.addAttribute("paging", paging);
+		model.addAttribute("svo", svo);
 		return "event/event_list";
 	}
 	

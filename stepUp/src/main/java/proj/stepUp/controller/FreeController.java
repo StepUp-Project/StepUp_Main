@@ -51,6 +51,7 @@ public class FreeController {
 		
 		model.addAttribute("blist", list);
 		model.addAttribute("paging", paging);
+		model.addAttribute("svo", svo);
 		
 		return "free/free_list";
 	}	

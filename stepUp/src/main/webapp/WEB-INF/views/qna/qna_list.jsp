@@ -5,11 +5,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="proj.stepUp.vo.QnaVO" %>
+<%@ page import="proj.stepUp.vo.SearchVO" %>
 <%@ page import="java.util.*" %>
 <% 
 	List<QnaVO> blist = (List<QnaVO>)request.getAttribute("blist");
 	PagingUtil paging = (PagingUtil)request.getAttribute("paging");
-
+	SearchVO svo = (SearchVO)request.getAttribute("svo");
 %>
 
 <!DOCTYPE html>
@@ -75,7 +76,7 @@
 							// 페이징 출력 영역
 							if(paging.getStartPage()> 1){
 						%>
-							<a href="qna.do?nowPage=<%= paging.getStartPage()-1%>"> </a>
+							<a href="qna.do?nowPage=<%= paging.getStartPage()-1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &lt;&lt; </a>
 						<%		
 							}
 				
@@ -83,7 +84,7 @@
 							
 								if(paging.getNowPage() != i){
 						%>
-							<a href="qna.do?nowPage=<%= i %>"> <%= i %> </a>	
+							<a href="qna.do?nowPage=<%= i %>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> <%= i %> </a>	
 						<%
 								}else{
 						%>
@@ -95,7 +96,7 @@
 							
 							if(paging.getEndPage() < paging.getLastPage()){
 						%>	
-							<a href="qna.do?nowPage=<%= paging.getEndPage()+1%>"> </a>
+							<a href="qna.do?nowPage=<%= paging.getEndPage()+1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &gt;&gt; </a>
 						<%
 							}
 						%>
