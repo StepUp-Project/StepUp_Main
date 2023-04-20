@@ -29,5 +29,10 @@ public class CartServiceImpl implements CartService{
 		return cartDAO.deleteCart(cartIndex);
 	}
 
+	@Override
+	public int selectCheck(CartVO vo) {
+		return cartDAO.selectCheck(vo);
+	}
+
 
 }

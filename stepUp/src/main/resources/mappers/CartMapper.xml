@@ -19,4 +19,8 @@
 		DELETE FROM cart_tb 
 		WHERE cartIndex = #{cartIndex}
 	</delete>
+	
+	<select id="selectCheck" parameterType="cartVO" resultType="int">
+		select count(*) from cart_tb where userIndex = #{userIndex} and sizeIndex = #{sizeIndex}
+	</select>
 </mapper>
