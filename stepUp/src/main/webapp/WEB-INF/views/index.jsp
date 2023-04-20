@@ -88,9 +88,9 @@
                     <h2>BRAND</h2>
                 </div>
                 <div class="main-brand-img d-flex">
-                    <a href="#"></a>
-                    <a href="#"></a>
-                    <a href="#"></a>
+                    <a href="<%=request.getContextPath()%>/product/brand.do?searchType=NB"></a>
+                    <a href="<%=request.getContextPath()%>/product/brand.do?searchType=NK"></a>
+                    <a href="<%=request.getContextPath()%>/product/brand.do?searchType=AD"></a>
                 </div>
                 <div class="main_brand_int">
                     <span>탁월한 성능과 유니크한 디자인</span>

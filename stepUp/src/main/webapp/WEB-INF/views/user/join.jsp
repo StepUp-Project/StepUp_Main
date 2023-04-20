@@ -93,7 +93,7 @@
                 <div id="checkEmailResult" class="mb-3" style="font-size:13px;"></div>
                 
                 <div class="form-floating mb-3 mt-3">
-                    <input type="radio" id="userPhAc"  name="userPhAc" value="Y">연락처 수신동의
+                    <input type="radio" id="userPhAc" name="userPhAc" value="Y" checked>연락처 수신동의
                     <input type="radio" id="userPhAc" class="upa2" name="userPhAc" value="N">연락처 수신비동의
                 </div>
                 
