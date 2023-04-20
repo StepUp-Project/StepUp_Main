@@ -34,7 +34,7 @@
 
         <ul id="brandlist">
             <li class="brandlogo">
-                <a href="<%=request.getContextPath()%>/product/brand.do"><p class="bl_img" onclick="colorchange()" id="colall"></p></a>
+                <a><p class="bl_img" onclick="colorchange()" id="colall"></p></a>
             </li>
             <li class="brandlogo">
                 <a href="<%=request.getContextPath()%>/product/brand.do?searchType=NK"><p class="bl_img"></p></a>
@@ -67,7 +67,7 @@
                 <div id="prd_addr">
                     <a href="<%=request.getContextPath()%>/index.do">HOME</a>
                     <span> > </span>
-                    <a href="<%=request.getContextPath()%>/product/brand.do">BRAND</a>
+                    <a>BRAND</a>
                 </div>
                 <p class="filter_ttl">사이즈</p>
                 <ul  id="size_check">

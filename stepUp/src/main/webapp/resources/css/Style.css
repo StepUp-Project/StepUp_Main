@@ -1493,13 +1493,7 @@ font-size: 14px;
 #brandlist .brandlogo .bl_img{
   width: 70px; height: 35px; background-size: cover;
 }
-#brandlist li:nth-child(1) .bl_img{
-  background-image: url("../image/new/new_logo_all.png"); background-repeat: no-repeat;
-  transition: all 0.1s ease-in-out;
-}
-#brandlist li:nth-child(1):hover .bl_img{
-  background-image: url("../image/new/new_logo_all_gr.png"); background-repeat: no-repeat;
-}
+
 #brandlist li:nth-child(2) .bl_img{
   background-image: url("../image/new/new_logo_nk_gr.png"); background-repeat: no-repeat;
   transition: all 0.1s ease-in-out;
@@ -2130,12 +2124,12 @@ notice_view.jsp(공지사항 리스트)
     width: 100%
 }
 #board_button{
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: right;
     margin-bottom: 100px;
 }
 #board_button input:nth-child(1){
-	height: 35px;
+  height: 35px;
   width: 100px;
   border-radius: 0;
   border: 0;
@@ -2146,7 +2140,7 @@ notice_view.jsp(공지사항 리스트)
   font-size: 13px;
 }
 #board_button input:nth-child(2){
-	height: 35px;
+  height: 35px;
   width: 100px;
   border-radius: 0;
   border: 1px solid #3a3a3a;
@@ -2236,7 +2230,9 @@ notice_view.jsp(공지사항 리스트)
 #board_viewcontain{
     border: 1px solid #a5a5a5;
     width: 63%;
-    margin:  250px auto;
+    margin: 0 auto;
+    margin-top: 250px;
+    margin-bottom: 100px;
  }
 #board_view{
     margin: 20px;
