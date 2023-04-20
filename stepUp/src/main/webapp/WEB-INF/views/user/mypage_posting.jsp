@@ -90,7 +90,7 @@
                         <tr>
                             <td><input type="checkbox" name="freeIndex" value="${vo.freeIndex}" class="chk"></td>
                             <td><span>${vo.freeIndex}</span></td>
-                            <td><a href="free_view.do?freeIndex=${vo.freeIndex}"><div>${vo.freeTitle}</div></a></td>
+                            <td><a href="<%= request.getContextPath() %>/free/free_view.do?freeIndex=${vo.freeIndex}"><div>${vo.freeTitle}</div></a></td>
                             <td><span>
 	                        <% 
 	                                Date date = new Date();
@@ -121,7 +121,7 @@
 									// 페이징 출력 영역
 									if(paging.getStartPage()> 1){
 								%>
-									<a href="free.do?nowPage=<%= paging.getStartPage()-1%>"> </a>
+									<a href="mypage_posting.do?nowPage=<%= paging.getStartPage()-1%>"> &lt;&lt; </a>
 								<%		
 									}
 						
@@ -129,7 +129,7 @@
 									
 										if(paging.getNowPage() != i){
 								%>
-									<a href="free.do?nowPage=<%= i %>"> <%= i %> </a>	
+									<a href="mypage_posting.do?nowPage=<%= i %>"> <%= i %> </a>	
 								<%
 										}else{
 								%>
@@ -141,7 +141,7 @@
 									
 									if(paging.getEndPage() < paging.getLastPage()){
 								%>	
-									<a href="free.do?nowPage=<%= paging.getEndPage()+1%>"> </a>
+									<a href="mypage_posting.do?nowPage=<%= paging.getEndPage()+1%>"> &gt;&gt; </a>
 								<%
 									}
 								%>

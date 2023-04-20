@@ -474,23 +474,24 @@ public class UserController {
 		if(svo.getNowPage() != 0 ) {
 			nowPage = svo.getNowPage();
 		}
-		List<MarkVO> cntTotal = markService.cntTotal(svo);
-		int totalCnt = 0;
-		if(cntTotal.size()>0) {
-			totalCnt = cntTotal.get(0).getTotal();
-		}
-		
-		PagingUtil paging = new PagingUtil(totalCnt, nowPage, 10);
-		
+	
 		//리스트
 		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
 		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
 		
-		List<MarkVO> list = markService.marklist(loginUser.getUserIndex());
+		int totalCnt = markService.cntTotal(loginUser.getUserIndex());
+		
+		System.out.println(totalCnt);
+		
+		
+		MarkVO markVO = new MarkVO(totalCnt, nowPage, 10);
+		markVO.setUserIndex(loginUser.getUserIndex());
+		
+		List<MarkVO> list = markService.marklist(markVO);
 		
 		
 		model.addAttribute("blist", list);
-		model.addAttribute("paging", paging);
+		model.addAttribute("paging", markVO);
 
 		return "user/mypage_like";
 	}

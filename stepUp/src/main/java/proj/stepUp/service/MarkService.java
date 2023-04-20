@@ -10,6 +10,6 @@ public interface MarkService {
 	public int insertMark(MarkVO vo);
 	public int deleteMark(MarkVO vo);
 	public MarkVO selectMarkByAll(MarkVO vo);
-	public List<MarkVO> marklist(int userIndex);
-	public List<MarkVO> cntTotal(SearchVO svo);
+	public List<MarkVO> marklist(MarkVO markVO);
+	public int cntTotal(int userIndex);
 }
