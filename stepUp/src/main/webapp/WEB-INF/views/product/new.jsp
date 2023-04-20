@@ -208,11 +208,9 @@
         <div class="d-flex justify-content-between">
             <article id="prd_filter">
                 <div id="prd_addr">
-                    <a href="#">HOME</a>
+                    <a href="<%=request.getContextPath()%>/index.do">HOME</a>
                     <span> > </span>
-                    <a href="#">BRAND</a>
-                    <span> > </span>
-                    <a href="#">NIKE</a>
+                    <a href="<%=request.getContextPath()%>/product/new.do">NEW</a>
                 </div>
                 <p class="filter_ttl">사이즈</p>
                 <ul  id="size_check">
