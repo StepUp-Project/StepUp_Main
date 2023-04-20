@@ -166,24 +166,29 @@ public class AjaxController {
 		@ResponseBody
 		@RequestMapping(value="/inputCart.do", method = RequestMethod.POST)
 		public String inputCart(String[] sizeIndex, String[] sizeStock, CartVO vo){	//cart 데이터 넘기는중
+			int count = 0;
 			try {
 				for(int i = 0; i < sizeIndex.length; i++) {
 					int size = Integer.parseInt(sizeIndex[i]);
 					int stock =Integer.parseInt(sizeStock[i]);				
 					vo.setSizeIndex(size);
 					vo.setCartStock(stock);
-					int result = cartService.insertCart(vo);
-					if(result != 1) {
-						return "0";
+					int check = cartService.selectCheck(vo);
+					if(check == 0) {
+						int result = cartService.insertCart(vo);
+						count++;
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			return "1";
+			if(count == 0) {
+				return "0";
+			}else {
+				return "1";
+			}			
 		}
-		
+				
 			
 		@ResponseBody
 		@RequestMapping(value="/prdPaging.do", method = RequestMethod.GET)	//review리스트 페이징 ajax 처리

@@ -44,7 +44,7 @@
 	               </c:choose>                
                 </span></li>
                 <li id="prd_name">
-                <span>${prdVO.prdName}</span>
+                <span id="productName">${prdVO.prdName}</span>
                 <c:if test="${not empty login}">     
 	                <c:choose>
 		                <c:when test="${not empty markResult}">
@@ -58,15 +58,16 @@
                 </li>
                 <li id="prd_code"><span>상품코드:${prdVO.prdCode}</span></li>
                 <li id="prd_price"><fmt:formatNumber value="${prdVO.prdPrice}" pattern="#,###"/>원</li>
+                <input type="hidden" id="productPrice" value="${prdVO.prdPrice}">
            </ul>
            <div id="size_ttl">사이즈</div>
            <ul  id="select_box">
            		<c:forEach var="sizeList" items="${sizeVO}">
 	                <li class="select_size">
-	                    <input type="checkbox" name="size" value="${sizeList.sizeKind}" id="size${sizeList.sizeKind}" onclick="updateSizeSelected(this)">
+	                    <input type="checkbox" name="size" value="${sizeList.sizeKind}" id="size${sizeList.sizeKind}" onclick="updateSizeSelected(${sizeList.sizeIndex},${sizeList.sizeKind},${sizeList.sizeStock})" <c:if test="${sizeList.sizeStock == 0}">disabled</c:if>>
 	                    <input type="hidden" name="sizeNum" id="sizeNum" value="${sizeList.sizeIndex}" />
 	                    <label for="size${sizeList.sizeKind}">
-	                        <span>${sizeList.sizeKind}</span>
+	                        <span <c:if test="${sizeList.sizeStock == 0}">class="bg-light text-black-50"</c:if>>${sizeList.sizeKind}</span>
 	                    </label>
 	                </li>           		
            		</c:forEach>
@@ -85,8 +86,8 @@
 	       </div>
            <div class="total_price"></div>
            <c:if test="${empty login}">
-	           <button type="button" id="cart_btnout">장바구니</button>
-	           <button id="buy_btnout">바로구매</button>
+	           <button type="button" id="cart_btnlogin" onclick="altCart()">장바구니</button>
+	           <button id="buy_btnlogin" onclick="altBuy()">바로구매</button>
            </c:if>
            <c:if test="${not empty login}">
 	           <button id="cart_btnlogin" onclick="inputCart()">장바구니</button>
@@ -225,89 +226,87 @@
             </ul>
         </article>
         <form action="<%=request.getContextPath()%>/order/payment.do" id="payFrm" method="get">
-        	<input type="hiddne" name="sizeIndex" id="sizeIndexPay" value="">
-        	<input type="hiddne" name="sizeStock" id="sizeStockPay" value="">
-        	<input type="hiddne" name="userIndex" id="userIndexPay" value="">
+        	<input type="hidden" name="sizeIndex" id="sizeIndexPay" value="">
+        	<input type="hidden" name="sizeStock" id="sizeStockPay" value="">
+        	<input type="hidden" name="userIndex" id="userIndexPay" value="">
         </form> 
 	</main>
 <%@ include file="../include/footer.jsp" %>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>
-		function updateSizeSelected(obj) { 
-		    const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
-		    console.log(selectedSizes.length);
-		    if ( selectedSizes.length <=3 ){
-		        const sizeSelected = document.querySelector('.size_selected');
-		        sizeSelected.innerHTML = '';
-		        selectedSizes.forEach(function(size) {
-		            const price = ${prdVO.prdPrice};
-		            const formattedPrice = price.toLocaleString();
-		            const li = document.createElement('li');
-		            const sizeIndex = size.nextElementSibling;
-		            li.innerHTML = '<div class="select_prdName"><span>${prdVO.prdName}</span> <span>사이즈 ' + size.value + '</span></div>' +
-		            '<input type="hidden" id="sizeIndex" value="'+sizeIndex.value+'" name="sizeIndex">'+
-		            '<button class="decrease-btn" onclick="decreaseQuantity(\'' + size.value + '\'); totalPrice();">-</button>' +
-		            '<input class="qnt_numb" name="cartStock"  id="quantity_' + size.value + '" type="text" value="1" disabled>' +
-		            '<button class="increase-btn" onclick="increaseQuantity(\'' + size.value + '\'); totalPrice();">+</button>' +
-		            '<div class="selec_PrdPrice">' +
-		            '<span id="price_' + size.value + '">' + formattedPrice + '원</span>' +
-		            '<label for="size' + size.value + '">' +
-		            '<div class="x-btn, xi-close" ></div>' +
-		            '</label>' +
-		            '</div>';
-		            sizeSelected.appendChild(li);
-		        });
-		        totalPrice();
-		    } else if (selectedSizes.length >= 4) {
-		        alert("사이즈는 최대 3개까지 선택 가능합니다.");
-		        $(obj).prop("checked",false);
-		    }
-		}
+		function updateSizeSelected(sizeIndex, sizeKind, sizeStock) { 
+					let productName = $("#productName").html();					
+					let sizePrint = '';
+					sizePrint += '<li id="sizeLi'+sizeKind+'">';
+					sizePrint += '<div class="select_prdName"><span>'+productName+'</span> <span>사이즈 ' + sizeKind + '</span></div>';
+					sizePrint += '<input type="hidden" id="sizeIndex" value="'+sizeIndex+'" name="sizeIndex">';
+					sizePrint += '<button class="decrease-btn" onclick="decreaseQuantity('+sizeKind+')">-</button>';
+					sizePrint += '<input class="qnt_numb" name="cartStock"  id="quantity_' + sizeKind + '" type="text" value="1" disabled>';
+					sizePrint += '<button class="increase-btn" onclick="increaseQuantity('+sizeKind+','+sizeStock+')">+</button>';
+					sizePrint += '<div class="selec_PrdPrice" id="priceWrap">';
+					sizePrint += '<span id="price_' + sizeKind + '" name="itemPrice"></span>';
+					sizePrint += '<label for="size' + sizeKind + '">';
+					sizePrint += '<div class="x-btn, xi-close" ></div>';
+					sizePrint += '</label>';
+					sizePrint += '</div>';
+					if($('#size'+sizeKind+'').is(':checked')){
+						$("#prdSizeArea").append(sizePrint);
+						sizePrice(sizeKind);
+						totalPrice();
+					}else{
+						$('#sizeLi'+sizeKind+'').detach();
+						totalPrice();
+					}
+		            
+		        };
+
+		    
 		
-		function increaseQuantity(size) {
-		    const quantityInput = document.getElementById('quantity_' + size);
-		    let quantity = parseInt(quantityInput.value);
-		    quantity++;
-		    quantityInput.value = quantity;
-		    totalPrice();
-		    sizePrice(quantity, size);
+		function increaseQuantity(size, sizeStock) {
+			let stockNum = parseInt($('#quantity_'+size+'').val());
+			if(stockNum < sizeStock){
+				let sumNum = stockNum+1;
+				 $('#quantity_'+size+'').val(sumNum);
+				 sizePrice(size);
+				 totalPrice();
+			}
+
 		}
 		
 		function decreaseQuantity(size) {
-		    const quantityInput = document.getElementById('quantity_' + size);
-		    let quantity = parseInt(quantityInput.value);
-		    if (quantity > 1) {
-		        quantity--;
-		        quantityInput.value = quantity;
-		        totalPrice();
-		        sizePrice(quantity, size);
-		    }
+			let stockNum = parseInt($('#quantity_'+size+'').val());
+			if(stockNum > 1){
+				let sumNum = stockNum-1;
+				 $('#quantity_'+size+'').val(sumNum);
+				 sizePrice(size);
+				 totalPrice();
+			}
 		}
 		
-		function sizePrice(quantity, size) {   
-		    const price = ${prdVO.prdPrice};
-		    const sizeQntPrice = (price * quantity).toLocaleString();
-		    document.querySelector('#price_' + size).textContent = sizeQntPrice + '원';
+		function sizePrice(size) {   
+			let stockNum = parseInt($('#quantity_'+size+'').val());
+			let productPrice = $("#productPrice").val();
+			let sizeTotal = stockNum * productPrice;
+			let price = new Intl.NumberFormat('ko-kr').format(sizeTotal);
+			$('#price_'+size+'').html(price+"원");
+			
 		}
 		       
 		function totalPrice() {
-		    const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
-		    if (selectedSizes.length !== 0) {
-		        let total = 0;
-		        selectedSizes.forEach(function(size) {
-		            const quantityInput = document.getElementById('quantity_' + size.value);
-		            const quantity = parseInt(quantityInput.value);
-		            const price = ${prdVO.prdPrice};
-		            total += quantity * price;
-		        });
-		        const formattedPrice = '총 금액 : ' + total.toLocaleString() + ' 원';
-		        document.querySelector('.total_price').textContent = formattedPrice;             
-		    } else {
-		        document.querySelector('.total_price').textContent = '';
-		    }
+			let totla = 0;
+			let itemPrice = document.querySelectorAll("span[name=itemPrice]");
+			$("#priceWrap span").each(function(){
+				let te = $(this).text();
+				let pri = te.replace(/,/g, '').replace(/ 원/g, '');
+				totla += parseInt(pri);
+			})
+			let pricaeTotal = "총 금액 : " + totla + " 원";
+			if(itemPrice.length == 0){
+				pricaeTotal = "";
+			}
+			$(".total_price").html(pricaeTotal);
 		}
-		    
 		    
 	    var bigimg = document.querySelector(".big_img");
 	    
@@ -362,6 +361,9 @@
 			    	});
 		    		
 		    	});
+	    	}else{
+	    		alert("상품 사이즈를 추가하여 주세요");
+	    		return false;
 	    	}
 			$.ajax({
 				url:"<%=request.getContextPath()%>/ajax/inputCart.do",
@@ -372,12 +374,18 @@
 					sizeStock : sizeStock,
 					userIndex : userIndex
 				},
-				success:function(){
-					const cartpop = document.querySelector('.cart_pop');
-					cartpop.style.display = 'block';
+				success:function(data){
+					if(data == 1){
+						const cartpop = document.querySelector('.cart_pop');
+						cartpop.style.display = 'block';
+					}else{
+						alert("이미 담겨있는 상품입니다.");
+					}
+
 				}
-			})
+			})//ajax end
 	    }
+	    	    
 	    
 	    //장바구니 팝 지우기
 	    const closeBtn1 = document.getElementById('popclose1');
@@ -391,16 +399,15 @@
 		});
 		
        	    //로그인 안했을때 버튼 클릭시
-	    const cartbtnout = document.getElementById('cart_btnout');
-	   	cartbtnout.addEventListener('click', function() {
+       	function altCart(){
 			alert("로그인이 필요한 서비스입니다.");
 			window.location.href = '<%=request.getContextPath()%>/user/login.do';
-		});
-	    const buybtnout = document.getElementById('buy_btnout');
-	    	buybtnout.addEventListener('click', function() {
+       	}
+       	
+       	function altBuy(){
 			alert("로그인이 필요한 서비스입니다.");
 			window.location.href = '<%=request.getContextPath()%>/user/login.do';
-		});
+       	}
 		
 	    //상품 리뷰 paging ajax
 	    function goPage(nowPage){
@@ -495,6 +502,8 @@
 	    	 window.open("<%=request.getContextPath()%>/review/modify.do?reviewIndex="+reviewIndex, "리뷰수정", "width=900%,height=150%, top=250%, left=300%");
 	    }
 	    
+	    
+	    //바로구매 
 	    function goPayment(){
 	    	let userIndex =  "<c:out value='${login.userIndex}'/>";
 	    	let sizeIndex = [];
@@ -513,6 +522,9 @@
 			    	});
 		    		
 		    	});
+	    	}else{
+	    		alert("구매할 상품 사이즈를 선택해 주세요");
+	    		return false;
 	    	}
 
 	    	$("#userIndexPay").val(userIndex);
