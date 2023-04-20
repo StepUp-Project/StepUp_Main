@@ -8,6 +8,7 @@
 <%@ page import="proj.stepUp.vo.MarkVO" %>
 <%@ page import="proj.stepUp.vo.ProductVO" %>
 <%@ page import="proj.stepUp.vo.UserVO" %>
+<%@ page import="proj.stepUp.vo.SearchVO" %>
 <%@ page import="java.util.*" %>
 <% 
 	List<MarkVO> blist = (List<MarkVO>)request.getAttribute("blist");
@@ -63,26 +64,27 @@
 				               	<c:forEach var="markPrd" items="${blist}">
    								<c:set var="BrandCode" value="${fn:substring(markPrd.prdCode,0,2)}"/>
    								
-				                    <li class="cnt_info" style="border: 1px solid lime;">
+   								<!-- input type="hidden" name="prdIndex" value="${login.userId}" -->
+   								
+				                    <li class="cnt_info">
 
-			                                    <div class="likeheart">
-			                                         <span class="xi-heart" id="mark" onclick="">
-												     <span class="xi-heart-o" id="mark">
-			                                    </div>
-			                                    
+			                            <div class="likeheart">
+									       <div class="xi-heart" id="mark" onclick="change(${markPrd.prdIndex})"></div>
+			                            </div>
+			                             
 				                        <a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${markPrd.prdIndex}">
 				                        <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${markPrd.prdRname})"></div></p>
 				                            <P class="cnt_brand">
 				                            	<span>
 							                         <c:choose>
-							                         	<c:when test='${BrandCode eq "NK"}'>나이키</c:when>
-							                         	<c:when test='${BrandCode eq "AD"}'>아디다스</c:when>
-							                         	<c:when test='${BrandCode eq "VS"}'>반스</c:when>
-							                         	<c:when test='${BrandCode eq "CV"}'>컨버스</c:when>
-							                         	<c:when test='${BrandCode eq "PM"}'>퓨마</c:when>
-							                         	<c:when test='${BrandCode eq "FL"}'>휠라</c:when>
-							                         	<c:when test='${BrandCode eq "CR"}'>크록스</c:when>
-							                         	<c:when test='${BrandCode eq "NB"}'>뉴발란스</c:when>
+							                         	<c:when test='${BrandCode eq "NK"}'>NIKE</c:when>
+							                         	<c:when test='${BrandCode eq "AD"}'>ADIDAS</c:when>
+							                         	<c:when test='${BrandCode eq "VS"}'>VANS</c:when>
+							                         	<c:when test='${BrandCode eq "CV"}'>CONVERSE</c:when>
+							                         	<c:when test='${BrandCode eq "PM"}'>PUMA</c:when>
+							                         	<c:when test='${BrandCode eq "FL"}'>FILA</c:when>
+							                         	<c:when test='${BrandCode eq "CR"}'>CROCS</c:when>
+							                         	<c:when test='${BrandCode eq "NB"}'>NEWBALANCE</c:when>
 							                         </c:choose>	                                    
 				                            	</span>
 				                            </P>
@@ -96,41 +98,62 @@
                     </div>
                 </div>
 
-                <article id="mplikepage">
-								<%  
-									// 페이징 출력 영역
-									if(paging.getStartPage()> 1){
-								%>
-									<a href="mypage_like.do?nowPage=<%= paging.getStartPage()-1%>"> </a>
-								<%		
-									}
-						
-									for(int i = paging.getStartPage(); i<=paging.getEndPage(); i++){
-									
-										if(paging.getNowPage() != i){
-								%>
-									<a href="mypage_like.do?nowPage=<%= i %>"> <%= i %> </a>	
-								<%
-										}else{
-								%>
-									<b><%= i %></b>
-									
-								<%	
-										}
-									}
-									
-									if(paging.getEndPage() < paging.getLastPage()){
-								%>	
-									<a href="mypage_like.do?nowPage=<%= paging.getEndPage()+1%>"> </a>
-								<%
-									}
-								%>
-                </article>
+                <div id="mplikepage" class="board_page">
+						<%  
+							// 페이징 출력 영역
+							if(paging.getStartPage()> 1){
+						%>
+							<a href="mypage_like.do?nowPage=<%= paging.getStartPage()-1%>"> &lt;&lt; </a>
+						<%		
+							}
+				
+							for(int i = paging.getStartPage(); i<=paging.getEndPage(); i++){
+							
+								if(paging.getNowPage() != i){
+						%>
+							<a href="mypage_like.do?nowPage=<%= i %>"> <%= i %> </a>	
+						<%
+								}else{
+						%>
+							<b><%= i %></b>
+							
+						<%	
+								}
+							}
+							
+							if(paging.getEndPage() < paging.getLastPage()){
+						%>	
+							<a href="mypage_like.do?nowPage=<%= paging.getEndPage()+1%>"> &gt;&gt; </a>
+						<%
+							}
+						%>
+                </div>
 
             </article><!--관심목록 페이지 끝-->
         </div>
 	</main>
 	<%@ include file="../include/footer.jsp" %>
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script>
+
+	//찜버튼 변경 스크립트
+    function change(prdindex){
+    	let userIndex = "<c:out value='${login.userIndex}'/>";
+    	let prdIndex = prdindex;
+		console.log("prdIndex ::" + prdIndex);  
+   		$.ajax({
+   			url:"<%=request.getContextPath()%>/ajax/removeMark.do",
+   			type:"post",
+   			data:{userIndex : userIndex, prdIndex : prdIndex},
+   			success : function(){
+   				window.location.reload();
+   			}
+   		});
+    }
+
+	
+	</script>
 
 </body>
 </html>

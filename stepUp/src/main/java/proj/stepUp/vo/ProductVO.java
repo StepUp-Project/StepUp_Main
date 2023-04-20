@@ -1,6 +1,8 @@
 package proj.stepUp.vo;
 
-public class ProductVO {
+import proj.stepUp.util.PagingUtil;
+
+public class ProductVO extends PagingUtil {
 	private int prdIndex;
 	private String prdCode;
 	private String prdName;
@@ -16,6 +18,12 @@ public class ProductVO {
 	private String prdMadeDate;
 	private int prdSales;
 	private String prdDel;
+	
+	public ProductVO() {};
+	
+	public ProductVO(int total, int nowPage, int perPage) {
+		super(total,nowPage,perPage);
+	}
 	
 	public String getPrdDel() {
 		return prdDel;

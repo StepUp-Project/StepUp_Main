@@ -31,13 +31,13 @@ public class MarkServiceImpl implements MarkService{
 	}
 	
 	@Override
-	public List<MarkVO> marklist(int userIndex) {
-		return markDAO.marklist(userIndex);
+	public List<MarkVO> marklist(MarkVO markVO) {
+		return markDAO.marklist(markVO);
 	}
 	
 	@Override
-	public List<MarkVO> cntTotal(SearchVO svo) {
-		return markDAO.cntTotal(svo);
+	public int cntTotal(int userIndex) {
+		return markDAO.cntTotal(userIndex);
 	}
 	
 

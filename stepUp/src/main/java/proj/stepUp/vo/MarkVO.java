@@ -4,7 +4,12 @@ public class MarkVO extends ProductVO{
 	private int markIndex;
 	private int userIndex;
 	private int prdIndex;
-	private int total;
+	
+	public MarkVO() {};
+	
+	public MarkVO(int total, int nowPage, int perPage) {
+		super(total,nowPage,perPage);
+	}
 	
 	public int getMarkIndex() {
 		return markIndex;
@@ -23,12 +28,6 @@ public class MarkVO extends ProductVO{
 	}
 	public void setPrdIndex(int prdIndex) {
 		this.prdIndex = prdIndex;
-	}
-	public int getTotal() {
-		return total;
-	}
-	public void setTotal(int total) {
-		this.total = total;
 	}
 	
 	

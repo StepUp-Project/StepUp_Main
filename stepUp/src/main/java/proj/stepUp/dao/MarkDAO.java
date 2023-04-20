@@ -28,11 +28,11 @@ public class MarkDAO {
 		return sqlSession.selectOne("proj.stepUp.mapper.markMapper.selectMarkByAll", vo);
 	}
 	
-	public List<MarkVO> marklist(int userIndex){
-		return sqlSession.selectList("proj.stepUp.mapper.markMapper.marklist", userIndex);
+	public List<MarkVO> marklist(MarkVO markVO){
+		return sqlSession.selectList("proj.stepUp.mapper.markMapper.marklist", markVO);
 	}
 
-	public List<MarkVO> cntTotal(SearchVO svo) {
-		return sqlSession.selectList("proj.stepUp.mapper.markMapper.marklist", svo);
+	public int cntTotal(int userIndex) {
+		return sqlSession.selectOne("proj.stepUp.mapper.markMapper.cntTotal",userIndex);
 	}
 }
