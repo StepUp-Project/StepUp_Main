@@ -118,11 +118,11 @@
                     <tfoot>
                         <tr class="order_page" >
                             <td colspan="5">
-                        <%  
+								<%  
 									// 페이징 출력 영역
 									if(paging.getStartPage()> 1){
 								%>
-									<a href="qna.do?nowPage=<%= paging.getStartPage()-1%>"> </a>
+									<a href="mypage_qna.do?nowPage=<%= paging.getStartPage()-1%>"> &lt;&lt; </a>
 								<%		
 									}
 						
@@ -130,7 +130,7 @@
 									
 										if(paging.getNowPage() != i){
 								%>
-									<a href="qna.do?nowPage=<%= i %>"> <%= i %> </a>	
+									<a href="mypage_qna.do?nowPage=<%= i %>"> <%= i %> </a>	
 								<%
 										}else{
 								%>
@@ -142,7 +142,7 @@
 									
 									if(paging.getEndPage() < paging.getLastPage()){
 								%>	
-									<a href="qna.do?nowPage=<%= paging.getEndPage()+1%>"> </a>
+									<a href="mypage_qna.do?nowPage=<%= paging.getEndPage()+1%>"> &gt;&gt; </a>
 								<%
 									}
 								%>
