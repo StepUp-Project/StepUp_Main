@@ -24,7 +24,7 @@ public class PagingUtil {
 	
 	
 	
-	
+
 	
 	public PagingUtil(int total, int nowPage, int perPage) {
 		

@@ -16,14 +16,17 @@
   		select * from mark_tb where userIndex = #{userIndex} and prdIndex = #{prdIndex}
   	</select>
   	
-  	<select id="marklist" resultType="markVO" parameterType="int">
+  	<select id="marklist" resultType="markVO" parameterType="markVO">
  		SELECT *
-			FROM product_tb p, user_tb u, mark_tb m
-			WHERE m.userIndex = u.userIndex AND u.userIndex = #{userIndex} AND p.prdIndex = m.prdIndex
+		  FROM product_tb p, user_tb u, mark_tb m
+		 WHERE m.userIndex = u.userIndex
+		   AND u.userIndex = #{userIndex} 
+		   AND p.prdIndex = m.prdIndex
+		LIMIT #{start},10
 	</select>
 	
-	<select id="cntTotal" resultType="markVO" parameterType="searchVO">
- 		select count(*) over () as total from mark_tb
+	<select id="cntTotal" resultType="int" parameterType="int">
+ 		select count(*) as total from mark_tb
 			where userIndex = #{userIndex}
  	</select>
  	
