@@ -58,7 +58,7 @@
                         </ul><!--sub 네비게이션 끝-->
                     </li>
                     <li>
-                        <a href="<%=request.getContextPath()%>/product/brand.do">BRAND</a>
+                        <a href="#">BRAND</a>
                         <ul class="mt-5"><!--sub 네비게이션 -->
                             <li><a href="<%=request.getContextPath()%>/product/brand.do?searchType=NK">나이키</a></li>
                             <li><a href="<%=request.getContextPath()%>/product/brand.do?searchType=NB">뉴발란스</a></li>
@@ -79,8 +79,6 @@
                         <a href="#">COMMUNITY</a>
                         <ul class="mt-5"><!--sub 네비게이션 -->
                             <li><a href="<%=request.getContextPath()%>/free/free.do">자유게시판</a></li>
-                            <li><a href="#">중고거래</a></li>
-                            <li><a href="#">경매</a></li>
                         </ul><!--sub 네비게이션 -->
                     </li>
                     <li>
