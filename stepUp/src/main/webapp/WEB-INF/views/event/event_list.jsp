@@ -106,14 +106,15 @@
                                     <select name="searchType" class="search_css">
                                         <option value="title" selected>제목</option>
                                         <option value="content">내용</option>
-                                        <option value="writer">작성자</option>
                                     </select>
                                     <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
                                     <input type="hidden" name="nowPage" value="1">
                                     <button class="srch-bt" >검 색</button>
-								<c:if test="${not empty login }">
-                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='event_write.do'">
-                           		</c:if> 
+									<c:if test="${not empty login }">
+										<c:if test="${login.userGrade == 'A'}">
+											<input type="button" class="board_Write" value="글쓰기" onclick="location.href='event_write.do'">
+										</c:if>
+									</c:if>
                                 </div>
                             </form>  
                         </td> 

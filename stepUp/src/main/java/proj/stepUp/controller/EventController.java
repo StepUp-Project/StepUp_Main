@@ -80,8 +80,15 @@ public class EventController {
 	@RequestMapping(value="/event_view.do")
 	public String eventview(int eventIndex, Model model , HttpServletRequest req, HttpServletResponse res) {
 		
-		 Cookie[] cookies = req.getCookies();
-		    boolean isExists = false;
+		HttpSession session = req.getSession();
+		UserVO loginUserVO = (UserVO)session.getAttribute("login");
+		
+		
+		Cookie[] cookies = req.getCookies();
+		boolean isExists = false;
+		String sessionID = req.getSession().getId(); // 사용자의 세션 ID를 가져옴
+
+		if (loginUserVO == null) {
 		    if (cookies != null) {
 		        for (Cookie cookie : cookies) {
 		            if (cookie.getName().equals("eventIndex_" + eventIndex)) {
@@ -93,10 +100,30 @@ public class EventController {
 		    // 쿠키 생성 후 조회수 증가
 		    if (!isExists) {
 		        Cookie cookie = new Cookie("eventIndex_" + eventIndex, String.valueOf(eventIndex));
+
 		        cookie.setMaxAge(60 * 60 * 24); // 쿠키 유효 1일
 		        res.addCookie(cookie);
 		        eventService.hitcount(eventIndex);
 		    }
+		}
+		if (loginUserVO != null) {
+		    if (cookies != null) {
+		        for (Cookie cookie : cookies) {
+		            if (cookie.getName().equals("eventIndex_" + eventIndex + "_" + sessionID)) {
+		                isExists = true;
+		                break;
+		            }
+		        }
+		    }
+		    // 쿠키 생성 후 조회수 증가
+		    if (!isExists) {
+		        Cookie cookie = new Cookie("eventIndex_" + eventIndex + "_" + sessionID, String.valueOf(eventIndex));
+
+		        cookie.setMaxAge(60 * 60 * 24); // 쿠키 유효 1일
+		        res.addCookie(cookie);
+		        eventService.hitcount(eventIndex);
+		    }
+		}
 		
 		
 		

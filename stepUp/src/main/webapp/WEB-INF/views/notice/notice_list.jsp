@@ -25,7 +25,7 @@
 <%@ include file="../include/header.jsp" %>
     <main><!--메인 시작-->
         <article id="board_contain">
-            <div class="board_title">QnA 게시판</div>
+            <div class="board_title">공지사항 게시판</div>
             <table class="nomal_board">
                 <thead>
                     <tr>
@@ -100,7 +100,7 @@
                     </tr>
                     <tr>
                         <td class="board_search" colspan="5">
-                           <form name="frm" action="<%=request.getContextPath()%>/free/free.do" class="search_select" method="get">
+                           <form name="frm" action="<%=request.getContextPath()%>/notice/notice.do" class="search_select" method="get">
                                 <div>
                                     <select name="searchType" class="search_css">
                                         <option value="title" selected>제목</option>
@@ -108,9 +108,11 @@
                                     </select>
                                     <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
                                     <button class="srch-bt" >검 색</button>
-								<c:if test="${not empty login}">
-                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='notice_write.do'">
-                           		</c:if> 
+									<c:if test="${not empty login }">
+										<c:if test="${login.userGrade == 'A'}">
+											<input type="button" class="board_Write" value="글쓰기" onclick="location.href='notice_write.do'">
+										</c:if>
+									</c:if>
                                 </div>
                             </form>  
                         </td> 
