@@ -82,8 +82,7 @@
    									<input type="hidden" name="freeIndex" value="${rList.freeIndex}">
    									<input class="re_del" type="submit" value="삭제">
 		                        </form>
-								<input class="re_edit" type="button" value="수정" onclick="openPopup(${rList.reIndex})">
-		                        
+								<input class="re_edit" type="button" value="수정" onclick="openPopup(this)">
 		                        <div id="popup">
 								  <form name="editForm" action="re_edit.do" method="post" onsubmit="return confirm('수정하시겠습니까?')">
 								    <p>댓글 수정</p>
@@ -94,24 +93,6 @@
 								    <input class="re_edit" type="button" value="취소" onclick="closePopup(${rList.reIndex})">
 								  </form>
 								</div>
-		                        <script>
-									function openPopup(reIndex) {
-									  // 팝업 열기
-									  document.getElementById("popup").style.display = "block";
-									
-									  // 수정할 댓글 내용 가져오기
-									  var reCnt = document.querySelector("li[data-reIndex='" + reIndex + "'] .re_note").innerHTML.trim();
-									  document.getElementById("re_editCnt").value = reCnt;
-									
-									  // 수정할 댓글 인덱스 설정
-									  document.editForm.reIndex.value = reIndex;
-									}
-									
-									function closePopup() {
-									  // 팝업 닫기
-									  document.getElementById("popup").style.display = "none";
-									}
-							</script>
 	                        </c:if>
 	                    </div>
 	                    <div class="re_note">${rList.reCnt}</div>
@@ -119,6 +100,29 @@
 	            </c:forEach>
             </c:if>
             </ul>
+	         <script>
+	        function openPopup(editBtn) {
+	        	  // 팝업 열기
+	        	  document.getElementById("popup").style.display = "block";
+	
+	        	  // 수정할 댓글 내용 가져오기
+	        	  var li = editBtn.closest('li');
+	        	  var reCnt = li.querySelector('.re_note').innerHTML.trim();
+	        	  var reIndex = li.getAttribute('data-reIndex');
+	        	  document.getElementById("re_editCnt").value = reCnt;
+	
+	        	  // 수정할 댓글 인덱스 설정
+	        	  document.editForm.reIndex.value = reIndex;
+	        	}
+	        function closePopup(reIndex) {
+	        	  // 팝업 닫기
+	        	  document.getElementById("popup").style.display = "none";
+	        	  
+	        	  // 수정 취소 시 원래 댓글 내용으로 변경
+	        	  var originalCnt = document.querySelector("li[data-reIndex='" + reIndex + "'] .re_note").innerHTML.trim();
+	        	  document.getElementById("re_editCnt").value = originalCnt;
+	        	}
+			</script>
         </article>
 	</main>
 <%@ include file="../include/footer.jsp" %>

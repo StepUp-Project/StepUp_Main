@@ -6,7 +6,7 @@
  <mapper namespace="proj.stepUp.mapper.qnaMapper">
  	<select id="selectAll" resultType="QnaVO" parameterType="searchVO">
  		select *
- 			from qna_tb b, user_tb u
+ 			from qna_tb b, user_tb u 
  			where b.userIndex = u.userIndex
  			<if test='searchType != null and searchType eq "title"'>
  				and qnaTitle like concat('%',#{searchValue},'%')
@@ -31,15 +31,16 @@
  	</select>
  	
  	<select id="cntTotal" resultType="QnaVO" parameterType="searchVO">
- 		select count(*) over () as total from qna_tb
+ 		select count(*) over () as total from qna_tb b, user_tb u 
+ 			where b.userIndex = u.userIndex
  			<if test='searchType != null and searchType eq "title"'>
- 				where qnaTitle like concat('%',#{searchValue},'%')
+ 				and qnaTitle like concat('%',#{searchValue},'%')
  			</if>
  			<if test='searchType != null and searchType eq "content"'>
- 				where qnaCnt like concat('%',#{searchValue},'%')
+ 				and qnaCnt like concat('%',#{searchValue},'%')
  			</if>
  			<if test='searchType != null and searchType eq "writer"'>
- 				where userNick like concat('%',#{searchValue},'%')
+ 				and userNick like concat('%',#{searchValue},'%')
  			</if>
  			 			<if test='userIndex != 0'>  
  				where userIndex = #{userIndex}

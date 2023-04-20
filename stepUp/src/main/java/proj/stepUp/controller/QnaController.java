@@ -49,7 +49,7 @@ public class QnaController {
 		
 		model.addAttribute("blist", list);
 		model.addAttribute("paging", paging);
-		
+		model.addAttribute("svo", svo);
 		return "qna/qna_list";
 	}	
 	

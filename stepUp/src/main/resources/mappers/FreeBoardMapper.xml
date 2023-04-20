@@ -31,15 +31,16 @@
  	</select>
  	
  	<select id="cntTotal" resultType="freeBoardVO" parameterType="searchVO">
- 		select count(*) over () as total from free_tb
+ 		select count(*) over () as total from free_tb b, user_tb u 
+ 			where b.userIndex = u.userIndex
  			<if test='searchType != null and searchType eq "title"'>
- 				where freeTitle like concat('%',#{searchValue},'%')
+ 				and freeTitle like concat('%',#{searchValue},'%')
  			</if>
  			<if test='searchType != null and searchType eq "content"'>
- 				where freeCnt like concat('%',#{searchValue},'%')
+ 				and freeCnt like concat('%',#{searchValue},'%')
  			</if>
- 			<if test='searchType != null and searchType eq "writer"'>  
- 				where userNick like concat('%',#{searchValue},'%')
+ 			<if test='searchType != null and searchType eq "writer"'>
+ 				and userNick like concat('%',#{searchValue},'%')
  			</if>
  			<if test='userIndex != 0'>  
  				where userIndex = #{userIndex}
