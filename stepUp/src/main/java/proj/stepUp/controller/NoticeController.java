@@ -44,7 +44,7 @@ public class NoticeController {
 		List<NoticeBoardVO> list = noticeService.list(svo);
 		model.addAttribute("blist", list);
 		model.addAttribute("paging", paging);
-
+		model.addAttribute("svo", svo);
 		return "notice/notice_list";
 	}	
 	

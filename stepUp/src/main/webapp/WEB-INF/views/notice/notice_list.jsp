@@ -4,10 +4,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="proj.stepUp.vo.NoticeBoardVO" %>
+<%@ page import="proj.stepUp.vo.SearchVO" %>
 <%@ page import="java.util.*" %>
 <% 
 	List<NoticeBoardVO> blist = (List<NoticeBoardVO>)request.getAttribute("blist");
 	PagingUtil paging = (PagingUtil)request.getAttribute("paging");
+	SearchVO svo = (SearchVO)request.getAttribute("svo");
 %>
 
 <!DOCTYPE html>
@@ -25,7 +27,7 @@
 <%@ include file="../include/header.jsp" %>
     <main><!--메인 시작-->
         <article id="board_contain">
-            <div class="board_title">QnA 게시판</div>
+            <div class="board_title">공지사항 게시판</div>
             <table class="nomal_board">
                 <thead>
                     <tr>
@@ -71,7 +73,7 @@
 							// 페이징 출력 영역
 							if(paging.getStartPage()> 1){
 						%>
-							<a href="event.do?nowPage=<%= paging.getStartPage()-1%>"> </a>
+							<a href="event.do?nowPage=<%= paging.getStartPage()-1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &lt;&lt; </a>
 						<%		
 							}
 				
@@ -79,7 +81,7 @@
 							
 								if(paging.getNowPage() != i){
 						%>
-							<a href="event.do?nowPage=<%= i %>"> <%= i %> </a>	
+							<a href="event.do?nowPage=<%= i %>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> <%= i %> </a>	
 						<%
 								}else{
 						%>
@@ -91,7 +93,7 @@
 							
 							if(paging.getEndPage() < paging.getLastPage()){
 						%>	
-							<a href="event.do?nowPage=<%= paging.getEndPage()+1%>"> </a>
+							<a href="event.do?nowPage=<%= paging.getEndPage()+1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &gt;&gt; </a>
 						<%
 							}
 						%>
@@ -100,7 +102,7 @@
                     </tr>
                     <tr>
                         <td class="board_search" colspan="5">
-                           <form name="frm" action="<%=request.getContextPath()%>/free/free.do" class="search_select" method="get">
+                           <form name="frm" action="<%=request.getContextPath()%>/notice/notice.do" class="search_select" method="get">
                                 <div>
                                     <select name="searchType" class="search_css">
                                         <option value="title" selected>제목</option>
@@ -108,9 +110,11 @@
                                     </select>
                                     <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
                                     <button class="srch-bt" >검 색</button>
-								<c:if test="${not empty login}">
-                                    <input type="button" class="board_Write" value="글쓰기" onclick="location.href='notice_write.do'">
-                           		</c:if> 
+									<c:if test="${not empty login }">
+										<c:if test="${login.userGrade == 'A'}">
+											<input type="button" class="board_Write" value="글쓰기" onclick="location.href='notice_write.do'">
+										</c:if>
+									</c:if>
                                 </div>
                             </form>  
                         </td> 

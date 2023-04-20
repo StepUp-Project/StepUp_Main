@@ -14,9 +14,6 @@
  			<if test='searchType != null and searchType eq "content"'>
  				and eventCnt like concat('%',#{searchValue},'%')
  			</if>
- 			<if test='searchType != null and searchType eq "writer"'>
- 				and userNick like concat('%',#{searchValue},'%')
- 			</if>
  			order by eventIndex desc
  	</select>
  	
@@ -27,9 +24,6 @@
  			</if>
  			<if test='searchType != null and searchType eq "content"'>
  				where eventCnt like concat('%',#{searchValue},'%')
- 			</if>
- 			<if test='searchType != null and searchType eq "writer"'>
- 				where userNick like concat('%',#{searchValue},'%')
  			</if>
  	</select>
 	

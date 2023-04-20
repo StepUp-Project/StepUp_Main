@@ -49,7 +49,7 @@ public class QnaController {
 		
 		model.addAttribute("blist", list);
 		model.addAttribute("paging", paging);
-		
+		model.addAttribute("svo", svo);
 		return "qna/qna_list";
 	}	
 	
@@ -176,7 +176,7 @@ public class QnaController {
 		if(result>0) {
 			return "redirect:/qna/qna_view.do?qnaIndex="+vo.getQnaIndex();
 		}else {
-			return "redirect:/qna/qna_view.do?qnaIndex="+vo.getQnaIndex()+"&updateYN=N";
+			return "redirect:/qna/qna_view.do?qnaIndex="+vo.getQnaIndex();
 		}
 	}
 	
