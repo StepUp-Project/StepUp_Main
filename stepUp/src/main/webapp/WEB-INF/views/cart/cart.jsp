@@ -51,7 +51,9 @@
                 <c:forEach var="vo" items="${clist}">
                    <tr class="cart-menu">
                     	<input type="hidden" value="${vo.cartIndex}" name="cart_hid">
-						<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
+			<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
+			<input type="hidden" name="sizeIndexs" value="${vo.sizeIndex}"/>
+			<input type="hidden" id="cart_${vo.cartIndex}" value="${vo.sizeStock}"/>
                         <th class="th1">
 	                        <div>
 	                        	<input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true">
@@ -67,7 +69,7 @@
                         <th class="th3 th5">
 	                        <div>
 		                        <button type="button" onclick="decrease(${vo.cartIndex})">&#45;</button>
-		                        <input type="text" name="cartStock" id="quantity_${vo.cartIndex}" value="${vo.cartStock}" oninput="this.value = this.value.replace(/[^0-9]/g, ''); totalPrice(${vo.cartIndex});" min="1" max="${vo.sizeStock}">
+		                        <input type="text" name="cartStock" id="quantity_${vo.cartIndex}" value="${vo.cartStock}" oninput="this.value = Math.min(Math.max(this.value.replace(/[^0-9]/g, ''), 1), ${vo.sizeStock}); totalPrice(${vo.cartIndex});" min="1" max="${vo.sizeStock}">
 		                        <button type="button" onclick="increase(${vo.cartIndex})">&#43;</button>
 	                        </div>
                         </th>
@@ -86,8 +88,8 @@
                 </tfoot>
             </table>
            	<div class="cart-button">
-		    <a href="<%=request.getContextPath()%>/index.do"><!--메인페이지로 이동-->쇼핑 계속하기</a>
-		    <a href="#" onclick="goPayment()"><!--결제 API연결 필요-->결제하기</a>
+		    <a href="<%=request.getContextPath()%>/index.do">쇼핑 계속하기</a>
+		    <a href="#" onclick="goPayment()">결제하기</a>
 		</div>
 		<form action="<%=request.getContextPath()%>/order/payment.do" id="payFrm" method="get">
         	<input type="hidden" name="sizeIndex" id="sizeIndexPay" value=""/>
@@ -108,9 +110,9 @@
 			})
 		}
 		
-        //수량조작
-        //마이너스
-        function decrease(cartindex) {
+          //수량조작
+          //마이너스
+          function decrease(cartindex) {
             const quantity = document.getElementById('quantity_'+cartindex);
             if (quantity.value > 1) {
             	quantity.value = parseInt(quantity.value) - 1;
@@ -121,7 +123,10 @@
           //플러스
           function increase(cartindex) {
         	const quantity = document.getElementById('quantity_'+cartindex);
-        	if(quantity.value < 10){
+        	const cart_sizeStock = document.getElementById('cart_'+cartindex);
+        	if(quantity.value == cart_sizeStock.value){
+        		alert("선택가능 한 최대 수량입니다.");
+        	}else if(quantity.value < cart_sizeStock){
         		quantity.value = parseInt(quantity.value) + 1;
         	}
         	totalPrice(cartindex);
@@ -149,7 +154,7 @@
 				  })
 			  }       	
           	const mainPriceElement = document.getElementById('mainPrice');
-			mainPriceElement.innerText = new Intl.NumberFormat('ko-kr').format(mainprice) + "원";
+		mainPriceElement.innerText = new Intl.NumberFormat('ko-kr').format(mainprice) + "원";
           }
 	  //체크박스 선택
           let allChecked = true;
@@ -159,7 +164,7 @@
         	  i.addEventListener('change', function(){
         		  mainPrice();
         		  if(!i.checked){
-        			  checkboxAll.checked = false;
+        		  	checkboxAll.checked = false;
         		  }
         	  })
           })
@@ -179,27 +184,26 @@
           
         	  }
 			
-	  	    function goPayment(){
-		    	let userIndex =  "<c:out value='${login.userIndex}'/>";
-		    	let sizeIndex = [];
-		    	let sizeStock = [];
-		    	const sIndex = document.querySelectorAll("input[name=sizeIndexs]");
-		    	sIndex.forEach(function(sIndex) {
-		    		sizeIndex.push(sIndex.value);
-		    	});
-		    	const selectedSizes = document.querySelectorAll('input[name="cartStock"]');
-		    	if (selectedSizes.length !== 0) {
-			    	selectedSizes.forEach(function(size){
-			    		sizeStock.push(size.value);
-			    	});
-		    	}
-	
-		    	$("#userIndexPay").val(userIndex);
-		    	$("#sizeIndexPay").val(sizeIndex);
-		    	$("#sizeStockPay").val(sizeStock);
-		    	$("#payFrm").submit();
-		    }          
-		mainPrice();
+	  function goPayment(){
+	  let userIndex =  "<c:out value='${login.userIndex}'/>";
+	  let sizeIndex = [];
+	  let sizeStock = [];
+	  const sIndex = document.querySelectorAll("input[name=sizeIndexs]");
+	  sIndex.forEach(function(sIndex) {
+	  sizeIndex.push(sIndex.value);
+	  });
+	  const selectedSizes = document.querySelectorAll('input[name="cartStock"]');
+	  if (selectedSizes.length !== 0) {
+	  selectedSizes.forEach(function(size){
+		sizeStock.push(size.value);
+	  });
+	  }
+	  $("#userIndexPay").val(userIndex);
+	  $("#sizeIndexPay").val(sizeIndex);
+	  $("#sizeStockPay").val(sizeStock);
+	  $("#payFrm").submit();
+	  }          
+	  mainPrice();
    	</script>
 </body>
 </html>
