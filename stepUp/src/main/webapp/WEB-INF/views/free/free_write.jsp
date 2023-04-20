@@ -28,7 +28,7 @@
                 <textarea id="summernote"  name="freeCnt"></textarea>
                 <div id="board_button">
                     <input type="submit" value="저 장" onclick="return confirm('저장하시겠습니까?')">
-                    <input type="button" class="board_btn" value="돌아가기" onclick="location.href='free.do'">
+                    <input type="button" value="돌아가기" onclick="location.href='free.do'">
                 </div>
             </form>
         </article> 

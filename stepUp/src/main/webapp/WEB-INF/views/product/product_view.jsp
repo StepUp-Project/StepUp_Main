@@ -260,8 +260,6 @@
 					}
 		            
 		        };
-
-		    
 		
 		function increaseQuantity(size, sizeStock) {
 			let stockNum = parseInt($('#quantity_'+size+'').val());
@@ -301,7 +299,8 @@
 				let pri = te.replace(/,/g, '').replace(/ 원/g, '');
 				totla += parseInt(pri);
 			})
-			let pricaeTotal = "총 금액 : " + totla + " 원";
+			let price1 = new Intl.NumberFormat('ko-kr').format(totla);
+			let pricaeTotal = "총 금액 : " + price1 + " 원";
 			if(itemPrice.length == 0){
 				pricaeTotal = "";
 			}
@@ -327,6 +326,7 @@
 	    			data:{userIndex : userIndex , prdIndex : prdIndex},
 	    			success : function(){
 	    				$("#mark").attr("class", "xi-heart");
+	    				alert("관심목록에 추가되었습니다.");
 	    			}
 	    		});
 	    	}else if($("#mark").hasClass("xi-heart")){

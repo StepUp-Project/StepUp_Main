@@ -11,8 +11,8 @@
                 <c:if test="${not empty login}">
                 	<a href="#"><i class="xi-user-o"></i></a>
                 </c:if>
+                <c:if test="${not empty login}">
                 <div class="sub">
-                    <c:if test="${not empty login}">
                     <ul><!-- 서브메뉴 -->
                         <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_order.do">주문배송조회</a></li>
                         <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_like.do">관심있는 상품</a></li>
@@ -24,8 +24,8 @@
                         <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_modify_check.do">개인정보수정</a></li>
                         <li><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></li>
                     </ul>
-                    </c:if>
                 </div><!--//.sub-->
+                </c:if>
             </li>
             <li>
             	<c:if test="${empty login}">
@@ -79,8 +79,6 @@
                         <a href="#">COMMUNITY</a>
                         <ul class="mt-5"><!--sub 네비게이션 -->
                             <li><a href="<%=request.getContextPath()%>/free/free.do">자유게시판</a></li>
-                            <li><a href="#">중고거래</a></li>
-                            <li><a href="#">경매</a></li>
                         </ul><!--sub 네비게이션 -->
                     </li>
                     <li>
