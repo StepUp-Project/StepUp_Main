@@ -16,14 +16,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import proj.stepUp.service.FreeService;
+import proj.stepUp.service.MarkService;
+import proj.stepUp.service.ProductService;
 import proj.stepUp.service.QnaService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.KakaoLogin;
 import proj.stepUp.util.NaverLogin;
 import proj.stepUp.util.PagingUtil;
 import proj.stepUp.vo.FreeBoardVO;
+import proj.stepUp.vo.MarkVO;
+import proj.stepUp.vo.ProductImgVO;
+import proj.stepUp.vo.ProductVO;
 import proj.stepUp.vo.QnaVO;
+import proj.stepUp.vo.ReviewVO;
 import proj.stepUp.vo.SearchVO;
+import proj.stepUp.vo.SizeVO;
 import proj.stepUp.vo.UserVO;
 
 @RequestMapping(value="/user")
@@ -36,6 +43,10 @@ public class UserController {
 	private FreeService freeService;
 	@Autowired
 	private QnaService qnaService;
+	@Autowired
+	private MarkService markService;
+	@Autowired
+	private ProductService productService;
 	
 	
 	@RequestMapping(value="/join_terms.do", method = RequestMethod.GET)
@@ -456,9 +467,37 @@ public class UserController {
 	
 	//mypage 관심목록
 	@RequestMapping(value="/mypage_like.do", method = RequestMethod.GET)
-	public String mylike(UserVO vo) {
+	public String mylike(Model model, HttpServletRequest req, SearchVO svo) {
+		
+		//페이지
+		int nowPage = 1;
+		if(svo.getNowPage() != 0 ) {
+			nowPage = svo.getNowPage();
+		}
+		List<MarkVO> cntTotal = markService.cntTotal(svo);
+		int totalCnt = 0;
+		if(cntTotal.size()>0) {
+			totalCnt = cntTotal.get(0).getTotal();
+		}
+		
+		PagingUtil paging = new PagingUtil(totalCnt, nowPage, 10);
+		
+		//리스트
+		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
+		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
+		
+		List<MarkVO> list = markService.marklist(loginUser.getUserIndex());
+		
+		
+		model.addAttribute("blist", list);
+		model.addAttribute("paging", paging);
+
 		return "user/mypage_like";
 	}
+		
+		
+		
+		
 	
 
 	//mypage 리뷰

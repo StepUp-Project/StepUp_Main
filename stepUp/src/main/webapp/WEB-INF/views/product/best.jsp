@@ -22,13 +22,13 @@
                 <h2>BEST</h2>
             </div>
             <div>
-                <ul id="cnt_list">
+                <ul id="cnt_list" style="border: 1px solid red;">
 	               	<c:set var="rank" value="1"/>
 	               	<c:forEach var="bestPrd" items="${bestProduct}">                   
 	               	<c:set var="bestBrandCode" value="${fn:substring(bestPrd.prdCode,0,2)}"/>
-	                    <li class="cnt_info">
+	                    <li class="cnt_info" style="border: 1px solid lime;">
 	                        <div class="best-rank">
-	                            <span>${rank}</span>
+	                            <span style="border: 1px solid blue;">${rank}</span>
 	                        </div>
 	                        <c:set var="rank" value="${rank+1}"/>
 	                        <a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${bestPrd.prdIndex}">
@@ -50,7 +50,7 @@
 	                        </a>
 	                    </li>
 	                </c:forEach>
-                </ul>     
+                </ul>
             </div>
         </div>
         <div class="best-badage" id="bestright">

@@ -17,6 +17,10 @@
  			<if test='searchType != null and searchType eq "writer"'>
  				and userNick like concat('%',#{searchValue},'%')
  			</if>
+ 			<if test='userIndex != 0'>  
+ 				and userIndex = #{userIndex}
+ 			</if>
+ 			order by qnaIndex desc
  	</select>
  	
  	<select id="userQna" resultType="QnaVO" parameterType="int">
@@ -37,6 +41,9 @@
  			</if>
  			<if test='searchType != null and searchType eq "writer"'>
  				and userNick like concat('%',#{searchValue},'%')
+ 			</if>
+ 			 			<if test='userIndex != 0'>  
+ 				where userIndex = #{userIndex}
  			</if>
  	</select>
 	

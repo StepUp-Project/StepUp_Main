@@ -1,10 +1,14 @@
 package proj.stepUp.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import proj.stepUp.vo.MarkVO;
+import proj.stepUp.vo.SearchVO;
+import proj.stepUp.vo.UserVO;
 
 @Repository
 public class MarkDAO {
@@ -22,5 +26,13 @@ public class MarkDAO {
 	
 	public MarkVO selectMarkByAll(MarkVO vo) {//찜목록 조획
 		return sqlSession.selectOne("proj.stepUp.mapper.markMapper.selectMarkByAll", vo);
+	}
+	
+	public List<MarkVO> marklist(int userIndex){
+		return sqlSession.selectList("proj.stepUp.mapper.markMapper.marklist", userIndex);
+	}
+
+	public List<MarkVO> cntTotal(SearchVO svo) {
+		return sqlSession.selectList("proj.stepUp.mapper.markMapper.marklist", svo);
 	}
 }

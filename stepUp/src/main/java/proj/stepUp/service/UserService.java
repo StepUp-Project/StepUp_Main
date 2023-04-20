@@ -1,5 +1,8 @@
 package proj.stepUp.service;
 
+import java.util.List;
+
+import proj.stepUp.vo.SearchVO;
 import proj.stepUp.vo.UserVO;
 
 public interface UserService {
@@ -19,4 +22,5 @@ public interface UserService {
 	public UserVO findPw(UserVO vo);
 	public UserVO selectIndex(int userIndex);
 	public int chgPw(UserVO vo);
+	public List<UserVO> cntTotal(SearchVO svo);
 }
