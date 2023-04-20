@@ -8,16 +8,24 @@
   		insert into cart_tb (cartStock, userIndex, sizeIndex) values(#{cartStock}, #{userIndex}, #{sizeIndex})
   	</insert>
   	
-	<select id="selectAll" resultType="CartVO" parameterType="int">
+	<select id="selectAll" resultType="cartVO" parameterType="int">
 		SELECT * FROM cart_tb c
 			LEFT JOIN size_tb s ON c.sizeIndex = s.sizeIndex
             left join product_tb p ON p.prdIndex = s.prdIndex
             where c.userIndex = #{userIndex}
 	</select>
 	
-	<delete id="deleteCart" parameterType="int">
+	<delete id="deleteCart" parameterType="cartVO">
 		DELETE FROM cart_tb 
-		WHERE cartIndex = #{cartIndex}
+		WHERE 1 = 1
+		<choose>
+			<when test="cartIndex != 0">
+				and cartIndex = #{cartIndex}
+			</when>
+			<otherwise>
+				and userIndex = #{userIndex} and sizeIndex = #{sizeIndex}
+			</otherwise>
+		</choose>		
 	</delete>
 	
 	<select id="selectCheck" parameterType="cartVO" resultType="int">

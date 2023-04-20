@@ -22,8 +22,8 @@ public class CartDAO {
 		return sqlSession.selectList("proj.stepUp.mapper.cartMapper.selectAll", userIndex);
 	}
 	
-	public int deleteCart(int cartIndex) {
-		return sqlSession.delete("proj.stepUp.mapper.cartMapper.deleteCart", cartIndex);
+	public int deleteCart(CartVO vo) {
+		return sqlSession.delete("proj.stepUp.mapper.cartMapper.deleteCart", vo);
 	}
 	
 	public int selectCheck(CartVO vo) {

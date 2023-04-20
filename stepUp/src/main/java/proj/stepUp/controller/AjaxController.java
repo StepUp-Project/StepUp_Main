@@ -77,7 +77,7 @@ public class AjaxController {
 	@ResponseBody
 	@RequestMapping(value="/checkNick.do", method = RequestMethod.POST)
 	public String checkNick(String userNick){
-		int result = userService.checkNick(userNick);	
+		int result = userService.checkNick(userNick);
 		if(result > 0) {
 			return "failse";
 		}else {
@@ -259,28 +259,29 @@ public class AjaxController {
 		@ResponseBody
 		@RequestMapping(value="/createOrder.do", method = RequestMethod.POST)	
 		public String createOrder(String imp_uid, String merchant_uid, int totalPrice, int userIndex,
-				int[] sizeindex, int[] orderitemStock, OrderItemVO oiVO
+				int[] sizeindex, int[] orderitemStock, OrderItemVO oiVO, CartVO cartVO
 				) {
 			String success = "0";
-			System.out.println(sizeindex);//매개변수 넘어왔는지 체크 넘어 왔을시 주소값 들어있음(정상 작동시 삭제 요망)
-			System.out.println(orderitemStock);//매개변수 넘어왔는지 체크 넘어 왔을시 주소값 들어있음(정상 작동시 삭제 요망)
 			PaymentUtil paymentUtil = new PaymentUtil();
 			String accessToken = paymentUtil.getAccessToken();//엑세스 토큰 발급
 			OrderVO vo = paymentUtil.paymentHistory(imp_uid, accessToken, totalPrice);
 			vo.setUserIndex(userIndex);
+			cartVO.setUserIndex(userIndex);
 			int orderIndex = orderService.insertOrder(vo);
 			
 			oiVO.setOrderIndex(vo.getOrderIndex());
 			for(int i = 0; i < sizeindex.length; i++) {
 				oiVO.setSizeIndex(sizeindex[i]);
 				oiVO.setOrderItemStock(orderitemStock[i]);
-				System.out.println(oiVO.getOrderIndex());//주문번호 인덱스(정상 작동시 삭제 요망)
-				System.out.println(oiVO.getOrderItemStock());//주문 수향(정상 작동시 삭제 요망)
-				System.out.println(oiVO.getSizeIndex());//상품 사이즈 인덱스(정상 작동시 삭제 요망)
+				cartVO.setSizeIndex(sizeindex[i]);
 				
 				int result = orderItemService.insertOrderItem(oiVO);
+				int subtract = sizeService.updateSubtract(oiVO);
+				int delCart = cartService.deleteCart(cartVO);
 				if(result != 1) {
 					success = "1";
+				}else {
+					success = "0";
 				}
 			}
 			

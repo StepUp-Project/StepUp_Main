@@ -287,7 +287,7 @@
                 	},
                 	success:function(data){
                 		if(data == 0){
-                			alter("결제가 완료되었습니다.");
+                			location.href="<%=request.getContextPath()%>/order/paymentOk.do";
                 		}
                 	}
                 });

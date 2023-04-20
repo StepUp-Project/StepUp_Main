@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import proj.stepUp.vo.OrderItemVO;
 import proj.stepUp.vo.SizeVO;
 
 @Repository
@@ -28,5 +29,9 @@ public class SizeDAO {
 	
 	public SizeVO selectSizeIndex(int sizeIndex) {
 		return sqlSession.selectOne("proj.stepUp.mapper.sizeMapper.selectSizeIndex", sizeIndex);
+	}
+	
+	public int updateSubtract(OrderItemVO oiVO) {
+		return sqlSession.update("proj.stepUp.mapper.sizeMapper.updateSubtract", oiVO);
 	}
 }

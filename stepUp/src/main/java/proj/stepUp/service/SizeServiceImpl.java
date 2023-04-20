@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import proj.stepUp.dao.SizeDAO;
+import proj.stepUp.vo.OrderItemVO;
 import proj.stepUp.vo.SizeVO;
 
 @Service
@@ -33,6 +34,11 @@ public class SizeServiceImpl implements SizeService{
 	@Override
 	public SizeVO selectSizeIndex(int sizeIndex) {
 		return sizeDAO.selectSizeIndex(sizeIndex);
+	}
+
+	@Override
+	public int updateSubtract(OrderItemVO oiVO) {
+		return sizeDAO.updateSubtract(oiVO);
 	}
 
 }

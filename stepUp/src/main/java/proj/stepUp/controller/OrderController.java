@@ -75,7 +75,7 @@ public class OrderController {
 		
 		return "order/user";
 	}
-		
+	
 	@RequestMapping(value = "userOrderInfo.do", method = RequestMethod.GET)
 	public String userOrderInfo(int orderIndex, Model model) {
 		OrderVO orderVO = orederService.selectByOrderIndex(orderIndex);
@@ -84,5 +84,11 @@ public class OrderController {
 		model.addAttribute("orderItemVO", orderItemVO);
 		
 		return "order/user_order_info";
+	}
+	
+	@RequestMapping(value = "paymentOk.do", method = RequestMethod.GET)
+	public String paymentOk() {		
+		
+		return "order/paymentOk";
 	}
 }

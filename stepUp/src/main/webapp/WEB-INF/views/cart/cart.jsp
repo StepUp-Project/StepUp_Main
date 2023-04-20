@@ -49,11 +49,11 @@
 	                </tr>
                 </c:if>
                 <c:forEach var="vo" items="${clist}">
-                   <tr class="cart-menu">
-                    	<input type="hidden" value="${vo.cartIndex}" name="cart_hid">
-			<input type="hidden" value="${vo.prdIndex}" name="cart_prd">
-			<input type="hidden" name="sizeIndexs" value="${vo.sizeIndex}"/>
-			<input type="hidden" id="cart_${vo.cartIndex}" value="${vo.sizeStock}"/>
+                   <tr class="cart-menu" name="trWrap">
+                    	<input type="hidden" value="${vo.cartIndex}" name="cart_hid"/>
+						<input type="hidden" value="${vo.prdIndex}" name="cart_prd"/>
+						<input type="hidden" name="sizeIndexs" value="${vo.sizeIndex}"/>
+						<input type="hidden" id="cart_${vo.cartIndex}" value="${vo.sizeStock}"/>
                         <th class="th1">
 	                        <div>
 	                        	<input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true">
@@ -77,7 +77,6 @@
                         <th class="th3"><!--고정--><div>무료배송</div></th>
                         <th class="th3 th4"><div><input type="button" value="삭제하기" onclick="del(${vo.cartIndex})"></div></th>
                     </tr>
-                    <input type="hidden" name="sizeIndexs" value="${vo.sizeIndex}" />
                 </c:forEach>
                 </tbody><!--장바구니 상품 표시 끝-->
                 <tfoot>
@@ -150,6 +149,7 @@
 			  let mainprice = 0;
         	  if(cartcheck.length != 0){
 				  cartcheck.forEach(function(i){
+					  console.log(i.value)
 					  mainprice += parseInt(i.value);
 				  })
 			  }       	
@@ -188,22 +188,23 @@
 	  let userIndex =  "<c:out value='${login.userIndex}'/>";
 	  let sizeIndex = [];
 	  let sizeStock = [];
-	  const sIndex = document.querySelectorAll("input[name=sizeIndexs]");
-	  sIndex.forEach(function(sIndex) {
-	  sizeIndex.push(sIndex.value);
-	  });
-	  const selectedSizes = document.querySelectorAll('input[name="cartStock"]');
-	  if (selectedSizes.length !== 0) {
-	  selectedSizes.forEach(function(size){
-		sizeStock.push(size.value);
-	  });
-	  }
+	  let trWrap = document.querySelectorAll("tr[name=trWrap]");
+	  if(trWrap.length != 0){
+		  trWrap.forEach(function(i){
+			  if(i.querySelector('input[name=cart_check]').checked){
+				let size = i.querySelector('input[name=sizeIndexs]').value;
+				let stock = i.querySelector('input[name=cartStock]').value;
+				sizeIndex.push(size);
+				sizeStock.push(stock);
+			  }
+		  })
+	  }  
 	  $("#userIndexPay").val(userIndex);
 	  $("#sizeIndexPay").val(sizeIndex);
 	  $("#sizeStockPay").val(sizeStock);
 	  $("#payFrm").submit();
 	  }          
-	  mainPrice();
+	  mainPrice(); 
    	</script>
 </body>
 </html>

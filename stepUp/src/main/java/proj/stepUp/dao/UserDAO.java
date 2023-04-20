@@ -22,7 +22,7 @@ public class UserDAO {
 	
 	public int checkNick(String userNick) {
 		
-		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.checkId", userNick);
+		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.checkNick", userNick);
 	}
 	
 	public int insertUser(UserVO vo) {
