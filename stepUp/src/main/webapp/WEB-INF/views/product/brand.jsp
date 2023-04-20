@@ -206,16 +206,16 @@
 <%@ include file="../include/header.jsp" %>
     <main id="newjsp"><!--메인 시작-->
         <div class="new-banner-area d-flex" id="new-banner">
-            <a href="#">
+            <a>
                 <div class="newlogo"></div>
             </a>
-            <a href="#">
+            <a>
                 <div class="newlogo"></div>
             </a>
-            <a href="#">
+            <a>
                 <div class="newlogo"></div>
             </a>
-            <a href="#">
+            <a>
                 <div class="newlogo"></div>
             </a>
         </div>
