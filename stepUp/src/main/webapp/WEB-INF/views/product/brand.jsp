@@ -12,195 +12,7 @@
     <title>brand</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-        <style type="text/css"><!-- 추후 css 페이지로 옴길것! -->
-.price-range-slider {
-            width: 100%;
-            border: 0;
-            padding: 0;
-            margin: 0 auto;
-            padding: 11px 20px;
-        }
-
-        .price-wrap {
-            display: flex;
-            padding: 1em 0;
-            justify-content: space-between;
-            font-size: 0.9em;
-            color: #BCBCBC;
-        }
-
-        .price-range-slider .price-field {
-            position: relative;
-            width: 100%;
-            height: auto;
-            box-sizing: border-box;
-        }
-
-        .price-range-slider .price-field input[type=range] {
-            position: absolute;
-        }
-
-        /* Reset style for input range */
-
-        .price-range-slider .price-field input[type=range] {
-            width: 100%;
-            height: 7px;
-            outline: 0;
-            box-sizing: border-box;
-            pointer-events: none;
-            -webkit-appearance: none;
-        }
-
-        .price-range-slider .price-field input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-        }
-
-        .price-range-slider .price-field input[type=range]:active,
-        .price-range-slider .price-field input[type=range]:focus {
-            outline: 0;
-        }
-
-        .price-range-slider .price-field input[type=range]::-ms-track {
-            width: 100%;
-            border: 0;
-            outline: 0;
-            box-sizing: border-box;
-            border-radius: 5px;
-            pointer-events: none;
-            background: transparent;
-            border-color: transparent;
-        }
-
-        /* Style toddler input range */
-
-        .price-range-slider .price-field input[type=range]::-webkit-slider-thumb {
-            /* WebKit/Blink */
-            position: relative;
-            -webkit-appearance: none;
-            margin: 0;
-            border: 0;
-            outline: 0;
-            border-radius: 50%;
-            height: 25px;
-            width: 25px;
-            margin-top: -10px;
-            background-color: #fff;
-            cursor: pointer;
-            cursor: pointer;
-            pointer-events: all;
-            z-index: 100;
-            border: 1px solid #95989A;
-        }
-
-        .price-range-slider .price-field input[type=range]::-moz-range-thumb {
-            /* Firefox */
-            position: relative;
-            appearance: none;
-            margin: 0;
-            border: 0;
-            outline: 0;
-            border-radius: 50%;
-            height: 25px;
-            width: 25px;
-            margin-top: -10px;
-            background-color: #fff;
-            cursor: pointer;
-            cursor: pointer;
-            pointer-events: all;
-            z-index: 100;
-            border: 1px solid #95989A;
-        }
-
-        .price-range-slider .price-field input[type=range]::-ms-thumb {
-            /* IE */
-            position: relative;
-            appearance: none;
-            margin: 0;
-            border: 0;
-            outline: 0;
-            border-radius: 50%;
-            height: 25px;
-            width: 25px;
-            margin-top: -10px;
-            background-color: #242424;
-            cursor: pointer;
-            cursor: pointer;
-            pointer-events: all;
-            z-index: 100;
-            border: 1px solid #95989A;
-        }
-
-        /* Style track input range */
-        .price-range-slider .price-field input[type=range]::-webkit-slider-runnable-track {
-            /* WebKit/Blink */
-            width: 100%;
-            height: 5px;
-            cursor: pointer;
-            background: #2D2E2F;
-            border-radius: 100px;
-        }
-
-        .price-range-slider .price-field input[type=range]::-moz-range-track {
-            /* Firefox */
-            width: 100%;
-            height: 15px;
-            cursor: pointer;
-            background: #242424;
-            border-radius: 100px;
-        }
-
-        .price-range-slider .price-field input[type=range]::-ms-track {
-            /* IE */
-            width: 100%;
-            height: 15px;
-            cursor: pointer;
-            background: #242424;
-            border-radius: 100px;
-        }
-
-        /* Style for input value block */
-        .price-range-slider .price-wrap .price-min,
-        .price-range-slider .price-wrap .price-max {
-            pointer-events: none;
-        }
-
-        .price-range-slider .price-wrap #price-min,
-        .price-range-slider .price-wrap #price-max {
-            margin: 0;
-            padding: 0;
-            background: 0;
-            border: 0;
-            outline: 0;
-            color: #BCBCBC;
-            font-family: 'Arboria';
-            font-size: 1em;
-            width: 100%;
-            pointer-events: none;
-            text-align: right;
-            width: 30%;
-            
-        }
-
-        /* Style for active state input */
-
-        .price-range-slider .price-field input[type=range]:hover::-webkit-slider-thumb {
-            box-shadow: 0 0 0 0.5px #242424;
-            transition-duration: 0.3s;
-        }
-
-        .price-range-slider .price-field input[type=range]:active::-webkit-slider-thumb {
-            box-shadow: 0 0 0 0.5px #242424;
-            transition-duration: 0.3s;
-        }
-        .w-7{
-        	width:7%;
-        }
-        .sbtn{
-        	height:4%;
-        	width:22%;
-        }
-    </style>   
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->   
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>
@@ -222,7 +34,7 @@
 
         <ul id="brandlist">
             <li class="brandlogo">
-                <a href="#"><p class="bl_img" onclick="colorchange()" id="colall"></p></a>
+                <a href="<%=request.getContextPath()%>/product/brand.do"><p class="bl_img" onclick="colorchange()" id="colall"></p></a>
             </li>
             <li class="brandlogo">
                 <a href="<%=request.getContextPath()%>/product/brand.do?searchType=NK"><p class="bl_img"></p></a>
@@ -371,7 +183,7 @@
         </div>
     </main><!--메인 끝-->
 <%@ include file="../include/footer.jsp" %>
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script><!-- swiper JS 연결 -->
     <script>
     	//range(가격 검색)관련 스크립트
