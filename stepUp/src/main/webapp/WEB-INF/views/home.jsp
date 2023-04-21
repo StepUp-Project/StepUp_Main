@@ -32,7 +32,7 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
-<a href="<%=request.getContextPath()%>/user/join.do">회원가입 테스트 이동!</a>
+<a href="<%=request.getContextPath()%>/user/join_terms.do">회원가입 테스트 이동!</a>
 <a href="<%=request.getContextPath()%>/user/login.do">로그인 테스트 이동!</a>
 <a href="<%=request.getContextPath()%>/location.do">위치 테스트 이동!</a>
 <a href="<%=request.getContextPath()%>/weare.do">소개 페이지  이동!</a>
@@ -44,6 +44,10 @@
 <a href="<%=request.getContextPath()%>/product/test.do">상품등록 확인 테스트!</a>
 <a href="<%=request.getContextPath()%>/cart/cart.do">장바구니 확인 테스트!</a>	
 <a href="<%=request.getContextPath()%>/admin.do">관리자 페이지 테스트!</a>
+<a href="<%=request.getContextPath()%>/product/management.do">상품관리 페이지 테스트</a>
+<a href="<%=request.getContextPath()%>/order/managerOrder.do">관리자 주문내역 테스트</a>
+<a href="<%=request.getContextPath()%>/order/payment.do">상품결제</a>
+<a href="<%=request.getContextPath()%>/order/user.do?userIndex=${login.userIndex}">유저 주문내역</a>
 <a href="https://kauth.kakao.com/oauth/logout?client_id=0575c28de27e26d54b189d1b04528e6b&logout_redirect_uri=http://localhost:8080/controller/user/logout.do">카카오 로그아웃</a>
 <a href="#" onclick="logout()">로그아웃</a>
 <c:if test="${not empty login}">

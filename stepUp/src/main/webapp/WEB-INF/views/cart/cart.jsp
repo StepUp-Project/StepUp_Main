@@ -51,9 +51,9 @@
                 <c:forEach var="vo" items="${clist}">
                    <tr class="cart-menu" name="trWrap">
                     	<input type="hidden" value="${vo.cartIndex}" name="cart_hid"/>
-						<input type="hidden" value="${vo.prdIndex}" name="cart_prd"/>
-						<input type="hidden" name="sizeIndexs" value="${vo.sizeIndex}"/>
-						<input type="hidden" id="cart_${vo.cartIndex}" value="${vo.sizeStock}"/>
+			<input type="hidden" value="${vo.prdIndex}" name="cart_prd"/>
+			<input type="hidden" name="sizeIndexs" value="${vo.sizeIndex}"/>
+			<input type="hidden" id="cart_${vo.cartIndex}" value="${vo.sizeStock}"/>
                         <th class="th1">
 	                        <div>
 	                        	<input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true">
