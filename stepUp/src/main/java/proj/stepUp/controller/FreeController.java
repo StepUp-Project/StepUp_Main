@@ -82,17 +82,14 @@ public class FreeController {
 		
 		return "redirect:/free/free_view.do?freeIndex="+vo.getFreeIndex();
 	}
-	
+
 	@RequestMapping(value="/free_view.do", method = RequestMethod.GET)
 	public String freeview(int freeIndex, Model model, HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession();
 		UserVO loginUserVO = (UserVO)session.getAttribute("login");
-		
-		
+
 		Cookie[] cookies = req.getCookies();
 		boolean isExists = false;
-		String sessionID = req.getSession().getId(); // 사용자의 세션 ID를 가져옴
-
 		if (loginUserVO == null) {
 		    if (cookies != null) {
 		        for (Cookie cookie : cookies) {
@@ -105,14 +102,15 @@ public class FreeController {
 		    // 쿠키 생성 후 조회수 증가
 		    if (!isExists) {
 		        Cookie cookie = new Cookie("freeIndex_" + freeIndex, String.valueOf(freeIndex));
-
 		        cookie.setMaxAge(60 * 60 * 24); // 쿠키 유효 1일
 		        res.addCookie(cookie);
 		        freeService.hitcount(freeIndex);
 		    }
 		}
 		if (loginUserVO != null) {
+			String sessionID = loginUserVO.getUserId(); // 사용자의 세션 ID를 가져옴
 		    if (cookies != null) {
+				System.out.println("sessionID::::"+sessionID);
 		        for (Cookie cookie : cookies) {
 		            if (cookie.getName().equals("freeIndex_" + freeIndex + "_" + sessionID)) {
 		                isExists = true;
@@ -122,6 +120,7 @@ public class FreeController {
 		    }
 		    // 쿠키 생성 후 조회수 증가
 		    if (!isExists) {
+		    	System.out.println("sessionID::::"+sessionID);
 		        Cookie cookie = new Cookie("freeIndex_" + freeIndex + "_" + sessionID, String.valueOf(freeIndex));
 
 		        cookie.setMaxAge(60 * 60 * 24); // 쿠키 유효 1일
