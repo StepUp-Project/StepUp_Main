@@ -73,7 +73,7 @@
 							// 페이징 출력 영역
 							if(paging.getStartPage()> 1){
 						%>
-							<a href="event.do?nowPage=<%= paging.getStartPage()-1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &lt;&lt; </a>
+							<a href="notice.do?nowPage=<%= paging.getStartPage()-1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &lt;&lt; </a>
 						<%		
 							}
 				
@@ -81,7 +81,7 @@
 							
 								if(paging.getNowPage() != i){
 						%>
-							<a href="event.do?nowPage=<%= i %>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> <%= i %> </a>	
+							<a href="notice.do?nowPage=<%= i %>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> <%= i %> </a>	
 						<%
 								}else{
 						%>
@@ -90,10 +90,9 @@
 						<%	
 								}
 							}
-							
 							if(paging.getEndPage() < paging.getLastPage()){
 						%>	
-							<a href="event.do?nowPage=<%= paging.getEndPage()+1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &gt;&gt; </a>
+							<a href="notice.do?nowPage=<%= paging.getEndPage()+1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &gt;&gt; </a>
 						<%
 							}
 						%>
