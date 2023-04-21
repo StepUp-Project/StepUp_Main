@@ -25,7 +25,7 @@
     <main><!--메인 시작-->
         <div class="jointermslogo">
             <h1 class="jointerms_title">
-                <a href="/">
+                <a href="<%=request.getContextPath() %>/index.do">
                     <img src="<%=request.getContextPath()%>/resources/image/kickshublogo.png" alt="kickshub">
                 </a>
             </h1>
@@ -314,6 +314,7 @@
 	      			type: "post",
 	      			data:{userNick : UserNick},
 	      			success:function(data){
+	      				console.log(data);
 	   					if(data != "failse"){
 	      					let html = "사용가능한 닉네임 입니다."
 	      					let checkIdResult = document.getElementById("checkNickResult");

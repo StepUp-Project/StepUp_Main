@@ -222,7 +222,6 @@
 	    };
 	    
 	    function searchPrdList(nowPage){//상품 리스트ajax호출 함수
-	    	console.log("ajax실행");
 	    	let searchType = '<c:out value="${searchVO.searchType}"/>';
 	    	let sizeKind = [];
 	    	let prdType = [];
@@ -249,7 +248,6 @@
 	    			sort : sort
 	    			},
 	    		success:function(data){
-	    			console.log(data);
 	    			let prdHtml='';
 	    			for(let i=0; i < data.length; i++){
 	    				let prdList = data[i];
@@ -301,7 +299,6 @@
 				let total = Number(data.total);
 				let now = Number(data.nowPage);
 				let lastPage = Number(data.lastPage);
-				console.log(data);
 		    	pagingHtml += '<li class="d-flex justify-content-center">';
 		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-left"  onclick="searchPrdList('+(now - 1)+')" style= "display:'+(now != 1 ? 'block' : 'none')+'"></a>';
 		    	pagingHtml += '<div id="pagingNumBtn">';

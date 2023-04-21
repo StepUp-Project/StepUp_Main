@@ -33,10 +33,10 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="/cartdel.do", method = RequestMethod.GET)
-	public void deleteCart(int userIndex, int cartIndex, HttpServletResponse rsp, HttpServletRequest req) throws IOException {
-		int result = cartService.deleteCart(cartIndex);
+	public void deleteCart(CartVO vo, HttpServletResponse rsp, HttpServletRequest req) throws IOException {
+		int result = cartService.deleteCart(vo);
 		PrintWriter pw = rsp.getWriter();
-		pw.append("<script>location.href='"+req.getContextPath()+"/cart/cart.do?userIndex="+userIndex+"'</script>");
+		pw.append("<script>location.href='"+req.getContextPath()+"/cart/cart.do?userIndex="+vo.getUserIndex()+"'</script>");
 		pw.flush();
 	}
 }
