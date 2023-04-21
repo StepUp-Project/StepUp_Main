@@ -19,4 +19,8 @@
   	<select id="selectSizeIndex" parameterType="int" resultType="sizeVO">
   		select * from size_tb s left join product_tb p on p.prdIndex = s.prdIndex where s.sizeIndex = #{sizeIndex}
   	</select>
+  	
+  	<update id="updateSubtract" parameterType="orderItemVO">
+  		update size_tb set sizeStock = sizeStock - #{orderItemStock} where sizeIndex = #{sizeIndex}
+  	</update>
   </mapper>

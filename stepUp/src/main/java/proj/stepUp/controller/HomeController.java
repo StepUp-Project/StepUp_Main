@@ -95,12 +95,10 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/admin.do", method = RequestMethod.GET)
-	public String admin(Model model, UserVO vo) {
+	public String admin() {
+
 		
-		List<UserVO> list = qnaService.restrictList(vo);
-		model.addAttribute("blist", list);	
-		
-		return "user/admin_page";
+		return "admin/admin_page";
 	}
 	
 	
@@ -130,7 +128,23 @@ public class HomeController {
 	   	System.out.println(slvo.getSlideUrl());
 		
 	   	adminservice.slideinsert(slvo);
-		return "user/admin_page";
+		return "admin/admin_page";
+	}
+	//제재
+	@RequestMapping(value = "restrict.do",method = RequestMethod.GET)
+	public String restrict(Model model, UserVO vo) {
+		List<UserVO> list = qnaService.restrictList(vo);
+		model.addAttribute("blist", list);	
+	
+		return "admin/admin_restrict";
+	}
+	
+	@RequestMapping(value = "restrict.do",method = RequestMethod.POST)
+	public String restrict(UserVO vo) {
+		
+		int result = qnaService.restrict(vo);
+		
+		return "redirect:/admin/admin_restrict";
 	}
 	
 }

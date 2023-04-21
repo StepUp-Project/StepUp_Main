@@ -40,7 +40,7 @@
   			and p.prdCode like concat('%',#{searchType},'%')
   		</if>
   		<if test="priceMin != null and priceMax != null">
-  				
+  			and p.prdPrice BETWEEN #{priceMin, jdbcType=INTEGER} AND #{priceMax, jdbcType=INTEGER}	
   		</if>
 		<if test="sizeKind != null">
 		and ( 1 != 1
