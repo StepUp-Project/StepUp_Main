@@ -45,12 +45,15 @@
 				   <div id="slideEdit" style="width:60%; margin:30px auto;">
 						<form name="slidefrm" method="post" action="slide.do" enctype="multipart/form-data">
 							<br/> <br/>
-							<div>변경할 슬라이드의 번호를 선택하세요</div> 
+							<div>변경할 슬라이드의 번호를 선택하세요</div>
+							 <br/>
 				        		<label><input type="radio" name="slideNum" value="1"> 1</label>
 				     			<label><input type="radio" name="slideNum" value="2"> 2</label>
 				        		<label><input type="radio" name="slideNum" value="3"> 3</label>
 				     			<label><input type="radio" name="slideNum" value="4"> 4</label>
 							<br/> <br/>
+							<div>슬라이드에 넣을 이미지를 선택하세요</div>
+							<br/> 
 							<input type="file" name="mainFile" style="width:300px; height: 40px;" />
 							 <br/> <br/>
 							<input type="text" name="slideUrl"  placeholder="해당 슬라이드에 연결할 url을 입력해주세요" style="width:80%; height: 40px;" /> <input type="submit" value="저장" style="width:10%; height: 40px;" >

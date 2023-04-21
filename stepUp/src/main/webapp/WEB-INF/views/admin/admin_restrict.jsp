@@ -41,6 +41,10 @@
                         <i class="xi-angle-right-min"></i>
                        	회원의 자유게시판 및 댓글을 제한합니다.
                     </p>
+                     <p>
+                        <i class="xi-angle-right-min"></i>
+                       	회원의 상태가 'F'일 경우 제재된 회원 입니다.
+                    </p>
                 </div>
 
                 <div class="mplikecontain">
