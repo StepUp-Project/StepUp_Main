@@ -23,11 +23,13 @@
  			order by qnaIndex desc
  	</select>
  	
- 	<select id="userQna" resultType="QnaVO" parameterType="int">
+ 	<select id="userQna" resultType="QnaVO" parameterType="searchVO">
  		select *
  			from qna_tb b, user_tb u
  			where b.userIndex = u.userIndex
  			  and u.userIndex = #{userIndex}
+ 			  order by b.qnaWdate desc
+ 			  limit #{start}, #{perPage}
  	</select>
  	
  	<select id="cntTotal" resultType="QnaVO" parameterType="searchVO">
@@ -42,10 +44,15 @@
  			<if test='searchType != null and searchType eq "writer"'>
  				and userNick like concat('%',#{searchValue},'%')
  			</if>
- 			 			<if test='userIndex != 0'>  
+ 			<if test='userIndex != 0'>  
  				where userIndex = #{userIndex}
  			</if>
  	</select>
+	
+	<select id="myPageCnTotal" resultType="int" parameterType="int">
+		select count(*) from qna_tb
+		where userIndex = #{userIndex}
+	</select>
 	
 	<select id="selectByIndex" resultType="QnaVO" parameterType="int">
  		select *
@@ -109,8 +116,5 @@
  			where b.userIndex = u.userIndex
             and userGrade = 'A' and qnaIndex = #{qnaIndex}
  	</select>
- 	
- 	
- 	
- 	
+
 </mapper>

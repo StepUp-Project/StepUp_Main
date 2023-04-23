@@ -9,7 +9,7 @@ import proj.stepUp.vo.UserVO;
 
 public interface QnaService {
 	public List<QnaVO> list(SearchVO svo);
-	public List<QnaVO> listByUserIdx(int userIndex);
+	public List<QnaVO> listByUserIdx(SearchVO svo);
 	public List<QnaVO> cntTotal(SearchVO svo);
 	public QnaVO selectByIndex(int qnaIndex);
 	public int insert(QnaVO vo);
@@ -19,5 +19,6 @@ public interface QnaService {
 	public List<UserVO> restrictList(UserVO vo);
 	public int restrict(UserVO vo);
 	public List<ReVO> adminrsp(int qnaIndex);
+	public int myPageCnTotal(int userIndex);
 	
 }

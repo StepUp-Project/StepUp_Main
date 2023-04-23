@@ -56,15 +56,22 @@ public class FreeServiceImpl implements FreeService {
 		return freeBoardDAO.cntTotal(svo);
 	}
 	
-	@Override
-	public List<FreeBoardVO> listByUserIdx(int userIndex) {
-		return freeBoardDAO.listByUserIdx(userIndex);
-	}
-
 
 	@Override
 	public int hitcount(int freeIndex) {
 		return freeBoardDAO.hitcount(freeIndex);
+	}
+
+
+	@Override
+	public int userCntTotal(int userIndex) {
+		return freeBoardDAO.userCntTotal(userIndex);
+	}
+
+
+	@Override
+	public List<FreeBoardVO> listByUserIdx(SearchVO svo) {
+		return freeBoardDAO.listByUserIdx(svo);
 	}
 
 }

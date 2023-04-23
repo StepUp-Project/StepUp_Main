@@ -23,16 +23,15 @@ public class QnaDAO {
 		return sqlSession.selectList("proj.stepUp.mapper.qnaMapper.selectAll", svo);
 	}
 	
-	public List<QnaVO> listByUserIdx(int userIndex){
-		return sqlSession.selectList("proj.stepUp.mapper.qnaMapper.userQna", userIndex);
+	public List<QnaVO> listByUserIdx(SearchVO svo){
+		return sqlSession.selectList("proj.stepUp.mapper.qnaMapper.userQna", svo);
 	}
 	
 	public List<QnaVO> cntTotal(SearchVO svo){
 		return sqlSession.selectList("proj.stepUp.mapper.qnaMapper.cntTotal", svo);
 	}
 	
-	public QnaVO selectByIndex(int qnaIndex) {
-		
+	public QnaVO selectByIndex(int qnaIndex) {		
 		return sqlSession.selectOne("proj.stepUp.mapper.qnaMapper.selectByIndex", qnaIndex);
 	}
 	
@@ -57,6 +56,8 @@ public class QnaDAO {
 	}
 	public List<ReVO> adminrsp(int qnaIndex) {
 		return sqlSession.selectList("proj.stepUp.mapper.qnaMapper.adminrsp", qnaIndex);
+	}	
+	public int myPageCnTotal(int userIndex) {
+		return sqlSession.selectOne("proj.stepUp.mapper.qnaMapper.myPageCnTotal", userIndex);
 	}
-	
 }

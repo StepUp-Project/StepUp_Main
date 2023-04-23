@@ -22,12 +22,15 @@
 		 WHERE m.userIndex = u.userIndex
 		   AND u.userIndex = #{userIndex} 
 		   AND p.prdIndex = m.prdIndex
-		LIMIT #{start},10
+		   AND p.prdDel != 'Y'
+		LIMIT #{start}, #{perPage}
 	</select>
 	
 	<select id="cntTotal" resultType="int" parameterType="int">
- 		select count(*) as total from mark_tb
-			where userIndex = #{userIndex}
+ 		select count(*) as total from mark_tb m, product_tb p
+			where m.prdIndex = p.prdIndex
+			and m.userIndex = #{userIndex}
+			and p.prdDel != 'Y'
  	</select>
  	
   </mapper>
