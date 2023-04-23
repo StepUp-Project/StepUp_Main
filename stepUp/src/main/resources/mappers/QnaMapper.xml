@@ -103,6 +103,12 @@
 	    	set userGrade=#{userGrade} where userId=#{userId}
 	</update>
  	
+ 	<select id="adminrsp" parameterType="int" resultType="reVO">
+ 		select *
+ 			from qnare_tb b, user_tb u
+ 			where b.userIndex = u.userIndex
+            and userGrade = 'A' and qnaIndex = #{qnaIndex}
+ 	</select>
  	
  	
  	

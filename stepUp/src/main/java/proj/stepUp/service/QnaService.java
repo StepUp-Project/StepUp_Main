@@ -3,6 +3,7 @@ package proj.stepUp.service;
 import java.util.List;
 
 import proj.stepUp.vo.QnaVO;
+import proj.stepUp.vo.ReVO;
 import proj.stepUp.vo.SearchVO;
 import proj.stepUp.vo.UserVO;
 
@@ -17,5 +18,6 @@ public interface QnaService {
 	public int qnarsp(QnaVO vo);
 	public List<UserVO> restrictList(UserVO vo);
 	public int restrict(UserVO vo);
+	public List<ReVO> adminrsp(int qnaIndex);
 	
 }

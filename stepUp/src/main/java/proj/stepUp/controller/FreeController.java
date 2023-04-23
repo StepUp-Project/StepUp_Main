@@ -183,6 +183,11 @@ public class FreeController {
 	
 	@RequestMapping(value="/free_delete.do", method = RequestMethod.POST)
 	public String delete(int freeIndex) {
+		List<ReVO> rList = reService.list(freeIndex);
+		for (ReVO re : rList) {
+			reService.delete(re.getReIndex());
+        }
+		
 		int result = freeService.delete(freeIndex);
 		
 		return "redirect:/free/free.do";
