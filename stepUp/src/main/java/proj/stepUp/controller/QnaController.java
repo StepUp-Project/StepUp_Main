@@ -83,11 +83,16 @@ public class QnaController {
 	@RequestMapping(value="/qna_view.do", method = RequestMethod.GET)
 	public String qnaview(int qnaIndex, Model model) {
 		QnaVO vo = qnaService.selectByIndex(qnaIndex);
+		List<ReVO> adminrsp = qnaService.adminrsp(qnaIndex);
+		
 		List<ReVO> rList = reService.qnalist(qnaIndex);
 		model.addAttribute("vo", vo);
 		
 		if(rList != null) {
 		model.addAttribute("rList", rList);
+		}
+		if(adminrsp != null) {
+		model.addAttribute("adminrsp", adminrsp);
 		}
 		return "qna/qna_view";
 	}
@@ -133,8 +138,12 @@ public class QnaController {
 	
 	@RequestMapping(value="/qna_delete.do", method = RequestMethod.POST)
 	public String delete(int qnaIndex) {
+		List<ReVO> rList = reService.qnalist(qnaIndex);
+		for (ReVO re : rList) {
+			reService.qnadelete(re.getQnareIndex());
+        }
+
 		int result = qnaService.delete(qnaIndex);
-		
 		return "redirect:/qna/qna.do";
 	}
 

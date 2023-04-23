@@ -35,15 +35,13 @@
         <div class="mypagemain">
             <div class="mypage_menu"><!--마이페이지 메뉴 시작-->
                 <div class="mypagehi">
-                    <p>안녕하세요, 배유진님!</p>
+                    <p>안녕하세요, ${login.getUserNick()} 님!</p>
                 </div>
                 <div class="mypage_gnb">
-                    <span><a href="#">주문배송조회</a></span>
-                    <span><a href="#">상품후기</a></span>
-                    <span><a href="#">관심목록</a></span>
-                    <span><a href="#">QnA</a></span>
-                    <span><a href="#">내가 작성한 글</a></span>
-                    <span><a href="#">개인정보수정</a></span>
+                    <span><a href="<%=request.getContextPath()%>/admin.do">슬라이더 관리</a></span>
+                    <span><a href="<%=request.getContextPath()%>/restrict.do">회원 관리</a></span>
+                    <span><a href="<%=request.getContextPath()%>/order/manager.do">주문내역 관리</a></span>
+                    <span><a href="<%=request.getContextPath()%>/product/management.do">상품관리</a></span>
                 </div>
             </div><!--마이페이지 메뉴 끝-->
 
@@ -195,7 +193,6 @@
 	 	
 	 	function prdDel(prdIndex){
 	 		if(confirm("해당 상품을 삭제 하시겠습니까?") == 0){
-	 			console.log("삭제 안함");
 	 			return false;
 	 		}
 	 		$.ajax({
@@ -206,6 +203,7 @@
 	 			},
 	 			success:function(data){
 	 				if(data == 1){
+	 					alert("상품이 삭제되었습니다.");
 	 					searchPrdList(1);
 	 				}
 	 			}

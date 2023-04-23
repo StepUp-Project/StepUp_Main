@@ -12,9 +12,15 @@ public class SearchVO extends PagingUtil {
 	private int priceMax;
 	private String[] prdType;
 	private int userIndex;
+	private String pageType;
 	
 	
-	
+	public String getPageType() {
+		return pageType;
+	}
+	public void setPageType(String pageType) {
+		this.pageType = pageType;
+	}
 	public String getStatusShow() {
 		return statusShow;
 	}

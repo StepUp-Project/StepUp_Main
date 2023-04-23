@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import proj.stepUp.vo.FreeBoardVO;
 import proj.stepUp.vo.QnaVO;
+import proj.stepUp.vo.ReVO;
 import proj.stepUp.vo.SearchVO;
 import proj.stepUp.vo.UserVO;
 
@@ -53,6 +54,9 @@ public class QnaDAO {
 	}
 	public int restrict(UserVO vo) {
 		return sqlSession.update("proj.stepUp.mapper.qnaMapper.restrict", vo);
+	}
+	public List<ReVO> adminrsp(int qnaIndex) {
+		return sqlSession.selectList("proj.stepUp.mapper.qnaMapper.adminrsp", qnaIndex);
 	}
 	
 }

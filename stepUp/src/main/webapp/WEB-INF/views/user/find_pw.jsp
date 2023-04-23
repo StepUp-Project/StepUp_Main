@@ -37,8 +37,8 @@
 	                </div>
 	                <div id="checkNameResult" class="mb-3" style="font-size:13px;"></div>
  					<div class="form-floating mb-3 d-flex justify-content-between">
-	                    <input type="text" class="form-control w-80" id="userPhone" name="userPhone" placeholder="연락처" onblur="PhoneCheck()">
-	                    <label for="userPhone">연락처</label>
+	                    <input type="text" class="form-control w-80" id="userPhone" name="userPhone" placeholder="휴대폰 번호를 ‘-’ 없이 입력해주세요" onblur="PhoneCheck()" maxlength="11">
+	                    <label for="userPhone">휴대폰 번호를 ‘-’ 없이 입력해주세요</label>
 	                    <button type="button" onclick="call()" class="btn btn-secondary btn-sm">인증번호 발송</button>
 	                </div>
 	                <div class="form-floating mb-3">
@@ -50,9 +50,9 @@
 	               	<div id="PchResult" class="mb-3" style="font-size:13px;"></div>
 	                
 	                <div class="d-flex justify-content-end find-area">
-	                    <a href="">이전 페이지 </a>
+	                    <a href="javascript:history.back()">이전 페이지 </a>
 	                    <span>&nbsp; | &nbsp; &nbsp;</span>
-	                    <a href="" class="find-btn">아이디 찾기</a>
+	                    <a href="find_id.do" class="find-btn">아이디 찾기</a>
 	                </div>
 	                <div class="d-grid gap-2 login-btn-area">
 		                <div class="btngroup">
@@ -83,22 +83,17 @@
 	            $("#checkIdResult").html(html);
 	          	checkIdResult.style.color = '#ff0000';
 	          	checkIdOk = 0;      			
-      		}
-      		else{
-	      		$.ajax({
-	      			url: "${pageContext.request.contextPath}/ajax/checkId.do",
-	      			type: "post",
-	      			data:{userId : UserId},
-	      			success:function(data){ 
-	   					 if(data != null){
-	      					let html = "입력되었습니다."
-	      					let checkIdResult = document.getElementById("checkIdResult");
-	      					$("#checkIdResult").html(html);
-	      					checkIdResult.style.color = '#008000';
-	      					checkIdOk = 1;
-	      				}
-	      			}
-	      		});
+      		}else if(!str.test(UserId)){
+				let html = "4~11자의 영문으로 시작하는 숫자, 영문 소문자만 사용 가능합니다."
+	              	let checkIdResult = document.getElementById("checkIdResult");
+	          		$("#checkIdResult").html(html);
+	          		checkIdResult.style.color = '#ff0000';
+	          		checkIdOk = 0;
+      		}else{
+				let html = ""
+				let checkIdResult = document.getElementById("checkIdResult");
+				$("#checkIdResult").html(html);
+				checkIdOk = 1;
       		}
       	}
      	
@@ -126,7 +121,7 @@
      	function call(){
      		let UserPchNumStyle = document.getElementById("userPchNum");
      		let UserPhone = $("#userPhone").val();
-     		let str = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+     		let str = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
      		if(UserPhone == "" || !str.test(UserPhone)){
      				$("#PchResult").html("형식에 맞지 않는 번호입니다.");
      				document.getElementById("PchResult").style.color = '#ff0000';

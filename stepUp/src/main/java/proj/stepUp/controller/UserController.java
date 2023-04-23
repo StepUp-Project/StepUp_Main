@@ -70,10 +70,7 @@ public class UserController {
 		 if(vo.getLoChk() == null) {
 			 vo.setLoChk("N");
 		 }
-		 
-		System.out.println(vo.getEveChk());
-		System.out.println(vo.getLoChk());
-		
+		 		
 		model.addAttribute("vo", vo);  //join_terms에서 선택한 체크박스  값을 join으로 넘겨줌
 		
 		HttpSession seesion = req.getSession();
@@ -124,7 +121,6 @@ public class UserController {
 		
 		if(loginVO != null ) {
 			if(loginVO.getUserGrade().equals("Q")){
-				System.out.println("탈퇴한 사용자 아이디 :: " + vo.getUserGrade());
 				pw.append("<script>alert('탈퇴한 사용자입니다.');location.href='"+req.getContextPath()+"/user/login.do'</script>");
 			}else {
 				System.out.println("로그인 성공");
@@ -180,21 +176,20 @@ public class UserController {
 			pw.flush();
 		}
 		
-		return "home";
+		return "index";
 	}
 	
 	
-	@RequestMapping(value="naverLogin.do")
+	@RequestMapping(value="/naverLogin.do")
 	public String naverLogin() {
 		NaverLogin requestLogin = new NaverLogin();
 		String request = requestLogin.requestLogin();
 		
-		System.out.println(request);
 		return "redirect:"+request;
 	}
 	
 	
-	@RequestMapping(value="naverLoginOk.do")
+	@RequestMapping(value="/naverLoginOk.do", method = RequestMethod.GET)
 	public String naverLoginOk(@RequestParam String code, String state, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
 		NaverLogin requestLogin = new NaverLogin();
 		String accessToken = requestLogin.getNaverAccessToken(code, state);//토큰 발급
@@ -234,7 +229,7 @@ public class UserController {
 			pw.flush();
 		}
 		
-		return "home";
+		return "index";
 	}
 	
 	
@@ -286,10 +281,6 @@ public class UserController {
 		
 		HttpSession session = req.getSession();  //로그인정보는 세션에 있는거라서 세션에서 가져와야함
 		UserVO loginUser = (UserVO)session.getAttribute("login");
-		System.out.println( loginUser.getUserName() );
-		System.out.println( loginUser.getUserNick() );
-		System.out.println( loginUser.getUserAddr() );
-		System.out.println( loginUser.getUserId() );
 		UserVO mypage = userService.mypage(loginUser.getUserId());
 		model.addAttribute("mypage", mypage);
 			return "user/mypage_modify";
@@ -307,21 +298,12 @@ public class UserController {
 		vo.setUserPw(userNPw);  //새로운 비밀번호를 기존의 비밀번호에 넣어주는
 		
 		int result = userService.mypageUpdate(vo);
-		System.out.println( vo.getUserName() );
-		System.out.println( vo.getUserNick() );
-		System.out.println( vo.getUserPw() );
 		
 		 rsp.setContentType("text/html;charset=utf-8");
 		 PrintWriter pw = rsp.getWriter();
 		if(result > 0) {
-			System.out.println("정보가 수정되었습니다.");
-			//return "redirect:/user/mypage_modify.do";
-			//result가 0일 때
 			pw.append("<script>alert('정보가 수정되었습니다.');location.href='"+req.getContextPath()+"/user/mypage_modify.do'</script>");
 		}else {
-			System.out.println("정보가 수정되지 않았습니다.");
-			//return "redirect:/user/mypage_modify.do?updateYN=N";
-			//result가 1일 때
 			pw.append("<script>alert('정보가 수정되지 않았습니다.');location.href='"+req.getContextPath()+"/user/mypage_modify.do'</script>");
 		}
 		pw.flush();
@@ -351,26 +333,20 @@ public class UserController {
 		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
 		vo.setUserId(loginUser.getUserId());  //그 로그인정보에 있는 사용자의 아이디를 vo에 넣어준다
 		
-		 UserVO loginVO = userService.login(vo);  //db에 정보가 있는지 확인
-		 
-		 System.out.println("vo.getUserId()::" + vo.getUserId());
-		 System.out.println("vo.getUserPw()::" + vo.getUserPw());
+		 UserVO loginVO = userService.login(vo);  //db에 정보가 있는지 확인		 
 		 
 		 rsp.setContentType("text/html;charset=utf-8");
 		 PrintWriter pw = rsp.getWriter();
 			if( loginVO != null) {
 				int result = userService.userDelete(vo.getUserId());
 				if(result > 0) {
-					System.out.println("탈퇴 되었습니다.");
 					HttpSession seesion = req.getSession();
 					seesion.invalidate();  //세션에서 회원의 모든 정보를 브라우저에서 지운다
 					pw.append("<script>location.href='"+req.getContextPath()+"/user/mypage_withdrawal_ok.do'</script>");
 				}else {
-					System.out.println("탈퇴되지 않았습니다.");
 					pw.append("<script>alert('탈퇴되지 않았습니다.');location.href='"+req.getContextPath()+"/user/mypage_withdrawal.do'</script>");
 				}
 			}else {
-				System.out.println("비밀번호가 정확하지 않습니다.");
 				pw.append("<script>alert('비밀번호가 정확하지 않습니다.');location.href='"+req.getContextPath()+"/user/mypage_withdrawal.do'</script>");
 			}
 			pw.flush();
@@ -557,9 +533,13 @@ public class UserController {
 	public String findPw(UserVO vo, Model model) {
 		
 		UserVO id = userService.findPw(vo);
-		model.addAttribute("vo", id);
 		
-		return "user/find_pwChg";
+		if(id != null) {
+			model.addAttribute("vo", id);
+			return "user/find_pwChg";
+		}else {
+			return "redirect:/user/pwChgOK.do?result=0";
+		}		
 	}
 	//비밀번호 변경
 	@RequestMapping(value = "/pwChg.do", method = RequestMethod.GET)
@@ -567,10 +547,24 @@ public class UserController {
 		
 		return "user/find_pwChg";
 	}
-	@RequestMapping(value = "/pwChg.do", method = RequestMethod.POST)
-	public String pwChg(UserVO vo) {
-
-		int result = userService.chgPw(vo);
+	
+	@RequestMapping(value = "/pwChgOK.do", method = RequestMethod.GET)
+	public String pwChgNot(int result, Model model) {
+		if(result == 0) {
+			model.addAttribute("findResult", 0);
+		}
+		
+		return "user/find_pwOK";
+	}
+	
+	@RequestMapping(value = "/pwChgOK.do", method = RequestMethod.POST)
+	public String pwChgOK(UserVO vo, Model model) {
+		
+		int updateResult = userService.chgPw(vo);
+		if(updateResult == 1) {
+			model.addAttribute("findResult", 1);
+		}
+		
 		return "user/find_pwOK";
 	}
 }

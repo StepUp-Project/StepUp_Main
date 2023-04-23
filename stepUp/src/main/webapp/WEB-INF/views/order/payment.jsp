@@ -259,44 +259,61 @@
     	}else{
     		orderName = prdName;
     	}
-    	
-        IMP.request_pay({
-            pg : 'kcp.9810030929',	
-            pay_method : 'card',
-            merchant_uid: orderNum, //주문번호
-            name : orderName,		//상품 이름
-            amount : totalPrice,	//결제될 가격
-            buyer_name : buyerName,	//구매자 이름
-            buyer_tel : buyerTel,//구매자 연락처
-            buyer_addr : buyerAddr,		//구매자 주소(주소+상세주소)
-            buyer_postcode : buyerPostcode	//구매자 우편번호
-        }, function (rsp) { // callback
-            if (rsp.success) {
-            	let userIndex = '<c:out value="${login.userIndex}"/>';
-                $.ajax({
-                	url:"<%=request.getContextPath()%>/ajax/createOrder.do",
-                	type:"post",
-                	traditional : true,
-                	data:{
-                        imp_uid: rsp.imp_uid,            // 결제 고유번호
-                        merchant_uid: rsp.merchant_uid,	 // 주문번호
-                        totalPrice : totalPrice,		//결제금액
-                        userIndex : userIndex,			//구매자 인덱스
-                        sizeindex : sizeindex,			//구매할 상품 사이즈 인덱스(상품 특정)
-                        orderitemStock : orderitemStock //각 상품당 구매수량
-                	},
-                	success:function(data){
-                		if(data == 0){
-                			location.href="<%=request.getContextPath()%>/order/paymentOk.do";
-                		}
-                	}
-                });
-            } else {
-            	alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-            }
-        });
+    	console.log(sizeindex);
+    	console.log(orderitemStock);
+    	$.ajax({
+    		url:"<%=request.getContextPath()%>/ajax/checkStock.do",
+    		type:"post",
+    		traditional : true,
+    		data:{
+    			sizeindex : sizeindex,
+    			orderitemStock : orderitemStock
+    		},
+    		success:function(data){
+    			if(data != 0){
+   			       IMP.request_pay({
+   			            pg : 'kcp.9810030929',	
+   			            pay_method : 'card',
+   			            merchant_uid: orderNum, //주문번호
+   			            name : orderName,		//상품 이름
+   			            amount : totalPrice,	//결제될 가격
+   			            buyer_name : buyerName,	//구매자 이름
+   			            buyer_tel : buyerTel,//구매자 연락처
+   			            buyer_addr : buyerAddr,		//구매자 주소(주소+상세주소)
+   			            buyer_postcode : buyerPostcode	//구매자 우편번호
+   			        }, function (rsp) { // callback
+   			            if (rsp.success) {
+   			            	let userIndex = '<c:out value="${login.userIndex}"/>';
+   			                $.ajax({
+   			                	url:"<%=request.getContextPath()%>/ajax/createOrder.do",
+   			                	type:"post",
+   			                	traditional : true,
+   			                	data:{
+   			                        imp_uid: rsp.imp_uid,            // 결제 고유번호
+   			                        merchant_uid: rsp.merchant_uid,	 // 주문번호
+   			                        totalPrice : totalPrice,		//결제금액
+   			                        userIndex : userIndex,			//구매자 인덱스
+   			                        sizeindex : sizeindex,			//구매할 상품 사이즈 인덱스(상품 특정)
+   			                        orderitemStock : orderitemStock //각 상품당 구매수량
+   			                	},
+   			                	success:function(data){
+   			                		if(data == 0){
+   			                			location.href="<%=request.getContextPath()%>/order/paymentOk.do";
+   			                		}
+   			                	}
+   			                });
+   			            } else {
+   			            	alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+   			            }
+   			        });
+    			}else{
+           			alert("현재 주문 수량보다 준비된 재고가 부족합니다.");
+           			location.href="<%=request.getContextPath()%>/index.do";
+    			}
+    		}
+    	})    	
     }
-
+	
     totalprice();
     </script>
 </body>

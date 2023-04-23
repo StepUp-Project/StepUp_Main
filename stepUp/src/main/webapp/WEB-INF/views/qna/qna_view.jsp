@@ -5,6 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	List<ReVO> rList = (List<ReVO>)request.getAttribute("rList");
+	List<ReVO> adminrsp = (List<ReVO>)request.getAttribute("adminrsp");
 %>
 
 <!DOCTYPE html>
@@ -44,19 +45,25 @@
 	           </c:if>
 	           <c:if test="${not empty login}">
 					<c:if test="${login.userGrade eq 'A' and vo.qnaRsp eq 'N'}">
-						<form action="qna_rsp.do" method="post" onsubmit="return confirm('답변을 완료하시겠습니까?');">
+						<c:if test="${not empty adminrsp}">
+							<form action="qna_rsp.do" method="post" onsubmit="return confirm('답변을 완료하시겠습니까?');">
 							<input type="hidden" name="qnaIndex" value="${vo.qnaIndex}">
 							<input type="hidden" name="qnaRsp" value="Y">
 							<input class="board_btn" type="submit" value="답변완료">
-						</form>
+							</form>
+						</c:if>
+						<c:if test="${empty adminrsp}">
+							<input class="board_btn" type="button" value="답변완료" onclick="alert('댓글로 답변을 작성 후 완료를 눌러주세요')">
+						</c:if>
 					</c:if>
-					<c:if test="${login.userGrade eq 'A' and vo.qnaRsp eq 'Y'}">
-						<form action="qna_rsp.do" method="post" onsubmit="return confirm('답변을 취소하시겠습니까?');">
-							<input type="hidden" name="qnaIndex" value="${vo.qnaIndex}">
-							<input type="hidden" name="qnaRsp" value="N">
-							<input class="board_btn" type="submit" value="답변취소">
-						</form>
-					</c:if>
+						<c:if test="${login.userGrade eq 'A' and vo.qnaRsp eq 'Y'}">
+							<form action="qna_rsp.do" method="post" onsubmit="return confirm('답변을 취소하시겠습니까?');">
+								<input type="hidden" name="qnaIndex" value="${vo.qnaIndex}">
+								<input type="hidden" name="qnaRsp" value="N">
+								<input class="board_btn" type="submit" value="답변취소">
+							</form>
+						</c:if>
+
            		</c:if>
             </div>
         </article>

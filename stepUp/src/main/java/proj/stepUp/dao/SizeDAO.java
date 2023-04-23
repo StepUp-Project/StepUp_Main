@@ -34,4 +34,8 @@ public class SizeDAO {
 	public int updateSubtract(OrderItemVO oiVO) {
 		return sqlSession.update("proj.stepUp.mapper.sizeMapper.updateSubtract", oiVO);
 	}
+	
+	public int selectStockCheck(OrderItemVO oiVO) {
+		return sqlSession.selectOne("proj.stepUp.mapper.sizeMapper.selectStockCheck", oiVO);
+	}
 }

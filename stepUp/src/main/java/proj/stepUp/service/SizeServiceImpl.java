@@ -41,4 +41,9 @@ public class SizeServiceImpl implements SizeService{
 		return sizeDAO.updateSubtract(oiVO);
 	}
 
+	@Override
+	public int selectStockCheck(OrderItemVO oiVO) {
+		return sizeDAO.selectStockCheck(oiVO);
+	}
+
 }

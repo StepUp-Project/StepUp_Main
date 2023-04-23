@@ -58,12 +58,12 @@
  	</update>
  	
  	<update id="userDelete" parameterType="String">
-		update user_tb set usergrade = 'Q' where userid = #{value}
+		update user_tb set usergrade = 'Q', userNaverId = NULL, userKakaoId = NULL where userid = #{value}
 	</update>
 	
  	<select id="findId" resultType="userVO" parameterType="userVO">
- 		SELECT userId FROM user_tb
-		where userName = #{userName} and userMail =  #{userMail}
+ 		SELECT userId, userGrade FROM user_tb
+		where userName = #{userName} and userPhone = #{userPhone}
  	</select>
  	
  	<select id="selectIndex" resultType="userVO" parameterType="int">
@@ -72,11 +72,12 @@
  	</select>
  	
  	<select id="findPw" resultType="userVO" parameterType="userVO">
- 		SELECT userIndex 
+ 		SELECT userIndex
 		FROM user_tb 
 		where userId = #{userId} 
 		and  userName = #{userName} 
 		and userPhone = #{userPhone}
+		and userGrade != 'Q'
  	</select>
  	
  	<update id="chgPw" parameterType="UserVO">

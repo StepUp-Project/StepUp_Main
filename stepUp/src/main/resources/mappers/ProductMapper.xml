@@ -19,7 +19,9 @@
   	</select>
   	
   	<select id="selectProductByDate" resultType="productVO" parameterType="int">
-  		select prdIndex, prdCode, prdName, prdPrice, prdRname from product_tb where prdDel != 'Y' order by prdDate desc limit 0, #{maxPrd}
+  		select prdIndex, prdCode, prdName, prdPrice, prdRname from product_tb where prdDel != 'Y'
+  		and datediff(now(), prdDate) BETWEEN 0 and 180
+  		order by prdDate desc limit 0, #{maxPrd}
   	</select>
   	
   	<select id="selectProductSales" resultType="productVO" parameterType="int">
@@ -41,6 +43,9 @@
   		</if>
   		<if test="priceMin != null and priceMax != null">
   			and p.prdPrice BETWEEN #{priceMin, jdbcType=INTEGER} AND #{priceMax, jdbcType=INTEGER}	
+  		</if>
+  		<if test="pageType eq 'new'">
+  			and  datediff(now(), prdDate) BETWEEN 0 and 180
   		</if>
 		<if test="sizeKind != null">
 		and ( 1 != 1
@@ -76,9 +81,13 @@
   		<if test="searchType != null">
   			and p.prdCode like concat('%',#{searchType},'%')
   		</if>
+  		
   		<if test="priceMin != null and priceMax != null">
   			and p.prdPrice BETWEEN #{priceMin, jdbcType=INTEGER} AND #{priceMax, jdbcType=INTEGER}
   		</if>
+  		<if test="pageType eq 'new'">
+  			and  datediff(now(), prdDate) BETWEEN 0 and 180
+  		</if>  		
 		<if test="sizeKind != null">
 		and ( 1 != 1
 		<foreach item="size" collection="sizeKind">
