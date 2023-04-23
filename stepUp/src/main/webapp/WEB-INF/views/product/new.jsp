@@ -175,7 +175,8 @@
 	    	let prdType = [];
 	    	let priceMin = $("#price-min").val();
 	    	let priceMax = $("#price-max").val();
-	    	let sort = $('select[name=sort]').val();
+	    	let sort = "new";
+	    	let pageType = "new";
 	    	$('input[name=sizeKind]:checked').each(function() {
 	    		sizeKind.push($(this).val());
 	    	});
@@ -192,7 +193,8 @@
 	    			priceMin : priceMin,
 	    			priceMax : priceMax,
 	    			nowPage : nowPage,
-	    			sort : sort
+	    			sort : sort,
+	    			pageType : pageType
 	    			},
 	    		success:function(data){
 	    			let prdHtml='';
@@ -218,7 +220,8 @@
 	    	let prdType = [];
 	    	let priceMin = $("#price-min").val();
 	    	let priceMax = $("#price-max").val();	
-	    	let sort = $('select[name=sort]').val();
+	    	let sort = "new";
+	    	let pageType = "new";
 	    	$('input[name=sizeKind]:checked').each(function() {
 	    		sizeKind.push($(this).val());
 	    	});
@@ -236,7 +239,8 @@
 	    			priceMin : priceMin,
 	    			priceMax : priceMax,
 	    			nowPage : nowPage,
-	    			sort : sort
+	    			sort : sort,
+	    			pageType : pageType
 	    			},
 	    		success: function(data) {
 				let startPage = Number(data.startPage);

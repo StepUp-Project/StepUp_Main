@@ -873,6 +873,10 @@ font-size: 14px;
   padding-top: 6px;
   box-sizing: border-box;
 }
+.find-closeIcon{
+	font-size:50px;
+	color:#dc3545;
+}
 /*mypage_withdrawal_ok.jsp 끝*/
 
 /*mypage_order.jsp 시작*/
@@ -1445,7 +1449,7 @@ font-size: 14px;
 
 /*new.jsp 시작*/
 /*상단이미지4개*/
-.new-banner-area{width: 100%; height: 185vh; background-color: #000;
+.new-banner-area{width: 100%; height: 85vh; background-color: #000;
   border-radius: 0 0 0 200px; overflow: hidden; transition: all 0.3s ease-in-out;}
 .new-banner-area a{width: 25%; opacity: 0.7; transition: all 0.3s ease-in-out; position: relative;}
 .new-banner-area a:nth-child(1){

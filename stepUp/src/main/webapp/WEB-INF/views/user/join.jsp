@@ -73,8 +73,8 @@
                 <div id="checkNickResult" class="mb-3" style="font-size:13px;"></div>
                 
                 <div class="form-floating mb-3 d-flex justify-content-between">
-                    <input type="text" class="form-control w-80" id="userPhone" name="userPhone" placeholder="연락처" onblur="PhoneCheck()">
-                    <label for="userPhone">연락처</label>
+                    <input type="text" class="form-control w-80" id="userPhone" name="userPhone" placeholder="휴대폰 번호를 ‘-’ 없이 입력해주세요" onblur="PhoneCheck()" maxlength="11">
+                    <label for="userPhone">휴대폰 번호를 ‘-’ 없이 입력해주세요"</label>
                     <button type="button" onclick="call()" class="btn btn-secondary btn-sm">인증번호 발송</button>
                 </div>
                 
@@ -358,8 +358,8 @@
      	function call(){
      		let UserPchNumStyle = document.getElementById("userPchNum");
      		let UserPhone = $("#userPhone").val();
-     		let str = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-     		if(UserPhone == "" || !str.test(UserPhone)){
+     		let str = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
+     		if(UserPhone == "" || !str.test(UserPhone)){	
      				$("#PchResult").html("형식에 맞지 않는 번호입니다.");
      				document.getElementById("PchResult").style.color = '#ff0000';
      		}else{

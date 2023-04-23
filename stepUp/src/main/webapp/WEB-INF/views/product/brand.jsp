@@ -64,11 +64,6 @@
 
         <div class="d-flex justify-content-between">
             <article id="prd_filter">
-                <div id="prd_addr">
-                    <a href="<%=request.getContextPath()%>/index.do">HOME</a>
-                    <span> > </span>
-                    <a>BRAND</a>
-                </div>
                 <p class="filter_ttl">사이즈</p>
                 <ul  id="size_check">
                     <li class="size_box">
@@ -156,11 +151,17 @@
                         </label>
                     </li>
                     <li class="type_box">
-                        <input type="checkbox" name="prdType" value="04" id="4">
+                        <input type="checkbox" name="prdType" value="04" id="type04">
                         <label for="type04">
                             <span>샌들</span>
                         </label>
                     </li>
+                    <li class="type_box">
+                        <input type="checkbox" name="prdType" value="05" id="type05">
+                        <label for="type04">
+                            <span>슬리퍼</span>
+                        </label>
+                    </li>                    
                 </ul>
                 <button class="sbtn" type="button" onclick="searchPrdList(1)">검색</button>
             </article>

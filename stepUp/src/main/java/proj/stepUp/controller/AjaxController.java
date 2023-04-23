@@ -3,14 +3,17 @@ package proj.stepUp.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.owasp.encoder.Encode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -396,5 +399,35 @@ public class AjaxController {
 			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
 						
 			return paging;
-		}		
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="reviewModify.do", method = RequestMethod.GET)
+		public ReviewVO reviewModify(int reviewIndex, Model model) {
+			System.out.println("ajax"+reviewIndex);
+			ReviewVO vo = reviewService.selectReviewModify(reviewIndex);
+			
+			return vo;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="modify.do", method = RequestMethod.POST)
+		public int reviewModifyOk(ReviewVO vo, HttpServletRequest req) throws IOException {
+			
+			if(req.getAttribute("reviewContent") != null){
+				vo.setReviewContent(Encode.forHtmlAttribute((String) req.getAttribute("reviewContent")));
+			}
+			
+			int result = reviewService.updateReview(vo);
+			
+			return result;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/delete.do", method = RequestMethod.POST)
+		public int deleteReview(ReviewVO vo) {
+			int result = reviewService.deleteReview(vo);		
+			return result;
+		}
 }
+	

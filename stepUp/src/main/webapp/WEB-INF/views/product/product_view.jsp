@@ -225,6 +225,43 @@
             <ul id="reeview_page">
             </ul>
         </article>
+        <!-- 수정버튼 클릭시 모달창 영역 -->
+		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">댓글 수정</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+				   <div>
+					  <input type="hidden" name="reviewIndexs" id="reviewModifyIndex" value=""/>
+			          <textarea id="review_writeCnt" class="reviewModifyCnt" name="reviewContent" placeholder="상품평을 남겨주세요"></textarea>
+			          <div id="rating_ctn">
+			              <span>별점을 남겨주세요</span>
+			              <div class="star-rating">
+			                  <input type="radio" id="5-starse" name="reviewScores" class="5-modifyStars" value="5"/>
+			                  <label for="5-starse" class="star">&#9733;</label>
+			                  <input type="radio" id="4-starse" name="reviewScores" class="4-modifyStars" value="4"/>
+			                  <label for="4-starse" class="star">&#9733;</label>
+			                  <input type="radio" id="3-starse" name="reviewScores" class="3-modifyStars" value="3"/>
+			                  <label for="3-starse" class="star">&#9733;</label>
+			                  <input type="radio" id="2-starse" name="reviewScores" class="2-modifyStars" value="2"/>
+			                  <label for="2-starse" class="star">&#9733;</label>
+			                  <input type="radio" id="1-starse" name="reviewScores" class="1-modifyStars" value="1"/>
+			                  <label for="1-starse" class="star">&#9733;</label>
+			              </div>
+			          </div>
+				  </div>		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-primary" onclick="modify()">수정하기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		 <!-- 수정버튼 클릭시 모달창 영역 end -->        
         <form action="<%=request.getContextPath()%>/order/payment.do" id="payFrm" method="get">
         	<input type="hidden" name="sizeIndex" id="sizeIndexPay" value="">
         	<input type="hidden" name="sizeStock" id="sizeStockPay" value="">
@@ -336,6 +373,7 @@
 	    			data:{userIndex : userIndex, prdIndex : prdIndex},
 	    			success : function(){
 	    				$("#mark").attr("class", "xi-heart-o");
+	    				alert("관심목록에서 삭제되었습니다.");
 	    			}
 	    		});
 	    	}
@@ -424,7 +462,6 @@
 	    	    		let reviewList = data[i];
 	    	    		let reviewDate = moment(reviewList.reviewDate).format('YYYY-MM-DD');
 	    	    		reviewHtml += '<li>';
-	    	    		reviewHtml += '<form name="rfrm" action="<%=request.getContextPath()%>/review/delete.do" method="post" onsubmit="reviewDel()">';
 	    	    		reviewHtml += '<input type="hidden" name="reviewIndex" value="'+reviewList.reviewIndex+'">';
 	    	    		reviewHtml += '<input type="hidden" name="prdIndex" value="'+reviewList.prdIndex+'">';
 	    	    		reviewHtml += '<span class="review_star">';
@@ -440,12 +477,11 @@
 	    	    		reviewHtml += ''+reviewDate+''
 	    	    		reviewHtml += '</span>';
 	    	    		if(loginIndex == reviewList.userIndex){
-		    	    		reviewHtml += '<input class="review_del" type="submit" value="삭제">';
-		    	    		reviewHtml += '<input class="review_edit"  type="button" value="수정"  onclick="reviewModify('+reviewList.reviewIndex+')">';
+		    	    		reviewHtml += '<input class="review_del" type="button" onclick="reviewDel('+reviewList.reviewIndex+')" value="삭제">';
+		    	    		reviewHtml += '<input class="review_edit"  type="button" value="수정" onclick="modaltest('+reviewList.reviewIndex+')">';
 	    	    		}
 	    	    		reviewHtml += '</div>';
 	    	    		reviewHtml += '<div class="review_note">'+reviewList.reviewContent+'</div>';
-	    	    		reviewHtml += '</form>'
 	    	    		reviewHtml += '</li>'
 	    	    		paging(nowPage, prdIndex);
 	    	    	}
@@ -454,7 +490,7 @@
 	    	    }
 	    	})
 	    }
-
+	    //onclick="reviewModify('+reviewList.reviewIndex+')"
 	    //리뷰 페이징 버튼 ajax 처리
 	    function paging(nowPage, prdIndex){
 	    	let pagingHtml = '';
@@ -476,7 +512,7 @@
 		    		if(now != i){
 		    			pagingHtml += '<a href="javascript:void(0);" class="pe-1" onclick="goPage('+i+')">'+i+'</a>';
 		    		}else{
-		    			pagingHtml += '<span class="pe-1 text-primary">'+i+'</span>';
+		    			pagingHtml += '<span class="pe-1 text-primary" id="nowPage">'+i+'</span>';
 		    		}
 		    	}
 		    	pagingHtml += '</div> ';
@@ -492,17 +528,25 @@
 	    	goPage(1);
 	    });
 
-	 	function reviewDel(){
+	 	function reviewDel(reviewIndex){
 	    	if(confirm("해당 리뷰를 삭제하시겠습니까?") == 0){
 	    		return false;
 	    	}
-	    		return true;
+	    	$.ajax({
+	    		url:"<%=request.getContextPath()%>/ajax/delete.do",
+	    		type:"post",
+	    		data:{
+	    			reviewIndex : reviewIndex
+	    		},
+	    		success:function(data){
+	    			if(data == 1){
+	    				let nowPage = $("#nowPage").html();
+	    				goPage(nowPage);	
+	    			}
+	    		}
+	    	})
 	    }
-	    function reviewModify(reviewIndex){
-	    	 window.open("<%=request.getContextPath()%>/review/modify.do?reviewIndex="+reviewIndex, "리뷰수정", "width=900%,height=150%, top=250%, left=300%");
-	    }
-	    
-	    
+	    	    
 	    //바로구매 
 	    function goPayment(){
 	    	let userIndex =  "<c:out value='${login.userIndex}'/>";
@@ -531,6 +575,55 @@
 	    	$("#sizeIndexPay").val(sizeIndex);
 	    	$("#sizeStockPay").val(sizeStock);
 	    	$("#payFrm").submit();
+	    }
+	    
+	    function modaltest(reviewIndex){
+	    	$('#staticBackdrop').modal('show');
+	    	$.ajax({
+				url:"<%=request.getContextPath()%>/ajax/reviewModify.do",
+				type:"get",
+				data:{
+					reviewIndex : reviewIndex
+				},
+				success:function(data){
+					$(".reviewModifyCnt").val(data.reviewContent);
+					$("#reviewModifyIndex").val(data.reviewIndex);
+					if(data.reviewScore == 5){
+						$(".5-modifyStars").prop("checked", true);
+					}else if(data.reviewScore == 4){
+						$(".4-modifyStars").prop("checked", true);
+					}else if(data.reviewScore == 3){
+						$(".3-modifyStars").prop("checked", true);
+					}else if(data.reviewScore == 2){
+						$(".2-modifyStars").prop("checked", true);
+					}else if(data.reviewScore == 1){
+						$(".1-modifyStars").prop("checked", true);
+					}
+				}
+			})
+	    }
+
+	    function modify(){
+	    	let reviewIndex = $("#reviewModifyIndex").val();
+	    	let reviewContent = $(".reviewModifyCnt").val();
+	    	let reviewScore = $("input[name=reviewScores]:checked").val();
+	    	$.ajax({
+	    		url:"<%=request.getContextPath()%>/ajax/modify.do",
+	    		type:"post",
+	    		data:{
+	    			reviewIndex : reviewIndex,
+	    			reviewContent : reviewContent,
+	    			reviewScore : reviewScore
+	    		},
+	    		success:function(data){
+	    			if(data == 1){
+	    				$('#staticBackdrop').modal('hide');
+	    				alert("댓글이 수정되었습니다.");
+	    				let nowPage = $("#nowPage").html();
+	    				goPage(nowPage);	
+	    			}
+	    		}
+	    	})
 	    }
 	</script>
 </body>
