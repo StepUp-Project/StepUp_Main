@@ -31,7 +31,7 @@
             </h1>
         </div>
         <article id="join_contain">
-            <form name="frm" action="pwChg.do" method="post" onsubmit = "return joinCheck()">
+            <form name="frm" action="pwChgOK.do" method="post" onsubmit = "return joinCheck()">
 				<input type="hidden" name="userIndex" value="${vo.userIndex}">
                 <div class="form-floating mb-3" >
                     <input type="password" class="form-control" id="userPw" name="userPw" placeholder="userPw" onblur="checkPw()">
@@ -49,6 +49,7 @@
                         <i class="xi-eye-o" id="c-eyes"></i>
                     </div>
                 </div>
+                <div id="checkPwcResult" class="mb-3" style="font-size:13px;"></div>
                 
                 <div class="mb-3 mt-3" id="join_btn">
                     <input type="button" value="취소" onclick="history.back()">
@@ -153,6 +154,7 @@
 
      	//회원가입 입력 및 인증 체크
      	function joinCheck(){
+     		checkPwc();
      		
      		if(checkPwOk == 0){
      			checkPw();

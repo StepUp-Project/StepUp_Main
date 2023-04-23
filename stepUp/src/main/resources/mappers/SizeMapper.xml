@@ -23,4 +23,8 @@
   	<update id="updateSubtract" parameterType="orderItemVO">
   		update size_tb set sizeStock = sizeStock - #{orderItemStock} where sizeIndex = #{sizeIndex}
   	</update>
+  	
+  	<select id="selectStockCheck" parameterType="orderItemVO" resultType="int">
+  		select count(*) from size_tb where sizeIndex = #{sizeIndex} and sizeStock >= #{orderItemStock}
+  	</select>
   </mapper>

@@ -11,21 +11,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-</head>
-
-	<script>
-	
-		function DoSubmit(){
-			
-			if( confirm("수정하시겠습니까?") != 1 )
-			{
-				//true = 1     1이라고 쓰면 true로 인식함
-				return false;
-			}
-			return true;
-		}
-	</script>
-	
+</head>	
 <body>
 	<%@ include file="../include/header.jsp" %>
     <main><!--메인 시작-->
@@ -55,10 +41,10 @@
                         	고객님의 주소와 연락처 등 개인정보를 수정하실 수 있습니다.
                     </p>
                 </div>
-                <form name="mpmFrm" action="mypage_modify.do" method="post" class="mpm"  onsubmit="return DoSubmit();">
+                <form name="mpmFrm" action="mypage_modify.do" method="post" class="mpm"  onsubmit="return joinCheck();">
                 	
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="userName"  name="userName" value="${mypage.userName}" onblur="nameCheck()">
+                        <input type="text" class="form-control" id="userName"  name="userName" value="${mypage.userName}" onblur="nameCheck()" readonly>
                         <label for="userName">이름</label>
                     </div>
                     <div id="checkNameResult" class="mb-3" style="font-size:13px;"></div>
@@ -67,16 +53,7 @@
                         <input type="text" class="form-control" id="userNick" name="userNick" value="${mypage.userNick}" oninput="checkNick()">
                         <label for="userNick">닉네임</label>
                     </div>
-                    <div id="checkNickResult" class="mb-3" style="font-size:13px;"></div>
-                    
-                    <!-- <div class="form-floating mb-3" >
-                        <input type="password" class="form-control" id="userPw" name="userPw" placeholder="userPw"  onblur="checkPw()">
-                        <label for="userPw">기존 비밀번호</label>
-                        <div id="eyes">
-                            <i class="xi-eye-o" id="d-eyes"></i>
-                        </div>
-                    </div>
-                    <div id="checkPwResult" class="mb-3" style="font-size:13px;"></div>-->
+                    <div id="checkNickResult" class="mb-3" style="font-size:13px;"></div>                    
                     
                     <div class="form-floating mb-3" >
                         <input type="password" class="form-control" id="userNPw" name="userNPw" placeholder="userNPw"  onblur="checkNPw()">
@@ -97,7 +74,7 @@
                     <div id="checkNPwcResult" class="mb-3" style="font-size:13px;"></div>
                     
                     <div class="form-floating mb-3 mt-3 d-flex justify-content-between">
-                        <input type="text" class="form-control" id="userPhone" name="userPhone" value="${mypage.userPhone}" onblur="PhoneCheck()">
+                        <input type="text" class="form-control" id="userPhone" name="userPhone" value="${mypage.userPhone}" onblur="PhoneCheck()" maxlength="11">
                         <label for="userPhone">연락처</label>
                     <button type="button" onclick="call()" class="btn btn-secondary btn-sm">인증번호 발송</button>
                     </div>
@@ -150,19 +127,6 @@
     <script src="<%=request.getContextPath()%>/resources/JS/script.js"></script><!-- 자바 스크립트 연결 -->
     <script>
     	//비밀번호, 비밀번호 확인 보이기 숨기기
-        let eyes = document.getElementById("eyes");
-        let dEyes = document.getElementById("d-eyes");
-        let UserPw = document.getElementById("userPw");
-        eyes.addEventListener("click", function(){
-            if(dEyes.classList.contains("xi-eye-o")){
-                dEyes.classList.replace("xi-eye-o", "xi-eye-off-o");
-                UserPw.setAttribute("type", "text");
-            }else{
-                dEyes.classList.replace("xi-eye-off-o", "xi-eye-o");
-                UserPw.setAttribute("type", "password");
-            }
-        });
-
         let npwEyes = document.getElementById("npweyes");
         let iEyes = document.getElementById("i-eyes");
         let UserNPw = document.getElementById("userNPw");
@@ -228,11 +192,14 @@
 		
       	
       	//새 비밀번호 유효성 체크
-      	let checkNPwOk = 0;
+      	let checkNPwOk = 1;
       	function checkNPw(){
 	      	let UserNPw = $('#userNPw').val();
 	      	let str = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$/;
-	      	if(!str.test(UserNPw)){
+	      	if(UserNPw == ""){
+	      		 $("#checkNPwResult").html("");
+	      		checkNPwOk = 1; 
+	      	}else if(!str.test(UserNPw)){
 				let html = "4자 이상의 영문, 숫자 를 사용하세요(특수문자 사용 불가)"
 			    let checkIdResult = document.getElementById("checkNPwResult");
 			    $("#checkNPwResult").html(html);
@@ -251,16 +218,13 @@
       	}
       	
       	//새 비밀번호 확인 유효성 검사
-      	let checkNPwcOk = 0;
+      	let checkNPwcOk = 1;
       	function checkNPwc(){
       		let UserNPwc = $('#userNPwc').val();
       		let UserNPw = $('#userNPw').val();
       		if(UserNPwc == ""){
-				let html = "새 비밀번호를 입력해주세요."
-				let checkIdResult = document.getElementById("checkNPwcResult");
-				$("#checkNPwcResult").html(html);
-				checkIdResult.style.color = '#ff0000';
-				checkNPwcOk = 0;         			
+				$("#checkNPwcResult").html("");
+				checkNPwcOk = 1;         			
       		}else if(UserNPwc != UserNPw){
 				let html = "일치하지 않는 비밀번호 입니다."
 				let checkIdResult = document.getElementById("checkNPwcResult");
@@ -278,11 +242,11 @@
       	
       	
     	//닉네임 중복체크
-      	let checkNickOk = 0;
+      	let checkNickOk = 1;
+    	let originalNick = $('#userNick').val();
      	function checkNick(){
       		let UserNick = $('#userNick').val();
-      		let str = /^[a-zA-Z0-9가-힣]{2,10}$/;
-      		
+      		let str = /^[a-zA-Z0-9가-힣]{2,10}$/;	
       		if(UserNick == ""){
 				let html = "필수 정보입니다."
 	            let checkIdResult = document.getElementById("checkNickResult");
@@ -295,7 +259,10 @@
           		$("#checkNickResult").html(html);
           		checkIdResult.style.color = '#ff0000';
           		checkNickOk = 0;
-      		}else{
+      		}else if(UserNick == originalNick){
+      			$("#checkNickResult").html("");
+      			checkNickOk = 1;
+      		}else{	
 	      		$.ajax({
 	      			url: "${pageContext.request.contextPath}/ajax/checkNick.do",
 	      			type: "post",
@@ -341,11 +308,12 @@
 	     }
 	     	
      	// 핸드폰 문자 인증 및 유효성 체크
-     	let PchOk = 0;
+     	let PchOk = 1;
+     	let originalUserPhone = $("#userPhone").val();
      	function call(){
      		let UserPchNumStyle = document.getElementById("userPchNum");
      		let UserPhone = $("#userPhone").val();
-     		let str = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+     		let str = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
      		if(UserPhone == "" || !str.test(UserPhone)){
      				$("#PchResult").html("형식에 맞지 않는 번호입니다.");
      				document.getElementById("PchResult").style.color = '#ff0000';
@@ -403,24 +371,6 @@
 			});
      	}
      	
-     	//이름 유효성 검사
-     	let checkNameOk = 0;
-     	function nameCheck(){
-     		let str =  /^[가-힣a-zA-Z]+$/;
-     		let userName = $("#userName").val();
-     		if(userName == ""){
-     			$("#checkNameResult").html("필수 정보입니다.");
-     			 document.getElementById("checkNameResult").style.color = "#ff0000";
-     			 checkNameOk = 0;
-     		}else if(!str.test(userName)){
-     			$("#checkNameResult").html("한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)");
-     			 document.getElementById("checkNameResult").style.color = "#ff0000";
-     			 checkNameOk = 0;
-     		}else{
-     			$("#checkNameResult").html("");
-     			checkNameOk = 1;
-     		}
-     	}
      	
      	//주소 입력 여부 체크
     	function addrCheck(){
@@ -438,19 +388,13 @@
      	}
 
      	//회원가입 입력 및 인증 체크
-     	function joinCheck(){
-     		if(checkNameOk == 0){
-     			nameCheck();
-     			$("#userName").focus();
-     			return false;
-     		}
+     	function joinCheck(){     		     		     		
      		if(checkNickOk == 0){
+     			console.log("진입");
      			checkNick();
      			$("#userNick").focus();
      			return false;     			
-     		}
-     		
-     		
+     		}    		
      		
      		if(checkNPwOk == 0){
      			checkNPw();
@@ -461,17 +405,16 @@
      			checkNPwc();
      			$("#userNPwc").focus();
      			return false;
-     		}
-     		
-     		
-     		
+     		} 
 
      		if(PchOk == 0){
      			PhoneCheck();
+ 				$("#PchResult").html("핸드폰 인증을 진행해 주세요");
+ 				document.getElementById("PchResult").style.color = '#ff0000';
      			$("#userPhone").focus();
      			return false;        			
      		}
-     		if($("#userPchNum").val() == ""){
+     		if($("#userPchNum").val() == "" && originalUserPhone != $("#userPhone").val()){
      			 $("#PchResult").html("인증번호를 입력해 주세요");
      			 document.getElementById("PchResult").style.color = '#ff0000';
       			 $("#UserPhone").focus();
@@ -482,6 +425,11 @@
      			$("#userZipCode").focus();
      			return false;
      		}
+     		
+			if( confirm("수정하시겠습니까?") != 1 )
+			{
+				return false;
+			}
      		
      		return true;
      	}

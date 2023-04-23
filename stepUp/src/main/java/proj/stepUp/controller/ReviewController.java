@@ -51,33 +51,6 @@ public class ReviewController {
 	
 		int result = reviewService.insertRivew(vo);
 		return "redirect:/product/view.do?prdIndex="+vo.getPrdIndex();
-	}
-	
-	@RequestMapping(value="/delete.do", method = RequestMethod.POST)
-	public String deleteReview(ReviewVO vo) {
-		reviewService.deleteReview(vo);		
-		return "redirect:/product/view.do?prdIndex="+vo.getPrdIndex();
-	}
-	
-	@RequestMapping(value="modify.do", method = RequestMethod.GET)
-	public String reviewModify(int reviewIndex, Model model) {
-		ReviewVO vo = reviewService.selectReviewModify(reviewIndex);
-		model.addAttribute("reviewVO", vo);
+	}	
 		
-		return "product/reviewModify";
-	}
-	
-	@RequestMapping(value="modify.do", method = RequestMethod.POST)
-	public void reviewModifyOk(ReviewVO vo, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
-		rsp.setContentType("text/html;charset=utf-8");
-		PrintWriter pw = rsp.getWriter();
-		
-		if(req.getAttribute("reviewContent") != null){
-			vo.setReviewContent(Encode.forHtmlAttribute((String) req.getAttribute("reviewContent")));
-		}
-		
-		int result = reviewService.updateReview(vo);
-		pw.append("<script>alert('리뷰 수정이 완료되었습니다.');opener.parent.location.reload();window.close();</script>");
-		
-	}
 }

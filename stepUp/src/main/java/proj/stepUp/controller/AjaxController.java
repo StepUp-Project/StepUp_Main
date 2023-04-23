@@ -3,14 +3,17 @@ package proj.stepUp.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.owasp.encoder.Encode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -235,7 +238,7 @@ public class AjaxController {
 		
 		@ResponseBody
 		@RequestMapping(value="/ordernum.do", method = RequestMethod.POST)//결제 요청전 실행ajax
-		public String orderNum(int totalPrice) {					
+		public String orderNum(int totalPrice) {			
 			PaymentUtil paymentUtil = new PaymentUtil();
 			String orderNum = paymentUtil.createNum();//주문번호 생성
 		    int result = orderService.selectOrderNum(orderNum);//주문번호 중복 체크
@@ -260,7 +263,7 @@ public class AjaxController {
 		@RequestMapping(value="/createOrder.do", method = RequestMethod.POST)	
 		public String createOrder(String imp_uid, String merchant_uid, int totalPrice, int userIndex,
 				int[] sizeindex, int[] orderitemStock, OrderItemVO oiVO, CartVO cartVO
-				) {
+				) {			
 			String success = "0";
 			PaymentUtil paymentUtil = new PaymentUtil();
 			String accessToken = paymentUtil.getAccessToken();//엑세스 토큰 발급
@@ -286,6 +289,23 @@ public class AjaxController {
 			}
 			
 			return success;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/checkStock.do", method = RequestMethod.POST)
+		public String checkStock(int[] sizeindex, int[] orderitemStock, OrderItemVO oiVO) {
+			System.out.println(sizeindex);
+			System.out.println(orderitemStock);
+			for(int i = 0; i < sizeindex.length; i++) {
+				oiVO.setSizeIndex(sizeindex[i]);
+				oiVO.setOrderItemStock(orderitemStock[i]);
+				
+				int result = sizeService.selectStockCheck(oiVO);
+				if(result == 0) {
+					return "0";
+				}
+			}						
+			return "1";
 		}
 		
 		@ResponseBody
@@ -396,5 +416,35 @@ public class AjaxController {
 			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
 						
 			return paging;
-		}		
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="reviewModify.do", method = RequestMethod.GET)
+		public ReviewVO reviewModify(int reviewIndex, Model model) {
+			System.out.println("ajax"+reviewIndex);
+			ReviewVO vo = reviewService.selectReviewModify(reviewIndex);
+			
+			return vo;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="modify.do", method = RequestMethod.POST)
+		public int reviewModifyOk(ReviewVO vo, HttpServletRequest req) throws IOException {
+			
+			if(req.getAttribute("reviewContent") != null){
+				vo.setReviewContent(Encode.forHtmlAttribute((String) req.getAttribute("reviewContent")));
+			}
+			
+			int result = reviewService.updateReview(vo);
+			
+			return result;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/delete.do", method = RequestMethod.POST)
+		public int deleteReview(ReviewVO vo) {
+			int result = reviewService.deleteReview(vo);		
+			return result;
+		}
 }
+	

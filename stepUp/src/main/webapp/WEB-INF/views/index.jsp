@@ -50,11 +50,9 @@
                 <div class="main-new-title">
                     <h2>NEW</h2>
                 </div>
-                <div class="swiperSmall"><!-- 메인 슬라이더 시작 -->
-                    <!-- Additional required wrapper -->
-                    <div class="swiper-wrapper" id="autoStop">
-                        <!-- Slides -->
-                        <c:forEach var="newPrd" items="${newProduct}">
+				  <div class="swiperSmall">
+				    <div class="swiper-wrapper">
+				       	<c:forEach var="newPrd" items="${newProduct}">
                         <div class="swiper-slide">
                             <a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${newPrd.prdIndex}">
                                 <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${newPrd.prdRname})"></p></div>
@@ -76,9 +74,8 @@
                             </a>
                         </div>
                         </c:forEach>
-                    </div>
-                    <div class="swiper-scrollbar"></div>
-                </div><!-- 메인 슬라이더 끝 -->
+				    </div>
+				  </div>
             </div>
             <!-- NEW 영역 끝-->
             
@@ -171,42 +168,20 @@
                 }
             });
 
-            //new
-            const swiperSmall = new Swiper('.swiperSmall', {
-            // Default parameters
-                slidesPerView: 4,
-                spaceBetween: 10,
-                speed:5000,
-                loop : true,
+          //new
+            var swiperSmall = new Swiper(".swiperSmall", {
+            	slidesPerView: 4,
+            	slidesPerGroup : 4,
+            	spaceBetween: 10,
+            	loopFillGroupWithBlank : true,
+            	speed:2000,
+            	loop : true,
                 autoplay: {
-                    delay: 0,
-                    disableOnInteraction: false
-                    },
-                scrollbar: {
-			        el: '.swiper-scrollbar',  //스크롤바를 만들어주는 클래스
-			        draggable: true,
-		        },
-                dragSize : 5,  //드래그 사이즈
-		        dragClass : 'swiper-scrollbar-drag',  //드래그를 만들어주는 클래스
-		        hide : false,  //스크롤이 사라지지 않게 해줌
-            });
-
-
-            let slider = document.getElementById("autoStop");
-            slider.addEventListener("mouseover", function(){
-                swiperSmall.autoplay.stop()
-                let pos = swiperSmall.getTranslate();
-                slider.style.transform = `translate3d(${pos}px, 0px, 0px)`;
-                
-            });
-
-            slider.addEventListener("mouseout", function(){ 
-                swiperSmall.autoplay.start()
-                setTimeout(function() {
-                    swiperSmall.update();
-                    swiperSmall.slideNext();
-                }, 1000); // 3초 후에 업데이트
-            });
+                    delay: 5000,
+                    disableOnInteraction : false,
+                    pauseOnMouseEnter : true
+                    }
+              });
     </script>
 <%@ include file="./include/footer.jsp" %>
 </body>

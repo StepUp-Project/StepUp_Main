@@ -25,9 +25,14 @@
             </h1>
         </div>
 		<article id="joinok">
+			<c:if test="${findResult == 1}">
 			<i class="xi-check"></i>
-			
 			<p>변경이 완료되었습니다.</p>
+			</c:if>
+			<c:if test="${findResult == 0}">
+			<i class="xi-close-thin find-closeIcon"}"></i>
+			<p class="mt-3">정보와 일치하는 계정이 존재하지 않거나 탈퇴한 계정 입니다.</p>
+			</c:if>			
 			<button type="button" id="joid_btn" onclick="location.href='login.do'">로그인</button>
 			
 		</article><!--end:#joinok-->

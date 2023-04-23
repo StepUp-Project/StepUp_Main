@@ -30,7 +30,7 @@ window.onload = function(){
     let newBanner = this.document.getElementById("new-banner")
     if(newBanner != null){
         if(htmlTop > 50){
-            newBanner.style.height = "0vh";
+            newBanner.style.height = "15vh";
         }else{
             newBanner.style.height = "85vh";
         }
