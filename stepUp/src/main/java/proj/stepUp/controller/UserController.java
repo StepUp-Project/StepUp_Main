@@ -70,10 +70,7 @@ public class UserController {
 		 if(vo.getLoChk() == null) {
 			 vo.setLoChk("N");
 		 }
-		 
-		System.out.println(vo.getEveChk());
-		System.out.println(vo.getLoChk());
-		
+		 		
 		model.addAttribute("vo", vo);  //join_terms에서 선택한 체크박스  값을 join으로 넘겨줌
 		
 		HttpSession seesion = req.getSession();
@@ -124,7 +121,6 @@ public class UserController {
 		
 		if(loginVO != null ) {
 			if(loginVO.getUserGrade().equals("Q")){
-				System.out.println("탈퇴한 사용자 아이디 :: " + vo.getUserGrade());
 				pw.append("<script>alert('탈퇴한 사용자입니다.');location.href='"+req.getContextPath()+"/user/login.do'</script>");
 			}else {
 				System.out.println("로그인 성공");
@@ -180,21 +176,20 @@ public class UserController {
 			pw.flush();
 		}
 		
-		return "home";
+		return "index";
 	}
 	
 	
-	@RequestMapping(value="naverLogin.do")
+	@RequestMapping(value="/naverLogin.do")
 	public String naverLogin() {
 		NaverLogin requestLogin = new NaverLogin();
 		String request = requestLogin.requestLogin();
 		
-		System.out.println(request);
 		return "redirect:"+request;
 	}
 	
 	
-	@RequestMapping(value="naverLoginOk.do")
+	@RequestMapping(value="/naverLoginOk.do", method = RequestMethod.GET)
 	public String naverLoginOk(@RequestParam String code, String state, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
 		NaverLogin requestLogin = new NaverLogin();
 		String accessToken = requestLogin.getNaverAccessToken(code, state);//토큰 발급
@@ -234,7 +229,7 @@ public class UserController {
 			pw.flush();
 		}
 		
-		return "home";
+		return "index";
 	}
 	
 	

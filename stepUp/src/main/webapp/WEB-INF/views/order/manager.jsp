@@ -37,16 +37,13 @@
         <div class="mypagemain">
             <div class="mypage_menu"><!--마이페이지 메뉴 시작-->
                 <div class="mypagehi">
-                    <p>안녕하세요, 배유진님!</p>
+                    <p>안녕하세요, ${login.getUserNick()} 님!</p>
                 </div>
                 <div class="mypage_gnb">
-                    <span><a href="<%=request.getContextPath()%>/user/mypage_order.do">주문배송조회</a></span>
-                    <span><a href="<%=request.getContextPath()%>/user/mypage_review.do">상품후기</a></span>
-                    <span><a href="<%=request.getContextPath()%>/user/mypage_like.do">관심목록</a></span>
-                    <span><a href="<%=request.getContextPath()%>/user/mypage_qna.do">QnA</a></span>
-                    <span><a href="<%=request.getContextPath()%>/user/mypage_posting.do">내가 작성한 글</a></span>
-                    <span><a href="<%=request.getContextPath()%>/user/mypage_modify_check.do">개인정보수정</a></span>
-                    <span><a href="<%=request.getContextPath()%>/user/mypage_withdrawal.do">회원탈퇴</a></span>
+                    <span><a href="<%=request.getContextPath()%>/admin.do">슬라이더 관리</a></span>
+                    <span><a href="<%=request.getContextPath()%>/restrict.do">회원 관리</a></span>
+                    <span><a href="<%=request.getContextPath()%>/order/manager.do">주문내역 관리</a></span>
+                    <span><a href="<%=request.getContextPath()%>/product/management.do">상품관리</a></span>
                 </div>
             </div><!--마이페이지 메뉴 끝-->
 

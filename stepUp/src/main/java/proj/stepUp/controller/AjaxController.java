@@ -238,7 +238,7 @@ public class AjaxController {
 		
 		@ResponseBody
 		@RequestMapping(value="/ordernum.do", method = RequestMethod.POST)//결제 요청전 실행ajax
-		public String orderNum(int totalPrice) {					
+		public String orderNum(int totalPrice) {			
 			PaymentUtil paymentUtil = new PaymentUtil();
 			String orderNum = paymentUtil.createNum();//주문번호 생성
 		    int result = orderService.selectOrderNum(orderNum);//주문번호 중복 체크
@@ -263,7 +263,7 @@ public class AjaxController {
 		@RequestMapping(value="/createOrder.do", method = RequestMethod.POST)	
 		public String createOrder(String imp_uid, String merchant_uid, int totalPrice, int userIndex,
 				int[] sizeindex, int[] orderitemStock, OrderItemVO oiVO, CartVO cartVO
-				) {
+				) {			
 			String success = "0";
 			PaymentUtil paymentUtil = new PaymentUtil();
 			String accessToken = paymentUtil.getAccessToken();//엑세스 토큰 발급
@@ -289,6 +289,23 @@ public class AjaxController {
 			}
 			
 			return success;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/checkStock.do", method = RequestMethod.POST)
+		public String checkStock(int[] sizeindex, int[] orderitemStock, OrderItemVO oiVO) {
+			System.out.println(sizeindex);
+			System.out.println(orderitemStock);
+			for(int i = 0; i < sizeindex.length; i++) {
+				oiVO.setSizeIndex(sizeindex[i]);
+				oiVO.setOrderItemStock(orderitemStock[i]);
+				
+				int result = sizeService.selectStockCheck(oiVO);
+				if(result == 0) {
+					return "0";
+				}
+			}						
+			return "1";
 		}
 		
 		@ResponseBody

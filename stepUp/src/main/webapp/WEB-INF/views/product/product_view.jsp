@@ -305,6 +305,8 @@
 				 $('#quantity_'+size+'').val(sumNum);
 				 sizePrice(size);
 				 totalPrice();
+			}else{
+				alert("준비된 수량을 초과하였습니다.");
 			}
 
 		}

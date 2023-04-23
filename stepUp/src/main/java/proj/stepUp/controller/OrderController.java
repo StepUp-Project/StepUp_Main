@@ -33,7 +33,7 @@ public class OrderController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "managerOrder.do", method = RequestMethod.GET)
+	@RequestMapping(value = "manager.do", method = RequestMethod.GET)
 	public String managerOrderList() {
 				
 		return "order/manager";

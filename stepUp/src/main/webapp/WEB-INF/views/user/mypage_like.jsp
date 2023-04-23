@@ -141,12 +141,15 @@
     function change(prdindex){
     	let userIndex = "<c:out value='${login.userIndex}'/>";
     	let prdIndex = prdindex;
-		console.log("prdIndex ::" + prdIndex);  
+    	if(confirm("해당 상품을 관심 목록에서 삭제 하시겠습니까?") != 1){
+    		return false;
+    	}
    		$.ajax({
    			url:"<%=request.getContextPath()%>/ajax/removeMark.do",
    			type:"post",
    			data:{userIndex : userIndex, prdIndex : prdIndex},
    			success : function(){
+   				alert("관심목록에서 해당 상품이 삭제되었습니다.");
    				window.location.reload();
    			}
    		});
