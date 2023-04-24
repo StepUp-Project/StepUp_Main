@@ -125,6 +125,9 @@
         	const cart_sizeStock = document.getElementById('cart_'+cartindex);
         	if(quantity.value == cart_sizeStock.value){
         		alert("선택가능 한 최대 수량입니다.");
+        	}else if(quantity.value > cart_sizeStock.value){
+        		alert("선택가능 한 최대 수량을 넘었습니다.");
+        		quantity.value = parseInt(cart_sizeStock.value);
         	}else if(quantity.value < cart_sizeStock){
         		quantity.value = parseInt(quantity.value) + 1;
         	}

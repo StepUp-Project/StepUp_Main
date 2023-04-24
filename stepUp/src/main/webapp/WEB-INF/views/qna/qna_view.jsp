@@ -94,7 +94,7 @@
 	                <li><!-- 작성된 댓글 보여주는 곳 -->
 	                    <div class="re_winfo">
 	                        <span class="re_writer">${rList.userNick}</span>
-	                        <span class="re_wdate">${rList.reWdate}</span>
+	                        <span class="re_wdate">${rList.qnaWdate}</span>
 	                        <c:if test="${login.userIndex eq rList.userIndex}">
 	                        	<form action="qnare_del.do" method="post" onsubmit="return confirm('삭제하시겠습니까?')">
 	                        		<div></div>
@@ -133,7 +133,7 @@
 								</script>
 	                        </c:if>
 	                    </div>
-	                    <div class="qnare_note">${rList.qnareCnt}</div>
+	                    <div class="re_note" style=" text-indent: 25px;">${rList.qnareCnt}</div>
 	                </li>
 	            </c:forEach>
             </c:if>

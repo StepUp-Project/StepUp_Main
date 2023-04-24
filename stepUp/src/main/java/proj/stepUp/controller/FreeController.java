@@ -46,7 +46,7 @@ public class FreeController {
 			totalCnt = cntTotal.get(0).getTotal();
 		}
 		
-		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 10);
+		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 15);
 		List<FreeBoardVO> list = freeService.list(svo);
 		
 		model.addAttribute("blist", list);
