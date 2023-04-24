@@ -3,13 +3,11 @@ package proj.stepUp.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
@@ -44,6 +42,7 @@ import proj.stepUp.vo.ProductVO;
 import proj.stepUp.vo.ReviewVO;
 import proj.stepUp.vo.SearchVO;
 import proj.stepUp.vo.SizeVO;
+import proj.stepUp.vo.UserVO;
 
 @RequestMapping(value="/ajax")
 @Controller
@@ -421,7 +420,6 @@ public class AjaxController {
 		@ResponseBody
 		@RequestMapping(value="reviewModify.do", method = RequestMethod.GET)
 		public ReviewVO reviewModify(int reviewIndex, Model model) {
-			System.out.println("ajax"+reviewIndex);
 			ReviewVO vo = reviewService.selectReviewModify(reviewIndex);
 			
 			return vo;
@@ -445,6 +443,35 @@ public class AjaxController {
 		public int deleteReview(ReviewVO vo) {
 			int result = reviewService.deleteReview(vo);		
 			return result;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/searchMyReview.do", method = RequestMethod.GET)
+		public List<ReviewVO> searchMyReview(SearchVO searchVO, int nowPage, HttpServletRequest req) {
+			HttpSession session = req.getSession();
+			UserVO loginUser = (UserVO)session.getAttribute("login");
+			
+			int totalCount = reviewService.myReviewTotalCnt(searchVO);
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+			searchVO.setStart(paging.getStart());
+			searchVO.setPerPage(paging.getPerPage());
+			searchVO.setUserIndex(loginUser.getUserIndex());
+			
+			List<ReviewVO> reviewVo = reviewService.selectMyReview(searchVO);
+			
+			return reviewVo;
+		}
+		
+		@ResponseBody
+		@RequestMapping(value="/myReviewPaging.do", method = RequestMethod.GET)
+		public PagingUtil myReviewPaging(SearchVO searchVO, int nowPage, HttpServletRequest req) {
+			HttpSession session = req.getSession();
+			UserVO loginUser = (UserVO)session.getAttribute("login");
+			searchVO.setUserIndex(loginUser.getUserIndex());
+			int totalCount = reviewService.myReviewTotalCnt(searchVO);
+			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+			
+			return paging;
 		}
 }
 	

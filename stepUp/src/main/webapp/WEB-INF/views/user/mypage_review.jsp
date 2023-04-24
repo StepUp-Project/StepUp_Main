@@ -60,63 +60,205 @@
                                 <th class="revwrite">후기 작성</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td class="cnt_info">
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt03.jpg)"></p></div>
-                                    </a>
-                                </td>
-                                <td class="cnt_info">
-                                    <a href="#">
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_size"><span>NK010001</span></P>
-                                    </a>
-                                </td>
-                                <td><span>150,000원</span></td>
-                                <td><span>리뷰가 없습니다.</span></td>
-                                <td><input class="review_write" type="button" value="작성하기" onclick="showPopupWrite();"></td>
-                            </tr>
-                            <tr>
-                                <td class="cnt_info">
-                                    <a href="#">
-                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt03.jpg)"></p></div>
-                                    </a>
-                                </td>
-                                <td class="cnt_info">
-                                    <a href="#">
-                                        <P class="cnt_brand"><span>NIKE</span></P>
-                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                        <P class="cnt_size"><span>NK010001</span></P>
-                                    </a>
-                                </td>
-                                <td><span>150,000원</span></td>
-                                <td><span>2022-04-02</span></td>
-                                <td>
-                                    <input class="review_edit" type="button" value="수정" onclick="showPopupChange();">
-                                    <input class="review_del" type="button" value="삭제">
-                                </td>
-                            </tr>
+                        <tbody id="reviewArea">                           
                         </tbody>
-
-                        <tfoot>
-                            <tr class="order_page" >
-                                <td colspan="5">◀ 1 2 3 4 5 6 7 8 9 ▶</td>
-                            </tr>
-                        </tfoot>
                     </table>
+                    <ul id="order_page" class="mt-3">
+                    </ul>
                 </article>
 
             </article>
         </div>
+		  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel">댓글 수정</h1>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+				   <div>
+					  <input type="hidden" name="reviewIndexs" id="reviewModifyIndex" value=""/>
+			          <textarea id="review_writeCnt" class="reviewModifyCnt" name="reviewContent" placeholder="상품평을 남겨주세요"></textarea>
+			          <div id="rating_ctn">
+			              <span>별점을 남겨주세요</span>
+			              <div class="star-rating">
+			                  <input type="radio" id="5-starse" name="reviewScores" class="5-modifyStars" value="5"/>
+			                  <label for="5-starse" class="star">&#9733;</label>
+			                  <input type="radio" id="4-starse" name="reviewScores" class="4-modifyStars" value="4"/>
+			                  <label for="4-starse" class="star">&#9733;</label>
+			                  <input type="radio" id="3-starse" name="reviewScores" class="3-modifyStars" value="3"/>
+			                  <label for="3-starse" class="star">&#9733;</label>
+			                  <input type="radio" id="2-starse" name="reviewScores" class="2-modifyStars" value="2"/>
+			                  <label for="2-starse" class="star">&#9733;</label>
+			                  <input type="radio" id="1-starse" name="reviewScores" class="1-modifyStars" value="1"/>
+			                  <label for="1-starse" class="star">&#9733;</label>
+			              </div>
+			          </div>
+				  </div>		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-light" data-bs-dismiss="modal">취소</button>
+		        <button type="button" class="btn btn-primary" onclick="modify()">수정하기</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- 수정버튼 클릭시 모달창 영역 end -->                
 	</main>
 	
 	<%@ include file="../include/footer.jsp" %>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
-        function showPopupWrite() { window.open("<%=request.getContextPath()%>/user/review.do", "a", "width=800, height=420, left=200, top=80"); }
-        function showPopupChange() { window.open("<%=request.getContextPath()%>/user/review_modify.do", "a", "width=800, height=420, left=200, top=80"); }
+    function searchMyReview(nowPage){//상품 리스트ajax호출 함수
+    	$.ajax({
+    		url:"<%=request.getContextPath()%>/ajax/searchMyReview.do",
+    		type:"get",
+    		data:{
+    			nowPage : nowPage
+    			},
+    		success:function(data){
+    			let reviewHtml='';
+    			for(let i=0; i < data.length; i++){
+    				let reviewList = data[i];
+    				let price = new Intl.NumberFormat('ko-kr').format(reviewList.prdPrice);
+    				let reviewDate = moment(reviewList.reviewDate).format('YYYY-MM-DD');
+    				let brandCode = reviewList.prdCode.substring(0, 2);
+					let brand = brandCode == 'NK' ? 'NIKE':brandCode == 'AD' ? 'ADIAS':brandCode == 'VS' ? 'VANS':
+						brandCode == 'CV' ? 'CONVERSE':brandCode == 'PM' ? 'PUMA':brandCode == 'FL' ? 'FILA':
+						brandCode == 'CR' ? 'CROCS':brandCode == 'NB' ? 'NEW BLANCE':"";
+    				reviewHtml += '<tr>';
+    				reviewHtml += '<td class="cnt_info">';
+    				reviewHtml += '<a href="<%=request.getContextPath()%>/product/view.do?prdIndex='+reviewList.prdIndex+'">';
+    				reviewHtml += '<div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/'+reviewList.prdRname+')"></p></div>';
+    				reviewHtml += '</a>';
+    				reviewHtml += '</td>';
+    				reviewHtml += '<td class="cnt_info">';	    					    				
+    				reviewHtml += '<a href="<%=request.getContextPath()%>/product/view.do?prdIndex='+reviewList.prdIndex+'">';	    					    				
+    				reviewHtml += '<P class="cnt_brand"><span>NIKE</span></P>';	    					    				
+    				reviewHtml += '<P class="cnt_name"><span>'+reviewList.prdName+'</span></P>';	    					    				
+    				reviewHtml += '<P class="cnt_size"><span>'+reviewList.prdCode+'</span></P>';	    					    				
+    				reviewHtml += '</a>';	    					    				
+    				reviewHtml += '</td>';	    					    				
+    				reviewHtml += '<td><span>'+price+'원</span></td>';	    					    				
+    				reviewHtml += '<td><span>'+reviewDate+'</span></td>';	    					    				
+    				reviewHtml += '<td>';	    					    				
+    				reviewHtml += '<input class="review_edit" type="button" value="수정" onclick="modaltest('+reviewList.reviewIndex+')">';	    					    				
+    				reviewHtml += '<input class="review_del" type="button" value="삭제" onclick="reviewDel('+reviewList.reviewIndex+')">';	    					    				
+    				reviewHtml += '</td>';	    					    				
+    				reviewHtml += '</tr>';	    					    				
+    			}
+    			paging(nowPage)
+    			$("#reviewArea").html(reviewHtml);
+    		}
+    	});
+    }
+    
+    function paging(nowPage){//페이징 버튼 ajax 처리 함수
+    	let pagingHtml = '';
+    	$.ajax({
+    		url:"<%=request.getContextPath()%>/ajax/myReviewPaging.do",
+    		type:"get",
+    		data:{
+    			nowPage : nowPage
+    			},
+    		success: function(data) {
+			let startPage = Number(data.startPage);
+			let endPage = Number(data.endPage);
+			let perPage = Number(data.perPage);
+			let total = Number(data.total);
+			let now = Number(data.nowPage);
+			let lastPage = Number(data.lastPage);
+	    	pagingHtml += '<li class="d-flex justify-content-center">';
+	    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-left"  onclick="searchPrdList('+(now - 1)+')" style= "display:'+(now != 1 ? 'block' : 'none')+'"></a>';
+	    	pagingHtml += '<div id="pagingNumBtn">';
+	    	for(let i = startPage; i <= endPage; i ++){
+	    		if(now != i){
+	    			pagingHtml += '<a href="javascript:void(0);" class="pe-1" onclick="searchPrdList('+i+')">'+i+'</a>';
+	    		}else{
+	    			pagingHtml += '<span class="pe-1 text-primary" id="nowPage">'+i+'</span>';
+	    		}
+	    	}
+	    	pagingHtml += '</div> ';
+	    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-right" onclick="searchPrdList('+(now+ 1)+')" style= "display:'+(now != lastPage && lastPage != 0 ? 'block' : 'none')+'"></a>';
+	    	pagingHtml += '</li>';
+	    	$("#order_page").html(pagingHtml);
+	    		}
+    	});
+    }
+    
+    $(document).ready(function(){
+    	searchMyReview(1);
+    });
+    
+    function modaltest(reviewIndex){
+    	$('#staticBackdrop').modal('show');
+    	$.ajax({
+			url:"<%=request.getContextPath()%>/ajax/reviewModify.do",
+			type:"get",
+			data:{
+				reviewIndex : reviewIndex
+			},
+			success:function(data){
+				$(".reviewModifyCnt").val(data.reviewContent);
+				$("#reviewModifyIndex").val(data.reviewIndex);
+				if(data.reviewScore == 5){
+					$(".5-modifyStars").prop("checked", true);
+				}else if(data.reviewScore == 4){
+					$(".4-modifyStars").prop("checked", true);
+				}else if(data.reviewScore == 3){
+					$(".3-modifyStars").prop("checked", true);
+				}else if(data.reviewScore == 2){
+					$(".2-modifyStars").prop("checked", true);
+				}else if(data.reviewScore == 1){
+					$(".1-modifyStars").prop("checked", true);
+				}
+			}
+		})
+    }
+    
+    function modify(){
+    	let reviewIndex = $("#reviewModifyIndex").val();
+    	let reviewContent = $(".reviewModifyCnt").val();
+    	let reviewScore = $("input[name=reviewScores]:checked").val();
+    	$.ajax({
+    		url:"<%=request.getContextPath()%>/ajax/modify.do",
+    		type:"post",
+    		data:{
+    			reviewIndex : reviewIndex,
+    			reviewContent : reviewContent,
+    			reviewScore : reviewScore
+    		},
+    		success:function(data){
+    			if(data == 1){
+    				$('#staticBackdrop').modal('hide');
+    				alert("댓글이 수정되었습니다.");
+    				let nowPage = $("#nowPage").html();
+    				searchMyReview(nowPage);	
+    			}
+    		}
+    	})
+    }
+    
+ 	function reviewDel(reviewIndex){
+    	if(confirm("해당 리뷰를 삭제하시겠습니까?") == 0){
+    		return false;
+    	}
+    	$.ajax({
+    		url:"<%=request.getContextPath()%>/ajax/delete.do",
+    		type:"post",
+    		data:{
+    			reviewIndex : reviewIndex
+    		},
+    		success:function(data){
+    			if(data == 1){
+    				let nowPage = $("#nowPage").html();
+    				searchMyReview(nowPage);
+    			}
+    		}
+    	})
+    }    
     </script>
-
 </body>
 </html>

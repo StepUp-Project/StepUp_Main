@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import proj.stepUp.dao.ReviewDAO;
 import proj.stepUp.vo.ReviewVO;
+import proj.stepUp.vo.SearchVO;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
@@ -51,7 +52,13 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public List<ReviewVO> selectMyReview(int userIndex) {
-		return reviewDAO.selectMyReview(userIndex);
+	public List<ReviewVO> selectMyReview(SearchVO searchVO) {
+		return reviewDAO.selectMyReview(searchVO);
 	}
+
+	@Override
+	public int myReviewTotalCnt(SearchVO searchVO) {
+		return reviewDAO.myReviewTotalCnt(searchVO);
+	}
+
 }

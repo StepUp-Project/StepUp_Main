@@ -63,10 +63,10 @@
 							   	<table class="table table-bordered border-line">
 							   		<tr>
 							   			<td rowspan='5' class="orderImg" >
-							   				<img src="<%=request.getContextPath() %>/resources/prdmainimg/${prd.prdRname}" alt="상품이미지">
+							   				<a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${prd.prdIndex}"><img src="<%=request.getContextPath() %>/resources/prdmainimg/${prd.prdRname}" alt="상품이미지"></a>
 							   			</td>
 							   			<th class="border-line">상품명</th>
-							   			<td class="border-line">${prd.prdName}</td>
+							   			<td class="border-line"><a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${prd.prdIndex}">${prd.prdName}</a></td>
 							   		</tr>
 							   		<tr>
 							   			<th>사이즈</th>

@@ -32,11 +32,17 @@
 		update review_tb set reviewContent = #{reviewContent}, reviewScore = #{reviewScore} where reviewIndex = #{reviewIndex}
 	</update>
 	
-	<select id="selectMyReview" parameterType="int" resultType="reviewVO">
-		select distinct p.prdIndex, p.prdRname, p.prdPrice, r.reviewIndex, r.reviewDate from order_item_tb oi left join order_tb o on oi.orderIndex = o.orderIndex
-		left join size_tb s on oi.sizeIndex = s.sizeIndex
-		left join product_tb p on s.prdIndex = p.prdIndex
-		left join review_tb r on r.prdIndex = p.prdIndex
-		where o.userIndex = #{userIndex}
+	<select id="selectMyReview" parameterType="searchVO" resultType="reviewVO">
+		select * from review_tb r, product_tb p 
+		where r.prdIndex = p.prdIndex 
+		and r.userIndex = #{userIndex}
+		order by r.reviewDate desc
+		limit #{start}, #{perPage}
+	</select>
+	
+	<select id="myReviewTotalCnt" resultType="int" parameterType="searchVO">
+		select count(*) from review_tb r, product_tb p
+		where r.prdIndex = p.prdIndex 
+		and r.userIndex = #{userIndex} 
 	</select>
   </mapper>
