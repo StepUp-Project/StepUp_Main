@@ -40,7 +40,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                 <c:forEach var="vo" items="${blist}" begin="${(paging.nowPage*10)-10}" end="${(paging.nowPage*10) -1}">
+                 <c:forEach var="vo" items="${blist}" begin="${(paging.nowPage*15)-15}" end="${(paging.nowPage*15) -1}">
                     <tr>
                         <td><span>${vo.freeIndex}</span></td>
                         <td><a href="free_view.do?freeIndex=${vo.freeIndex}"><div>${vo.freeTitle}</div></a></td>

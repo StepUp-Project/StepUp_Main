@@ -39,7 +39,7 @@ public class NoticeController {
 			totalCnt = cntTotal.get(0).getTotal();
 		}
 		
-		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 10);
+		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 15);
 		
 		List<NoticeBoardVO> list = noticeService.list(svo);
 		model.addAttribute("blist", list);
