@@ -8,13 +8,13 @@
             	<c:if test="${empty login}">
             		<a href="<%=request.getContextPath()%>/user/login.do"><i class="xi-user-o"></i></a>
                 </c:if>
-                <c:if test="${not empty login && login.userGrade == 'U'}">
+                <c:if test="${not empty login && login.userGrade == 'U' || login.userGrade == 'F'}">
                 	<a href="<%=request.getContextPath()%>/order/user.do"><i class="xi-user-o"></i></a>
                 </c:if>
                 <c:if test="${not empty login && login.userGrade == 'A'}">
                 	<a href="<%=request.getContextPath()%>/admin.do"><i class="xi-user-o"></i></a>
                 </c:if>                
-                <c:if test="${not empty login && login.userGrade == 'U'}">
+                <c:if test="${not empty login && login.userGrade == 'U' || login.userGrade == 'F'}">
                 <div class="sub">
                     <ul><!-- 서브메뉴 -->
                         <li class="blank"><a href="<%=request.getContextPath()%>/order/user.do">주문배송조회</a></li>
@@ -47,7 +47,7 @@
             	<c:if test="${empty login}">
                 	<a href="<%=request.getContextPath()%>/user/login.do"><i class="xi-cart-o"></i></a>
                 </c:if>
-                <c:if test="${not empty login && login.userGrade == 'U'}">
+                <c:if test="${not empty login && login.userGrade == 'U' || login.userGrade == 'F'}">
                 	<a href="<%=request.getContextPath()%>/cart/cart.do?userIndex=${login.userIndex}"><i class="xi-cart-o"></i></a>
             	</c:if>
             </li>
