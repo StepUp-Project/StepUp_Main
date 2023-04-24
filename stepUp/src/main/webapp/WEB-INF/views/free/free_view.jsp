@@ -50,7 +50,7 @@
                 <c:if test="${not empty login}">
    	                <form name="refrm" action="re_write.do" method="post">
    	                	<c:if test="${login.userGrade != 'F'}">
-  	                		<textarea id="re_writeCnt" name="reCnt" placeholder="댓글을 남겨주세요"></textarea>
+  	                		<textarea id="re_writeCnt" name="reCnt" oninput="limitTextAreaLength(this)" placeholder="댓글을 남겨주세요"></textarea>
 	                        <input name="userIndex" value="${login.userIndex}"	type="hidden">
 	                        <input name="freeIndex" value="${vo.freeIndex}"		type="hidden">
 	                        <div id="re_btn">
@@ -85,7 +85,7 @@
 								<div id="popup" class="popup_${rList.reIndex}" style="display: none;">
 								  <form name="editForm" action="re_edit.do" method="post" onsubmit="return confirm('수정하시겠습니까?')">
 								    <p>댓글 수정</p>
-								    <textarea id="re_editCnt" name="reCnt">${rList.reCnt}</textarea>
+								    <textarea id="re_editCnt" name="reCnt" oninput="limiteditLength(this)">${rList.reCnt}</textarea>
 								    <input type="hidden" name="reIndex" value="${rList.reIndex}">
 								    <input type="hidden" name="freeIndex" value="${rList.freeIndex}">
 								    <input class="re_edit" type="submit" value="수정">
@@ -96,19 +96,39 @@
 								  function openPopup(reIndex) {
 								    // 팝업 열기
 								    document.getElementsByClassName("popup_"+reIndex)[0].style.display = "block";
-								  
-								    // 수정할 댓글 내용 가져오기
-								    var reCnt = document.querySelector("li[data-reIndex='" + reIndex + "'] .re_note").innerHTML.trim();
-								    document.getElementById("re_editCnt").value = reCnt;
-								  
-								    // 수정할 댓글 인덱스 설정
-								    document.getElementsByClassName("popup_"+reIndex)[0].querySelector("input[name='reIndex']").value = reIndex;
+
 								  }
-								  
 								  function closePopup(reIndex) {
 								    // 팝업 닫기
 								    document.getElementsByClassName("popup_"+reIndex)[0].style.display = "none";
 								  }
+								  
+								  function limitTextAreaLength() {
+									    var maxLength = 200; // 최대 글자 수
+									    var comment = document.getElementById("re_writeCnt");
+									    // input 이벤트
+									    comment.addEventListener("input", function() {
+									        var currentLength = comment.value.length;
+									        console.log(currentLength)
+									        if (currentLength > maxLength) {
+									            alert("글자 수를 초과하였습니다. " + maxLength + "자 이내로 입력해주세요.");
+									            comment.value = this.value.substring(0, maxLength);
+									        }
+									    });
+									}
+								  function limiteditLength() {
+									    var maxLength = 200; // 최대 글자 수
+									    var comment = document.getElementById("re_editCnt");
+									    // input 이벤트
+									    comment.addEventListener("input", function() {
+									        var currentLength = comment.value.length;
+									        console.log(currentLength)
+									        if (currentLength > maxLength) {
+									            alert("글자 수를 초과하였습니다. " + maxLength + "자 이내로 입력해주세요.");
+									            comment.value = this.value.substring(0, maxLength);
+									        }
+									    });
+									}
 								</script>
 	                        </c:if>
 	                    </div>

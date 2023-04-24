@@ -16,7 +16,7 @@
 <body>
 <%@ include file="../include/header.jsp" %>
 
-    <main><!--메인 시작-->
+    <main class="container-fluid"><!--메인 시작-->
       <article id="prd_view"><!-- 상품 사진 + 선택 영역-->
         <div id="prd_pic">
             <ul>
@@ -60,12 +60,12 @@
                 <input type="hidden" id="productPrice" value="${prdVO.prdPrice}">
            </ul>
            <div id="size_ttl">사이즈</div>
-           <ul  id="select_box">
+           <ul id="select_box" class="justify-content-start">
            		<c:forEach var="sizeList" items="${sizeVO}">
 	                <li class="select_size">
 	                    <input type="checkbox" name="size" value="${sizeList.sizeKind}" id="size${sizeList.sizeKind}" onclick="updateSizeSelected(${sizeList.sizeIndex},${sizeList.sizeKind},${sizeList.sizeStock})" <c:if test="${sizeList.sizeStock == 0}">disabled</c:if>>
 	                    <input type="hidden" name="sizeNum" id="sizeNum" value="${sizeList.sizeIndex}" />
-	                    <label for="size${sizeList.sizeKind}">
+	                    <label for="size${sizeList.sizeKind}" class="px-1">
 	                        <span <c:if test="${sizeList.sizeStock == 0}">class="bg-light text-black-50"</c:if>>${sizeList.sizeKind}</span>
 	                    </label>
 	                </li>           		
