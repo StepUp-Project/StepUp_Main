@@ -55,65 +55,48 @@
                         <thead>
                             <tr>
                                 <th class="revinfo" colspan="2">상품정보</th>
-                                <th class="revwDate">구매일</th>
-                                <th class="revprice">구매금액</th>
+                                <th class="revwDate">상품 가격</th>
+                                <th class="revprice">후기 작성일</th>
                                 <th class="revwrite">후기 작성</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                    <td class="cnt_info">
-                                        <a href="#">
-                                            <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt03.jpg)"></p></div>
-                                        </a>
-                                    </td>
-                                    <td class="cnt_info">
-                                        <a href="#">
-                                            <P class="cnt_brand"><span>NIKE</span></P>
-                                            <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                            <P class="cnt_size"><span>사이즈 : 250</span><span> / </span><span>수량 : 1개</span></P>
-                                        </a>
-                                    </td>
-                                    <td><span>2022-04-02</span></td>
-                                    <td><span>150,000원</span></td>
-                                    <td><input class="review_write" type="button" value="작성하기" onclick="showPopupWrite();"></td>
+                                <td class="cnt_info">
+                                    <a href="#">
+                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt03.jpg)"></p></div>
+                                    </a>
+                                </td>
+                                <td class="cnt_info">
+                                    <a href="#">
+                                        <P class="cnt_brand"><span>NIKE</span></P>
+                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
+                                        <P class="cnt_size"><span>NK010001</span></P>
+                                    </a>
+                                </td>
+                                <td><span>150,000원</span></td>
+                                <td><span>리뷰가 없습니다.</span></td>
+                                <td><input class="review_write" type="button" value="작성하기" onclick="showPopupWrite();"></td>
                             </tr>
                             <tr>
-                                    <td class="cnt_info">
-                                        <a href="#">
-                                            <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt03.jpg)"></p></div>
-                                        </a>
-                                    </td>
-                                    <td class="cnt_info">
-                                        <a href="#">
-                                            <P class="cnt_brand"><span>NIKE</span></P>
-                                            <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                            <P class="cnt_size"><span>사이즈 : 250</span><span> / </span><span>수량 : 1개</span></P>
-                                        </a>
-                                    </td>
-                                    <td><span>2022-04-02</span></td>
-                                    <td><span>150,000원</span></td>
-                                    <td><input class="review_write" type="button" value="작성하기" onclick="showPopupWrite();"></td>
-                            </tr>
-                            <tr>
-                                    <td class="cnt_info">
-                                        <a href="#">
-                                            <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt03.jpg)"></p></div>
-                                        </a>
-                                    </td>
-                                    <td class="cnt_info">
-                                        <a href="#">
-                                            <P class="cnt_brand"><span>NIKE</span></P>
-                                            <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
-                                            <P class="cnt_size"><span>사이즈 : 250</span><span> / </span><span>수량 : 1개</span></P>
-                                        </a>
-                                    </td>
-                                    <td><span>2022-04-02</span></td>
-                                    <td><span>150,000원</span></td>
-                                    <td>
-                                        <input class="review_edit" type="button" value="수정" onclick="showPopupChange();">
-                                        <input class="review_del" type="button" value="삭제">
-                                    </td>
+                                <td class="cnt_info">
+                                    <a href="#">
+                                        <div><p class="cnt_img1" style="background-image:url(../../image/brand/Brand_cnt03.jpg)"></p></div>
+                                    </a>
+                                </td>
+                                <td class="cnt_info">
+                                    <a href="#">
+                                        <P class="cnt_brand"><span>NIKE</span></P>
+                                        <P class="cnt_name"><span>레볼루션6 넥스트 네이처</span></P>
+                                        <P class="cnt_size"><span>NK010001</span></P>
+                                    </a>
+                                </td>
+                                <td><span>150,000원</span></td>
+                                <td><span>2022-04-02</span></td>
+                                <td>
+                                    <input class="review_edit" type="button" value="수정" onclick="showPopupChange();">
+                                    <input class="review_del" type="button" value="삭제">
+                                </td>
                             </tr>
                         </tbody>
 

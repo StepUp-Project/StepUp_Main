@@ -49,4 +49,9 @@ public class ReviewServiceImpl implements ReviewService{
 	public int updateReview(ReviewVO vo) {
 		return reviewDAO.updateReview(vo);
 	}
+
+	@Override
+	public List<ReviewVO> selectMyReview(int userIndex) {
+		return reviewDAO.selectMyReview(userIndex);
+	}
 }

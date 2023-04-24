@@ -12,4 +12,5 @@ public interface ReviewService {
 	public int deleteReview(ReviewVO vo);
 	public ReviewVO selectReviewModify(int reviewIndex);
 	public int updateReview(ReviewVO vo);
+	public List<ReviewVO> selectMyReview(int userIndex);
 }

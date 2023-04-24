@@ -41,4 +41,8 @@ public class ReviewDAO {
 	public int updateReview(ReviewVO vo) {
 		return sqlSession.update("proj.stepUp.mapper.reviewMapper.updateReview", vo);
 	}
+	
+	public List<ReviewVO> selectMyReview(int userIndex) {
+		return sqlSession.selectList("proj.stepUp.mapper.reviewMapper.selectMyReview", userIndex);
+	}
 }
