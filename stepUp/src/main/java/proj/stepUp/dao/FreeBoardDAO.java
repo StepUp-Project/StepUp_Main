@@ -21,8 +21,8 @@ public class FreeBoardDAO {
 		return sqlSession.selectList("proj.stepUp.mapper.freeBoardMapper.selectAll", svo);
 	}
 	
-	public List<FreeBoardVO> listByUserIdx(int userIndex){
-		return sqlSession.selectList("proj.stepUp.mapper.freeBoardMapper.userFree", userIndex);
+	public List<FreeBoardVO> listByUserIdx(SearchVO svo){
+		return sqlSession.selectList("proj.stepUp.mapper.freeBoardMapper.userFree", svo);
 	}
 	
 	public List<FreeBoardVO> cntTotal(SearchVO svo){
@@ -46,5 +46,8 @@ public class FreeBoardDAO {
 	public int hitcount(int freeIndex) {
 		return sqlSession.update("proj.stepUp.mapper.freeBoardMapper.hitcount", freeIndex);
 	}
-
+	
+	public int userCntTotal(int userIndex) {
+		return sqlSession.selectOne("proj.stepUp.mapper.freeBoardMapper.userCntTotal", userIndex);
+	}
 }
