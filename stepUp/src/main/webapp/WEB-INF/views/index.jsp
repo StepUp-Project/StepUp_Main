@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="proj.stepUp.vo.SlideVO" %>
-<%@ page import="java.util.*" %>
 <% 
 	List<SlideVO> blist = (List<SlideVO>)request.getAttribute("blist");
 %>
@@ -78,8 +76,6 @@
 				  </div>
             </div>
             <!-- NEW 영역 끝-->
-            
-            
                <div class="main-brand"><!-- BRAND 영역 시작-->
                 <div class="main-brand-title">
                     <h2>BRAND</h2>
@@ -95,12 +91,10 @@
                     <span>70년대 패션과 문화를 담아낸 슈즈</span>
                 </div>
             </div><!-- BRAND 영역 끝-->
-            
             <div class="main-event d-flex justify-content-between"><!-- Event 영역 시작-->
                     <a href="#"></a>
                     <a href="#"></a>
             </div><!-- Event 영역 끝-->
-
             <div class="main-brandBest d-flex justify-content-between"><!-- brand-best 영역 시작-->
                 <div class="main-brandBest-img"></div>
                 <div class="main-brandBest-items">
@@ -142,7 +136,6 @@
             </div><!-- brand-best 영역 끝-->
         </div><!-- 메인 콘텐츠 영역 끝 -->
     </main><!-- 메인 끝 -->
-
 
     <script src="<%=request.getContextPath()%>/resources/JS/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script><!-- swiper JS 연결 -->
