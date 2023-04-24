@@ -13,6 +13,7 @@ public class ReVO {
 	private int qnareIndex;
 	private int qnaIndex;
 	private String qnareCnt;
+	private String qnaWdate;
 
 	
 	
@@ -75,6 +76,12 @@ public class ReVO {
 	}
 	public void setTotal(int total) {
 		this.total = total;
+	}
+	public String getQnaWdate() {
+		return qnaWdate;
+	}
+	public void setQnaWdate(String qnaWdate) {
+		this.qnaWdate = qnaWdate;
 	}
 	
 	
