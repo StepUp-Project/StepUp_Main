@@ -427,7 +427,7 @@ public class UserController {
 		
 		return "user/mypage_qna";
 	}
-	
+	 
 	//qna 삭제
 	@RequestMapping(value="/myqna_delete.do", method = RequestMethod.POST)
 	public String mpqdelete(int[] qnaIndex) { //name이 같은 애들을 삭제하는거라 배열로..		
