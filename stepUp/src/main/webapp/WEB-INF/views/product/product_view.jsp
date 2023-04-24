@@ -72,7 +72,7 @@
 	                </li>           		
            		</c:forEach>
            </ul>
-	           <ul class="size_selected \" id="prdSizeArea">
+	           <ul class="size_selected" id="prdSizeArea">
 	           </ul>
 	       <div class="cart_pop">
 	           	<div class="cart_pop1"><a>장바구니 담기</a><button type="button" id="popclose1"><i class="xi-close"></i></button></a></div>
