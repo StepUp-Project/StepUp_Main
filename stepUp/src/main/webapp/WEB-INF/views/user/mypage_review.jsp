@@ -21,7 +21,7 @@
                     <p>안녕하세요, ${login.getUserNick()} 님!</p>
                 </div>
                 <div class="mypage_gnb">
-                    <span><a href="<%=request.getContextPath()%>/user/mypage_order.do">주문배송조회</a></span>
+                    <span><a href="<%=request.getContextPath()%>/order/user.do">주문배송조회</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_review.do">상품후기</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_like.do">관심목록</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_qna.do">QnA</a></span>

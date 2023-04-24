@@ -58,13 +58,6 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDAO.cntTotal(svo);
 	}
 
-
-	@Override
-	public List<QnaVO> listByUserIdx(int userIndex) {
-		return qnaDAO.listByUserIdx(userIndex);
-	}
-
-
 	@Override
 	public int qnarsp(QnaVO vo) {
 		
@@ -86,6 +79,18 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public List<ReVO> adminrsp(int qnaIndex) {
 		return qnaDAO.adminrsp(qnaIndex);
+	}
+
+
+	@Override
+	public int myPageCnTotal(int userIndex) {
+		return qnaDAO.myPageCnTotal(userIndex);
+	}
+
+
+	@Override
+	public List<QnaVO> listByUserIdx(SearchVO svo) {
+		return qnaDAO.listByUserIdx(svo);
 	}
 
 }

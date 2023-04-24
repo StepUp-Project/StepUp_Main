@@ -367,19 +367,17 @@ public class UserController {
 		if(svo.getNowPage() != 0 ) {
 			nowPage = svo.getNowPage();
 		}
-		List<FreeBoardVO> cntTotal = freeService.cntTotal(svo);
-		int totalCnt = 0;
-		if(cntTotal.size()>0) {
-			totalCnt = cntTotal.get(0).getTotal();
-		}
-		
-		PagingUtil paging = new PagingUtil(totalCnt, nowPage, 10);
-		
 		
 		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
 		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
+		int totalCnt = freeService.userCntTotal(loginUser.getUserIndex());
+		PagingUtil paging = new PagingUtil(totalCnt, nowPage, 10);
 		
-		List<FreeBoardVO> list = freeService.listByUserIdx(loginUser.getUserIndex());
+		SearchVO searchVO = new SearchVO();
+		searchVO.setStart(paging.getStart());
+		searchVO.setPerPage(paging.getPerPage());
+		searchVO.setUserIndex(loginUser.getUserIndex());
+		List<FreeBoardVO> list = freeService.listByUserIdx(searchVO);
 		
 		model.addAttribute("blist", list);
 		model.addAttribute("paging", paging);
@@ -390,9 +388,7 @@ public class UserController {
 	
 	//내가 쓴 글 삭제
 	@RequestMapping(value="/myposting_delete.do", method = RequestMethod.POST)
-	public String mppdelete(int[] freeIndex) { //name이 같은 애들을 삭제하는거라 배열로..
-		
-		System.out.println("freeIndex:"+freeIndex.length);  //선택한 체크박스의 개수
+	public String mppdelete(int[] freeIndex) { //name이 같은 애들을 삭제하는거라 배열로..		
 		
 		for(int idx : freeIndex) {
 			int result = freeService.delete(idx);
@@ -410,18 +406,18 @@ public class UserController {
 		if(svo.getNowPage() != 0 ) {
 			nowPage = svo.getNowPage();
 		}
-		List<QnaVO> cntTotal = qnaService.cntTotal(svo);
-		int totalCnt = 0;
-		if(cntTotal.size()>0) {
-			totalCnt = cntTotal.get(0).getTotal();
-		}
-		
-		PagingUtil paging = new PagingUtil(totalCnt, nowPage, 10);
-		
+		//리스트
 		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
 		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
 		
-		List<QnaVO> list = qnaService.listByUserIdx(loginUser.getUserIndex());
+		int totalCnt = qnaService.myPageCnTotal(loginUser.getUserIndex());
+		
+		PagingUtil paging = new PagingUtil(totalCnt, nowPage, 10);		
+		SearchVO searchVO = new SearchVO();
+		searchVO.setStart(paging.getStart());
+		searchVO.setPerPage(paging.getPerPage());
+		searchVO.setUserIndex(loginUser.getUserIndex());
+		List<QnaVO> list = qnaService.listByUserIdx(searchVO);
 		
 		model.addAttribute("blist", list);
 		model.addAttribute("paging", paging);
@@ -431,9 +427,7 @@ public class UserController {
 	
 	//qna 삭제
 	@RequestMapping(value="/myqna_delete.do", method = RequestMethod.POST)
-	public String mpqdelete(int[] qnaIndex) { //name이 같은 애들을 삭제하는거라 배열로..
-		
-		System.out.println("freeIndex:"+qnaIndex.length);  //선택한 체크박스의 개수
+	public String mpqdelete(int[] qnaIndex) { //name이 같은 애들을 삭제하는거라 배열로..		
 		
 		for(int idx : qnaIndex) {
 			int result = qnaService.delete(idx);
@@ -455,12 +449,9 @@ public class UserController {
 		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
 		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
 		
-		int totalCnt = markService.cntTotal(loginUser.getUserIndex());
+		int totalCnt = markService.cntTotal(loginUser.getUserIndex());				
 		
-		System.out.println(totalCnt);
-		
-		
-		MarkVO markVO = new MarkVO(totalCnt, nowPage, 10);
+		MarkVO markVO = new MarkVO(totalCnt, nowPage, 12);
 		markVO.setUserIndex(loginUser.getUserIndex());
 		
 		List<MarkVO> list = markService.marklist(markVO);

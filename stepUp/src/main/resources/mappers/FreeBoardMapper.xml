@@ -23,12 +23,20 @@
  			order by freeIndex desc
  	</select>
  	
- 	<select id="userFree" resultType="FreeBoardVO" parameterType="int">
+ 	<select id="userFree" resultType="FreeBoardVO" parameterType="searchVO">
  		select *
  			from free_tb b, user_tb u
  			where b.userIndex = u.userIndex
  			  and u.userIndex = #{userIndex}
+ 			  order by b.freeWdate desc
+ 			  limit #{start}, #{perPage}
  	</select>
+ 	
+ 	<select id="userCntTotal" parameterType="int" resultType="int">
+ 		select count(*) from free_tb
+ 		where userIndex = #{userIndex}
+ 	</select>
+ 	
  	
  	<select id="cntTotal" resultType="freeBoardVO" parameterType="searchVO">
  		select count(*) over () as total from free_tb b, user_tb u 

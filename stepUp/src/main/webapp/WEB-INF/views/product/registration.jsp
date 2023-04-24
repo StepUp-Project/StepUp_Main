@@ -33,7 +33,7 @@
                     <div class="d-flex justify-content-start">
                         <div class="w-25 me-4">
                             <label for="brand" class="form-label">브랜드</label>
-                            <select name="brandCode" class="form-select" id="brandCode">
+                            <select name="brandCode" class="form-select" id="brandCode" onchange="selectCheck()">
                                 <option value="NK">나이키</option>
                                 <option value="NB">뉴발</option>
                                 <option value="VS">반스</option>
@@ -46,7 +46,7 @@
                         </div>   
                         <div class="w-25 me-4">
                             <label for="type" class="form-label">종류</label>
-                            <select name="typeCode" class="form-select" id="typeCode">
+                            <select name="typeCode" class="form-select" id="typeCode" onchange="selectCheck()">
                                 <option value="01">운동화</option>
                                 <option value="02">스포츠화</option>
                                 <option value="03">크록스</option>
@@ -219,7 +219,8 @@
         }
         
        
-        function check(){//코드 조합 및 유효성 검사       	
+        function check(){//코드 조합 및 유효성 검사
+        	let sizeKind = document.querySelectorAll('input[name="sizeKind"]');
         	let brandCode = $("#brandCode").val();
         	let crdCode =  $("#typeCode").val();
         	let inputCode = $('#inputCode').val();
@@ -260,6 +261,16 @@
         		$("#prdQc").focus();
         		return false;
         	}
+        	if($("#prdCare").val() == ""){
+        		alert("소재관리 방법을 입력해주세요");
+        		$("#prdCare").focus();
+        		return false;
+        	}
+        	if($("#prdMadeDate").val() == ""){
+        		alert("상품 제조일을 입력해주세요");
+        		$("#prdMadeDate").focus();
+        		return false;
+        	}
         	if($("#MainImg").val() == ""){
         		alert("메인이미지를 등록해주세요");
         		$("#MainImg").focus();
@@ -273,31 +284,18 @@
         		alert("서브이미지를 등록해주세요");
         		return false;
         	}
+        	if(sizeKind.length == 0){
+        		alert("기초 재고를 등록해주세요");
+        		$("#inputSize").focus();
+        		return false;
+        	}
         	if($("#prdCnt").val() == ""){
         		alert("상품 상세내용을 입력해주세요");
         		$("#prdCnt").focus();
         		return false;
         	}
         	return true
-        }
-        
-        
-
-/*         $('#MainImg').on('change',function(event){//이미지 등록시 이미지명 텍스트 출력
-            var name = event.target.files[0].name;
-            $('#file-name').text(name);
-            });
-        $('#subImg1').on('change',function(event){
-            var name = event.target.files[0].name;
-            $('#file-name1').text(name);
-            });
-        $('#subImg2').on('change',function(event){
-            var name = event.target.files[0].name;
-            $('#file-name2').text(name);
-            }); */
-        
-
-                
+        }                  
 
         function add(){//재고 추가 버튼 클릭시 실행 함수
         	let check = 0;
@@ -328,7 +326,13 @@
         
         function removeer(){//재고 삭제 버튼 클릭시 실행 함수
         	$("#sizeWrap").find(".size").last().remove();
-        }        
+        }
+        
+        function selectCheck(){
+        	if($('#inputCode').val() != ""){
+        		prdCheck = "";
+        	}
+        }
     </script>
 </body>
 </html>
