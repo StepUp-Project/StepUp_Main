@@ -123,12 +123,14 @@
           function increase(cartindex) {
         	const quantity = document.getElementById('quantity_'+cartindex);
         	const cart_sizeStock = document.getElementById('cart_'+cartindex);
-        	if(quantity.value == cart_sizeStock.value){
+        	const quantityP = parseInt(quantity.value);
+        	const cart_sizeStockP = parseInt(cart_sizeStock.value);
+        	if(quantityP == cart_sizeStockP){
         		alert("선택가능 한 최대 수량입니다.");
-        	}else if(quantity.value > cart_sizeStock.value){
+        	}else if(quantityP > cart_sizeStockP){
         		alert("선택가능 한 최대 수량을 넘었습니다.");
-        		quantity.value = parseInt(cart_sizeStock.value);
-        	}else if(quantity.value < cart_sizeStock){
+        		quantity.value = parseInt(cart_sizeStockP);
+        	}else if(quantityP < cart_sizeStockP){
         		quantity.value = parseInt(quantity.value) + 1;
         	}
         	totalPrice(cartindex);
