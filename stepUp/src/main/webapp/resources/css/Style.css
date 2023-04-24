@@ -100,7 +100,7 @@ main{margin-top: 60px;}
   z-index: 200;
 }
 #remocon a {
-	border:1px solid red;
+  border:1px solid red;
   display: block;
   width: 35px;
   height: 35px;
@@ -270,10 +270,8 @@ main{margin-top: 60px;}
     color: #BCBCBC;
     font-family: 'Arboria';
     font-size: 1em;
-    width: 100%;
     pointer-events: none;
     text-align: right;
-    width: 30%;
 }
 /* Style for active state input */
 .price-range-slider .price-field input[type=range]:hover::-webkit-slider-thumb {
@@ -288,8 +286,14 @@ main{margin-top: 60px;}
  	width:7%;
 }
 .sbtn{
+	border:none;
 	height:4%;
-   	width:22%;
+   	width:24%;
+}
+.sbtn:hover{
+	border:1px solid #000;
+	background-color:#000;
+	color:#fff;
 }
 /*new brand 페이지 끝*/
 /*Main_NEW 영역*/
