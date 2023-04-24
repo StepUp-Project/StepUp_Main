@@ -19,18 +19,16 @@ import proj.stepUp.service.FreeService;
 import proj.stepUp.service.MarkService;
 import proj.stepUp.service.ProductService;
 import proj.stepUp.service.QnaService;
+import proj.stepUp.service.ReService;
 import proj.stepUp.service.UserService;
 import proj.stepUp.util.KakaoLogin;
 import proj.stepUp.util.NaverLogin;
 import proj.stepUp.util.PagingUtil;
 import proj.stepUp.vo.FreeBoardVO;
 import proj.stepUp.vo.MarkVO;
-import proj.stepUp.vo.ProductImgVO;
-import proj.stepUp.vo.ProductVO;
 import proj.stepUp.vo.QnaVO;
-import proj.stepUp.vo.ReviewVO;
+import proj.stepUp.vo.ReVO;
 import proj.stepUp.vo.SearchVO;
-import proj.stepUp.vo.SizeVO;
 import proj.stepUp.vo.UserVO;
 
 @RequestMapping(value="/user")
@@ -47,6 +45,8 @@ public class UserController {
 	private MarkService markService;
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private ReService reService;
 	
 	
 	@RequestMapping(value="/join_terms.do", method = RequestMethod.GET)
@@ -384,16 +384,19 @@ public class UserController {
 		
 		return "user/mypage_posting";
 	}
-	
-	
+
 	//내가 쓴 글 삭제
 	@RequestMapping(value="/myposting_delete.do", method = RequestMethod.POST)
 	public String mppdelete(int[] freeIndex) { //name이 같은 애들을 삭제하는거라 배열로..		
-		
+
 		for(int idx : freeIndex) {
+			List<ReVO> rList = reService.list(idx);
+			for (ReVO re : rList) {
+				reService.delete(re.getReIndex());
+	        }
+			
 			int result = freeService.delete(idx);
 		}
-		
 		return "redirect:/user/mypage_posting.do";
 	}
 
@@ -424,12 +427,16 @@ public class UserController {
 		
 		return "user/mypage_qna";
 	}
-	
+	 
 	//qna 삭제
 	@RequestMapping(value="/myqna_delete.do", method = RequestMethod.POST)
 	public String mpqdelete(int[] qnaIndex) { //name이 같은 애들을 삭제하는거라 배열로..		
 		
 		for(int idx : qnaIndex) {
+			List<ReVO> rList = reService.qnalist(idx);
+			for (ReVO re : rList) {
+				reService.qnadelete(re.getQnareIndex());
+	        }			
 			int result = qnaService.delete(idx);
 		}
 		return "redirect:/user/mypage_qna.do";
