@@ -113,7 +113,7 @@
 								</script>
 	                        </c:if>
 	                    </div>
-	                    <div class="re_note">${rList.reCnt}</div>
+	                    <div class="re_note" style=" text-indent: 25px;">${rList.reCnt}</div>
 	                </li>
 	            </c:forEach>
             </c:if>
