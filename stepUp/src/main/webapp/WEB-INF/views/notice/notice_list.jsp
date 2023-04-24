@@ -39,7 +39,7 @@
                     </tr>
                 </thead>
               <tbody>
-                 <c:forEach var="vo" items="${blist}" begin="${(paging.nowPage*10)-10}" end="${(paging.nowPage*10) -1}">
+                 <c:forEach var="vo" items="${blist}" begin="${(paging.nowPage*15)-15}" end="${(paging.nowPage*15) -1}">
                     <tr>
                         <td><span>${vo.noticeIndex}</span></td>
                         <td><a href="notice_view.do?noticeIndex=${vo.noticeIndex}"><div>${vo.noticeTitle}</div></a></td>

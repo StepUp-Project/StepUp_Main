@@ -44,7 +44,7 @@ public class QnaController {
 			totalCnt = cntTotal.get(0).getTotal();
 		}
 		
-		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 10);
+		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 15);
 		List<QnaVO> list = qnaService.list(svo);
 		
 		model.addAttribute("blist", list);
