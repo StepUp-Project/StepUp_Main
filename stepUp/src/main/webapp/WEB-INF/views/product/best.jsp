@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>       
 <!DOCTYPE html>
@@ -22,13 +21,13 @@
                 <h2>BEST</h2>
             </div>
             <div>
-                <ul id="cnt_list" style="border: 1px solid red;">
+                <ul id="cnt_list">
 	               	<c:set var="rank" value="1"/>
 	               	<c:forEach var="bestPrd" items="${bestProduct}">                   
 	               	<c:set var="bestBrandCode" value="${fn:substring(bestPrd.prdCode,0,2)}"/>
-	                    <li class="cnt_info" style="border: 1px solid lime;">
+	                    <li class="cnt_info">
 	                        <div class="best-rank">
-	                            <span style="border: 1px solid blue;">${rank}</span>
+	                            <span>${rank}</span>
 	                        </div>
 	                        <c:set var="rank" value="${rank+1}"/>
 	                        <a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${bestPrd.prdIndex}">

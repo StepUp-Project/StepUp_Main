@@ -58,7 +58,7 @@ header{overflow: hidden; height: 60px; transition: all 0.2s ease-in-out;
 
 /* footer 시작 */
 footer {height: 230px; background: #1e1e1e; width: 100%;}
-.footinfo{width: 60%; margin-left: 4%; }
+.footinfo{width: 60%; margin-left: 4%;}
 .footinfo ul{margin-top: 5%;}
 .footinfo li{height: 20px;}
 .footinfo li a, .footinfo li{font-size: 10px; color: #a5a5a5;}
@@ -189,7 +189,6 @@ main{margin-top: 60px;}
     margin-top: -10px;
     background-color: #fff;
     cursor: pointer;
-    cursor: pointer;
     pointer-events: all;
     z-index: 100;
     border: 1px solid #95989A;
@@ -207,7 +206,6 @@ main{margin-top: 60px;}
     margin-top: -10px;
     background-color: #fff;
     cursor: pointer;
-    cursor: pointer;
     pointer-events: all;
     z-index: 100;
     border: 1px solid #95989A;
@@ -224,7 +222,6 @@ main{margin-top: 60px;}
     width: 25px;
     margin-top: -10px;
     background-color: #242424;
-    cursor: pointer;
     cursor: pointer;
     pointer-events: all;
     z-index: 100;
@@ -272,6 +269,9 @@ main{margin-top: 60px;}
     font-size: 1em;
     pointer-events: none;
     text-align: right;
+}
+.price-wrap .price-sp{
+	margin-right:-50px;
 }
 /* Style for active state input */
 .price-range-slider .price-field input[type=range]:hover::-webkit-slider-thumb {
@@ -1466,19 +1466,7 @@ font-size: 14px;
   background-image: url("../image/new/new_nb.jpg"); 
   background-repeat: no-repeat; background-size: cover;}
 .new-banner-area a:nth-child(4):hover{opacity: 1;}
-.newlogo{
-  border: 1px solid red; width: 100px; height: 60px;
-  position: absolute; bottom: 50%; transform: translateY(55%);
-  right: 50%; transform: translateX(50%); opacity: 1;
-}
-.newlogo:nth-child(1){
-    background-image: url("../image/new/new_logo_puma.png"); background-size: cover;
-    background-repeat: no-repeat; opacity: 1;
-}
-.newlogo:nth-child(2){
-    background-image: url("../image/new/new_logo_nike.png"); background-size: cover;
-    background-repeat: no-repeat; opacity: 1;
-}
+
 
 /*브랜드 리스트*/
 #brandlist{

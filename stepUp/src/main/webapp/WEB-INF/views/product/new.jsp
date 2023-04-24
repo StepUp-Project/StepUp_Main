@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>      
 <!DOCTYPE html>
@@ -84,7 +83,7 @@
 						</div>
 						<div class="price-wrap align-items-baseline justify-content-end">
 							<input disabled type="number" id="price-min" name="priceMin">
-							<span>~</span>
+							<span class="price-sp">~</span>
 							<input disabled type="number" id="price-max" name="priceMax">
 							<span>원</span>
 						</div>								
@@ -111,11 +110,17 @@
                         </label>
                     </li>
                     <li class="type_box">
-                        <input type="checkbox" name="prdType" value="04" id="4">
+                        <input type="checkbox" name="prdType" value="04" id="type04">
                         <label for="type04">
                             <span>샌들</span>
                         </label>
                     </li>
+                    <li class="type_box">
+                        <input type="checkbox" name="prdType" value="05" id="type05">
+                        <label for="type04">
+                            <span>슬리퍼</span>
+                        </label>
+                    </li>         
                 </ul>
                 <button class="sbtn" type="button" onclick="searchPrdList(1)">검색</button>
             </article>

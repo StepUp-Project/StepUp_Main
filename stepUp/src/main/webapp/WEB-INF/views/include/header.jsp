@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.util.*" %>
 
     <div id="aaaa">
         <ul class="p-2 me-4" id="user"><!-- 로그인, 장바구니, 마이페이지 영역 시작-->
