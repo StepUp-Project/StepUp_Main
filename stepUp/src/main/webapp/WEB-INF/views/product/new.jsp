@@ -16,13 +16,10 @@
 </head>
 <body>
  <%@ include file="../include/header.jsp" %>
-    <main id="newjsp"><!--메인 시작-->
+    <main id="newjsp" class="container-fluid"><!--메인 시작-->
         <div class="d-flex justify-content-between">
             <article id="prd_filter">
                 <div id="prd_addr">
-                    <a href="<%=request.getContextPath()%>/index.do">HOME</a>
-                    <span> > </span>
-                    <a href="<%=request.getContextPath()%>/product/new.do">NEW</a>
                 </div>
                 <p class="filter_ttl">사이즈</p>
                 <ul  id="size_check">
@@ -83,9 +80,9 @@
 							<input type="range" min="0" max="178000" value="178000" id="upper">
 						</div>
 						<div class="price-wrap align-items-baseline justify-content-end">
-							<input disabled type="number" id="price-min" name="priceMin">
+							<span id="price-min"></span>
 							<span>~</span>
-							<input disabled type="number" id="price-max" name="priceMax">
+							<span id="price-max"></span>
 							<span>원</span>
 						</div>								
 					</fieldset>			
@@ -117,7 +114,7 @@
                         </label>
                     </li>
                 </ul>
-                <button class="sbtn" type="button" onclick="searchPrdList(1)">검색</button>
+                <button class="btn btn-dark rounded-0" type="button" onclick="searchPrdList(1)">검색</button>
             </article>
 
             <article id="prd_cnt">
@@ -137,9 +134,10 @@
     	//range(가격 검색)관련 스크립트
 	    var lowerSlider = document.querySelector('#lower');
 	    var upperSlider = document.querySelector('#upper');
-	
-	    document.querySelector('#price-max').value = upperSlider.value;
-	    document.querySelector('#price-min').value = lowerSlider.value;
+	    let priMax =  new Intl.NumberFormat('ko-kr').format(upperSlider.value);
+	    let priMin =  new Intl.NumberFormat('ko-kr').format(lowerSlider.value);
+	    $('#price-max').html(priMax);
+	    $('#price-min').html(priMin);
 	
 	    var lowerVal = parseInt(lowerSlider.value);
 	    var upperVal = parseInt(upperSlider.value);
@@ -154,7 +152,8 @@
 	                upperSlider.value = 4;
 	            }
 	        }
-	        document.querySelector('#price-max').value = this.value
+	        let thisMax =  new Intl.NumberFormat('ko-kr').format(this.value);
+	        $('#price-max').html(thisMax); 
 	    };
 	
 	    lowerSlider.oninput = function () {
@@ -166,15 +165,16 @@
 	                lowerSlider.value = parseInt(upperSlider.max) - 4;
 	            }
 	        }
-	        document.querySelector('#price-min').value = this.value
+	        let thisMin =  new Intl.NumberFormat('ko-kr').format(this.value);
+	        $('#price-min').html(thisMin); 
 	    };
 	    
 	    function searchPrdList(nowPage){//상품 리스트ajax호출 함수
 	    	console.log("ajax실행");
 	    	let sizeKind = [];
 	    	let prdType = [];
-	    	let priceMin = $("#price-min").val();
-	    	let priceMax = $("#price-max").val();
+	    	let priceMin = $("#lower").val();
+	    	let priceMax = $("#upper").val();
 	    	let sort = "new";
 	    	let pageType = "new";
 	    	$('input[name=sizeKind]:checked').each(function() {
@@ -218,8 +218,8 @@
 	    function paging(nowPage){//페이징 버튼 ajax 처리 함수
 	    	let sizeKind = [];
 	    	let prdType = [];
-	    	let priceMin = $("#price-min").val();
-	    	let priceMax = $("#price-max").val();	
+	    	let priceMin = $("#lower").val();
+	    	let priceMax = $("#upper").val();	
 	    	let sort = "new";
 	    	let pageType = "new";
 	    	$('input[name=sizeKind]:checked').each(function() {

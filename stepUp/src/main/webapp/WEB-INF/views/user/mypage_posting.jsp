@@ -86,7 +86,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="vo" items="${blist}" begin="${(paging.nowPage*10)-10}" end="${(paging.nowPage*10) -1}">
+                    <c:forEach var="vo" items="${blist}">
                         <tr>
                             <td><input type="checkbox" name="freeIndex" value="${vo.freeIndex}" class="chk"></td>
                             <td><span>${vo.freeIndex}</span></td>

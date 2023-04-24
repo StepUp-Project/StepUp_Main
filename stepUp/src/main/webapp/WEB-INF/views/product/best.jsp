@@ -16,7 +16,7 @@
 </head>
 <body>
 <%@ include file="../include/header.jsp" %>
-    <main>
+    <main class="container-fluid">
         <div class="best-prd">
             <div class="best-title">
                 <h2>BEST</h2>
