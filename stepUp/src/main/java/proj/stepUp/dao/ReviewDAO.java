@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import proj.stepUp.vo.ReviewVO;
+import proj.stepUp.vo.SearchVO;
 
 @Repository
 public class ReviewDAO {
@@ -40,5 +41,13 @@ public class ReviewDAO {
 	
 	public int updateReview(ReviewVO vo) {
 		return sqlSession.update("proj.stepUp.mapper.reviewMapper.updateReview", vo);
+	}
+	
+	public List<ReviewVO> selectMyReview(SearchVO searchVO) {
+		return sqlSession.selectList("proj.stepUp.mapper.reviewMapper.selectMyReview", searchVO);
+	}
+	
+	public int myReviewTotalCnt(SearchVO searchVO) {
+		return sqlSession.selectOne("proj.stepUp.mapper.reviewMapper.myReviewTotalCnt", searchVO);
 	}
 }

@@ -93,4 +93,15 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDAO.listByUserIdx(svo);
 	}
 
+
+	@Override
+	public List<QnaVO> rspList() {
+		
+		return qnaDAO.rspList();
+	}
+	
+	public List<QnaVO> rspTotal(SearchVO svo){
+		return qnaDAO.rspTotal(svo);
+	}
+
 }

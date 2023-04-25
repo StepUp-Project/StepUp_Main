@@ -31,4 +31,18 @@
 	<update id="updateReview" parameterType="reviewVO">
 		update review_tb set reviewContent = #{reviewContent}, reviewScore = #{reviewScore} where reviewIndex = #{reviewIndex}
 	</update>
+	
+	<select id="selectMyReview" parameterType="searchVO" resultType="reviewVO">
+		select * from review_tb r, product_tb p 
+		where r.prdIndex = p.prdIndex 
+		and r.userIndex = #{userIndex}
+		order by r.reviewDate desc
+		limit #{start}, #{perPage}
+	</select>
+	
+	<select id="myReviewTotalCnt" resultType="int" parameterType="searchVO">
+		select count(*) from review_tb r, product_tb p
+		where r.prdIndex = p.prdIndex 
+		and r.userIndex = #{userIndex} 
+	</select>
   </mapper>
