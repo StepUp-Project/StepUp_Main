@@ -36,6 +36,7 @@
                     <ul><!-- 서브메뉴 -->
                         <li class="blank"><a href="<%=request.getContextPath()%>/admin.do">슬라이더 관리</a></li>
                         <li class="blank"><a href="<%=request.getContextPath()%>/restrict.do">회원 관리</a></li>                    
+                        <li class="blank"><a href="<%=request.getContextPath()%>/qna/qna_rspList.do">QnA답변관리</a></li>                    
                         <hr/>
                         <li class="blank"><a href="<%=request.getContextPath()%>/order/manager.do">주문내역 관리</a></li>
                         <li class="blank"><a href="<%=request.getContextPath()%>/product/management.do">상품관리</a></li>
