@@ -129,7 +129,7 @@ public class HomeController {
 		
 		int result = qnaService.restrict(vo);
 		
-		return "redirect:/admin/admin_restrict";
+		return "redirect:restrict.do";
 	}
 	
 }

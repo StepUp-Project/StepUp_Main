@@ -74,7 +74,7 @@
 						 	<tr>
 	                   	<c:forEach var="vo" items="${blist}">
 							<tr>
-								<form action="qna/restrict.do" method="post">
+								<form action="restrict.do" method="post">
 								<input type="hidden" name="userGrade" value="U" >
 								<input type="hidden" name="userId" value="${vo.userId}"> 
 								<td style="width:150px; height:45px">${vo.userId}</td>
