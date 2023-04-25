@@ -25,6 +25,7 @@
                         <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_qna.do">QnA</a></li>
                         <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_posting.do">내가 작성한 글</a></li>
                         <hr/>
+                        <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_sns.do">SNS연결설정</a></li>
                         <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_modify_check.do">개인정보수정</a></li>
                         <li><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></li>
                     </ul>
@@ -59,7 +60,7 @@
         <div class="d-flex justify-content-between pt-5">
             <div class="p-2 logo-wrap" ><!-- 로고 영역 시작-->
                 <h1 class="logo">
-                    <a href="<%=request.getContextPath()%>/index.do">
+                    <a href="<%=request.getContextPath()%>/">
                         <span>kikshub</span>
                     </a>
                 </h1>

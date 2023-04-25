@@ -41,7 +41,7 @@
      <main class="loginlogo">
         <div class="jointermslogo">
             <h1 class="jointerms_title">
-                <a href="<%=request.getContextPath()%>/index.do">
+                <a href="<%=request.getContextPath()%>/">
                     <img src="<%=request.getContextPath()%>/resources/image/kickshublogo.png" alt="kickshub">
                 </a>
             </h1>
@@ -77,6 +77,9 @@
 	                        <img src="<%=request.getContextPath()%>/resources/image/btn_login_naver.gif" alt="네이버 로그인">
 	                    </a>
 	                </div>
+	                <c:if test="${not empty SNS}">
+	                	<input type="hidden" valeu="${SNS}" name="sns">
+	                </c:if>
 	            </form>
 	        </div><!--로그인 main 영역 끝-->
         </div>

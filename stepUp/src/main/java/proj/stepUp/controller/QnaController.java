@@ -1,8 +1,11 @@
 package proj.stepUp.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.owasp.encoder.Encode;
@@ -55,7 +58,14 @@ public class QnaController {
 	
 	
 	@RequestMapping(value="/qna_write.do", method = RequestMethod.GET)
-	public String qnawrite() {
+	public String qnawrite(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		if(session.getAttribute("login") == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
 		
 		return "qna/qna_write";
 	}
@@ -98,15 +108,17 @@ public class QnaController {
 	}
 	
 	@RequestMapping(value="/qna_modify.do", method = RequestMethod.GET)
-	public String modify(int qnaIndex, Model model) {
+	public String modify(int qnaIndex, Model model, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		if(session.getAttribute("login") == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
+		
 		QnaVO vo = qnaService.selectByIndex(qnaIndex);
 		model.addAttribute("vo", vo);
-		
-		
-		
-		System.out.println(vo.getQnaIndex());
-		System.out.println(vo.getQnaTitle());
-		System.out.println(vo.getUserIndex());
 		
 		return "qna/qna_modify";
 	}
@@ -122,9 +134,6 @@ public class QnaController {
 			vo.setQnaTitle(Encode.forHtmlAttribute((String) req.getAttribute("qnaTitle")));
 		}
 		
-		System.out.println(vo.getQnaIndex());
-		System.out.println(vo.getQnaTitle());
-		System.out.println(vo.getUserIndex());
 		
 		int result = qnaService.update(vo);
 		if(result>0) {
@@ -202,8 +211,16 @@ public class QnaController {
 		}
 	}
 	@RequestMapping(value = "qna_rspList.do",method = RequestMethod.GET)
-	public String rersp(Model model, SearchVO svo) {
-		
+	public String rersp(Model model, SearchVO svo, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null || !loginUser.getUserGrade().equals("A")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}		
+				
 		int nowPage = 1;
 		if(svo.getNowPage() != 0 ) {
 			nowPage = svo.getNowPage();

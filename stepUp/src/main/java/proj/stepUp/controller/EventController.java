@@ -1,5 +1,7 @@
 package proj.stepUp.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -47,13 +49,7 @@ public class EventController {
 		
 		
 		List<EventBoardVO> list = eventService.list(svo);
-		
-		System.out.println("getStart:::"+paging.getStart());
-		System.out.println("totalCnt:::"+totalCnt);
-		System.out.println("getPerPage:::"+paging.getPerPage());
-		System.out.println("getNowPage:::"+paging.getNowPage());
-		System.out.println("getEndPage:::"+paging.getEndPage());
-		
+				
 		model.addAttribute("blist", list);
 		model.addAttribute("paging", paging);
 		model.addAttribute("svo", svo);
@@ -61,7 +57,15 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/event_write.do", method = RequestMethod.GET)
-	public String eventwrite() {
+	public String eventwrite(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null || !loginUser.getUserGrade().equals("A")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}		
 		
 		return "event/event_write";
 	}
@@ -78,7 +82,7 @@ public class EventController {
 		return "redirect:/event/event_view.do?eventIndex="+vo.getEventIndex();
 	}
 	
-	@RequestMapping(value="/event_view.do")
+	@RequestMapping(value="/event_view.do", method = RequestMethod.GET)
 	public String eventview(int eventIndex, Model model , HttpServletRequest req, HttpServletResponse res) {
 		
 		HttpSession session = req.getSession();
@@ -126,9 +130,6 @@ public class EventController {
 		    }
 		}
 		
-		
-		
-		
 		EventBoardVO vo = eventService.selectByIndex(eventIndex);
 		model.addAttribute("vo", vo);
 		
@@ -136,7 +137,16 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/event_modify.do", method = RequestMethod.GET)
-	public String modify(int eventIndex, Model model) {
+	public String modify(int eventIndex, Model model, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null || !loginUser.getUserGrade().equals("A")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}		
+		
 		EventBoardVO vo = eventService.selectByIndex(eventIndex);
 		model.addAttribute("vo", vo);
 		

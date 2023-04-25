@@ -87,7 +87,7 @@
                 </tfoot>
             </table>
            	<div class="cart-button">
-		    <a href="<%=request.getContextPath()%>/index.do">쇼핑 계속하기</a>
+		    <a href="<%=request.getContextPath()%>/">쇼핑 계속하기</a>
 		    <a href="#" onclick="goPayment()">결제하기</a>
 		</div>
 		<form action="<%=request.getContextPath()%>/order/payment.do" id="payFrm" method="get">

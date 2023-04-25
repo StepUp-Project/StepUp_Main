@@ -99,8 +99,16 @@
  				where userIndex = #{userIndex}
  			</if>
  	</select>
- 	
- 	
- 	
- 	
+	
+	<select id="selectSNS" parameterType="int" resultType="userVO">
+		select userNaverId, userKakaoId from user_tb where userIndex = #{userIndex}
+	</select>
+	
+	<update id="updateDisconnectNaver" parameterType="int">
+		update user_tb set userNaverId = NULL where userIndex = #{userIndex}
+	</update>
+	
+	<update id="updateDisconnectKakao" parameterType="int">
+		update user_tb set userKakaoId = NULL where userIndex = #{userIndex}
+	</update>
  </mapper>

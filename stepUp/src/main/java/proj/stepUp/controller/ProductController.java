@@ -2,9 +2,11 @@ package proj.stepUp.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +48,15 @@ public class ProductController {
 	private MarkService markService;
 	
 	@RequestMapping(value="registration.do", method = RequestMethod.GET)
-	public String registration() {
-		
+	public String registration(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null || !loginUser.getUserGrade().equals("A")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
 		
 		return "product/registration" ;
 	}
@@ -58,13 +67,9 @@ public class ProductController {
 			@RequestParam("sizeStock") int[] sizeStock,
 			HttpServletRequest req) throws IOException {
 		String rootPath = req.getSession().getServletContext().getRealPath("/");
-		//String uploadMainFolder = "C:\\Users\\MYCOM\\git\\StepUp\\stepUp\\src\\main\\webapp\\resources\\prdmainimg";
 		String uploadMainFolder = rootPath+"resources/prdmainimg";
-		//String uploadSubFolder = "C:\\Users\\MYCOM\\git\\StepUp\\stepUp\\src\\main\\webapp\\resources\\prdsubimg";
 		String uploadSubFolder = rootPath+"resources/prdsubimg";
-		List<MultipartFile> subFileList =  subFile.getFiles("subFile");
-		
-		System.out.println("패스경로"+uploadMainFolder);
+		List<MultipartFile> subFileList =  subFile.getFiles("subFile");		
 		
 		File mainDir = new File(uploadMainFolder);//위치 폴더가 존재하는지 확인
 		File subDir = new File(uploadSubFolder);
@@ -111,21 +116,7 @@ public class ProductController {
 		
 		return "product/registration" ;
 	}
-	
-	@RequestMapping(value="/test.do", method = RequestMethod.GET)
-	public String test() {
-		PaymentUtil paymentUtil = new PaymentUtil();
-		String token = paymentUtil.getAccessToken();
 		
-		return "product/test";
-	}
-	
-	@RequestMapping(value="/test.do", method = RequestMethod.POST)
-	public String testOK() {
-		
-		return "redirect:/product/test.do";
-	}
-	
 	@RequestMapping(value="/view.do", method = RequestMethod.GET)
 	public String view(int prdIndex, ReviewVO vo, MarkVO markVO, Model model, HttpSession session) {
 		ProductVO prdVO = productService.selectProductIndex(prdIndex);
@@ -137,7 +128,6 @@ public class ProductController {
 			if(userVO != null) {
 				markVO.setUserIndex(userVO.getUserIndex());
 				MarkVO result = markService.selectMarkByAll(markVO);
-				System.out.println(result);
 				if(result != null) {
 					model.addAttribute("markResult", result);
 				}
@@ -183,14 +173,30 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/management.do", method = RequestMethod.GET)
-	public String management() {
-		
+	public String management(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null || !loginUser.getUserGrade().equals("A")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
 		
 		return "product/management";
 	}
 	
 	@RequestMapping(value="/size.do", method = RequestMethod.GET)
-	public String size(int prdIndex, Model model){
+	public String size(int prdIndex, Model model, HttpServletRequest req, HttpServletResponse rsp) throws IOException{
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null || !loginUser.getUserGrade().equals("A")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
+		
 		List<SizeVO> vo = sizeService.selectByPrdIndex(prdIndex);
 		model.addAttribute("sizeList", vo);
 		model.addAttribute("prdIndex", prdIndex);
@@ -198,7 +204,16 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value="/productModify.do", method = RequestMethod.GET)
-	public String productModify(int prdIndex, Model model){
+	public String productModify(int prdIndex, Model model, HttpServletRequest req, HttpServletResponse rsp) throws IOException{
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null || !loginUser.getUserGrade().equals("A")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
+		
 		ProductVO prdVO = productService.selectProductIndex(prdIndex);
 		List<ProductImgVO> prdImgVO = producImgService.selectByProductIndex(prdIndex);
 		model.addAttribute("prdVO", prdVO);
@@ -215,8 +230,6 @@ public class ProductController {
 		String uploadSubFolder = rootPath+"resources/prdsubimg";
 		String prdOname = mainFile.getOriginalFilename();
 		List<MultipartFile> subFileList =  subFile.getFiles("subFile");
-		System.out.println("패스경로:"+uploadMainFolder);
-		System.out.println("패스경로:"+uploadSubFolder);
 		
 		if(prdOname.equals("")) {
 			int result = productService.updateProduct(vo);
@@ -239,7 +252,6 @@ public class ProductController {
 			if(prdSubOname != "") {
 				File deleteFile = new File(uploadSubFolder+"/"+subPrdImgRname[count]);
 				if(deleteFile.exists()) {
-					System.out.println("진입");
 					deleteFile.delete();
 					String prdImgOname = sub.getOriginalFilename();
 					String prdImgRname = System.currentTimeMillis() + "_" + prdImgOname;

@@ -22,7 +22,7 @@
 	<main class="joinoklogo">
         <div class="jointermslogo">
             <h1 class="jointerms_title">
-                <a href="<%=request.getContextPath()%>/index.do">
+                <a href="<%=request.getContextPath()%>/">
                     <img src="<%=request.getContextPath()%>/resources/image/kickshublogo.png" alt="kickshub">
                 </a>
             </h1>
@@ -41,7 +41,7 @@
 			<c:if test="${vo.userGrade eq 'Q'}">
 			<i class="xi-close-thin find-closeIcon"}"></i>
 			<p class="mt-3">탈퇴한 회원 입니다.</p>
-			<button type="button" id="joid_btn" onclick="location.href='<%=request.getContextPath() %>/index.do'">홈으로 가기</button>
+			<button type="button" id="joid_btn" onclick="location.href='<%=request.getContextPath() %>/'">홈으로 가기</button>
 			</c:if>			
 		</article><!--end:#joinok-->
 	</main>
