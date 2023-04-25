@@ -126,6 +126,7 @@
   		<if test="searchValue != '' and searchType eq 'name'">
   			and prdName like concat('%', #{searchValue}, '%')
   		</if>
+  		order by prdDate desc
   		limit #{start}, #{perPage}
   	</select>
   	

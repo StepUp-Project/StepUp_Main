@@ -27,6 +27,9 @@
         .h-100{
         	height: 100%
         }
+        .small-select{
+        	width: 6rem
+        }
     </style>
 </head>
 <body>
@@ -75,7 +78,7 @@
 							  <input type="checkbox" class="btn-check" id="statusShow" name="statusShow" onclick="show()">
 							  <label class="btn btn-outline-secondary" for="statusShow">발송 상품 안보기</label>
 							</div>                           	
-	                       	<select class="h-100 ms-2" name="sort" id="sort" onchange="orderList(1)">
+	                       	<select class="h-100 ms-2 form-select small-select" name="sort" id="sort" onchange="orderList(1)">
 	                       		<option value="new">최신순</option>
 	                       		<option value="old">오래된순</option>
 	                       	</select>
