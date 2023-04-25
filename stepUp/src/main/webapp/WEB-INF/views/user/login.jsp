@@ -77,6 +77,9 @@
 	                        <img src="<%=request.getContextPath()%>/resources/image/btn_login_naver.gif" alt="네이버 로그인">
 	                    </a>
 	                </div>
+	                <c:if test="${not empty SNS}">
+	                	<input type="hidden" valeu="${SNS}" name="sns">
+	                </c:if>
 	            </form>
 	        </div><!--로그인 main 영역 끝-->
         </div>

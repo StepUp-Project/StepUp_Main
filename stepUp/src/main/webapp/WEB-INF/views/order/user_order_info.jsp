@@ -32,7 +32,7 @@
         <div class="mypagemain">
             <div class="mypage_menu"><!--마이페이지 메뉴 시작-->
                 <div class="mypagehi">
-                    <p>안녕하세요, ${login.userNick}님!</p>
+                    <p>안녕하세요, ${login.userNick} 님!</p>
                 </div>
                 <div class="mypage_gnb">
                     <span><a href="<%=request.getContextPath()%>/order/user.do">주문배송조회</a></span>
@@ -40,6 +40,7 @@
                     <span><a href="<%=request.getContextPath()%>/user/mypage_like.do">관심목록</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_qna.do">QnA</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_posting.do">내가 작성한 글</a></span>
+                    <span><a href="<%=request.getContextPath()%>/user/mypage_sns.do">SNS연결설정</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_modify_check.do">개인정보수정</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_withdrawal.do">회원탈퇴</a></span>
                 </div>
