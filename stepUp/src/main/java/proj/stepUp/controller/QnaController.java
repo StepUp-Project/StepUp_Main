@@ -201,6 +201,28 @@ public class QnaController {
 			return "redirect:/qna/qna_view.do?qnaIndex="+vo.getQnaIndex()+"&updateYN=N";
 		}
 	}
+	@RequestMapping(value = "qna_rspList.do",method = RequestMethod.GET)
+	public String rersp(Model model, SearchVO svo) {
+		
+		int nowPage = 1;
+		if(svo.getNowPage() != 0 ) {
+			nowPage = svo.getNowPage();
+		}
+		List<QnaVO> cntTotal = qnaService.rspTotal(svo);
+		int totalCnt = 0;
+		if(cntTotal.size()>0) {
+			totalCnt = cntTotal.get(0).getTotal();
+		}
+		
+		PagingUtil paging = new PagingUtil(totalCnt,nowPage, 10);
+		List<QnaVO> list = qnaService.rspList();
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("blist", list);
+
+		return "/admin/admin_qnaList";
+
+	}
 
 	
 	

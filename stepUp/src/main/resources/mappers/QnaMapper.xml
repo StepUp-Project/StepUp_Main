@@ -116,5 +116,17 @@
  			where b.userIndex = u.userIndex
             and userGrade = 'A' and qnaIndex = #{qnaIndex}
  	</select>
+ 	
+ 	<select id="rspList" resultType="QnaVO">
+ 		select *
+ 			from qna_tb
+ 			where qnaRsp = 'N'
+ 	</select>
+ 	
+ 	<select id="rspTotal" resultType="QnaVO" >
+ 		select count(*) over () as total from qna_tb 
+ 			where qnaRsp = 'N'	
+ 	</select>
+
 
 </mapper>

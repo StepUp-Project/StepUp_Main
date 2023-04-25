@@ -20,5 +20,7 @@ public interface QnaService {
 	public int restrict(UserVO vo);
 	public List<ReVO> adminrsp(int qnaIndex);
 	public int myPageCnTotal(int userIndex);
+	public List<QnaVO> rspList();
+	public List<QnaVO> rspTotal(SearchVO svo);
 	
 }

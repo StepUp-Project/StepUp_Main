@@ -60,4 +60,11 @@ public class QnaDAO {
 	public int myPageCnTotal(int userIndex) {
 		return sqlSession.selectOne("proj.stepUp.mapper.qnaMapper.myPageCnTotal", userIndex);
 	}
+	public List<QnaVO> rspList(){
+		return sqlSession.selectList("proj.stepUp.mapper.qnaMapper.rspList");
+	}
+	public List<QnaVO> rspTotal(SearchVO svo){
+		return sqlSession.selectList("proj.stepUp.mapper.qnaMapper.rspTotal", svo);
+	}
+	
 }
