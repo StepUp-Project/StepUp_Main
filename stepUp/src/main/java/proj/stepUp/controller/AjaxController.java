@@ -249,7 +249,6 @@ public class AjaxController {
 		    	String accessToken = paymentUtil.getAccessToken();//엑세스 토큰 발급
 		    	int code = paymentUtil.prepare(orderNum, totalPrice, accessToken);//결제금액 사전등록
 		    	if(code != 0) {
-		    		System.out.println("존재하지 않는 결제입니다.");//경고창 출력할지 미정
 		    	}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -293,8 +292,6 @@ public class AjaxController {
 		@ResponseBody
 		@RequestMapping(value="/checkStock.do", method = RequestMethod.POST)
 		public String checkStock(int[] sizeindex, int[] orderitemStock, OrderItemVO oiVO) {
-			System.out.println(sizeindex);
-			System.out.println(orderitemStock);
 			for(int i = 0; i < sizeindex.length; i++) {
 				oiVO.setSizeIndex(sizeindex[i]);
 				oiVO.setOrderItemStock(orderitemStock[i]);

@@ -18,7 +18,7 @@
 	<main class="joinoklogo">
         <div class="jointermslogo">
             <h1 class="jointerms_title">
-                <a href="<%=request.getContextPath()%>/index.do">
+                <a href="<%=request.getContextPath()%>/">
                     <img src="<%=request.getContextPath()%>/resources/image/kickshublogo.png" alt="kickshub">
                 </a>
             </h1>
@@ -28,7 +28,7 @@
 			
 			<p>결제가 완료되었습니다.</p>
 			<button type="button" id="joid_btn" onclick="location.href='user.do'">주문내역 확인</button>
-			<button type="button" id="joid_btn" onclick="location.href='<%=request.getContextPath()%>/index.do'">홈으로 가기</button>
+			<button type="button" id="joid_btn" onclick="location.href='<%=request.getContextPath()%>/'">홈으로 가기</button>
 			
 		</article><!--end:#joinok-->
 	</main>

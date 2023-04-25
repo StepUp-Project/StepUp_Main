@@ -1,5 +1,7 @@
 package proj.stepUp.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -33,7 +35,7 @@ public class FreeController {
 	@Autowired
 	private ReService reService;
 	
-	@RequestMapping(value="/free.do")
+	@RequestMapping(value="/free.do", method = RequestMethod.GET)
 	public String free(Model model, SearchVO svo) {
 		
 		int nowPage = 1;
@@ -58,7 +60,14 @@ public class FreeController {
 	
 	
 	@RequestMapping(value="/free_write.do", method = RequestMethod.GET)
-	public String freewrite() {
+	public String freewrite(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		if(session.getAttribute("login") == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}		
 		
 		return "free/free_write";
 	}
@@ -110,7 +119,6 @@ public class FreeController {
 		if (loginUserVO != null) {
 			String sessionID = loginUserVO.getUserId(); // 사용자의 세션 ID를 가져옴
 		    if (cookies != null) {
-				System.out.println("sessionID::::"+sessionID);
 		        for (Cookie cookie : cookies) {
 		            if (cookie.getName().equals("freeIndex_" + freeIndex + "_" + sessionID)) {
 		                isExists = true;
@@ -129,9 +137,6 @@ public class FreeController {
 		    }
 		}
 		    
-		
-		
-		
 		FreeBoardVO vo = freeService.selectByIndex(freeIndex);
 		List<ReVO> rList = reService.list(freeIndex);
 		model.addAttribute("vo", vo);
@@ -142,16 +147,19 @@ public class FreeController {
 		return "free/free_view";
 	}
 	
+	
 	@RequestMapping(value="/free_modify.do", method = RequestMethod.GET)
-	public String modify(int freeIndex, Model model) {
+	public String modify(int freeIndex, Model model, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		if(session.getAttribute("login") == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}		
+		
 		FreeBoardVO vo = freeService.selectByIndex(freeIndex);
-		model.addAttribute("vo", vo);
-		
-		
-		
-		System.out.println(vo.getFreeIndex());
-		System.out.println(vo.getFreeTitle());
-		System.out.println(vo.getUserIndex());
+		model.addAttribute("vo", vo);		
 		
 		return "free/free_modify";
 	}
@@ -167,9 +175,6 @@ public class FreeController {
 			vo.setFreeTitle(Encode.forHtmlAttribute((String) req.getAttribute("freeTitle")));
 		}
 		
-		System.out.println(vo.getFreeIndex());
-		System.out.println(vo.getFreeTitle());
-		System.out.println(vo.getUserIndex());
 		
 		int result = freeService.update(vo);
 		if(result>0) {
@@ -223,7 +228,6 @@ public class FreeController {
 	@RequestMapping(value="/re_edit.do", method = RequestMethod.POST)
 	public String reedit(ReVO vo, HttpServletRequest req) {
 		
-		System.out.println("reIndex:::::"+vo.getReIndex());
 		
 		if(req.getAttribute("reCnt") != null){
 			vo.setReCnt(Encode.forHtmlAttribute((String) req.getAttribute("reCnt")));

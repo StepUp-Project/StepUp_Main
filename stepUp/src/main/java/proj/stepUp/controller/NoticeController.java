@@ -1,8 +1,11 @@
 package proj.stepUp.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import proj.stepUp.service.NoticeService;
 import proj.stepUp.util.PagingUtil;
 import proj.stepUp.vo.NoticeBoardVO;
 import proj.stepUp.vo.SearchVO;
+import proj.stepUp.vo.UserVO;
 
 
 @RequestMapping(value="/notice")	
@@ -60,7 +64,15 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/notice_write.do", method = RequestMethod.GET)
-	public String noticewrite() {
+	public String noticewrite(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null || !loginUser.getUserGrade().equals("A")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}		
 		
 		return "notice/notice_write";
 	}
@@ -76,7 +88,16 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/notice_modify.do", method = RequestMethod.GET)
-	public String modify(int noticeIndex, Model model) {
+	public String modify(int noticeIndex, Model model, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null || !loginUser.getUserGrade().equals("A")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}		
+		
 		NoticeBoardVO vo = noticeService.selectByIndex(noticeIndex);
 		model.addAttribute("vo", vo);
 		

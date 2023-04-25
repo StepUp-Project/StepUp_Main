@@ -2,15 +2,13 @@ package proj.stepUp.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Date;
+import java.io.PrintWriter;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import proj.stepUp.service.AdminService;
 import proj.stepUp.service.ProductService;
 import proj.stepUp.service.QnaService;
-import proj.stepUp.vo.FreeBoardVO;
 import proj.stepUp.vo.ProductVO;
 import proj.stepUp.vo.SlideVO;
 import proj.stepUp.vo.UserVO;
@@ -38,28 +35,9 @@ public class HomeController {
 	private QnaService qnaService;
 	@Autowired
 	private AdminService adminservice;
+		
 	
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
-	}
-	
-	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
 	public String index(Model model) {
 		//상품 정보(Date순)
 		int maxPrd = 9;
@@ -76,8 +54,6 @@ public class HomeController {
 		//슬라이드 삽입
 		model.addAttribute("blist", slideObj);
 		
-		System.out.println("slideObj:::"+slideObj);
-		System.out.println("slideObj:::"+slideObj.size());
 		
 		return "index";
 	}
@@ -95,8 +71,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/admin.do", method = RequestMethod.GET)
-	public String admin() {
-
+	public String admin(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null || !loginUser.getUserGrade().equals("A")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
 		
 		return "admin/admin_page";
 	}
@@ -106,8 +89,6 @@ public class HomeController {
 	public String slide(MultipartFile mainFile, HttpServletRequest req, SlideVO slvo) throws IOException {
 		String rootPath = req.getSession().getServletContext().getRealPath("/");
 		String uploadMainFolder = rootPath+"resources/image/main";
-		System.out.println("rootPath:::"+rootPath);
-		System.out.println("uploadMainFolder:::"+uploadMainFolder);
 		
 		File mainDir = new File(uploadMainFolder);
 		if(!mainDir.exists()) {
@@ -120,19 +101,23 @@ public class HomeController {
 		mainFile.transferTo(new File(uploadMainFolder, slideFileRname));
 		
 		slvo.setSlideFileOname(slideFileOname);
-		slvo.setSlideFileRname(slideFileRname);
-		
-		System.out.println(uploadMainFolder);
-	 	System.out.println(slvo.getSlideFileOname());
-		System.out.println(slvo.getSlideFileRname());
-	   	System.out.println(slvo.getSlideUrl());
+		slvo.setSlideFileRname(slideFileRname);		
 		
 	   	adminservice.slideinsert(slvo);
 		return "admin/admin_page";
 	}
 	//제재
 	@RequestMapping(value = "restrict.do",method = RequestMethod.GET)
-	public String restrict(Model model, UserVO vo) {
+	public String restrict(Model model, UserVO vo, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null || !loginUser.getUserGrade().equals("A")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}			
+		
 		List<UserVO> list = qnaService.restrictList(vo);
 		model.addAttribute("blist", list);	
 	

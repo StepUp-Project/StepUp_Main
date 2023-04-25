@@ -307,7 +307,7 @@
    			        });
     			}else{
            			alert("현재 주문 수량보다 준비된 재고가 부족합니다.");
-           			location.href="<%=request.getContextPath()%>/index.do";
+           			location.href="<%=request.getContextPath()%>/";
     			}
     		}
     	})    	
