@@ -1,6 +1,6 @@
 package proj.stepUp.vo;
 
-public class ReviewVO {
+public class ReviewVO extends ProductVO{
 	private int reviewIndex;
 	private String reviewContent;
 	private String reviewDate;
