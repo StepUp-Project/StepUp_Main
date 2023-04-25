@@ -60,7 +60,7 @@
         <div class="d-flex justify-content-between pt-5">
             <div class="p-2 logo-wrap" ><!-- 로고 영역 시작-->
                 <h1 class="logo">
-                    <a href="<%=request.getContextPath()%>/index.do">
+                    <a href="<%=request.getContextPath()%>/">
                         <span>kikshub</span>
                     </a>
                 </h1>

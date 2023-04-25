@@ -16,7 +16,7 @@
 	<main class="joinoklogo">
         <div class="jointermslogo">
             <h1 class="jointerms_title">
-                <a href="<%=request.getContextPath()%>/index.do">
+                <a href="<%=request.getContextPath()%>/">
                     <img src="<%=request.getContextPath()%>/resources/image/kickshublogo.png" alt="kickshub">
                 </a>
             </h1>

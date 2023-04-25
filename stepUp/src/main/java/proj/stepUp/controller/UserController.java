@@ -54,7 +54,7 @@ public class UserController {
 	public String joinTerms(HttpServletRequest req) {
 		HttpSession seesion = req.getSession();
 		if(seesion.getAttribute("login") != null) {
-			return "home";
+			return "index";
 		}else {
 			return "user/join_terms";
 		}
@@ -76,7 +76,7 @@ public class UserController {
 		
 		HttpSession seesion = req.getSession();
 		if(seesion.getAttribute("login") != null) {
-			return "home";
+			return "index";
 		}else {
 			return "user/join";
 		}
@@ -106,8 +106,8 @@ public class UserController {
 		if(type != null) {
 			model.addAttribute("SNS", type);
 		}
-		HttpSession seesion = req.getSession();
-		if(seesion.getAttribute("login") != null) {
+		HttpSession session = req.getSession();
+		if(session.getAttribute("login") != null) {
 			return "index";
 		}else {
 			return "user/login";
@@ -126,18 +126,16 @@ public class UserController {
 			if(loginVO.getUserGrade().equals("Q")){
 				pw.append("<script>alert('탈퇴한 사용자입니다.');location.href='"+req.getContextPath()+"/user/login.do'</script>");
 			}else {
-				System.out.println("로그인 성공");
 				HttpSession seesion = req.getSession();
 				seesion.setAttribute("login", loginVO);
 				if(sns != null) {
 					pw.append("<script>location.href='"+req.getContextPath()+"/user/mypage_sns.do'</script>");
 				}else {
-					pw.append("<script>location.href='"+req.getContextPath()+"/index.do'</script>");
+					pw.append("<script>location.href='"+req.getContextPath()+"/'</script>");
 				}
 				
 			}
 		}else{
-			System.out.println("로그인 실패");
 			pw.append("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.');location.href='"+req.getContextPath()+"/user/login.do'</script>");
 		}
 		pw.flush();
@@ -177,7 +175,7 @@ public class UserController {
 			if(kakaoVO != null) {
 				//로그인 진행
 				seesion.setAttribute("login", kakaoVO);				
-				return "home";
+				return "index";
 			}else {				
 				pw.append("<script>alert('최초 1회 계정 연동이 필요합니다.');location.href='"+req.getContextPath()+"/user/login.do?type=SNS'</script>");
 			}
@@ -188,7 +186,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value="/naverLogin.do")
+	@RequestMapping(value="/naverLogin.do", method = RequestMethod.GET)
 	public String naverLogin() {
 		NaverLogin requestLogin = new NaverLogin();
 		String request = requestLogin.requestLogin();
@@ -230,7 +228,7 @@ public class UserController {
 			if(naverVO != null) {
 				//로그인 진행
 				seesion.setAttribute("login", naverVO);				
-				return "home";
+				return "index";
 			}else {				
 				pw.append("<script>alert('최초 1회 계정 연동이 필요합니다.');location.href='"+req.getContextPath()+"/user/login.do?type=SNS'</script>");
 			}
@@ -242,7 +240,14 @@ public class UserController {
 	
 	
 	@RequestMapping(value="/logout.do", method = RequestMethod.GET)
-	public String kakaoLogout(HttpServletRequest req) {		
+	public String kakaoLogout(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		if(session.getAttribute("login") == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
 		HttpSession seesion = req.getSession();
 		seesion.removeAttribute("login");
 		return "index";
@@ -271,12 +276,10 @@ public class UserController {
 		 rsp.setContentType("text/html;charset=utf-8");
 		 PrintWriter pw = rsp.getWriter();
 			if(loginVO != null) {
-				System.out.println("비밀번호가 확인되었습니다.");
 				HttpSession seesion = req.getSession();
 				seesion.setAttribute("login", loginVO);
 				pw.append("<script>location.href='"+req.getContextPath()+"/user/mypage_modify.do'</script>");
 			}else {
-				System.out.println("비밀번호가 정확하지 않습니다.");
 				pw.append("<script>alert('비밀번호가 정확하지 않습니다.');location.href='"+req.getContextPath()+"/user/mypage_modify_check.do'</script>");
 			}
 			pw.flush();
@@ -285,10 +288,16 @@ public class UserController {
 	
 	//개인정보수정 기존정보 불러오기
 	@RequestMapping(value="/mypage_modify.do", method = RequestMethod.GET)
-	public String mpModify(HttpServletRequest req, Model model) {
+	public String mpModify(HttpServletRequest req, Model model, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
 		
 		HttpSession session = req.getSession();  //로그인정보는 세션에 있는거라서 세션에서 가져와야함
 		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(loginUser == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
 		UserVO mypage = userService.mypage(loginUser.getUserId());
 		model.addAttribute("mypage", mypage);
 			return "user/mypage_modify";
@@ -369,15 +378,21 @@ public class UserController {
 
 	//mypage 내가쓴 글
 	@RequestMapping(value="/mypage_posting.do", method = RequestMethod.GET)
-	public String myposting(Model model, HttpServletRequest req, SearchVO svo) {
+	public String myposting(Model model, HttpServletRequest req, SearchVO svo, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
+		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
+		if(loginUser == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
 		
 		int nowPage = 1;
 		if(svo.getNowPage() != 0 ) {
 			nowPage = svo.getNowPage();
 		}
 		
-		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
-		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
 		int totalCnt = freeService.userCntTotal(loginUser.getUserIndex());
 		PagingUtil paging = new PagingUtil(totalCnt, nowPage, 10);
 		
@@ -411,15 +426,21 @@ public class UserController {
 	
 	//mypage qna
 	@RequestMapping(value="/mypage_qna.do", method = RequestMethod.GET)
-	public String myqna(Model model, HttpServletRequest req, SearchVO svo) {
+	public String myqna(Model model, HttpServletRequest req, SearchVO svo, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
+		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
+		if(loginUser == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
 		
 		int nowPage = 1;
 		if(svo.getNowPage() != 0 ) {
 			nowPage = svo.getNowPage();
 		}
 		//리스트
-		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
-		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
 		
 		int totalCnt = qnaService.myPageCnTotal(loginUser.getUserIndex());
 		
@@ -452,17 +473,21 @@ public class UserController {
 	
 	//mypage 관심목록
 	@RequestMapping(value="/mypage_like.do", method = RequestMethod.GET)
-	public String mylike(Model model, HttpServletRequest req, SearchVO svo) {
+	public String mylike(Model model, HttpServletRequest req, SearchVO svo, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
+		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
+		if(loginUser == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}		
 		
 		//페이지
 		int nowPage = 1;
 		if(svo.getNowPage() != 0 ) {
 			nowPage = svo.getNowPage();
 		}
-	
-		//리스트
-		HttpSession session = req.getSession();  //지금 세션에 로그인되어있는 사용자의
-		UserVO loginUser = (UserVO)session.getAttribute("login");  //로그인정보를 가져와서
 		
 		int totalCnt = markService.cntTotal(loginUser.getUserIndex());				
 		
@@ -485,27 +510,18 @@ public class UserController {
 
 	//mypage 리뷰
 	@RequestMapping(value = "/mypage_review.do", method = RequestMethod.GET)
-	public String mpreview() {
-
+	public String mpreview(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		if(session.getAttribute("login") == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
+		
 		return "user/mypage_review";
 	}
-	
-	
-	//후기 작성
-	@RequestMapping(value = "/review.do", method = RequestMethod.GET)
-	public String review() {
-
-		return "user/review";
-	}
-	
-	
-	//후기 수정
-	@RequestMapping(value = "/review_modify.do", method = RequestMethod.GET)
-	public String reviewmodify() {
-
-		return "user/review_modify";
-	}
-	
+			
 	
 	// 아이디 찾기
 	@RequestMapping(value = "/find_id.do", method = RequestMethod.GET)
@@ -547,9 +563,17 @@ public class UserController {
 			return "redirect:/user/pwChgOK.do?result=0";
 		}		
 	}
+	
 	//비밀번호 변경
 	@RequestMapping(value = "/pwChg.do", method = RequestMethod.GET)
-	public String pwChg() {
+	public String pwChg(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		HttpSession session = req.getSession();
+		if(session.getAttribute("vo") == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
 		
 		return "user/find_pwChg";
 	}
@@ -575,9 +599,16 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/mypage_sns.do", method = RequestMethod.GET)
-	public String mypageSNS(Model model,HttpServletRequest req) {
+	public String mypageSNS(Model model,HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();		
 		HttpSession session = req.getSession();
 		UserVO loginUser = (UserVO)session.getAttribute("login");
+		if(session.getAttribute("login") == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
+		
 		UserVO userVO = userService.selectSNS(loginUser.getUserIndex());
 		model.addAttribute("sns", userVO);
 		
@@ -591,6 +622,11 @@ public class UserController {
 		
 		rsp.setContentType("text/html;charset=utf-8");
 		PrintWriter pw = rsp.getWriter();
+		if(loginUser == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}		
+		
 		int result = userService.updateDisconnectKakao(loginUser.getUserIndex());
 		if(result == 1) {
 			pw.append("<script>alert('카카오 계정 연결이 해제되었습니다.');location.href='"+req.getContextPath()+"/user/mypage_sns.do'</script>");
@@ -609,6 +645,11 @@ public class UserController {
 		
 		rsp.setContentType("text/html;charset=utf-8");
 		PrintWriter pw = rsp.getWriter();
+		if(loginUser == null) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}			
+		
 		int result = userService.updateDisconnectNaver(loginUser.getUserIndex());
 		if(result == 1) {
 			pw.append("<script>alert('네이버 계정 연결이 해제되었습니다.');location.href='"+req.getContextPath()+"/user/mypage_sns.do'</script>");
