@@ -6,7 +6,6 @@
 <% 
 	List<SlideVO> blist = (List<SlideVO>)request.getAttribute("blist");
 %>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,7 +19,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
 </head>
 <body>
-<%@ include file="./include/header.jsp" %>
+<%@include file="./include/header.jsp"%>
     <main><!-- 메인 시작 -->
         <div class="swiper"><!-- 메인 베너 시작 -->
             <!-- Additional required wrapper -->
@@ -40,9 +39,7 @@
             <!-- If we need navigation buttons -->
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
-        
         </div><!-- 메인 베너 끝 -->
-
         <div><!-- 메인 콘텐츠 영역 시작 -->
             <div class="main-new"><!-- NEW 영역 시작-->
                 <div class="main-new-title">
@@ -74,8 +71,7 @@
                         </c:forEach>
 				    </div>
 				  </div>
-            </div>
-            <!-- NEW 영역 끝-->
+            </div><!-- NEW 영역 끝-->
                <div class="main-brand"><!-- BRAND 영역 시작-->
                 <div class="main-brand-title">
                     <h2>BRAND</h2>
@@ -136,7 +132,6 @@
             </div><!-- brand-best 영역 끝-->
         </div><!-- 메인 콘텐츠 영역 끝 -->
     </main><!-- 메인 끝 -->
-
     <script src="<%=request.getContextPath()%>/resources/JS/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script><!-- swiper JS 연결 -->
     <script>
@@ -176,6 +171,6 @@
                     }
               });
     </script>
-<%@ include file="./include/footer.jsp" %>
+<%@include file="./include/footer.jsp"%>
 </body>
 </html>
