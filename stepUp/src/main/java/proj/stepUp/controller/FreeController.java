@@ -64,10 +64,15 @@ public class FreeController {
 		rsp.setContentType("text/html;charset=utf-8");
 		PrintWriter pw = rsp.getWriter();
 		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
 		if(session.getAttribute("login") == null) {
 			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
 			pw.flush();
-		}		
+		}
+		if(loginUser.getUserGrade().equals("F")) {
+			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
+		}
 		
 		return "free/free_write";
 	}
