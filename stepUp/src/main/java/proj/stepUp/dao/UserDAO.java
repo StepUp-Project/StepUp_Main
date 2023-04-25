@@ -81,4 +81,16 @@ public class UserDAO {
 	public List<UserVO> cntTotal(SearchVO svo) {
 		return sqlSession.selectList("proj.stepUp.mapper.userMapper.cntTotal", svo);
 	}
+	
+	public UserVO selectSNS(int userIndex) {
+		return sqlSession.selectOne("proj.stepUp.mapper.userMapper.selectSNS", userIndex);
+	}
+	
+	public int updateDisconnectNaver(int userIndex) {
+		return sqlSession.update("proj.stepUp.mapper.userMapper.updateDisconnectNaver", userIndex);
+	}
+	
+	public int updateDisconnectKakao(int userIndex) {
+		return sqlSession.update("proj.stepUp.mapper.userMapper.updateDisconnectKakao", userIndex);
+	}
 }

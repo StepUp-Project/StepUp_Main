@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import proj.stepUp.service.FreeService;
 import proj.stepUp.service.MarkService;
@@ -101,8 +102,10 @@ public class UserController {
 	
 	
 	@RequestMapping(value="/login.do", method = RequestMethod.GET)
-	public String login(HttpServletRequest req) {
-		
+	public String login(HttpServletRequest req, String type, Model model) {
+		if(type != null) {
+			model.addAttribute("SNS", type);
+		}
 		HttpSession seesion = req.getSession();
 		if(seesion.getAttribute("login") != null) {
 			return "index";
@@ -113,7 +116,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value="/login.do", method = RequestMethod.POST)
-	public void login(UserVO vo, HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+	public void login(UserVO vo, HttpServletRequest req, HttpServletResponse rsp, String sns) throws IOException {
 		
 		rsp.setContentType("text/html;charset=utf-8");
 		UserVO loginVO = userService.login(vo);
@@ -126,7 +129,12 @@ public class UserController {
 				System.out.println("로그인 성공");
 				HttpSession seesion = req.getSession();
 				seesion.setAttribute("login", loginVO);
-				pw.append("<script>location.href='"+req.getContextPath()+"/index.do'</script>");
+				if(sns != null) {
+					pw.append("<script>location.href='"+req.getContextPath()+"/user/mypage_sns.do'</script>");
+				}else {
+					pw.append("<script>location.href='"+req.getContextPath()+"/index.do'</script>");
+				}
+				
 			}
 		}else{
 			System.out.println("로그인 실패");
@@ -171,7 +179,7 @@ public class UserController {
 				seesion.setAttribute("login", kakaoVO);				
 				return "home";
 			}else {				
-				pw.append("<script>alert('최초 1회 계정 연동이 필요합니다.');location.href='"+req.getContextPath()+"/user/login.do'</script>");
+				pw.append("<script>alert('최초 1회 계정 연동이 필요합니다.');location.href='"+req.getContextPath()+"/user/login.do?type=SNS'</script>");
 			}
 			pw.flush();
 		}
@@ -224,7 +232,7 @@ public class UserController {
 				seesion.setAttribute("login", naverVO);				
 				return "home";
 			}else {				
-				pw.append("<script>alert('최초 1회 계정 연동이 필요합니다.');location.href='"+req.getContextPath()+"/user/login.do'</script>");
+				pw.append("<script>alert('최초 1회 계정 연동이 필요합니다.');location.href='"+req.getContextPath()+"/user/login.do?type=SNS'</script>");
 			}
 			pw.flush();
 		}
@@ -564,6 +572,52 @@ public class UserController {
 		}
 		
 		return "user/find_pwOK";
+	}
+	
+	@RequestMapping(value = "/mypage_sns.do", method = RequestMethod.GET)
+	public String mypageSNS(Model model,HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");
+		UserVO userVO = userService.selectSNS(loginUser.getUserIndex());
+		model.addAttribute("sns", userVO);
+		
+		return "user/mypage_sns";
+	}
+	
+	@RequestMapping(value="/disconectKakao.do", method = RequestMethod.GET)
+	public void disconectKakao(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");	
+		
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		int result = userService.updateDisconnectKakao(loginUser.getUserIndex());
+		if(result == 1) {
+			pw.append("<script>alert('카카오 계정 연결이 해제되었습니다.');location.href='"+req.getContextPath()+"/user/mypage_sns.do'</script>");
+		}else {
+			pw.append("<script>alert('카카오 계정 연결 해제를 실패하였습니다.');location.href='"+req.getContextPath()+"/user/mypage_sns.do'</script>");
+		}
+		
+		pw.flush();
+
+	}
+	
+	@RequestMapping(value="/disconectNaver.do", method = RequestMethod.GET)
+	public void disconectNaver(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+		HttpSession session = req.getSession();
+		UserVO loginUser = (UserVO)session.getAttribute("login");	
+		
+		rsp.setContentType("text/html;charset=utf-8");
+		PrintWriter pw = rsp.getWriter();
+		int result = userService.updateDisconnectNaver(loginUser.getUserIndex());
+		if(result == 1) {
+			pw.append("<script>alert('네이버 계정 연결이 해제되었습니다.');location.href='"+req.getContextPath()+"/user/mypage_sns.do'</script>");
+		}else {
+			pw.append("<script>alert('네이버 계정 연결 해제를 실패하였습니다.');location.href='"+req.getContextPath()+"/user/mypage_sns.do'</script>");
+		}
+		
+		pw.flush();
+
 	}
 }
 	

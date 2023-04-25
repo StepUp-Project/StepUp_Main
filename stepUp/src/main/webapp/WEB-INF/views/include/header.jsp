@@ -25,6 +25,7 @@
                         <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_qna.do">QnA</a></li>
                         <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_posting.do">내가 작성한 글</a></li>
                         <hr/>
+                        <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_sns.do">SNS연결설정</a></li>
                         <li class="blank"><a href="<%=request.getContextPath()%>/user/mypage_modify_check.do">개인정보수정</a></li>
                         <li><a href="<%=request.getContextPath()%>/user/logout.do">로그아웃</a></li>
                     </ul>

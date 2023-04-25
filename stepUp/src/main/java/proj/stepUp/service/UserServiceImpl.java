@@ -97,6 +97,21 @@ public class UserServiceImpl implements UserService{
 	public List<UserVO> cntTotal(SearchVO svo) {
 		return userDAO.cntTotal(svo);
 	}
+
+	@Override
+	public UserVO selectSNS(int userIndex) {
+		return userDAO.selectSNS(userIndex);
+	}
+
+	@Override
+	public int updateDisconnectNaver(int userIndex) {
+		return userDAO.updateDisconnectNaver(userIndex);
+	}
+
+	@Override
+	public int updateDisconnectKakao(int userIndex) {
+		return userDAO.updateDisconnectKakao(userIndex);
+	}
 	
 
 }

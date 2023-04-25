@@ -23,4 +23,7 @@ public interface UserService {
 	public UserVO selectIndex(int userIndex);
 	public int chgPw(UserVO vo);
 	public List<UserVO> cntTotal(SearchVO svo);
+	public UserVO selectSNS(int userIndex);
+	public int updateDisconnectNaver(int userIndex);
+	public int updateDisconnectKakao(int userIndex);
 }
