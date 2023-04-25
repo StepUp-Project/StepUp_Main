@@ -12,35 +12,9 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-	
-	<style type="text/css">
-		.img-size img{
-			width: 100%;
-			height: 100%;
-		}
-		.w-15{
-			width:15%;
-		}
-		.fs-7{
-			font-size: 0.7rem;
-		}
-		.input-style{
-			width:350px;
-			height: 38px;
-		}
-		.zip-style{
-			width: 500px;
-			height: 38px;
-		}
-		.table-boot-bd tr{
-			border-bottom: 1px solid #dee2e6;
-		}
-	</style>
 </head>
-
 <body>
-<%@ include file="../include/header.jsp" %>    
-	
+<%@include file="../include/header.jsp"%>    
 	<main>
 		<div class="container pt-5"><!-- 컨텐츠 영역 -->
 			<div class="mb-4 text-darkr border-bottom border-dark"><!-- 타이틀 영역 -->
@@ -107,32 +81,30 @@
 				<span class="ms-5 fs-1 text-danger" id="totalPrice"></span>
 				<input type="hidden" id="totalPriceHidden" value="">
 			</div>
-			<div class="mt-5 border-bottom border-dark mb-5">
+			<div class="mt-5 border-bottom border-dark">
 				<h5 class="mb-3">배송 정보</h5>
 			</div>
 			<div class="mb-3 border-bottom border-dark">
 				<table class="table table-borderless table-boot-bd">
 					<tbody>
 						<tr>
-							<th scope="row" class="w-15	">
+							<th scope="row" class="w-15">
 								<label for="buyerName" class="fs-4">이름</label>
 							</th>
 							<td>
 								<input class="input-style" id="buyerName" name="buyerName" type="text" placeholder="이름" value="${userVO.userName}">
-								<span></span>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="w-15	">
+							<th scope="row" class="w-15">
 								<label for="buyerTel" class="fs-4">전화번호</label>
 							</th>
 							<td>
 								<input class="input-style" id="buyerTel" name="buyerTel" type="text" placeholder="연락처" value="${userVO.userPhone}">
-								<span></span>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="w-15	">
+							<th scope="row" class="w-15">
 								<label for="userZipCode" class="fs-4">주소</label>
 							</th>
 							<td class="d-flex justify-content-start">
@@ -141,14 +113,14 @@
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="w-15	">						
+							<th scope="row" class="w-15">						
 							</th>
 							<td>
 								<input type="text" class="zip-style" id="userAddr" name="userAddr" placeholder="주소" value="${userVO.userAddr}" readonly>
 							</td>
 						</tr>
 						<tr>
-							<th scope="row" class="w-15	">						
+							<th scope="row" class="w-15">						
 							</th>
 							<td>
 								<input type="text" class="zip-style" id="userAddrDetail" name="userAddrDetail" placeholder="상세주소" value="${userVO.userAddrDetail}">
@@ -159,13 +131,10 @@
 			</div>
 			<div class="d-flex justify-content-end mb-5">
 				<button type="button" class="btn btn-dark  btn-lg rounded-0" onclick="callPay()">결제하기</button>
-				<button type="button" class="btn btn-light btn-lg rounded-0 ms-3">취소</button>
 			</div>
 		</div><!-- 컨텐츠 영역 end-->
 	</main>
-    
-<%@ include file="../include/footer.jsp" %>
-
+<%@include file="../include/footer.jsp"%>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -189,7 +158,6 @@
                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
                     addr = data.jibunAddress;
                 }   
-
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('userZipCode').value = data.zonecode;
                 document.getElementById("userAddr").value = addr;
@@ -238,7 +206,6 @@
     	let buyerAddr = userAddr+" "+userAddrDetail;
     	let prdName = $("#prdName").html();
     	let orderName = "";
-    	
     	let sizeindexHiddne = document.querySelectorAll('input[name="sizeindex"]');
     	let orderitemStockHidden = document.querySelectorAll('input[name="orderitemStock"]');
     	if(sizeindexHiddne.length != 0){
@@ -246,20 +213,16 @@
     			sizeindex.push(i.value)
     		})    		
     	}
-    	
     	if(orderitemStockHidden.length != 0){
     		orderitemStockHidden.forEach(function(i){
     			orderitemStock.push(i.value)
     		})  
     	}
-    	
     	if(sizeindexHiddne.length > 1){
     		orderName = prdName+" 외 "+(sizeindexHiddne.length-1)+"건";
     	}else{
     		orderName = prdName;
     	}
-    	console.log(sizeindex);
-    	console.log(orderitemStock);
     	$.ajax({
     		url:"<%=request.getContextPath()%>/ajax/checkStock.do",
     		type:"post",
@@ -312,7 +275,6 @@
     		}
     	})    	
     }
-	
     totalprice();
     </script>
 </body>
