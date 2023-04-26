@@ -60,7 +60,7 @@
 	                            <button type="button" onclick="alert('권한이 없습니다. 자세한 사항은 QnA 게시판을 통해 관리자에게 문의해주세요')">등록</button>
 	                        </div>
    	                	</c:if>
-                    </form>
+                    	</form>
                 </c:if>
                 </div>
             </div> 
