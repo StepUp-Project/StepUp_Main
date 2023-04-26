@@ -175,7 +175,6 @@
 	    };
 	    
 	    function searchPrdList(nowPage){//상품 리스트ajax호출 함수
-	    	console.log("ajax실행");
 	    	let sizeKind = [];
 	    	let prdType = [];
 	    	let priceMin = $("#lower").val();

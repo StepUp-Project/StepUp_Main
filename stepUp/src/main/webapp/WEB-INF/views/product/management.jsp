@@ -39,6 +39,7 @@
                 <div class="mypage_gnb">
                     <span><a href="<%=request.getContextPath()%>/admin.do">슬라이더 관리</a></span>
                     <span><a href="<%=request.getContextPath()%>/restrict.do">회원 관리</a></span>
+                    <span><a href="<%=request.getContextPath()%>/qna/qna_rspList.do">QnA 답변대기 리스트</a></span>
                     <span><a href="<%=request.getContextPath()%>/order/manager.do">주문내역 관리</a></span>
                     <span><a href="<%=request.getContextPath()%>/product/management.do">상품관리</a></span>
                 </div>

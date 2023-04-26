@@ -314,7 +314,6 @@
 	      			type: "post",
 	      			data:{userNick : UserNick},
 	      			success:function(data){
-	      				console.log(data);
 	   					if(data != "failse"){
 	      					let html = "사용가능한 닉네임 입니다."
 	      					let checkIdResult = document.getElementById("checkNickResult");

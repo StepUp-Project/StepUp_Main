@@ -99,9 +99,6 @@ public class NaverSMS {
 	    //String body = bodyJson.toJSONString();
 	    String body = bodyJson.toString();
 	    
-	    System.out.println(body);
-	    System.out.println(timestamp);
-	    System.out.println(userPhone);
         try {
             URL url = new URL(apiUrl);
 

@@ -39,10 +39,10 @@
 			  		<c:forEach var="prd" items="${orderItemVO}">
 				   	<table class="table table-bordered">
 				   		<tr>
-				   			<td rowspan='5' class="orderImg">
+				   			<td rowspan='5' class="orderImg w-25">
 				   				<img src="<%=request.getContextPath() %>/resources/prdmainimg/${prd.prdRname}" alt="상품이미지">
 				   			</td>
-				   			<th>상품명</th>
+				   			<th class="w-25">상품명</th>
 				   			<td>${prd.prdName}</td>
 				   		</tr>
 				   		<tr>
@@ -75,7 +75,7 @@
 				  <div class="card-body">
 						<table class="table table-bordered">
 							<tr>
-								<th>주문자</th>
+								<th class="w-25">주문자</th>
 								<td>${orderVO.orderBuyerName}</td>
 							</tr>
 							<tr>
@@ -102,7 +102,7 @@
 				  <div class="card-body">
 				    <table class="table table-bordered">
 				    	<tr>
-				    		<th>결제 방식</th>
+				    		<th class="w-25">결제 방식</th>
 				    		<td>${orderVO.orderPay}</td>
 				    	</tr>
 				    	<tr>

@@ -15,52 +15,42 @@ public class ReServiceImpl implements ReService{
 	private ReDAO reDAO;
 
 	@Override
-	public List<ReVO> list(int freeIndex) {
-		
+	public List<ReVO> list(int freeIndex) {		
 		return reDAO.list(freeIndex);
 	}
 
 	@Override
-	public int insert(ReVO vo) {
-		
+	public int insert(ReVO vo) {		
 		return reDAO.insert(vo);
 	}
 
 	@Override
 	public int update(ReVO vo) {
-		// TODO Auto-generated method stub
 		return reDAO.update(vo);
 	}
 
 	@Override
 	public int delete(int reIndex) {
-		// TODO Auto-generated method stub
 		return reDAO.delete(reIndex);
 	}
-
-	
-	
+		
 	@Override
 	public List<ReVO> qnalist(int qnaIndex) {
-		
 		return reDAO.qnalist(qnaIndex);
 	}
 
 	@Override
 	public int qnainsert(ReVO vo) {
-		
 		return reDAO.qnainsert(vo);
 	}
 
 	@Override
 	public int qnaupdate(ReVO vo) {
-		// TODO Auto-generated method stub
 		return reDAO.qnaupdate(vo);
 	}
 
 	@Override
 	public int qnadelete(int qnareIndex) {
-		// TODO Auto-generated method stub
 		return reDAO.qnadelete(qnareIndex);	
 	}
 

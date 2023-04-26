@@ -154,7 +154,6 @@ public class PaymentUtil {
 	         }
 	         
 	         //json 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
-	         System.out.println("결과"+result);
 	         JSONObject jsonObject = new JSONObject(result);
 	         JSONObject responseObj = jsonObject.getJSONObject("response");
 	         int orderTotalPrice = responseObj.getInt("amount");

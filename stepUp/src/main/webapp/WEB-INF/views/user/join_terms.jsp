@@ -115,10 +115,7 @@
         		//1. 첫번째 필수 약관 체크 확인
         		let check1 = $("#useChk").is(":checked");
         		//2. 두번쩨 필수 약관 체크 확인
-        		let check2  = $("#infoChk").is(":checked");
-        		
-        		console.log(check1);
-        		console.log(check2);
+        		let check2  = $("#infoChk").is(":checked");        		
         		
         		if(check1 == true && check2 == true){
         			document.termsfrm.submit();

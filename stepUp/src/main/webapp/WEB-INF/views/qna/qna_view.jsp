@@ -129,7 +129,6 @@
 									    // input 이벤트
 									    comment.addEventListener("input", function() {
 									        var currentLength = comment.value.length;
-									        console.log(currentLength)
 									        if (currentLength > maxLength) {
 									            alert("글자 수를 초과하였습니다. " + maxLength + "자 이내로 입력해주세요.");
 									            comment.value = this.value.substring(0, maxLength);
@@ -142,7 +141,6 @@
 									    // input 이벤트
 									    comment.addEventListener("input", function() {
 									        var currentLength = comment.value.length;
-									        console.log(currentLength)
 									        if (currentLength > maxLength) {
 									            alert("글자 수를 초과하였습니다. " + maxLength + "자 이내로 입력해주세요.");
 									            comment.value = this.value.substring(0, maxLength);

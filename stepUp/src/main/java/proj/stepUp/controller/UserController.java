@@ -54,7 +54,7 @@ public class UserController {
 	public String joinTerms(HttpServletRequest req) {
 		HttpSession seesion = req.getSession();
 		if(seesion.getAttribute("login") != null) {
-			return "index";
+			return "redirect:/";
 		}else {
 			return "user/join_terms";
 		}
@@ -76,7 +76,7 @@ public class UserController {
 		
 		HttpSession seesion = req.getSession();
 		if(seesion.getAttribute("login") != null) {
-			return "index";
+			return "redirect:/";
 		}else {
 			return "user/join";
 		}
@@ -108,7 +108,7 @@ public class UserController {
 		}
 		HttpSession session = req.getSession();
 		if(session.getAttribute("login") != null) {
-			return "index";
+			return "redirect:/";
 		}else {
 			return "user/login";
 		}
@@ -175,14 +175,14 @@ public class UserController {
 			if(kakaoVO != null) {
 				//로그인 진행
 				seesion.setAttribute("login", kakaoVO);				
-				return "index";
+				return "redirect:/";
 			}else {				
 				pw.append("<script>alert('최초 1회 계정 연동이 필요합니다.');location.href='"+req.getContextPath()+"/user/login.do?type=SNS'</script>");
 			}
 			pw.flush();
 		}
 		
-		return "index";
+		return "redirect:/";
 	}
 	
 	
@@ -228,14 +228,14 @@ public class UserController {
 			if(naverVO != null) {
 				//로그인 진행
 				seesion.setAttribute("login", naverVO);				
-				return "index";
+				return "redirect:/";
 			}else {				
 				pw.append("<script>alert('최초 1회 계정 연동이 필요합니다.');location.href='"+req.getContextPath()+"/user/login.do?type=SNS'</script>");
 			}
 			pw.flush();
 		}
 		
-		return "index";
+		return "redirect:/";
 	}
 	
 	
@@ -250,7 +250,7 @@ public class UserController {
 		}
 		HttpSession seesion = req.getSession();
 		seesion.removeAttribute("login");
-		return "index";
+		return "redirect:/";
 	}
 	
 	
