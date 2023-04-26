@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="proj.stepUp.vo.UserVO" %>
-<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +13,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
     <main><!--메인 시작-->
         <div class="mypagemain">
             <div class="mypage_menu"><!--마이페이지 메뉴 시작-->
@@ -30,18 +28,14 @@
                     <span><a href="<%=request.getContextPath()%>/product/management.do">상품관리</a></span>
                 </div>
             </div><!--마이페이지 메뉴 끝-->
-
             <article id="mypage_contain"><!--관심목록 페이지 시작-->
                  <div id="mypage_title">
-                    <h2>
-                      	  슬라이드 관리
-                    </h2>
+                    <h2>슬라이드 관리</h2>
                     <p>
                         <i class="xi-angle-right-min"></i>
                        	 메인 화면의 대표 슬라이드 구성을 바꿉니다.
                     </p>
                 </div>
-
                 <div class="mplikecontain">
 				   <div id="slideEdit" style="width:60%; margin:30px auto;">
 						<form name="slidefrm" method="post" action="slide.do" enctype="multipart/form-data">
@@ -64,7 +58,6 @@
             </article>
         </div>
 	</main>
-	<%@ include file="../include/footer.jsp" %>
-
+<%@include file="../include/footer.jsp"%>
 </body>
 </html>
