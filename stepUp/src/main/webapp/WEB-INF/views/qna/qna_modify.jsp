@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,7 +10,6 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-
     <!-- ㅆㅁㄴㅌ 연결-->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources//plugin/summernote/summernote-lite.js"></script>
@@ -19,14 +17,14 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources//plugin/summernote/summernote-lite.css">
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
     <main>
         <article id="board_write">
             <div id="board_ttl">게시글 수정</div>
             <form method="post" action="qna_modify.do">
             	<input name="qnaIndex" value = "${vo.qnaIndex}" type="hidden">
-                <input class="input_title" 	 name="qnaTitle"	type="text" placeholder="제목을 입력해주세요" value="${vo.qnaTitle}">
-                <textarea id="summernote"	 name="qnaCnt" >${vo.qnaCnt}</textarea>
+                <input class="input_title" name="qnaTitle" type="text" placeholder="제목을 입력해주세요" value="${vo.qnaTitle}">
+                <textarea id="summernote" name="qnaCnt" >${vo.qnaCnt}</textarea>
                 <div id="board_button">
                     <input type="submit" value="저 장" onclick="return confirm('저장하시겠습니까?')">
                     <input type="button" value="돌아가기" onclick="location.href='qna_view.do?qnaIndex=${vo.qnaIndex}'">
@@ -42,11 +40,10 @@
                   maxHeight: null,             // 최대 높이
                   focus: true,                 // 에디터 로딩후 포커스를 맞출지 여부
                   lang: "ko-KR",			   // 한글 설정
-                  
             });
         });
         </script>
     </main>
-<%@ include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>
 </body>
 </html>
