@@ -1,16 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="proj.stepUp.vo.QnaVO"%>
 <%@page import="proj.stepUp.util.PagingUtil"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="proj.stepUp.vo.QnaVO" %>
-<%@ page import="proj.stepUp.vo.SearchVO" %>
+<%@page import="proj.stepUp.vo.SearchVO"%>
 <% 
 	List<QnaVO> blist = (List<QnaVO>)request.getAttribute("blist");
 	PagingUtil paging = (PagingUtil)request.getAttribute("paging");
 	SearchVO svo = (SearchVO)request.getAttribute("svo");
 %>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -21,10 +19,9 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-    
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
     <main><!--메인 시작-->
         <article id="board_contain">
             <div class="board_title">QnA게시판</div>
@@ -48,15 +45,11 @@
                                 Date date = new Date();
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                 String nowDate = sdf.format(date);
-
                                 QnaVO dbWDate = (QnaVO)pageContext.getAttribute("vo");
                                 String dbDate = dbWDate.getQnaWdate().substring(0,10);
                                 String dbTime = dbWDate.getQnaWdate().substring(11, 16);
-
                                 if (nowDate.equals(dbDate)) {
                                     out.print(dbTime);
-
-
                                 } else {
                                     out.print(dbDate);
                                 }
@@ -77,29 +70,24 @@
 							<a href="qna.do?nowPage=<%= paging.getStartPage()-1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &lt;&lt; </a>
 						<%		
 							}
-				
 							for(int i = paging.getStartPage(); i<=paging.getEndPage(); i++){
-							
 								if(paging.getNowPage() != i){
 						%>
 							<a href="qna.do?nowPage=<%= i %>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> <%= i %> </a>	
 						<%
-								}else{
+							}else{
 						%>
 							<b><%= i %></b>
-							
 						<%	
-								}
 							}
-							
+							}
 							if(paging.getEndPage() < paging.getLastPage()){
 						%>	
 							<a href="qna.do?nowPage=<%= paging.getEndPage()+1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &gt;&gt; </a>
 						<%
 							}
 						%>
-		
-						</td>
+    		    </td>
                     </tr>
                     <tr>
                         <td class="board_search" colspan="5">
@@ -112,7 +100,7 @@
                                     </select>
                                     <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
                                     <button class="srch-bt" >검 색</button>
-								<c:if test="${not empty login }">
+				        <c:if test="${not empty login }">
                                     	<input type="button" class="board_Write" value="글쓰기" onclick="location.href='qna_write.do'">
                            		</c:if>    
                                 </div>
@@ -123,6 +111,6 @@
             </table>
         </article>
 	</main>
-<%@ include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>
 </body>
 </html>
