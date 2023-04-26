@@ -1,26 +1,23 @@
-<%@page import="proj.stepUp.vo.ReVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="proj.stepUp.vo.ReVO"%>
 <%
 	List<ReVO> rList = (List<ReVO>)request.getAttribute("rList");
 	List<ReVO> adminrsp = (List<ReVO>)request.getAttribute("adminrsp");
 %>
-
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main</title>
+    <title>QnA_view</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
 </head>
-
 <body>
-<%@ include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
     <main><!--메인 시작-->
         <article id="board_viewcontain">
             <ul id="board_view">
@@ -61,8 +58,7 @@
 								<input class="board_btn" type="submit" value="답변취소">
 							</form>
 						</c:if>
-
-           		</c:if>
+           	</c:if>
             </div>
         </article>
         <article id=""><!--댓글란-->
@@ -73,8 +69,8 @@
                 	<c:if test="${login.userIndex eq vo.userIndex or login.userGrade eq 'A'}">
 	   	                <form name="refrm" action="qnare_write.do" method="post">
 	                        <textarea id="re_writeCnt" name="qnareCnt" oninput="limitTextAreaLength(this)" placeholder="댓글을 남겨주세요"></textarea>
-	                        <input name="userIndex" value="${login.userIndex}"	type="hidden">
-	                        <input name="qnaIndex" value="${vo.qnaIndex}"		type="hidden">
+	                        <input name="userIndex" value="${login.userIndex}" type="hidden">
+	                        <input name="qnaIndex" value="${vo.qnaIndex}" type="hidden">
 	                        <div id="re_btn">
 	                            <button>등록</button>
 	                        </div>
@@ -84,7 +80,6 @@
                 </div>
             </div> 
             <br/>
-
             <br/>
             <ul id="re_ctn">
             <c:if test="${not empty rList}">
@@ -115,14 +110,11 @@
 								  function openPopup(qnareIndex) {
 								    // 팝업 열기
 								    document.getElementsByClassName("popup_"+qnareIndex)[0].style.display = "block";
-								  
 								  }
-								  
 								  function closePopup(qnareIndex) {
 								    // 팝업 닫기
 								    document.getElementsByClassName("popup_"+qnareIndex)[0].style.display = "none";
 								  }
-								  
 								  function limitTextAreaLength() {
 									    var maxLength = 200; // 최대 글자 수
 									    var comment = document.getElementById("re_writeCnt");
@@ -158,6 +150,6 @@
             </ul>
         </article>
 	</main>
-<%@ include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>
 </body>
 </html>
