@@ -88,7 +88,7 @@
                 </div>
                 <div class="mt-4">
                     <label for="prdCare" class="form-label">소재관리 방법</label>
-                    <input type="text" name="prdCare" class="form-control" id="prdCare" value="${prdVO.prdCare}"/>
+                    <textarea name="prdCare" class="form-control" id="prdCare">${prdVO.prdCare}</textarea>
                 </div>
                 <div class="mt-4">
                     <label for="prdMadeDate" class="form-label">제조일</label>

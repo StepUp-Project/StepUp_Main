@@ -79,9 +79,9 @@
 							<input type="range" min="0" max="178000" value="178000" id="upper">
 						</div>
 						<div class="price-wrap align-items-baseline justify-content-end">
-							<input disabled type="number" id="price-min" name="priceMin">
-							<span class="price-sp">~</span>
-							<input disabled type="number" id="price-max" name="priceMax">
+							<span id="price-min"></span>
+							<span>~</span>
+							<span id="price-max"></span>
 							<span>원</span>
 						</div>								
 					</fieldset>			

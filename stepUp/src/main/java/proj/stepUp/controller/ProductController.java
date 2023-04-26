@@ -196,7 +196,7 @@ public class ProductController {
 			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
 			pw.flush();
 		}
-		
+
 		List<SizeVO> vo = sizeService.selectByPrdIndex(prdIndex);
 		model.addAttribute("sizeList", vo);
 		model.addAttribute("prdIndex", prdIndex);
