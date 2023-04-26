@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>      
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>      
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>brand</title>
+    <title>new</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
 </head>
 <body>
- <%@ include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
     <main id="newjsp" class="container-fluid"><!--메인 시작-->
         <div class="d-flex justify-content-between">
             <article id="prd_filter">
@@ -121,7 +121,6 @@
                 </ul>
                 <button class="btn btn-dark rounded-0" type="button" onclick="searchPrdList(1)">검색</button>
             </article>
-
             <article id="prd_cnt">
 		    <div id="brand_main"></div>
 		    <div id="prd_sort" class="d-flex justify-content-end"></div>
@@ -132,25 +131,22 @@
             </article>
         </div>
     </main><!--메인 끝-->
-<%@ include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script><!-- swiper JS 연결 -->
     <script>
-    	//range(가격 검색)관련 스크립트
+    	    //range(가격 검색)관련 스크립트
 	    var lowerSlider = document.querySelector('#lower');
 	    var upperSlider = document.querySelector('#upper');
 	    let priMax =  new Intl.NumberFormat('ko-kr').format(upperSlider.value);
 	    let priMin =  new Intl.NumberFormat('ko-kr').format(lowerSlider.value);
 	    $('#price-max').html(priMax);
 	    $('#price-min').html(priMin);
-	
 	    var lowerVal = parseInt(lowerSlider.value);
 	    var upperVal = parseInt(upperSlider.value);
-	
 	    upperSlider.oninput = function () {
 	        lowerVal = parseInt(lowerSlider.value);
 	        upperVal = parseInt(upperSlider.value);
-	
 	        if (upperVal < lowerVal + 4) {
 	            lowerSlider.value = upperVal - 4;
 	            if (lowerVal == lowerSlider.min) {
@@ -160,7 +156,6 @@
 	        let thisMax =  new Intl.NumberFormat('ko-kr').format(this.value);
 	        $('#price-max').html(thisMax); 
 	    };
-	
 	    lowerSlider.oninput = function () {
 	        lowerVal = parseInt(lowerSlider.value);
 	        upperVal = parseInt(upperSlider.value);
@@ -173,7 +168,6 @@
 	        let thisMin =  new Intl.NumberFormat('ko-kr').format(this.value);
 	        $('#price-min').html(thisMin); 
 	    };
-	    
 	    function searchPrdList(nowPage){//상품 리스트ajax호출 함수
 	    	let sizeKind = [];
 	    	let prdType = [];
@@ -218,7 +212,6 @@
 	    		}
 	    	});
 	    }
-	    
 	    function paging(nowPage){//페이징 버튼 ajax 처리 함수
 	    	let sizeKind = [];
 	    	let prdType = [];
@@ -270,12 +263,10 @@
  	    		}
 	    	});
 	    }
-	    
-	 //brand paging 페이지 로드시 호출
+	    //brand paging 페이지 로드시 호출
 	    $(document).ready(function(){
 	    	searchPrdList(1);
-	    });
-	 	
+	    });	
         function colorchange(){
             document.getElementById("colnk").style.background = "url('../image/new/new_logo_nk.png') no-repeat 0 0";
         }
