@@ -30,20 +30,44 @@
                     <input type="button" value="돌아가기" onclick="location.href='event_view.do?eventIndex=${vo.eventIndex}'">
                 </div>
             </form>
-        </article> 
-        <script>
-            $(document).ready(function() {
-            //여기 아래 부분
-            $('#summernote').summernote({
-                  height: 450,                 // 에디터 높이
-                  minHeight: null,             // 최소 높이
-                  maxHeight: null,             // 최대 높이
-                  focus: true,                 // 에디터 로딩후 포커스를 맞출지 여부
-                  lang: "ko-KR",			   // 한글 설정
-            });
-        });
-        </script>
+        </article>        
     </main>
 <%@include file="../include/footer.jsp"%>
+ <script>
+	        $(document).ready(function() {//썸머노트
+	            //여기 아래 부분
+	            $('#summernote').summernote({
+	                  height: 450,                 // 에디터 높이
+	                  minHeight: null,             // 최소 높이
+	                  maxHeight: null,             // 최대 높이
+	                  focus: false,                // 에디터 로딩후 포커스를 맞출지 여부
+	                  lang: "ko-KR",			       // 한글 설정
+	                  callbacks:{
+	                	  onImageUpload: function(files, editor, welEditable){
+	      		            for (var i = files.length - 1; i >= 0; i--) {
+	    		            	sendFile(files[i], this);
+	                	  }
+	                  }
+	                }
+	            });
+	          }); 
+            
+            function sendFile(file, el){//썸머노트 콜백
+            	let data = new FormData();
+            	data.append('file', file);
+            	$.ajax({
+                	data: data,
+                	type: "POST",
+                	url: '${pageContext.request.contextPath}/ajax/SummerNoteImageFile.do',
+                	cache: false,
+                	contentType: false,
+                	enctype: 'multipart/form-data',
+                	processData: false,
+                	success: function(data) {
+                  		$(el).summernote('editor.insertImage', data.url);
+                	}
+              	});
+            }
+        </script>
 </body>
 </html>

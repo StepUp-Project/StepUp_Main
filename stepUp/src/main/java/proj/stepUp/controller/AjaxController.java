@@ -363,9 +363,9 @@ public class AjaxController {
 		
 		@ResponseBody
 		@RequestMapping(value="/orderList.do", method = RequestMethod.GET)
-		public List<OrderVO> orderList(SearchVO searchVO, int nowPage) {
+		public List<OrderVO> orderList(SearchVO searchVO) {
 			int totalCount = orderService.selectManagerCount(searchVO);
-			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+			PagingUtil paging = new PagingUtil(totalCount, searchVO.getNowPage(), 20);
 			searchVO.setStart(paging.getStart());
 			searchVO.setPerPage(paging.getPerPage());
 			List<OrderVO> orderList = orderService.selectManager(searchVO);
@@ -376,9 +376,9 @@ public class AjaxController {
 		
 		@ResponseBody
 		@RequestMapping(value="/orderListPaging.do	", method = RequestMethod.GET)
-		public PagingUtil orderListPaging(SearchVO searchVO, int nowPage) {
+		public PagingUtil orderListPaging(SearchVO searchVO) {
 			int totalCount = orderService.selectManagerCount(searchVO);
-			PagingUtil paging = new PagingUtil(totalCount, nowPage, 20);
+			PagingUtil paging = new PagingUtil(totalCount, searchVO.getNowPage(), 20);
 						
 			return paging;
 		}

@@ -19,9 +19,12 @@
 <body>
 <%@include file="../include/header.jsp"%>    
    <main class="d-flex justify-content-between"><!--메인 시작-->
+   		<div class="container-fluid mb-5">
         <section class="cart-top"><!--장바구니 탑메뉴-->
-        <h1>장바구니</h1>
-        <div class="cart-right">장바구니 > 주문결제 > 주문완료</div>
+        <div class="d-flex">
+	        <h1>장바구니</h1>
+	        <div class="cart-right">장바구니 > 주문결제 > 주문완료</div>        
+        </div>
         <div class="cart-line"></div>
         </section><!--장바구니 탑메뉴 끝-->
         <section class="cart-table"><!--표입력-->
@@ -81,9 +84,11 @@
                     </tr>
                 </tfoot>
             </table>
-           	<div class="cart-button">
-		    <a href="<%=request.getContextPath()%>/">쇼핑 계속하기</a>
-		    <a href="#" onclick="goPayment()">결제하기</a>
+         <div class="cart-button">
+         	<div class="text-end">
+			    <a href="<%=request.getContextPath()%>/">쇼핑 계속하기</a>
+			    <a href="#" onclick="goPayment()">결제하기</a>
+		    </div>
 		</div>
 		<form action="<%=request.getContextPath()%>/order/payment.do" id="payFrm" method="get">
         	<input type="hidden" name="sizeIndex" id="sizeIndexPay" value=""/>
@@ -91,6 +96,7 @@
         	<input type="hidden" name="userIndex" id="userIndexPay" value=""/>
         </form> 
         </section><!--표입력 끝-->
+		</div>        
     </main><!--메인 끝-->
 <%@include file="../include/footer.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -148,7 +154,6 @@
 			  let mainprice = 0;
         	  if(cartcheck.length != 0){
 				  cartcheck.forEach(function(i){
-					  console.log(i.value)
 					  mainprice += parseInt(i.value);
 				  })
 			  }       	

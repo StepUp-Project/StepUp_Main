@@ -17,7 +17,6 @@ public class SizeServiceImpl implements SizeService{
 	
 	@Override
 	public int insertSize(SizeVO vo) {
-		// TODO Auto-generated method stub
 		return sizeDAO.insertSize(vo);
 	}
 

@@ -36,7 +36,6 @@ public class KakaoLogin {
 	         
 	         //요청 결과 코드 받기
 	         int responseCode = conn.getResponseCode();
-	         System.out.println("responseCode : " + responseCode);
 	         
 	         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	         String line = "";
@@ -50,10 +49,7 @@ public class KakaoLogin {
 	         JSONObject jsonObject = new JSONObject(result);
 
 	         accessToken = jsonObject.getString("access_token");
-	         refreshToken = jsonObject.getString("refresh_token");
-	          
-	          System.out.println("access_token : " + accessToken);
-	          System.out.println("refresh_token : " + refreshToken);
+	         refreshToken = jsonObject.getString("refresh_token");	          
 	          
 	          br.close();
 	          bw.close();
@@ -76,7 +72,6 @@ public class KakaoLogin {
 			
 	        //결과 코드가 200이라면 요청 성공
 	        int responseCode = conn.getResponseCode();
-	        System.out.println("responseCode : " + responseCode);
 	        
 	        //요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
 	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -87,7 +82,6 @@ public class KakaoLogin {
 	        	result += line;
 	        }
 	        
-	        System.out.println("response body : " + result);
 	        
 	        //json 라이브러리로 JSON파싱
 	        JSONObject jsonObject = new JSONObject(result);
@@ -99,8 +93,6 @@ public class KakaoLogin {
 	        	email = jsonObject.getJSONObject("kakao_account").getString("email");
 	        }
 	        
-            System.out.println("id : " + id);
-            System.out.println("email : " + email);
             userKakaoId = Long.toString(id);
             br.close();
             

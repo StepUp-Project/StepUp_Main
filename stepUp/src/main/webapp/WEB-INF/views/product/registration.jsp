@@ -92,7 +92,7 @@
                 </div>
                 <div class="mt-4">
                     <label for="prdMadeDate" class="form-label">제조일</label>
-                    <input type="text" name="prdMadeDate" class="form-control" id="prdMadeDate"/>
+                    <input type="date" name="prdMadeDate" class="form-control" id="prdMadeDate"/>
                 </div>
                 <div class="d-flex">
                     <div class="file-area">
@@ -188,8 +188,6 @@
             	enctype: 'multipart/form-data',
             	processData: false,
             	success: function(data) {
-            		console.log("ajax 응답 성공");
-            		console.log(data);
               		$(el).summernote('editor.insertImage', data.url);
             	}
           	});
@@ -306,7 +304,6 @@
         	let check = 0;
         	let inputSize = $("#inputSize").val();
         	let sizeKind = document.querySelectorAll('input[name="sizeKind"]');
-        	console.log(sizeKind);
     		if(sizeKind.length != 0){
     			sizeKind.forEach(function(i){
     				if(inputSize == i.value){

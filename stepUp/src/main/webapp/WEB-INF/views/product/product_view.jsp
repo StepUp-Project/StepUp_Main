@@ -453,7 +453,6 @@
 	    		data:{nowPage : nowPage, prdIndex : prdIndex},
 	    	    success: function(data) { // Ajax 요청이 성공한 경우 실행될 콜백 함수
 	    	    	let reviewHtml = '';
-	    	    	console.log(data);
 	    	    	for(let i = 0; i < data.length; i++){
 	    	    		let reviewList = data[i];
 	    	    		let reviewDate = moment(reviewList.reviewDate).format('YYYY-MM-DD');

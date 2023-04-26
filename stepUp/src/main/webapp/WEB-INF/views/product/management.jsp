@@ -39,6 +39,7 @@
                 <div class="mypage_gnb">
                     <span><a href="<%=request.getContextPath()%>/admin.do">슬라이더 관리</a></span>
                     <span><a href="<%=request.getContextPath()%>/restrict.do">회원 관리</a></span>
+                    <span><a href="<%=request.getContextPath()%>/qna/qna_rspList.do">QnA 답변대기 리스트</a></span>
                     <span><a href="<%=request.getContextPath()%>/order/manager.do">주문내역 관리</a></span>
                     <span><a href="<%=request.getContextPath()%>/product/management.do">상품관리</a></span>
                 </div>
@@ -103,7 +104,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script>
         function searchPrdList(nowPage){//상품 리스트ajax호출 함수
-	    	console.log("ajax실행");
         	let searchType = $("#searchType").val();
         	let searchValue = $("#searchValue").val();
 	    	$.ajax({
