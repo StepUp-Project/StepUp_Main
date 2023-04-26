@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>      
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>      
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->   
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
     <main id="newjsp" class="container-fluid"><!--메인 시작-->
         <div class="new-banner-area d-flex" id="new-banner">
             <a></a>
@@ -22,7 +22,6 @@
             <a></a>
             <a></a>
         </div>
-
         <ul id="brandlist">
             <li class="brandlogo">
                 <a><p class="bl_img" onclick="colorchange()" id="colall"></p></a>
@@ -52,11 +51,10 @@
                 <a href="<%=request.getContextPath()%>/product/brand.do?searchType=NB"><p class="bl_img"></p></a>
             </li>
         </ul>
-
         <div class="d-flex justify-content-between">
             <article id="prd_filter">
                 <p class="filter_ttl">사이즈</p>
-                <ul  id="size_check">
+                <ul id="size_check">
                     <li class="size_box">
                         <input type="checkbox" name="sizeKind" value="210" id="size01">
                         <label for="size01">
@@ -108,18 +106,18 @@
                 </ul>
              	<p class="filter_ttl">가격</p>
 	            <div id="prc_check">
-					<fieldset class="price-range-slider">
-						<div class="price-field">
-							<input type="range" min="0" max="178000" value="0" id="lower">
-							<input type="range" min="0" max="178000" value="178000" id="upper">
-						</div>
-						<div class="price-wrap align-items-baseline justify-content-end">
-							<span id="price-min"></span>
-							<span>~</span>
-							<span id="price-max"></span>
-							<span>원</span>
-						</div>								
-					</fieldset>			
+				<fieldset class="price-range-slider">
+					<div class="price-field">
+						<input type="range" min="0" max="178000" value="0" id="lower">
+						<input type="range" min="0" max="178000" value="178000" id="upper">
+					</div>
+					<div class="price-wrap align-items-baseline justify-content-end">
+						<span id="price-min"></span>
+						<span>~</span>
+						<span id="price-max"></span>
+						<span>원</span>
+					</div>								
+				</fieldset>			
 	            </div>
                 <p class="filter_ttl">종류</p>
                 <ul id="type_check">
@@ -156,7 +154,6 @@
                 </ul>
                 <button class="btn btn-dark rounded-0" type="button" onclick="searchPrdList(1)">검색</button>
             </article>
-
             <article id="prd_cnt">
             <div id="prd_sort" class="d-flex justify-content-end">
             	<select name="sort" id="sortList" class="form-select w-7" onchange="searchPrdList(1)">
@@ -166,7 +163,6 @@
             		<option value="high">높은가격순</option>
             	</select>
             </div>
-
             <ul id="cnt_list"><!-- 상품 출력 영역 -->
             </ul>
            	<div id="pagingBtn" class="mb-5"><!-- 페이징 버튼 출력 영역 -->
@@ -174,7 +170,7 @@
             </article>
         </div>
     </main><!--메인 끝-->
-<%@ include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script><!-- swiper JS 연결 -->
     <script>
@@ -185,14 +181,11 @@
 	    let priMin =  new Intl.NumberFormat('ko-kr').format(lowerSlider.value);
 	    $('#price-max').html(priMax);
 	    $('#price-min').html(priMin);
-	
 	    var lowerVal = parseInt(lowerSlider.value);
 	    var upperVal = parseInt(upperSlider.value);
-	
 	    upperSlider.oninput = function () {
 	        lowerVal = parseInt(lowerSlider.value);
 	        upperVal = parseInt(upperSlider.value);
-	
 	        if (upperVal < lowerVal + 4) {
 	            lowerSlider.value = upperVal - 4;
 	            if (lowerVal == lowerSlider.min) {
@@ -202,7 +195,6 @@
 	        let thisMax =  new Intl.NumberFormat('ko-kr').format(this.value);
 	        $('#price-max').html(thisMax); 
 	    };
-	
 	    lowerSlider.oninput = function () {
 	        lowerVal = parseInt(lowerSlider.value);
 	        upperVal = parseInt(upperSlider.value);
@@ -215,7 +207,6 @@
 	        let thisMin =  new Intl.NumberFormat('ko-kr').format(this.value);
 	        $('#price-min').html(thisMin); 
 	    };
-	    
 	    function searchPrdList(nowPage){//상품 리스트ajax호출 함수
 	    	let searchType = '<c:out value="${searchVO.searchType}"/>';
 	    	let sizeKind = [];
@@ -260,7 +251,6 @@
 	    		}
 	    	});
 	    }
-	    
 	    function paging(nowPage, searchType){//페이징 버튼 ajax 처리 함수
 	    	let sizeKind = [];
 	    	let prdType = [];
@@ -311,12 +301,10 @@
  	    		}
 	    	});
 	    }
-	    
-	 	//brand paging 페이지 로드시 호출
+            //brand paging 페이지 로드시 호출
 	    $(document).ready(function(){
 	    	searchPrdList(1);
 	    });
-	 	
         function colorchange(){
             document.getElementById("colnk").style.background = "url('../image/new/new_logo_nk.png') no-repeat 0 0";
         }

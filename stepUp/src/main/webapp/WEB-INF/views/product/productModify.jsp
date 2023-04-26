@@ -1,27 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>registration</title>
+    <title>productModify</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-    
     <!-- ㅆㅁㄴㅌ 연결-->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/plugin/summernote/summernote-lite.js"></script>
     <script src="<%=request.getContextPath()%>/resources/plugin/summernote/summernote-ko-KR.min.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugin/summernote/summernote-lite.css">
-
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
     <main class="prd-registration">
         <article id="board_write">
             <div id="board_ttl">브랜드별 상품등록</div>
@@ -82,7 +80,7 @@
                     <label for="prdMt" class="form-label">상품 소재</label>
                     <input type="text" name="prdMt" class="form-control" id="prdMt" value="${prdVO.prdMt}"/>
                 </div>
-                                <div class="mt-4">
+                <div class="mt-4">
                     <label for="prdQc" class="form-label">품질 보증기준</label>
                     <input type="text" name="prdQc" class="form-control" id="prdQc" value="${prdVO.prdQc}"/>
                 </div>
@@ -138,7 +136,7 @@
             </form>
         </article> 
     </main>
-<%@ include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>
     <script>
         $(document).ready(function() {//썸머노트     
         //여기 아래 부분
@@ -157,7 +155,6 @@
             }
         });
       }); 
-        
         function sendFile(file, el){//썸머노트 콜백
         	let data = new FormData();
         	data.append('file', file);
@@ -170,13 +167,10 @@
             	enctype: 'multipart/form-data',
             	processData: false,
             	success: function(data) {
-            		console.log("ajax 응답 성공");
-            		console.log(data);
               		$(el).summernote('editor.insertImage', data.url);
             	}
           	});
         }
-        
         let prdCheck = "";
         function prdCodeCheck(){
         	let brandCode = $("#brandCode").val();
@@ -194,7 +188,6 @@
         		type:"GET",
         		data:{prdCode : prdCode},
         		success:function(data){
-        			
         			if(data > 0){
         				alert("중복된 상품 코드입니다.");
         			}else{
@@ -204,8 +197,6 @@
         		}
         	});        	
         }
-        
-       
         function check(){//코드 조합 및 유효성 검사       	
         	let brandCode = $("#brandCode").val();
         	let crdCode =  $("#typeCode").val();
@@ -258,13 +249,10 @@
         	}
         	return true
         }
-                     
-
         function add(){//재고 추가 버튼 클릭시 실행 함수
         	let check = 0;
         	let inputSize = $("#inputSize").val();
         	let sizeKind = document.querySelectorAll('input[name="sizeKind"]');
-        	console.log(sizeKind);
     		if(sizeKind.length != 0){
     			sizeKind.forEach(function(i){
     				if(inputSize == i.value){
@@ -274,15 +262,15 @@
     			});
     		}
         	if(check == 0 ){
-            let size = '';
-            size += '<li class="d-flex mt-2 size my-2 justify-content-start">';
-            size += '	<div class="w-25 me-5">';
-    		size += '		<input type="text" name="sizeKind" class="form-control" id="sizeKind" value="'+inputSize+'" readonly>' ;
-    		size += '	</div>';
-            size += '	<div class="w-25">';
-            size += '		<input type="number" name="sizeStock" class="form-control" id="sizeStock" value="0" required="required"/>';  
-            size += '	</div>';  
-            size += '</li>';  
+		    let size = '';
+		    size += '<li class="d-flex mt-2 size my-2 justify-content-start">';
+		    size += '<div class="w-25 me-5">';
+			size += '<input type="text" name="sizeKind" class="form-control" id="sizeKind" value="'+inputSize+'" readonly>' ;
+			size += '</div>';
+		    size += '<div class="w-25">';
+		    size += '<input type="number" name="sizeStock" class="form-control" id="sizeStock" value="0" required="required"/>';  
+		    size += '</div>';  
+		    size += '</li>';  
         	$("#sizeWrap").append(size);
         	}
         }     

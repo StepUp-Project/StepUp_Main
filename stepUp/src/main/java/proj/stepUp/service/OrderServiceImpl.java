@@ -27,7 +27,6 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public int selectByOrder(ReviewVO vo) {
-		System.out.println("서비스 진입");
 		return orderDAO.selectByOrder(vo);
 	}
 

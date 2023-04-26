@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="proj.stepUp.vo.UserVO" %>
-<%@ page import="java.util.*" %>
+<%@page import="proj.stepUp.vo.UserVO"%>
 <% 
 	List<UserVO> blist = (List<UserVO>)request.getAttribute("blist");
 %>
@@ -58,7 +56,7 @@
                         <i class="xi-angle-right-min"></i>
                        	현재 기능이 제한된 회원내역 입니다.
                     </p>
-                    <table style="text-align: center;">
+                    <table style="text-align:center;">
 						 	<tr> 
 						 		<td style="width:150px; height:35px">회원아이디  </td>
 						 		<td style="width:150px; ">닉네임</td>

@@ -52,7 +52,6 @@ public class NaverLogin {
 		    apiURL += "&redirect_uri=" + redirectURI;
 		    apiURL += "&code=" + code;
 		    apiURL += "&state=" + state;
-		    System.out.println("apiURL="+apiURL);
 		    
 		    URL url = new URL(apiURL);
 		    HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -135,8 +134,7 @@ public class NaverLogin {
 	            int responseCode = con.getResponseCode();
 	            BufferedReader br;
 	            if(responseCode==200) { // 정상 호출
-	                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	                System.out.println("로그아웃 정상 호출");
+	                br = new BufferedReader(new InputStreamReader(con.getInputStream()));;
 	            } else {  // 에러 발생
 	                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 	            }

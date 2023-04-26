@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>        
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>        
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,15 +14,14 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
-
+<%@include file="../include/header.jsp"%>
     <main class="container-fluid"><!--메인 시작-->
       <article id="prd_view"><!-- 상품 사진 + 선택 영역-->
         <div id="prd_pic">
             <ul>
                 <li class="small_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${prdVO.prdRname})" onclick="chgimg(this)"></li>
                 <c:forEach var="subImg" items="${prdImgVO}">
-                	<li class="small_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdsubimg/${subImg.prdImgRname})" onclick="chgimg(this)"></li>
+               	<li class="small_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdsubimg/${subImg.prdImgRname})" onclick="chgimg(this)"></li>
                 </c:forEach>       
             </ul>
             <div class="big_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${prdVO.prdRname}"></div>
@@ -101,7 +100,6 @@
             <div><a href="#prdinfo_tap3">반품/교환정보</a></div>
             <span>|</span>
             <div><a href="#prdinfo_tap4">상품평</a></div>
-
         </article>
         <article id="prdinfo_tap1"> <!--상품정보-->
            <table>
@@ -133,7 +131,6 @@
         <article id="prdinfo_tap2"> <!--상품 설명-->
             ${prdVO.prdCnt}
         </article>
-
         <article id="prdinfo_tap3"><!--반품/교환정보-->
             <table>
                 <tr>
@@ -262,36 +259,34 @@
         	<input type="hidden" name="userIndex" id="userIndexPay" value="">
         </form> 
 	</main>
-<%@ include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>
 		function updateSizeSelected(sizeIndex, sizeKind, sizeStock) { 
-					let productName = $("#productName").html();					
-					let sizePrint = '';
-					sizePrint += '<li id="sizeLi'+sizeKind+'">';
-					sizePrint += '<div class="select_prdName"><span>'+productName+'</span> <span>사이즈 ' + sizeKind + '</span></div>';
-					sizePrint += '<input type="hidden" id="sizeIndex" value="'+sizeIndex+'" name="sizeIndex">';
-					sizePrint += '<button class="decrease-btn" onclick="decreaseQuantity('+sizeKind+')">-</button>';
-					sizePrint += '<input class="qnt_numb" name="cartStock"  id="quantity_' + sizeKind + '" type="text" value="1" disabled>';
-					sizePrint += '<button class="increase-btn" onclick="increaseQuantity('+sizeKind+','+sizeStock+')">+</button>';
-					sizePrint += '<div class="selec_PrdPrice" id="priceWrap">';
-					sizePrint += '<span id="price_' + sizeKind + '" name="itemPrice"></span>';
-					sizePrint += '<label for="size' + sizeKind + '">';
-					sizePrint += '<div class="x-btn, xi-close" ></div>';
-					sizePrint += '</label>';
-					sizePrint += '</div>';
-					if($('#size'+sizeKind+'').is(':checked')){
-						$("#prdSizeArea").append(sizePrint);
-						sizePrice(sizeKind);
-						totalPrice();
-					}else{
-						$('#sizeLi'+sizeKind+'').detach();
-						totalPrice();
-					}
-		            
+			let productName = $("#productName").html();					
+			let sizePrint = '';
+			sizePrint += '<li id="sizeLi'+sizeKind+'">';
+			sizePrint += '<div class="select_prdName"><span>'+productName+'</span> <span>사이즈 ' + sizeKind + '</span></div>';
+			sizePrint += '<input type="hidden" id="sizeIndex" value="'+sizeIndex+'" name="sizeIndex">';
+			sizePrint += '<button class="decrease-btn" onclick="decreaseQuantity('+sizeKind+')">-</button>';
+			sizePrint += '<input class="qnt_numb" name="cartStock"  id="quantity_' + sizeKind + '" type="text" value="1" disabled>';
+			sizePrint += '<button class="increase-btn" onclick="increaseQuantity('+sizeKind+','+sizeStock+')">+</button>';
+			sizePrint += '<div class="selec_PrdPrice" id="priceWrap">';
+			sizePrint += '<span id="price_' + sizeKind + '" name="itemPrice"></span>';
+			sizePrint += '<label for="size' + sizeKind + '">';
+			sizePrint += '<div class="x-btn, xi-close" ></div>';
+			sizePrint += '</label>';
+			sizePrint += '</div>';
+			if($('#size'+sizeKind+'').is(':checked')){
+				$("#prdSizeArea").append(sizePrint);
+				sizePrice(sizeKind);
+				totalPrice();
+			}else{
+				$('#sizeLi'+sizeKind+'').detach();
+				totalPrice();
+			}
 		        };
-		
 		function increaseQuantity(size, sizeStock) {
 			let stockNum = parseInt($('#quantity_'+size+'').val());
 			if(stockNum < sizeStock){
@@ -304,7 +299,6 @@
 			}
 
 		}
-		
 		function decreaseQuantity(size) {
 			let stockNum = parseInt($('#quantity_'+size+'').val());
 			if(stockNum > 1){
@@ -314,7 +308,6 @@
 				 totalPrice();
 			}
 		}
-		
 		function sizePrice(size) {   
 			let stockNum = parseInt($('#quantity_'+size+'').val());
 			let productPrice = $("#productPrice").val();
@@ -323,7 +316,6 @@
 			$('#price_'+size+'').html(price+"원");
 			
 		}
-		       
 		function totalPrice() {
 			let totla = 0;
 			let itemPrice = document.querySelectorAll("span[name=itemPrice]");
@@ -339,15 +331,11 @@
 			}
 			$(".total_price").html(pricaeTotal);
 		}
-		    
 	    var bigimg = document.querySelector(".big_img");
-	    
 	    function chgimg(element){
 	      var newimg = element.style.backgroundImage;
 	      bigimg.style.backgroundImage = newimg;
 	    } 
-	    
-		
 	    //찜버튼 변경 스크립트
 	    $("#mark").click(function(){
 	    	let userIndex = "<c:out value='${login.userIndex}'/>";
@@ -373,9 +361,7 @@
 	    			}
 	    		});
 	    	}
-			
 	    });
-	    
 	    //장바구니 상품추가 ajax
 	    function inputCart(){
 	    	let userIndex =  "<c:out value='${login.userIndex}'/>";
@@ -385,7 +371,6 @@
 	    	sIndex.forEach(function(sIndex) {
 	    		sizeIndex.push(sIndex.value);
 	    	});
-	    	
 	    	const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
 	    	if (selectedSizes.length !== 0) {
 		    	selectedSizes.forEach(function(size){
@@ -393,7 +378,6 @@
 			    	sStock.forEach(function(sStock){
 			    		sizeStock.push(sStock.value);
 			    	});
-		    		
 		    	});
 	    	}else{
 	    		alert("상품 사이즈를 추가하여 주세요");
@@ -415,12 +399,9 @@
 					}else{
 						alert("이미 담겨있는 상품입니다.");
 					}
-
 				}
 			})//ajax end
 	    }
-	    	    
-	    
 	    //장바구니 팝 지우기
 	    const closeBtn1 = document.getElementById('popclose1');
 	    const closeBtn2 = document.getElementById('popclose2');
@@ -432,28 +413,25 @@
 			cartpop.style.display = 'none';
 		});
 		
-       	    //로그인 안했을때 버튼 클릭시
+	//로그인 안했을때 버튼 클릭시
        	function altCart(){
-			alert("로그인이 필요한 서비스입니다.");
-			window.location.href = '<%=request.getContextPath()%>/user/login.do';
+		alert("로그인이 필요한 서비스입니다.");
+		window.location.href = '<%=request.getContextPath()%>/user/login.do';
        	}
-       	
        	function altBuy(){
-			alert("로그인이 필요한 서비스입니다.");
-			window.location.href = '<%=request.getContextPath()%>/user/login.do';
+		alert("로그인이 필요한 서비스입니다.");
+		window.location.href = '<%=request.getContextPath()%>/user/login.do';
        	}
-		
-	    //상품 리뷰 paging ajax
-	    function goPage(nowPage){
-	    	let prdIndex = <c:out value="${prdVO.prdIndex}"/>
+        //상품 리뷰 paging ajax
+	function goPage(nowPage){
+		let prdIndex = <c:out value="${prdVO.prdIndex}"/>
 	    	let loginIndex = <c:out value="${login.userIndex}"/>
 	    	$.ajax({
 	    		url:"<%=request.getContextPath()%>/ajax/prdPaging.do",
 	    		type:"get",
 	    		data:{nowPage : nowPage, prdIndex : prdIndex},
-	    	    success: function(data) { // Ajax 요청이 성공한 경우 실행될 콜백 함수
+	    	        success: function(data) { // Ajax 요청이 성공한 경우 실행될 콜백 함수
 	    	    	let reviewHtml = '';
-	    	    	console.log(data);
 	    	    	for(let i = 0; i < data.length; i++){
 	    	    		let reviewList = data[i];
 	    	    		let reviewDate = moment(reviewList.reviewDate).format('YYYY-MM-DD');
@@ -465,28 +443,26 @@
 	    	    			reviewHtml += '&#9733;';
 	    	    		}
 	    	    		for(let j = 1; j <= (5 - reviewList.reviewScore); j++){
-	    	    		reviewHtml += '&#9734;';
+	    	    			reviewHtml += '&#9734;';
 	    	    		}
-	    	    		reviewHtml += '</span>';
-	    	    		reviewHtml += '<span class="review_writer">'+reviewList.userNick+'</span>';
-	    	    		reviewHtml += '<span class="review_wdate">';
-	    	    		reviewHtml += ''+reviewDate+''
-	    	    		reviewHtml += '</span>';
-	    	    		if(loginIndex == reviewList.userIndex){
-		    	    		reviewHtml += '<input class="review_del" type="button" onclick="reviewDel('+reviewList.reviewIndex+')" value="삭제">';
-		    	    		reviewHtml += '<input class="review_edit"  type="button" value="수정" onclick="modaltest('+reviewList.reviewIndex+')">';
+					reviewHtml += '</span>';
+					reviewHtml += '<span class="review_writer">'+reviewList.userNick+'</span>';
+					reviewHtml += '<span class="review_wdate">';
+					reviewHtml += ''+reviewDate+''
+					reviewHtml += '</span>';
+					if(loginIndex == reviewList.userIndex){
+						reviewHtml += '<input class="review_del" type="button" onclick="reviewDel('+reviewList.reviewIndex+')" value="삭제">';
+						reviewHtml += '<input class="review_edit"  type="button" value="수정" onclick="modaltest('+reviewList.reviewIndex+')">';
 	    	    		}
-	    	    		reviewHtml += '</div>';
-	    	    		reviewHtml += '<div class="review_note">'+reviewList.reviewContent+'</div>';
-	    	    		reviewHtml += '</li>'
-	    	    		paging(nowPage, prdIndex);
+						reviewHtml += '</div>';
+						reviewHtml += '<div class="review_note">'+reviewList.reviewContent+'</div>';
+						reviewHtml += '</li>'
+						paging(nowPage, prdIndex);
 	    	    	}
 	    	    	$("#review_ctn").html(reviewHtml);
-	    	    	
 	    	    }
 	    	})
 	    }
-	    //onclick="reviewModify('+reviewList.reviewIndex+')"
 	    //리뷰 페이징 버튼 ajax 처리
 	    function paging(nowPage, prdIndex){
 	    	let pagingHtml = '';
@@ -501,29 +477,27 @@
 				let total = Number(data.total);
 				let now = Number(data.nowPage);
 				let lastPage = Number(data.lastPage);
-		    	pagingHtml += '<li class="d-flex justify-content-center">';
-		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-left"  onclick="goPage('+(now - 1)+')" style= "display:'+(now != 1  ? 'block' : 'none')+'"></a>';
-		    	pagingHtml += '<div id="pagingNumBtn">';
-		    	for(let i = startPage; i <= endPage; i ++){
-		    		if(now != i){
-		    			pagingHtml += '<a href="javascript:void(0);" class="pe-1" onclick="goPage('+i+')">'+i+'</a>';
-		    		}else{
-		    			pagingHtml += '<span class="pe-1 text-primary" id="nowPage">'+i+'</span>';
-		    		}
-		    	}
-		    	pagingHtml += '</div> ';
-		    	pagingHtml += '<a href="javascript:void(0);" class="xi-angle-right" onclick="goPage('+(now+ 1)+')" style= "display:'+(now != lastPage ? 'block' : 'none')+'"></a>';
-		    	pagingHtml += '</li>';
-		    	$("#reeview_page").html(pagingHtml);
+				pagingHtml += '<li class="d-flex justify-content-center">';
+				pagingHtml += '<a href="javascript:void(0);" class="xi-angle-left"  onclick="goPage('+(now - 1)+')" style= "display:'+(now != 1  ? 'block' : 'none')+'"></a>';
+				pagingHtml += '<div id="pagingNumBtn">';
+				for(let i = startPage; i <= endPage; i ++){
+					if(now != i){
+						pagingHtml += '<a href="javascript:void(0);" class="pe-1" onclick="goPage('+i+')">'+i+'</a>';
+					}else{
+						pagingHtml += '<span class="pe-1 text-primary" id="nowPage">'+i+'</span>';
+					}
+				}
+				pagingHtml += '</div> ';
+				pagingHtml += '<a href="javascript:void(0);" class="xi-angle-right" onclick="goPage('+(now+ 1)+')" style= "display:'+(now != lastPage ? 'block' : 'none')+'"></a>';
+				pagingHtml += '</li>';
+				$("#reeview_page").html(pagingHtml);
  	    		}
 	    	}) 
 	    }
-	    
-	 	//상품 리뷰 paging 페이지 로드시 호출
+	    //상품 리뷰 paging 페이지 로드시 호출
 	    $(document).ready(function(){
 	    	goPage(1);
 	    });
-
 	 	function reviewDel(reviewIndex){
 	    	if(confirm("해당 리뷰를 삭제하시겠습니까?") == 0){
 	    		return false;
@@ -542,7 +516,6 @@
 	    		}
 	    	})
 	    }
-	    	    
 	    //바로구매 
 	    function goPayment(){
 	    	let userIndex =  "<c:out value='${login.userIndex}'/>";
@@ -552,7 +525,6 @@
 	    	sIndex.forEach(function(sIndex) {
 	    		sizeIndex.push(sIndex.value);
 	    	});
-	    	
 	    	const selectedSizes = document.querySelectorAll('input[name="size"]:checked');
 	    	if (selectedSizes.length !== 0) {
 		    	selectedSizes.forEach(function(size){
@@ -560,45 +532,41 @@
 			    	sStock.forEach(function(sStock){
 			    		sizeStock.push(sStock.value);
 			    	});
-		    		
 		    	});
 	    	}else{
 	    		alert("구매할 상품 사이즈를 선택해 주세요");
 	    		return false;
 	    	}
-
 	    	$("#userIndexPay").val(userIndex);
 	    	$("#sizeIndexPay").val(sizeIndex);
 	    	$("#sizeStockPay").val(sizeStock);
 	    	$("#payFrm").submit();
 	    }
-	    
 	    function modaltest(reviewIndex){
 	    	$('#staticBackdrop').modal('show');
 	    	$.ajax({
-				url:"<%=request.getContextPath()%>/ajax/reviewModify.do",
-				type:"get",
-				data:{
-					reviewIndex : reviewIndex
-				},
-				success:function(data){
-					$(".reviewModifyCnt").val(data.reviewContent);
-					$("#reviewModifyIndex").val(data.reviewIndex);
-					if(data.reviewScore == 5){
-						$(".5-modifyStars").prop("checked", true);
-					}else if(data.reviewScore == 4){
-						$(".4-modifyStars").prop("checked", true);
-					}else if(data.reviewScore == 3){
-						$(".3-modifyStars").prop("checked", true);
-					}else if(data.reviewScore == 2){
-						$(".2-modifyStars").prop("checked", true);
-					}else if(data.reviewScore == 1){
-						$(".1-modifyStars").prop("checked", true);
-					}
+			url:"<%=request.getContextPath()%>/ajax/reviewModify.do",
+			type:"get",
+			data:{
+				reviewIndex : reviewIndex
+			},
+			success:function(data){
+				$(".reviewModifyCnt").val(data.reviewContent);
+				$("#reviewModifyIndex").val(data.reviewIndex);
+				if(data.reviewScore == 5){
+					$(".5-modifyStars").prop("checked", true);
+				}else if(data.reviewScore == 4){
+					$(".4-modifyStars").prop("checked", true);
+				}else if(data.reviewScore == 3){
+					$(".3-modifyStars").prop("checked", true);
+				}else if(data.reviewScore == 2){
+					$(".2-modifyStars").prop("checked", true);
+				}else if(data.reviewScore == 1){
+					$(".1-modifyStars").prop("checked", true);
+				}
 				}
 			})
 	    }
-
 	    function modify(){
 	    	let reviewIndex = $("#reviewModifyIndex").val();
 	    	let reviewContent = $(".reviewModifyCnt").val();

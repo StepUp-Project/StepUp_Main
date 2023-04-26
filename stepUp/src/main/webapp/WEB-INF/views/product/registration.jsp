@@ -10,16 +10,14 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"><!-- xeicon 연결 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"><!-- 부트스트랩 CSS 연결 -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
-    
     <!-- ㅆㅁㄴㅌ 연결-->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/resources/plugin/summernote/summernote-lite.js"></script>
     <script src="<%=request.getContextPath()%>/resources/plugin/summernote/summernote-ko-KR.min.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugin/summernote/summernote-lite.css">
-
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
     <main class="prd-registration">
         <article id="board_write">
             <div id="board_ttl">브랜드별 상품등록</div>
@@ -76,7 +74,7 @@
                     <label for="prdMt" class="form-label">상품 소재</label>
                     <input type="text" name="prdMt" class="form-control" id="prdMt"/>
                 </div>
-                                <div class="mt-4">
+                <div class="mt-4">
                     <label for="prdQc" class="form-label">품질 보증기준</label>
                     <input type="text" name="prdQc" class="form-control" id="prdQc" value="구입 후 6개월. 유통 중 손상되었거나 품질에 이상이 있는 제품에 한하여 소비자피해보상규정에 의거 보상하여 드립니다.  제품에부착되어 있는 사용방법 및 취급시 주의사항에 따라 제품을 관리해주시기 바랍니다."/>
                 </div>
@@ -92,7 +90,7 @@
                 </div>
                 <div class="mt-4">
                     <label for="prdMadeDate" class="form-label">제조일</label>
-                    <input type="text" name="prdMadeDate" class="form-control" id="prdMadeDate"/>
+                    <input type="date" name="prdMadeDate" class="form-control" id="prdMadeDate"/>
                 </div>
                 <div class="d-flex">
                     <div class="file-area">
@@ -124,16 +122,16 @@
                 </div>
                 <div>
                 <div class="d-flex justify-content-start">
-				    <select name="inputSize" class="form-select" id="inputSize">
-				        <option value="210">210</option>
-				        <option value="220">220</option>
-				        <option value="230">230</option>
-				        <option value="240">240</option>
-				        <option value="250">250</option>
-				        <option value="260">260</option>
-				        <option value="270">270</option>
-				        <option value="280">280</option>
-				    </select>
+			<select name="inputSize" class="form-select" id="inputSize">
+			        <option value="210">210</option>
+			        <option value="220">220</option>
+			        <option value="230">230</option>
+			        <option value="240">240</option>
+			        <option value="250">250</option>
+			        <option value="260">260</option>
+			        <option value="270">270</option>
+			        <option value="280">280</option>
+			/select>
 	                <button type="button" class="btn btn-outline-secondary" onclick="add()">사이즈 추가</button>
 	                <button type="button" class="btn btn-outline-secondary mx-2" onclick="removeer()">사이즈 삭제</button>
                 </div>
@@ -156,7 +154,7 @@
             </form>
         </article> 
     </main>
-<%@ include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>
     <script>
         $(document).ready(function() {//썸머노트
         //여기 아래 부분
@@ -188,13 +186,10 @@
             	enctype: 'multipart/form-data',
             	processData: false,
             	success: function(data) {
-            		console.log("ajax 응답 성공");
-            		console.log(data);
               		$(el).summernote('editor.insertImage', data.url);
             	}
           	});
         }
-        
         let prdCheck = "";
         function prdCodeCheck(){
         	let brandCode = $("#brandCode").val();
@@ -301,12 +296,10 @@
         	}
         	return true
         }                  
-
         function add(){//재고 추가 버튼 클릭시 실행 함수
         	let check = 0;
         	let inputSize = $("#inputSize").val();
         	let sizeKind = document.querySelectorAll('input[name="sizeKind"]');
-        	console.log(sizeKind);
     		if(sizeKind.length != 0){
     			sizeKind.forEach(function(i){
     				if(inputSize == i.value){
@@ -316,23 +309,21 @@
     			});
     		}
         	if(check == 0 ){
-            let size = '';
-            size += '<li class="d-flex mt-2 size my-2 justify-content-start">';
-            size += '	<div class="w-25 me-5">';
-    		size += '		<input type="text" name="sizeKind" class="form-control" id="sizeKind" value="'+inputSize+'" readonly>' ;
-    		size += '	</div>';
-            size += '	<div class="w-25">';
-            size += '		<input type="number" name="sizeStock" class="form-control" id="sizeStock" value="0" required="required"/>';  
-            size += '	</div>';  
-            size += '</li>';  
+		    let size = '';
+		    size += '<li class="d-flex mt-2 size my-2 justify-content-start">';
+		    size += '<div class="w-25 me-5">';
+			size += '<input type="text" name="sizeKind" class="form-control" id="sizeKind" value="'+inputSize+'" readonly>' ;
+			size += '</div>';
+		    size += '<div class="w-25">';
+		    size += '<input type="number" name="sizeStock" class="form-control" id="sizeStock" value="0" required="required"/>';  
+		    size += '</div>';  
+		    size += '</li>';  
         	$("#sizeWrap").append(size);
         	}
         }
-        
         function removeer(){//재고 삭제 버튼 클릭시 실행 함수
         	$("#sizeWrap").find(".size").last().remove();
         }
-        
         function selectCheck(){
         	if($('#inputCode').val() != ""){
         		prdCheck = "";

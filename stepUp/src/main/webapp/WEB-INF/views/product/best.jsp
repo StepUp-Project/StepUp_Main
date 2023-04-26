@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>       
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>       
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->  	
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
     <main class="container-fluid">
         <div class="best-prd">
             <div class="best-title">
@@ -56,8 +56,7 @@
             <img src="<%=request.getContextPath()%>/resources/image/best-badage.png" alt="">
         </div>
     </main>
-<%@ include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script><!-- swiper JS 연결 -->
-
 </body>
 </html>

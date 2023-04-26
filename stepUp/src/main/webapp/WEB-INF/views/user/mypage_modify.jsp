@@ -391,7 +391,6 @@
      	//회원가입 입력 및 인증 체크
      	function joinCheck(){     		     		     		
      		if(checkNickOk == 0){
-     			console.log("진입");
      			checkNick();
      			$("#userNick").focus();
      			return false;     			

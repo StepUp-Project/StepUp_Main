@@ -32,7 +32,7 @@
                 </div><!--//.sub-->
                 </c:if>
                 <c:if test="${not empty login && login.userGrade == 'A'}">
-                <div class="sub">
+                <div class="sub adminSub">
                     <ul><!-- 서브메뉴 -->
                         <li class="blank"><a href="<%=request.getContextPath()%>/admin.do">슬라이더 관리</a></li>
                         <li class="blank"><a href="<%=request.getContextPath()%>/restrict.do">회원 관리</a></li>                    
@@ -50,7 +50,7 @@
             	<c:if test="${empty login}">
                 	<a href="<%=request.getContextPath()%>/user/login.do"><i class="xi-cart-o"></i></a>
                 </c:if>
-                <c:if test="${not empty login && login.userGrade == 'U' || login.userGrade == 'F'}">
+                <c:if test="${not empty login}">
                 	<a href="<%=request.getContextPath()%>/cart/cart.do?userIndex=${login.userIndex}"><i class="xi-cart-o"></i></a>
             	</c:if>
             </li>

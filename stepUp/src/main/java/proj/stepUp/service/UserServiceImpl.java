@@ -25,7 +25,6 @@ public class UserServiceImpl implements UserService{
 	public int checkNick(String userNick) {
 		return userDAO.checkNick(userNick);
 	}
-
 	
 	@Override
 	public int insertUser(UserVO vo) {
@@ -78,8 +77,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public UserVO selectIndex(int userIndex) {
-		
+	public UserVO selectIndex(int userIndex) {		
 		return userDAO.selectIndex(userIndex);
 	}
 

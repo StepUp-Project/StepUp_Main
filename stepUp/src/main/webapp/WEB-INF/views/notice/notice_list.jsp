@@ -1,15 +1,14 @@
-<%@page import="proj.stepUp.util.PagingUtil"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="proj.stepUp.vo.NoticeBoardVO" %>
-<%@ page import="proj.stepUp.vo.SearchVO" %>
+<%@page import="proj.stepUp.util.PagingUtil"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="proj.stepUp.vo.NoticeBoardVO"%>
+<%@page import="proj.stepUp.vo.SearchVO"%>
 <% 
 	List<NoticeBoardVO> blist = (List<NoticeBoardVO>)request.getAttribute("blist");
 	PagingUtil paging = (PagingUtil)request.getAttribute("paging");
 	SearchVO svo = (SearchVO)request.getAttribute("svo");
 %>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -22,7 +21,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
     <main><!--메인 시작-->
         <article id="board_contain">
             <div class="board_title">공지사항 게시판</div>
@@ -33,7 +32,6 @@
                         <th class="boardTtl">제목</th>
                         <th class="wDate">작성일</th>
                         <th class="wID">작성자</th>
-                        
                     </tr>
                 </thead>
               <tbody>
@@ -46,16 +44,12 @@
                                 Date date = new Date();
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                 String nowDate = sdf.format(date);
-
                                 NoticeBoardVO dbWDate = (NoticeBoardVO)pageContext.getAttribute("vo");
                                 String dbDate = dbWDate.getNoticeWdate().substring(0,10);
                                 String dbTime = dbWDate.getNoticeWdate().substring(11, 16);
-
                                 if (nowDate.equals(dbDate)) {
                                     out.print(dbTime);
-
-
-                                } else {
+                                }else{
                                     out.print(dbDate);
                                 }
                         %>
@@ -65,37 +59,33 @@
                  </c:forEach>
                 </tbody>
                 <tfoot>
-                     <tr class="board_page" >
+                     <tr class="board_page">
                        <td colspan="5">
-						<%  
-							// 페이징 출력 영역
-							if(paging.getStartPage()> 1){
-						%>
-							<a href="notice.do?nowPage=<%= paging.getStartPage()-1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &lt;&lt; </a>
-						<%		
-							}
-				
-							for(int i = paging.getStartPage(); i<=paging.getEndPage(); i++){
-							
-								if(paging.getNowPage() != i){
-						%>
-							<a href="notice.do?nowPage=<%= i %>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> <%= i %> </a>	
-						<%
-								}else{
-						%>
-							<b><%= i %></b>
-							
-						<%	
-								}
-							}
-							if(paging.getEndPage() < paging.getLastPage()){
-						%>	
-							<a href="notice.do?nowPage=<%= paging.getEndPage()+1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &gt;&gt; </a>
-						<%
-							}
-						%>
-		
-						</td>
+				<%  
+				// 페이징 출력 영역
+				if(paging.getStartPage()> 1){
+				%>
+				<a href="notice.do?nowPage=<%= paging.getStartPage()-1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &lt;&lt; </a>
+				<%		
+				}
+				for(int i = paging.getStartPage(); i<=paging.getEndPage(); i++){
+				if(paging.getNowPage() != i){
+				%>
+				<a href="notice.do?nowPage=<%= i %>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> <%= i %> </a>	
+				<%
+				}else{
+				%>
+				<b><%= i %></b>
+				<%	
+				}
+				}
+				if(paging.getEndPage() < paging.getLastPage()){
+				%>	
+				<a href="notice.do?nowPage=<%= paging.getEndPage()+1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &gt;&gt; </a>
+				<%
+				}
+				%>
+			</td>
                     </tr>
                     <tr>
                         <td class="board_search" colspan="5">
@@ -107,11 +97,11 @@
                                     </select>
                                     <input type="text" name=searchValue class="keyword" required="" placeholder="검색어를 입력하세요.">
                                     <button class="srch-bt" >검 색</button>
-									<c:if test="${not empty login }">
-										<c:if test="${login.userGrade == 'A'}">
-											<input type="button" class="board_Write" value="글쓰기" onclick="location.href='notice_write.do'">
-										</c:if>
-									</c:if>
+					<c:if test="${not empty login }">
+					<c:if test="${login.userGrade == 'A'}">
+					<input type="button" class="board_Write" value="글쓰기" onclick="location.href='notice_write.do'">
+					</c:if>
+					</c:if>
                                 </div>
                             </form>  
                         </td> 
@@ -120,6 +110,6 @@
             </table>
         </article>
 	</main>
-<%@ include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>
 </body>
 </html>

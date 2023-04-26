@@ -27,7 +27,6 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public int selectCount(int prdIndex) {
-		// TODO Auto-generated method stub
 		return reviewDAO.selectCount(prdIndex);
 	}
 

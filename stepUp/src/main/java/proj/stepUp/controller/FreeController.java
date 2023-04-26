@@ -133,7 +133,6 @@ public class FreeController {
 		    }
 		    // 쿠키 생성 후 조회수 증가
 		    if (!isExists) {
-		    	System.out.println("sessionID::::"+sessionID);
 		        Cookie cookie = new Cookie("freeIndex_" + freeIndex + "_" + sessionID, String.valueOf(freeIndex));
 
 		        cookie.setMaxAge(60 * 60 * 24); // 쿠키 유효 1일

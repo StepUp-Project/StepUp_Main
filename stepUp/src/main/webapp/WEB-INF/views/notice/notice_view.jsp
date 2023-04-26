@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,7 +12,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/Style.css"><!-- CSS연결 -->
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
+<%@include file="../include/header.jsp"%>
     <main><!--메인 시작-->
         <article id="board_viewcontain">
             <ul id="board_view">
@@ -28,15 +27,15 @@
             <div>
    	           <input type="button" class="board_btn" value="돌아가기"	 onclick="location.href='notice.do'">
    	           <c:if test="${login ne null and login.userGrade eq 'A'}">
-					<input type="button" class="board_btn" value="수 정" onclick="if(confirm('수정하시겠습니까?')) {location.href='notice_modify.do?noticeIndex=${vo.noticeIndex}'}">
-					<input type="button" class="board_btn" value="삭 제" onclick="if(confirm('정말로 삭제하시겠습니까?')) {document.delfrm.submit();}">
-		            <form  name="delfrm" action="notice_delete.do" method="post">
-		           		<input type="hidden" name="noticeIndex" value="${vo.noticeIndex}">
-		           	</form>
+			<input type="button" class="board_btn" value="수 정" onclick="if(confirm('수정하시겠습니까?')) {location.href='notice_modify.do?noticeIndex=${vo.noticeIndex}'}">
+			<input type="button" class="board_btn" value="삭 제" onclick="if(confirm('정말로 삭제하시겠습니까?')) {document.delfrm.submit();}">
+		        <form  name="delfrm" action="notice_delete.do" method="post">
+		        	<input type="hidden" name="noticeIndex" value="${vo.noticeIndex}">
+		        </form>
 	           </c:if>
             </div>
         </article>
 	</main>
-<%@ include file="../include/footer.jsp" %>
+<%@include file="../include/footer.jsp"%>
 </body>
 </html>
