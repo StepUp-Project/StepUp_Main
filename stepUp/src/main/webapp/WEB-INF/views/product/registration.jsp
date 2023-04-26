@@ -78,11 +78,17 @@
                 </div>
                                 <div class="mt-4">
                     <label for="prdQc" class="form-label">품질 보증기준</label>
-                    <input type="text" name="prdQc" class="form-control" id="prdQc"/>
+                    <input type="text" name="prdQc" class="form-control" id="prdQc" value="구입 후 6개월. 유통 중 손상되었거나 품질에 이상이 있는 제품에 한하여 소비자피해보상규정에 의거 보상하여 드립니다.  제품에부착되어 있는 사용방법 및 취급시 주의사항에 따라 제품을 관리해주시기 바랍니다."/>
                 </div>
                 <div class="mt-4">
                     <label for="prdCare" class="form-label">소재관리 방법</label>
-                    <input type="text" name="prdCare" class="form-control" id="prdCare"/>
+                    <textarea name="prdCare" class="form-control" id="prdCare">
+                    1. 신발의 외형보호를 위해 뒤꿈치를 꺾어 신지마세요. 
+                    2. 화기에 절대로 가까이 두지 마세요.
+                    3. 천연가죽이나 천소재 상품은 물기 및 마찰에 의해 색깔이 변할 가능성이 있습니다. 
+                    4. 가벼운 오염물이 묻었을 경우 마른 천으로 닦거나, 부드러운 솔로 털어 주세요.
+                    5. 신발에 기름기가 묻지 않도록 주의해주세요.
+                    </textarea>
                 </div>
                 <div class="mt-4">
                     <label for="prdMadeDate" class="form-label">제조일</label>
