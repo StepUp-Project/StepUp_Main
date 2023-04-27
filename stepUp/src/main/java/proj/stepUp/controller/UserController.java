@@ -240,17 +240,19 @@ public class UserController {
 	
 	
 	@RequestMapping(value="/logout.do", method = RequestMethod.GET)
-	public String kakaoLogout(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
+	public void kakaoLogout(HttpServletRequest req, HttpServletResponse rsp) throws IOException {
 		rsp.setContentType("text/html;charset=utf-8");
 		PrintWriter pw = rsp.getWriter();
 		HttpSession session = req.getSession();
 		if(session.getAttribute("login") == null) {
 			pw.append("<script>alert('비정상적인 접근입니다.');location.href='"+req.getContextPath()+"/'</script>");
 			pw.flush();
+		}else {
+			HttpSession seesion = req.getSession();
+			seesion.removeAttribute("login");
+			pw.append("<script>alert('로그아웃 되었습니다.');location.href='"+req.getContextPath()+"/'</script>");
+			pw.flush();
 		}
-		HttpSession seesion = req.getSession();
-		seesion.removeAttribute("login");
-		return "redirect:/";
 	}
 	
 	

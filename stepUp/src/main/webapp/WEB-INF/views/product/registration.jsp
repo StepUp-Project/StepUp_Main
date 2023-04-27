@@ -131,7 +131,7 @@
 			        <option value="260">260</option>
 			        <option value="270">270</option>
 			        <option value="280">280</option>
-			/select>
+			</select>
 	                <button type="button" class="btn btn-outline-secondary" onclick="add()">사이즈 추가</button>
 	                <button type="button" class="btn btn-outline-secondary mx-2" onclick="removeer()">사이즈 삭제</button>
                 </div>

@@ -43,7 +43,7 @@
 	                <div class="d-grid gap-2 login-btn-area">
 		                <div class="btngroup">
 		                    <button class="btn btn-primary btn-lg">로그인</button>
-		                    <button class="btn btn-primary btn-lg" type="button" onclick="location.href='join.do'">회원가입</button>
+		                    <button class="btn btn-primary btn-lg" type="button" onclick="location.href='join_terms.do'">회원가입</button>
 	                    </div>
 	                    <a href="#" onclick="kakaoLogin()" class="sns-login kakao">
 	                        <img src="<%=request.getContextPath()%>/resources/image/btn_login_kakao.gif" alt="카카오 로그인">

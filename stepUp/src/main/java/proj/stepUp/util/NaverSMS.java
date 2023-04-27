@@ -50,8 +50,7 @@ public class NaverSMS {
 			// TODO Auto-generated catch block
 			encodeBase64String = e.toString();
 		}
-	    
-
+	   
 	  return encodeBase64String;
 	}
 	public String sendSMS(String userPhone) throws JSONException, UnsupportedEncodingException {
@@ -85,7 +84,7 @@ public class NaverSMS {
 			resultNum += ranNum;			//생성된 난수(문자열)을 원하는 수(letter)만큼 더하며 나열
 		}	
 	    String senderNum ="01053786735"; 
-	    String senderContent = "kicks hub 인증 번호 입니다.["+resultNum+"]";
+	    String senderContent = "kicks hub Check Number ["+resultNum+"]";
 	    
 	    byte[] encodedSenderBytes = senderNum.getBytes(StandardCharsets.UTF_8); // 발신번호 UTF-8로 인코딩
 	    String encodedSender = new String(encodedSenderBytes, StandardCharsets.UTF_8);
@@ -115,21 +114,20 @@ public class NaverSMS {
             con.setUseCaches(false);
             con.setDoOutput(true);
             con.setDoInput(true);
-            con.setRequestProperty("content-type", "application/json");
+            con.setRequestProperty("content-type", "application/json; charset=utf-8");
             con.setRequestProperty("x-ncp-apigw-timestamp", timestamp);
             con.setRequestProperty("x-ncp-iam-access-key", accessKey);
             con.setRequestProperty("x-ncp-apigw-signature-v2", makeSignature(requestUrl, timestamp, method, accessKey, secretKey));
             con.setRequestMethod(method);
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            
-            wr.write(body.getBytes());
+            wr.write(body.getBytes("UTF-8"));
             wr.flush();
             wr.close();
-
+            
             int responseCode = con.getResponseCode();
             BufferedReader br;
-           
+            
             if(responseCode == 202) { // 정상 호출
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             } else { // 에러 발생
