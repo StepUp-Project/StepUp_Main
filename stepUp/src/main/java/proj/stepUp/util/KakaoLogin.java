@@ -29,7 +29,7 @@ public class KakaoLogin {
 	         StringBuilder sb = new StringBuilder();
 	         sb.append("&grant_type=authorization_code");
 	         sb.append("&client_id=0575c28de27e26d54b189d1b04528e6b");
-	         sb.append("&redirect_uri=http://localhost:8080/controller/user/kakaoLogin.do");
+	         sb.append("&redirect_uri=http://jjezen.cafe24.com/stepUp/user/kakaoLogin.do");
 	         sb.append("&code=" + code);
 	         bw.write(sb.toString());
 	         bw.flush();

@@ -3,6 +3,7 @@ package proj.stepUp.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.json.JSONException;
 import org.owasp.encoder.Encode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -89,7 +91,7 @@ public class AjaxController {
 	
 	@ResponseBody
 	@RequestMapping(value="/checkPhone.do", method = RequestMethod.POST)	//인증번호 발송처리
-	public void checkPhone(String userPhone, HttpServletRequest req){
+	public void checkPhone(String userPhone, HttpServletRequest req) throws JSONException, UnsupportedEncodingException{
 		
 		NaverSMS sms = new NaverSMS();
 		

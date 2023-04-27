@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
@@ -15,6 +17,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class NaverSMS {
@@ -51,7 +54,7 @@ public class NaverSMS {
 
 	  return encodeBase64String;
 	}
-	public String sendSMS(String userPhone) {
+	public String sendSMS(String userPhone) throws JSONException, UnsupportedEncodingException {
 		String hostNameUrl = "https://sens.apigw.ntruss.com";     		// 호스트 URL
 		String requestUrl= "/sms/v2/services/";                   		// 요청 URL
 		String requestUrlType = "/messages";                      		// 요청 URL
@@ -81,8 +84,14 @@ public class NaverSMS {
 			ranNum =  Integer.toString(createNum);  //1자리 난수를 String으로 형변환
 			resultNum += ranNum;			//생성된 난수(문자열)을 원하는 수(letter)만큼 더하며 나열
 		}	
+	    String senderNum ="01053786735"; 
+	    String senderContent = "kicks hub 인증 번호 입니다.["+resultNum+"]";
 	    
+	    byte[] encodedSenderBytes = senderNum.getBytes(StandardCharsets.UTF_8); // 발신번호 UTF-8로 인코딩
+	    String encodedSender = new String(encodedSenderBytes, StandardCharsets.UTF_8);
 	    
+	    byte[] encodedTextBytes = senderContent.getBytes(StandardCharsets.UTF_8); // 문자 내용 UTF-8로 인코딩
+	    String encodedText = new String(encodedTextBytes, StandardCharsets.UTF_8);
 	    //toJson.put("subject","");							// Optional, messages.subject	개별 메시지 제목, LMS, MMS에서만 사용 가능
 	    //toJson.put("content","sms test in spring 111");	// Optional, messages.content	개별 메시지 내용, SMS: 최대 80byte, LMS, MMS: 최대 2000byte
 	    toJson.put("to",userPhone);						// Mandatory(필수), messages.to	수신번호, -를 제외한 숫자만 입력 가능
@@ -91,9 +100,9 @@ public class NaverSMS {
 	    bodyJson.put("type","SMS");							// Madantory, 메시지 Type (SMS | LMS | MMS), (소문자 가능)
 	    //bodyJson.put("contentType","");					// Optional, 메시지 내용 Type (AD | COMM) * AD: 광고용, COMM: 일반용 (default: COMM) * 광고용 메시지 발송 시 불법 스팸 방지를 위한 정보통신망법 (제 50조)가 적용됩니다.
 	    //bodyJson.put("countryCode","82");					// Optional, 국가 전화번호, (default: 82)
-	    bodyJson.put("from","01053786735");					// Mandatory, 발신번호, 사전 등록된 발신번호만 사용 가능		
+	    bodyJson.put("from", encodedSender);					// Mandatory, 발신번호, 사전 등록된 발신번호만 사용 가능		
 	    //bodyJson.put("subject","");						// Optional, 기본 메시지 제목, LMS, MMS에서만 사용 가능
-	    bodyJson.put("content","kicks hub 인증 번호 입니다.["+resultNum+"]");	// Mandatory(필수), 기본 메시지 내용, SMS: 최대 80byte, LMS, MMS: 최대 2000byte
+	    bodyJson.put("content",encodedText);	// Mandatory(필수), 기본 메시지 내용, SMS: 최대 80byte, LMS, MMS: 최대 2000byte
 	    bodyJson.put("messages", toArr);					// Mandatory(필수), 아래 항목들 참조 (messages.XXX), 최대 1,000개
 	    
 	    //String body = bodyJson.toJSONString();
