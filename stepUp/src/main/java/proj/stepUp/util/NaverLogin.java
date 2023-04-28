@@ -19,7 +19,7 @@ public class NaverLogin {
 	    String state;
 	    String apiURL = "";
 		try {
-			redirectURI = URLEncoder.encode("http://localhost:8080/controller/user/naverLoginOk.do", "UTF-8");
+			redirectURI = URLEncoder.encode("http://jjezen.cafe24.com/stepUp/user/naverLoginOk.do", "UTF-8");
 
 	    SecureRandom random = new SecureRandom();
 	    state = new BigInteger(130, random).toString();
@@ -45,7 +45,7 @@ public class NaverLogin {
 	    String access_token = "";
 	    String refresh_token = "";
 		try {
-			redirectURI = URLEncoder.encode("http://localhost:8080/controller/user/naverLoginOk.do", "UTF-8");		    
+			redirectURI = URLEncoder.encode("http://jjezen.cafe24.com/stepUp/user/naverLoginOk.do", "UTF-8");		    
 		    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 		    apiURL += "client_id=" + clientId;
 		    apiURL += "&client_secret=" + clientSecret;
