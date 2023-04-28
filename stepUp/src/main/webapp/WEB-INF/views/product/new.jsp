@@ -15,7 +15,7 @@
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
-    <main id="newjsp" class="container-fluid"><!--메인 시작-->
+    <main id="newjsp"><!--메인 시작-->
         <div class="d-flex justify-content-between">
             <article id="prd_filter">
                 <div id="prd_addr">
@@ -119,7 +119,7 @@
                         </label>
                     </li>         
                 </ul>
-                <button class="btn btn-dark rounded-0" type="button" onclick="searchPrdList(1)">검색</button>
+                <button class="fsbtn rounded-0" type="button" onclick="searchPrdList(1)">검색</button>
             </article>
             <article id="prd_cnt">
 		    <div id="brand_main"></div>

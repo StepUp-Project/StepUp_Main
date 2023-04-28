@@ -23,7 +23,7 @@
 		            <div class="about_title">
 		                <h2>찾아오시는 길</h2>
 		            </div>
-		            <div>
+		            <div class="bottomblank">
 		            	주소 : 전라북도 전주시 덕진구 백제대로 572 5층 ( 전라북도 전주시 덕진구 금암동 667-52 )
 		            </div>
 		            <div id="map" style="width:100%; height:650px;"></div>

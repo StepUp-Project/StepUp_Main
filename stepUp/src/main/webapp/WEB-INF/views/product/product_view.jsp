@@ -31,14 +31,14 @@
                 <li id="prd_brand"><span>
 	               <c:set var="BrandCode" value="${fn:substring(prdVO.prdCode,0,2)}"/>
 	               <c:choose>
-		               	<c:when test='${BrandCode eq "NK"}'>나이키</c:when>
-		               	<c:when test='${BrandCode eq "AD"}'>아디다스</c:when>
-		               	<c:when test='${BrandCode eq "VS"}'>반스</c:when>
-		               	<c:when test='${BrandCode eq "CV"}'>컨버스</c:when>
-		               	<c:when test='${BrandCode eq "PM"}'>퓨마</c:when>
-		               	<c:when test='${BrandCode eq "FL"}'>휠라</c:when>
-		               	<c:when test='${BrandCode eq "CR"}'>크록스</c:when>
-		               	<c:when test='${BrandCode eq "NB"}'>뉴발란스</c:when>
+		               	<c:when test='${BrandCode eq "NK"}'>NIKE</c:when>
+		               	<c:when test='${BrandCode eq "AD"}'>ADIDAS</c:when>
+		               	<c:when test='${BrandCode eq "VS"}'>VANS</c:when>
+		               	<c:when test='${BrandCode eq "CV"}'>COVERSE</c:when>
+		               	<c:when test='${BrandCode eq "PM"}'>PUMA</c:when>
+		               	<c:when test='${BrandCode eq "FL"}'>FILA</c:when>
+		               	<c:when test='${BrandCode eq "CR"}'>CROCS</c:when>
+		               	<c:when test='${BrandCode eq "NB"}'>NEWBALANCE</c:when>
 	               </c:choose>                
                 </span></li>
                 <li id="prd_name">
@@ -184,7 +184,7 @@
         </article> 
         <article id="prdinfo_tap4"><!--상품평-->
             <div id="review_write">
-                <p id="review_formTtl">상품평(작성된 상품평의 갯수)</p>
+                <p id="review_formTtl">상품평</p>
                 <c:if test="${not empty login}">
 	                <div>
 	                    <form name="reviewFrm" action="<%=request.getContextPath()%>/review/insert.do" method="post">

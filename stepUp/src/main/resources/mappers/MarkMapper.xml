@@ -23,6 +23,7 @@
 		   AND u.userIndex = #{userIndex} 
 		   AND p.prdIndex = m.prdIndex
 		   AND p.prdDel != 'Y'
+		ORDER by m.markIndex desc
 		LIMIT #{start}, #{perPage}
 	</select>
 	

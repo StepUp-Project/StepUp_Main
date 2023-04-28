@@ -31,9 +31,9 @@
 	                <p>즐거운 쇼핑과 만족스러운 제품을 경험하실 수 있습니다.</p>
 	            </div>
 	            <div class="about_title">
-	                <h2>Contact Us</h2>
+	                <h2 class="at2">Contact Us</h2>
 	            </div>
-	            <div>
+	            <div class="bottomblank">
 	            	<p>(주)스텝업 / 대표자: 이상훈, 곽진훈, 조범준, 배유진 </p>
 	            	<p>주소 : 전라북도 전주시 덕진구 백제대로 572 5층 ( 전라북도 전주시 덕진구 금암동 667-52 ) </p>
 	            	<p>전화번호 : 0507-1410-2381

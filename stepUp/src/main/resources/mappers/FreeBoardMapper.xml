@@ -28,7 +28,7 @@
  			from free_tb b, user_tb u
  			where b.userIndex = u.userIndex
  			  and u.userIndex = #{userIndex}
- 			  order by b.freeWdate desc
+ 			  order by b.freeIndex desc
  			  limit #{start}, #{perPage}
  	</select>
  	
