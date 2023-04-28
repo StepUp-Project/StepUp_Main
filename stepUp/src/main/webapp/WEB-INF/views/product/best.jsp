@@ -15,7 +15,7 @@
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
-    <main class="container-fluid">
+    <main class="bestmain">
         <div class="best-prd">
             <div class="best-title">
                 <h2>BEST</h2>
@@ -34,14 +34,14 @@
 	                        <div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${bestPrd.prdRname})"></div></p>
 	                            <P class="cnt_brand"><span>
 	                         <c:choose>
-	                         	<c:when test='${bestBrandCode eq "NK"}'>나이키</c:when>
-	                         	<c:when test='${bestBrandCode eq "AD"}'>아디다스</c:when>
-	                         	<c:when test='${bestBrandCode eq "VS"}'>반스</c:when>
-	                         	<c:when test='${bestBrandCode eq "CV"}'>컨버스</c:when>
-	                         	<c:when test='${bestBrandCode eq "PM"}'>퓨마</c:when>
-	                         	<c:when test='${bestBrandCode eq "FL"}'>휠라</c:when>
-	                         	<c:when test='${bestBrandCode eq "CR"}'>크록스</c:when>
-	                         	<c:when test='${bestBrandCode eq "NB"}'>뉴발란스</c:when>
+	                         	<c:when test='${bestBrandCode eq "NK"}'>NIKE</c:when>
+	                         	<c:when test='${bestBrandCode eq "AD"}'>ADIDAS</c:when>
+	                         	<c:when test='${bestBrandCode eq "VS"}'>VANS</c:when>
+	                         	<c:when test='${bestBrandCode eq "CV"}'>CONVERSE</c:when>
+	                         	<c:when test='${bestBrandCode eq "PM"}'>PUMA</c:when>
+	                         	<c:when test='${bestBrandCode eq "FL"}'>FILA</c:when>
+	                         	<c:when test='${bestBrandCode eq "CR"}'>CROCS</c:when>
+	                         	<c:when test='${bestBrandCode eq "NB"}'>NEWBALANCE</c:when>
 	                         </c:choose>	                                    
 	                            </span></P>
 	                            <P class="cnt_name"><span>${bestPrd.prdName}</span></P>

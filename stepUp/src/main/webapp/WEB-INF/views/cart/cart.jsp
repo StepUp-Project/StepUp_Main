@@ -30,7 +30,7 @@
         <section class="cart-table"><!--표입력-->
             <table>
                 <thead><!--표 상단시작-->
-                    <tr>
+                    <tr style="font-size:13px">
                         <th class="th1"><div><input id="cart-checkbox-all" type="checkbox" checked="checked"></div></th>
                         <th class="th2" colspan="2"><div>상품명</div></th>
                         <th class="th3"><div>가격</div></th>
@@ -43,7 +43,7 @@
                 <tbody><!--장바구니 상품 표시-->
                 <c:if test="${empty clist}">
 	                <tr>
-	                	<th colspan="8" style="padding:150px 0; background-color:#f5f5f5; font-size:30px;"><a>장바구니가 비었습니다</a></th>
+	                	<th colspan="8" style="padding:150px 0; background-color:#f5f5f5; font-size:15px;"><a>장바구니가 비었습니다</a></th>
 	                </tr>
                 </c:if>
                 <c:forEach var="vo" items="${clist}">
@@ -73,14 +73,14 @@
                         </th>
                         <th class="th3 th8"><div id="totalPrice_${vo.cartIndex}"></div></th>
                         <th class="th3"><!--고정--><div>무료배송</div></th>
-                        <th class="th3 th4"><div><input type="button" value="삭제하기" onclick="del(${vo.cartIndex})"></div></th>
+                        <th class="th3 th4"><div><input type="button" value="삭제하기" onclick="del(${vo.cartIndex})" style="font-size:13px"></div></th>
                     </tr>
                 </c:forEach>
                 </tbody><!--장바구니 상품 표시 끝-->
                 <tfoot>
                     <tr class="cart-foot">
-                        <th colspan="6"><div class="cash-1">총 구매금액</div></th>
-                        <th colspan="2"><div class="cash-2" id="mainPrice"></div></th>
+                        <th colspan="6"><div class="cash-1" style="font-size:15px">총 구매금액</div></th>
+                        <th colspan="2"><div class="cash-2" id="mainPrice" style="font-size:15px"></div></th>
                     </tr>
                 </tfoot>
             </table>

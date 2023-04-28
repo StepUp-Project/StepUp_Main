@@ -23,7 +23,7 @@
             <ul id="board_view">
                 <li id="board_viewTtl"><div>${vo.freeTitle}</div></li>
                 <li id="board_winfo">
-                    <div>${vo.userNick}</div><span>|</span><div>조회수 : ${vo.freeHit}</div><p>${vo.freeWdate}</p>
+                    <div>${vo.userNick}</div><span>|</span><div>조회수  ${vo.freeHit}</div><p>${vo.freeWdate}</p>
                 </li>
                 <li id="board_wctn">
                    	 ${vo.freeCnt}	
@@ -42,10 +42,10 @@
         </article>
         <article id=""><!--댓글란-->
             <div id="re_write">
-                <p id="re_formTtl"><c:if test="${not empty rList}">댓 글  : ${rList.get(0).total}</c:if>  
+                <p id="re_formTtl"><c:if test="${not empty rList}">댓글(${rList.get(0).total})</c:if>  
                 <div>
                 <c:if test="${not empty login}">
-   	                <form name="refrm" action="re_write.do" method="post">
+   	                <form name="refrm" action="re_write.do" method="post"  class="recontain">
    	                	<c:if test="${login.userGrade != 'F'}">
   	                	<textarea id="re_writeCnt" name="reCnt" oninput="limitTextAreaLength(this)" placeholder="댓글을 남겨주세요"></textarea>
 	                        <input name="userIndex" value="${login.userIndex}" type="hidden">

@@ -32,7 +32,7 @@ window.onload = function(){
         if(htmlTop > 50){
             newBanner.style.height = "15vh";
         }else{
-            newBanner.style.height = "85vh";
+            newBanner.style.height = "90vh";
         }
     }
   });
