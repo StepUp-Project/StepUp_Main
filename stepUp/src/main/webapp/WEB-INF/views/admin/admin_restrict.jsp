@@ -47,7 +47,7 @@
 				    <form action="restrict.do" method="post">
 						<br/> <br/>
 						<input type="hidden" name="userGrade" value="F" >
-						<input type="text" name="userId" placeholder="제재할 회원이 ID를 입력해주세요"  style="width:600px; height: 40px;" /> <input type="submit" value="저장" style="width:100px; height: 40px;" >
+						<input type="text" name="userId" placeholder="제재할 회원이 ID를 입력해주세요"  style="width:600px; height: 40px; border-radius: 0;" /> <input type="submit" class="srch-bt" value="저장" style="height: 40px;">
 					</form>
                 </div>
                 <div id="mypage_title" style="margin-top:50px">
@@ -56,7 +56,7 @@
                         <i class="xi-angle-right-min"></i>
                        	현재 기능이 제한된 회원내역 입니다.
                     </p>
-                    <table style="text-align:center;">
+                    <table style="text-align:center; font-size:13px;">
 						 	<tr> 
 						 		<td style="width:150px; height:35px">회원아이디  </td>
 						 		<td style="width:150px; ">닉네임</td>

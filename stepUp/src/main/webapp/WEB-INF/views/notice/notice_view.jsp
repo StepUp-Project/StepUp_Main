@@ -18,7 +18,7 @@
             <ul id="board_view">
                 <li id="board_viewTtl"><div>${vo.noticeTitle}</div></li>
                 <li id="board_winfo">
-                    <div> 관 리 자 </div><span>|</span><p>${vo.noticeWdate}</p>
+                    <div> 관리자 </div><p>${vo.noticeWdate}</p>
                 </li>
                 <li id="board_wctn">
                     ${vo.noticeCnt}	

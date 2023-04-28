@@ -15,7 +15,7 @@
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
-    <main id="newjsp" class="container-fluid"><!--메인 시작-->
+    <main id="newjsp"><!--메인 시작-->
         <div class="new-banner-area d-flex" id="new-banner">
             <a></a>
             <a></a>
@@ -23,9 +23,6 @@
             <a></a>
         </div>
         <ul id="brandlist">
-            <li class="brandlogo">
-                <a><p class="bl_img" onclick="colorchange()" id="colall"></p></a>
-            </li>
             <li class="brandlogo">
                 <a href="<%=request.getContextPath()%>/product/brand.do?searchType=NK"><p class="bl_img"></p></a>
             </li>
@@ -113,7 +110,7 @@
 					</div>
 					<div class="price-wrap align-items-baseline justify-content-end">
 						<span id="price-min"></span>
-						<span>~</span>
+						<span> ~ </span>
 						<span id="price-max"></span>
 						<span>원</span>
 					</div>								
@@ -152,7 +149,7 @@
                         </label>
                     </li>                    
                 </ul>
-                <button class="btn btn-dark rounded-0" type="button" onclick="searchPrdList(1)">검색</button>
+                <button class="fsbtn rounded-0" type="button" onclick="searchPrdList(1)">검색</button>
             </article>
             <article id="prd_cnt">
             <div id="prd_sort" class="d-flex justify-content-end">

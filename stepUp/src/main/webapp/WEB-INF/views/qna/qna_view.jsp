@@ -23,7 +23,7 @@
             <ul id="board_view">
                 <li id="board_viewTtl"><div>${vo.qnaTitle}</div></li>
                 <li id="board_winfo">
-                    <div>${vo.userNick}</div><span>|</span><div>답변여부 : ${vo.qnaRsp}</div><p>${vo.qnaWdate}</p>
+                    <div>${vo.userNick}</div><span>|</span><div>답변여부  ${vo.qnaRsp}</div><p>${vo.qnaWdate}</p>
                 </li>
                 <li id="board_wctn">
                    	 ${vo.qnaCnt}	
@@ -63,7 +63,7 @@
         </article>
         <article id=""><!--댓글란-->
             <div id="re_write">
-                <p id="re_formTtl"><c:if test="${not empty rList}">댓 글  : ${rList.get(0).total}</c:if>  
+                <p id="re_formTtl"><c:if test="${not empty rList}">댓글(${rList.get(0).total})</c:if>  
                 <div>
                 <c:if test="${not empty login}">
                 	<c:if test="${login.userIndex eq vo.userIndex or login.userGrade eq 'A'}">

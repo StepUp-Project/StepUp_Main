@@ -56,7 +56,7 @@
 	                </div>
 	                <div class="d-grid gap-2 login-btn-area">
 		                <div class="btngroup">
-		                    <input type="submit" class="btn btn-primary btn-lg" value="확인">
+		                    <button class="btn btn-primary btn-lg">확인</button>
 		                    <button class="btn btn-primary btn-lg" type="button" onclick="location.href='join.do'">회원가입</button>
 	                    </div>
 	                </div>
