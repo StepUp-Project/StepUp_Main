@@ -48,7 +48,7 @@
                                 <option value="02">스포츠화</option>
                                 <option value="03">크록스</option>
                                 <option value="04">슬리퍼</option>
-                                <option value="05">샌들</option>
+                                <option value="05">샌들 </option>
                              </select>
                         </div>  
                         <div class="w-25">
