@@ -142,13 +142,13 @@
                     <li class="type_box">
                         <input type="checkbox" name="prdType" value="04" id="type04">
                         <label for="type04">
-                            <span>샌들</span>
+                            <span>슬리퍼</span>
                         </label>
                     </li>
                     <li class="type_box">
                         <input type="checkbox" name="prdType" value="05" id="type05">
-                        <label for="type04">
-                            <span>슬리퍼</span>
+                        <label for="type05">
+                            <span>샌들</span>
                         </label>
                     </li>                    
                 </ul>
