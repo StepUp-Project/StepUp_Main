@@ -193,7 +193,10 @@
 	  let sizeIndex = [];
 	  let sizeStock = [];
 	  let trWrap = document.querySelectorAll("tr[name=trWrap]");
-	  if(trWrap.length != 0){
+	  if(cartIndex == null){
+		  location.href="<%=request.getContextPath()%>/";
+		  alert("장바구니가 비어있습니다.");
+	  }else if(trWrap.length != 0){
 		  trWrap.forEach(function(i){
 			  if(i.querySelector('input[name=cart_check]').checked){
 				let size = i.querySelector('input[name=sizeIndexs]').value;
