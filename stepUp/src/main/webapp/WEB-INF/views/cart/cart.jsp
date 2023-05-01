@@ -49,6 +49,7 @@
 		                </tr>
 	                </c:if>
 	                <c:forEach var="vo" items="${clist}">
+	               		<c:set var="BrandCode" value="${fn:substring(vo.prdCode,0,2)}"/>
 	                   <tr class="cart-menu" name="trWrap">
 	                    	<input type="hidden" value="${vo.cartIndex}" name="cart_hid"/>
 							<input type="hidden" value="${vo.prdIndex}" name="cart_prd"/>

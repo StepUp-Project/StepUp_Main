@@ -12,6 +12,7 @@ public class CartVO {
 	private int sizeKind;			//사이즈 크기
 	private int prdIndex;
 	private int sizeStock;
+	private String prdCode;
 	
 	public int getSizeStock() {
 		return sizeStock;
@@ -72,6 +73,12 @@ public class CartVO {
 	}
 	public void setSizeKind(int sizeKind) {
 		this.sizeKind = sizeKind;
+	}
+	public String getPrdCode() {
+		return prdCode;
+	}
+	public void setPrdCode(String prdCode) {
+		this.prdCode = prdCode;
 	}
 
 
