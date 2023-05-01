@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>      
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,6 +16,48 @@
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
+    <style>
+       	<c:if test="${searchVO.searchType eq 'NK'}">
+   			#brandlist li:nth-child(1) .bl_img{
+   				background-image: url("<%=request.getContextPath()%>/resources/image/new/new_logo_nk.png") !important;
+   			}
+		</c:if>
+       	<c:if test="${searchVO.searchType eq 'AD'}">
+   			#brandlist li:nth-child(2) .bl_img{
+   				background-image: url("<%=request.getContextPath()%>/resources/image/new/new_logo_ad.png") !important;
+   			}
+		</c:if>
+       	<c:if test="${searchVO.searchType eq 'PM'}">
+   			#brandlist li:nth-child(3) .bl_img{
+   				background-image: url("<%=request.getContextPath()%>/resources/image/new/new_logo_pm.png") !important;
+   			}
+		</c:if>
+       	<c:if test="${searchVO.searchType eq 'FL'}">
+   			#brandlist li:nth-child(4) .bl_img{
+   				background-image: url("<%=request.getContextPath()%>/resources/image/new/new_logo_fl.png") !important;
+   			}
+		</c:if>
+       	<c:if test="${searchVO.searchType eq 'CV'}">
+   			#brandlist li:nth-child(5) .bl_img{
+   				background-image: url("<%=request.getContextPath()%>/resources/image/new/new_logo_cv.png") !important;
+   			}
+		</c:if>
+       	<c:if test="${searchVO.searchType eq 'VS'}">
+   			#brandlist li:nth-child(6) .bl_img{
+   				background-image: url("<%=request.getContextPath()%>/resources/image/new/new_logo_vs.png") !important;
+   			}
+		</c:if>
+       	<c:if test="${searchVO.searchType eq 'CR'}">
+   			#brandlist li:nth-child(7) .bl_img{
+   				background-image: url("<%=request.getContextPath()%>/resources/image/new/new_logo_cr.png") !important;
+   			}
+		</c:if>
+       	<c:if test="${searchVO.searchType eq 'NB'}">
+   			#brandlist li:nth-child(8) .bl_img{
+   				background-image: url("<%=request.getContextPath()%>/resources/image/new/new_logo_nb.png") !important;
+   			}
+		</c:if>
+    </style>
     <main id="newjsp"><!--메인 시작-->
         <!-- div class="new-banner-area d-flex" id="new-banner">
             <a></a>
