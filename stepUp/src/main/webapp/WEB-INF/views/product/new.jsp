@@ -202,9 +202,38 @@
 	    			for(let i=0; i < data.length; i++){
 	    				let prdList = data[i];
 	    				let price = new Intl.NumberFormat('ko-kr').format(prdList.prdPrice);
+	    				let brandSub = prdList.prdCode.substring(0, 2);
+	    				let brandName = "";
+	    				switch (brandSub) {
+	    			    case "NK":
+	    			        brandName = "NIKE";
+	    			        break;
+	    			    case "AD":
+	    			        brandName = "ADIDAS";
+	    			        break;
+	    			    case "VS":
+	    			        brandName = "VANS";
+	    			        break;
+	    			    case "CV":
+	    			        brandName = "CONVERSE";
+	    			        break;
+	    			    case "PM":
+	    			        brandName = "PUMA";
+	    			        break;
+	    			    case "FL":
+	    			        brandName = "FILA";
+	    			        break;
+	    			    case "CR":
+	    			        brandName = "CROCS";
+	    			        break;
+	    			    case "NB":
+	    			        brandName = "NEWBALANCE";
+	    			        break;
+	    				}
 	    				prdHtml += '<li class="cnt_info">';
 	    				prdHtml += '<a href="<%=request.getContextPath()%>/product/view.do?prdIndex='+prdList.prdIndex+'">';
 	    				prdHtml += '<div><p class="cnt_img1" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/'+prdList.prdRname+')"></div></p>';
+	    				prdHtml += '<P class="cnt_brand"><span>'+brandName+'</span></P>';
 	    				prdHtml += '<P class="cnt_name"><span>'+prdList.prdName+'</span></P>';
 	    				prdHtml += '<P class="cnt_prc"><span>'+price+'원</span></P>';
 	    				prdHtml += '</a>';
