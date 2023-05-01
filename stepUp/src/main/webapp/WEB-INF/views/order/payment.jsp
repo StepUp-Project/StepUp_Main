@@ -16,123 +16,154 @@
 <body>
 <%@include file="../include/header.jsp"%>    
 	<main>
-		<div class="container pt-5"><!-- 컨텐츠 영역 -->
-			<div class="mb-4 text-darkr border-bottom border-dark"><!-- 타이틀 영역 -->
-				<h2 class="fw-bold fs-2">주문/결제</h2>
-			</div><!-- 타이틀 영역 end-->
-			<div class="mt-5">
-				<h5 class="fs-3">주문리스트</h5>
-			</div>
-			<div class="table-responsive">
-				<table class="table table-boot-bd">
-					<thead class="table-secondary">
-						<tr>
-							<th scope="col" class="text-center">주문상품</th>
-							<th scope="col" class="px-5">상품명</th>
-							<th scope="col">사이즈</th>
-							<th scope="col">수량</th>
-							<th scope="col">가격</th>
-							<th scope="col">배송비</th>
-						</tr>
-					</thead>
-					<c:forEach var="prd" items="${sizeVO}" varStatus="status">
-						<tr>
-							<td class="w-15 img-size">
-								<img alt="상품이미지" src="<%=request.getContextPath()%>/resources/prdmainimg/${prd.prdRname}">
-							</td>
-							<td class="px-5 w-25">
-								<c:set var="BrandCode" value="${fn:substring(prd.prdCode,0,2)}"/>
-								<span class="fw-bold">
-								<c:choose>
-									<c:when test='${BrandCode eq "NK"}'>나이키</c:when>
-					               	<c:when test='${BrandCode eq "AD"}'>아디다스</c:when>
-					               	<c:when test='${BrandCode eq "VS"}'>반스</c:when>
-					               	<c:when test='${BrandCode eq "CV"}'>컨버스</c:when>
-					               	<c:when test='${BrandCode eq "PM"}'>퓨마</c:when>
-					               	<c:when test='${BrandCode eq "FL"}'>휠라</c:when>
-					               	<c:when test='${BrandCode eq "CR"}'>크록스</c:when>
-					               	<c:when test='${BrandCode eq "NB"}'>뉴발란스</c:when>
-								</c:choose>
-								</span>
-								<br>
-								<span id="prdName">${prd.prdName}</span>
-								<br>
-								<span class="fs-7">${prd.prdCode}</span>
-							</td>
-							<td>${prd.sizeKind}</td>
-							<td name="sizeStock">${stock[status.index]}</td>
-							<input type="hidden" name="sizeindex" value="${prd.sizeIndex}">
-							<input type="hidden" name="orderitemStock" value="${stock[status.index]}">
-							<c:set var="total" value="${prd.prdPrice * stock[status.index]}"/>
-							<input type="hidden" name="itemPrice" value="${total}"/>
-							<td><fmt:formatNumber value="${total}" pattern="#,###"/>원</td>
-							<td>무료배송</td>							
-						</tr>							
-					</c:forEach>
-					<tbody>
-					</tbody>
-				</table>
-			</div>
-			<div class="d-flex justify-content-end mb-3 border-bottom border-dark border-5">
-				<span class="fw-light mb-3">&#8226;상품수량 및 옵션변경은 상품상세 또는 장바구니에서 가능합니다.</span>
-			</div>
-			<div class="d-flex justify-content-end mb-5">
-				<span class="fs-1">결제예정금액</span>
-				<span class="ms-5 fs-1 text-danger" id="totalPrice"></span>
-				<input type="hidden" id="totalPriceHidden" value="">
-			</div>
-			<div class="mt-5 border-bottom border-dark">
-				<h5 class="mb-3">배송 정보</h5>
-			</div>
-			<div class="mb-3 border-bottom border-dark">
-				<table class="table table-borderless table-boot-bd">
-					<tbody>
-						<tr>
-							<th scope="row" class="w-15">
-								<label for="buyerName" class="fs-4">이름</label>
-							</th>
-							<td>
-								<input class="input-style" id="buyerName" name="buyerName" type="text" placeholder="이름" value="${userVO.userName}">
-							</td>
-						</tr>
-						<tr>
-							<th scope="row" class="w-15">
-								<label for="buyerTel" class="fs-4">전화번호</label>
-							</th>
-							<td>
-								<input class="input-style" id="buyerTel" name="buyerTel" type="text" placeholder="연락처" value="${userVO.userPhone}">
-							</td>
-						</tr>
-						<tr>
-							<th scope="row" class="w-15">
-								<label for="userZipCode" class="fs-4">주소</label>
-							</th>
-							<td class="d-flex justify-content-start">
-								<input type="text" class="input-style" id="userZipCode" name="userZipCode" placeholder="우편번호" value="${userVO.userZipCode}" readonly oninput="clearCheck()">
-								<button type="button" onclick="sample6_execDaumPostcode()" class="btn btn-secondary btn-sm ms-3">우편번호 찾기</button>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row" class="w-15">						
-							</th>
-							<td>
-								<input type="text" class="zip-style" id="userAddr" name="userAddr" placeholder="주소" value="${userVO.userAddr}" readonly>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row" class="w-15">						
-							</th>
-							<td>
-								<input type="text" class="zip-style" id="userAddrDetail" name="userAddrDetail" placeholder="상세주소" value="${userVO.userAddrDetail}">
-							</td>
-						</tr>																								
-					</tbody>
-				</table>
-			</div>
-			<div class="d-flex justify-content-end mb-5">
-				<button type="button" class="btn btn-dark  btn-lg rounded-0" onclick="callPay()">결제하기</button>
-			</div>
-		</div><!-- 컨텐츠 영역 end-->
+		<div class="container-fluid" style="margin-bottom: 70px;"><!-- 컨텐츠 영역 -->
+		
+        	<section class="payment-top"><!--주문결제 탑메뉴-->
+		        <div class="d-flex">
+			        <h1>주문/결제</h1>
+			        <div class="cart-right">장바구니 <i class="xi-angle-right-thin"></i> 주문/결제 <i class="xi-angle-right-thin"></i> 주문완료</div>        
+		        </div>
+		        <div class="cart-line"></div>
+	        </section><!--주문결제 탑메뉴 끝-->
+	        
+	        <section class="pmw">
+				<div class="table-responsive">
+					<table class="table table-boot-bd" style="font-family: 'SpoqaHanSansNeo-Regular'; text-align: center;">
+						<thead>
+							<tr style="font-size:13px">
+								<th scope="col" class="text-center">주문상품</th>
+								<th scope="col">상품명</th>
+								<th scope="col">사이즈</th>
+								<th scope="col">수량</th>
+								<th scope="col">가격</th>
+								<th scope="col">배송비</th>
+							</tr>
+						</thead>
+						<c:forEach var="prd" items="${sizeVO}" varStatus="status">
+							<tr class="cart-menu">
+								<td class="img-size">
+									<img alt="상품이미지" src="<%=request.getContextPath()%>/resources/prdmainimg/${prd.prdRname}">
+								</td>
+								<td class="w-25" style="text-align: left;">
+									<c:set var="BrandCode" value="${fn:substring(prd.prdCode,0,2)}"/>
+									<span class="fw-bold">
+									<c:choose>
+										<c:when test='${BrandCode eq "NK"}'>NIKE</c:when>
+						               	<c:when test='${BrandCode eq "AD"}'>ADIDAS</c:when>
+						               	<c:when test='${BrandCode eq "VS"}'>VANS</c:when>
+						               	<c:when test='${BrandCode eq "CV"}'>CONVERSE</c:when>
+						               	<c:when test='${BrandCode eq "PM"}'>PUMA</c:when>
+						               	<c:when test='${BrandCode eq "FL"}'>FILA</c:when>
+						               	<c:when test='${BrandCode eq "CR"}'>CROCS</c:when>
+						               	<c:when test='${BrandCode eq "NB"}'>NEWBALANCE</c:when>
+									</c:choose>
+									</span>
+									<br>
+									<span id="prdName">${prd.prdName}</span>
+									<br>
+									<span class="fs-7">상품코드 : ${prd.prdCode}</span>
+								</td>
+								<td>${prd.sizeKind}</td>
+								<td name="sizeStock">${stock[status.index]}</td>
+								<input type="hidden" name="sizeindex" value="${prd.sizeIndex}">
+								<input type="hidden" name="orderitemStock" value="${stock[status.index]}">
+								<c:set var="total" value="${prd.prdPrice * stock[status.index]}"/>
+								<input type="hidden" name="itemPrice" value="${total}"/>
+								<td><fmt:formatNumber value="${total}" pattern="#,###"/>원</td>
+								<td>무료배송</td>							
+							</tr>							
+						</c:forEach>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+				<div class="d-flex justify-content-end border-dark">
+					<span style="font-size:12px; color:#848484; margin:20px 0;">&#8226;상품수량 및 옵션변경은 상품상세 또는 장바구니에서 가능합니다.</span>
+				</div>
+				
+	        	<section class="delinfo">
+			        <div class="d-flex">
+				        <h1>배송정보</h1>
+			        </div>
+			        <div class="cart-line"></div>
+		        </section>
+				<div class="mb-3" style="border-bottom: 1px solid #eee; padding-bottom: 20px;">
+					<table class="table-borderless table-boot-bd" style="width:100%">
+						<tbody>
+							<tr>
+								<th scope="row" style="width: 9%;">
+									<label for="buyerName" class="buyinfo">이름</label>
+								</th>
+								<td style="width: 45%;">
+									<input class="input-style" id="buyerName" name="buyerName" type="text" placeholder="이름" value="${userVO.userName}">
+								</td>
+								<td rowspan="5" class="paymentcontain">
+									<article class="pmc">
+										<div style="text-align:center;">결제정보</div>
+										<hr/><br/>
+										<div class="d-flex allpr">
+											<span>상품가격</span>
+											<span class="ms-5">
+												<c:set var="total" value="${prd.prdPrice * stock[status.index]}"/>
+												<input type="hidden" name="orderitemStock" value="${stock[status.index]}">
+												<input type="hidden" name="itemPrice" value="${total}"/>
+												<fmt:formatNumber value="${total}" pattern="#,###"/>원
+											</span>
+											
+											
+											<input type="hidden" id="totalPriceHidden" value="">
+										</div>
+										<div class="d-flex allpr">
+											<span>배송비</span>
+											<span class="ms-5">무료배송</span>
+										</div>
+										<hr/><br/>
+										<div class="d-flex allprrr">
+											<span>최종결제금액</span>
+											<span class="ms-5" id="totalPrice"></span>
+											<input type="hidden" id="totalPriceHidden" value="">
+										</div>
+										<div class="d-flex">
+											<button type="button" class="paymentbtn" onclick="callPay()">결제하기</button>
+										</div>
+									</article>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<label for="buyerTel" class="buyinfo">전화번호</label>
+								</th>
+								<td>
+									<input class="input-style" id="buyerTel" name="buyerTel" type="text" placeholder="연락처" value="${userVO.userPhone}">
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<label for="userZipCode" class="buyinfo">주소</label>
+								</th>
+								<td class="justify-content-start">
+									<input type="text" class="input-style inst" id="userZipCode" name="userZipCode" placeholder="우편번호" value="${userVO.userZipCode}" readonly oninput="clearCheck()">
+									<button type="button" onclick="sample6_execDaumPostcode()" class="btn btn-secondary btn-sm">우편번호 찾기</button>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">						
+								</th>
+								<td>
+									<input type="text" class="input-style" id="userAddr" name="userAddr" placeholder="주소" value="${userVO.userAddr}" readonly>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">
+								</th>
+								<td>
+									<input type="text" class="input-style" id="userAddrDetail" name="userAddrDetail" placeholder="상세주소" value="${userVO.userAddrDetail}">
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div><!-- 컨텐츠 영역 end-->
+		</section>
 	</main>
 <%@include file="../include/footer.jsp"%>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

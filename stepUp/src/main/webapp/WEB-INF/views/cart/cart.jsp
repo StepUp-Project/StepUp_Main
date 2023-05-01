@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="proj.stepUp.vo.CartVO" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <% 
 	List<CartVO> clist = (List<CartVO>)request.getAttribute("clist");
 %>
@@ -19,83 +20,105 @@
 <body>
 <%@include file="../include/header.jsp"%>    
    <main class="d-flex justify-content-between"><!--메인 시작-->
-   		<div class="container-fluid mb-5">
-        <section class="cart-top"><!--장바구니 탑메뉴-->
-        <div class="d-flex">
-	        <h1>장바구니</h1>
-	        <div class="cart-right">장바구니 > 주문결제 > 주문완료</div>        
-        </div>
-        <div class="cart-line"></div>
-        </section><!--장바구니 탑메뉴 끝-->
-        <section class="cart-table"><!--표입력-->
-            <table>
-                <thead><!--표 상단시작-->
-                    <tr style="font-size:13px">
-                        <th class="th1"><div><input id="cart-checkbox-all" type="checkbox" checked="checked"></div></th>
-                        <th class="th2" colspan="2"><div>상품명</div></th>
-                        <th class="th3"><div>가격</div></th>
-                        <th class="th3"><div>수량</div></th>
-                        <th class="th3"><div>합계</div></th>
-                        <th class="th3"><div>배송비</div></th>
-                        <th class="th3"><div>삭제하기</div></th>
-                    </tr>
-                </thead><!--표상단 끝-->
-                <tbody><!--장바구니 상품 표시-->
-                <c:if test="${empty clist}">
-	                <tr>
-	                	<th colspan="8" style="padding:150px 0; background-color:#f5f5f5; font-size:15px;"><a>장바구니가 비었습니다</a></th>
-	                </tr>
-                </c:if>
-                <c:forEach var="vo" items="${clist}">
-                   <tr class="cart-menu" name="trWrap">
-                    	<input type="hidden" value="${vo.cartIndex}" name="cart_hid"/>
-			<input type="hidden" value="${vo.prdIndex}" name="cart_prd"/>
-			<input type="hidden" name="sizeIndexs" value="${vo.sizeIndex}"/>
-			<input type="hidden" id="cart_${vo.cartIndex}" value="${vo.sizeStock}"/>
-                        <th class="th1">
-	                        <div>
-	                        	<input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true">
-	                        </div>
-                        </th>
-                        <th class="th2 th7">
-	                        <div>
-	                        	<a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${vo.prdIndex}"><img src="<%=request.getContextPath() %>/resources/prdmainimg/${vo.prdRname}"></a>
-	                        </div>
-                        </th>
-                        <th class="th2 th6"><div>${vo.prdName}<br/><span>사이즈 : ${vo.sizeKind}</span></div></th>
-                        <th class="th3"><div id="cart-price_${vo.cartIndex}"><fmt:formatNumber value="${vo.prdPrice}" pattern="#,###"/> 원</div></th>
-                        <th class="th3 th5">
-	                        <div>
-		                        <button type="button" onclick="decrease(${vo.cartIndex})">&#45;</button>
-		                        <input type="text" name="cartStock" id="quantity_${vo.cartIndex}" value="${vo.cartStock}" oninput="this.value = Math.min(Math.max(this.value.replace(/[^0-9]/g, ''), 1), ${vo.sizeStock}); totalPrice(${vo.cartIndex});" min="1" max="${vo.sizeStock}">
-		                        <button type="button" onclick="increase(${vo.cartIndex})">&#43;</button>
-	                        </div>
-                        </th>
-                        <th class="th3 th8"><div id="totalPrice_${vo.cartIndex}"></div></th>
-                        <th class="th3"><!--고정--><div>무료배송</div></th>
-                        <th class="th3 th4"><div><input type="button" value="삭제하기" onclick="del(${vo.cartIndex})" style="font-size:13px"></div></th>
-                    </tr>
-                </c:forEach>
-                </tbody><!--장바구니 상품 표시 끝-->
-                <tfoot>
-                    <tr class="cart-foot">
-                        <th colspan="6"><div class="cash-1" style="font-size:15px">총 구매금액</div></th>
-                        <th colspan="2"><div class="cash-2" id="mainPrice" style="font-size:15px"></div></th>
-                    </tr>
-                </tfoot>
-            </table>
-         <div class="cart-button">
-         	<div class="text-end">
-			    <a href="<%=request.getContextPath()%>/">쇼핑 계속하기</a>
-			    <a href="#" onclick="goPayment()">결제하기</a>
-		    </div>
-		</div>
-		<form action="<%=request.getContextPath()%>/order/payment.do" id="payFrm" method="get">
-        	<input type="hidden" name="sizeIndex" id="sizeIndexPay" value=""/>
-        	<input type="hidden" name="sizeStock" id="sizeStockPay" value=""/>
-        	<input type="hidden" name="userIndex" id="userIndexPay" value=""/>
-        </form> 
-        </section><!--표입력 끝-->
+   		<div class="container-fluid" style="margin-bottom: 70px;">
+	        <section class="cart-top"><!--장바구니 탑메뉴-->
+		        <div class="d-flex">
+			        <h1>장바구니</h1>
+			        <div class="cart-right">장바구니 <i class="xi-angle-right-thin"></i> 주문/결제 <i class="xi-angle-right-thin"></i> 주문완료</div>       
+		        </div>
+        		<div class="cart-line"></div>
+        	</section><!--장바구니 탑메뉴 끝-->
+        	
+	        <section class="cart-table"><!--표입력-->
+	            <table style="font-family: 'SpoqaHanSansNeo-Regular';">
+	                <thead><!--표 상단시작-->
+	                    <tr style="font-size:13px">
+	                        <th class="th1"><div><input id="cart-checkbox-all" type="checkbox" checked="checked"></div></th>
+	                        <th class="th2" colspan="2"><div>상품명</div></th>
+	                        <th class="th3"><div>가격</div></th>
+	                        <th class="th3"><div>수량</div></th>
+	                        <th class="th3"><div>합계</div></th>
+	                        <th class="th10"><div>배송비</div></th>
+	                        <th class="th9"><div>삭제</div></th>
+	                    </tr>
+	                </thead><!--표상단 끝-->
+	                <tbody><!--장바구니 상품 표시-->
+	                <c:if test="${empty clist}">
+		                <tr>
+		                	<th colspan="8" style="padding:150px 0; background-color:#f5f5f5; font-size:15px;"><a>장바구니가 비었습니다.</a></th>
+		                </tr>
+	                </c:if>
+	                <c:forEach var="vo" items="${clist}">
+	                   <tr class="cart-menu" name="trWrap">
+	                    	<input type="hidden" value="${vo.cartIndex}" name="cart_hid"/>
+							<input type="hidden" value="${vo.prdIndex}" name="cart_prd"/>
+							<input type="hidden" name="sizeIndexs" value="${vo.sizeIndex}"/>
+							<input type="hidden" id="cart_${vo.cartIndex}" value="${vo.sizeStock}"/>
+	                        <th class="th1">
+		                        <div>
+		                        	<input name="cart_check" class="cart-checkbox" id="cart-check_${vo.cartIndex}" value="" type="checkbox" checked="true">
+		                        </div>
+	                        </th>
+	                        <th class="th2 th7">
+		                        <div>
+		                        	<a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${vo.prdIndex}"><img src="<%=request.getContextPath() %>/resources/prdmainimg/${vo.prdRname}"></a>
+		                        </div>
+	                        </th>
+	                        <th class="th2 th6">
+	                        	<a href="<%=request.getContextPath()%>/product/view.do?prdIndex=${vo.prdIndex}">
+	                        		<div>
+		                        		<span class="cnt_brand">
+										<c:choose>
+											<c:when test='${BrandCode eq "NK"}'>NIKE</c:when>
+							               	<c:when test='${BrandCode eq "AD"}'>ADIDAS</c:when>
+							               	<c:when test='${BrandCode eq "VS"}'>VANS</c:when>
+							               	<c:when test='${BrandCode eq "CV"}'>CONVERSE</c:when>
+							               	<c:when test='${BrandCode eq "PM"}'>PUMA</c:when>
+							               	<c:when test='${BrandCode eq "FL"}'>FILA</c:when>
+							               	<c:when test='${BrandCode eq "CR"}'>CROCS</c:when>
+							               	<c:when test='${BrandCode eq "NB"}'>NEWBALANCE</c:when>
+										</c:choose>
+										</span>
+	                        			<br/>
+	                        			${vo.prdName}
+	                        			<br/>
+	                        			<span>사이즈 : ${vo.sizeKind}</span>
+	                        		</div>
+	                        	</a>
+	                        </th>
+	                        <th class="th3"><div id="cart-price_${vo.cartIndex}"><fmt:formatNumber value="${vo.prdPrice}" pattern="#,###"/> 원</div></th>
+	                        <th class="th5">
+		                        <div>
+			                        <button type="button" onclick="decrease(${vo.cartIndex})">&#45;</button>
+			                        <input type="text" name="cartStock" id="quantity_${vo.cartIndex}" value="${vo.cartStock}" oninput="this.value = Math.min(Math.max(this.value.replace(/[^0-9]/g, ''), 1), ${vo.sizeStock}); totalPrice(${vo.cartIndex});" min="1" max="${vo.sizeStock}">
+			                        <button type="button" onclick="increase(${vo.cartIndex})">&#43;</button>
+		                        </div>
+	                        </th>
+	                        <th class="th3 th8"><div id="totalPrice_${vo.cartIndex}"></div></th>
+	                        <th class="th3"><!--고정--><div>무료배송</div></th>
+	                        <th class="th4"><div><input type="button" value="삭제" onclick="del(${vo.cartIndex})" style="font-size:13px"></div></th>
+	                    </tr>
+	                </c:forEach>
+	                </tbody><!--장바구니 상품 표시 끝-->
+	                <tfoot>
+	                    <tr class="cart-foot">
+	                        <th colspan="7"><div class="cash-1" style="font-size:16px">총 금액</div></th>
+	                        <th colspan="2"><div class="cash-2" id="mainPrice" style="font-size:16px"></div></th>
+	                    </tr>
+	                </tfoot>
+	            </table>
+	         <div class="cart-button">
+	         	<div class="text-end">
+				    <a href="<%=request.getContextPath()%>/">쇼핑 계속하기</a>
+				    <a href="#" onclick="goPayment()">결제하기</a>
+			    </div>
+			</div>
+			<form action="<%=request.getContextPath()%>/order/payment.do" id="payFrm" method="get">
+	        	<input type="hidden" name="sizeIndex" id="sizeIndexPay" value=""/>
+	        	<input type="hidden" name="sizeStock" id="sizeStockPay" value=""/>
+	        	<input type="hidden" name="userIndex" id="userIndexPay" value=""/>
+	        </form> 
+	        </section><!--표입력 끝-->
 		</div>        
     </main><!--메인 끝-->
 <%@include file="../include/footer.jsp"%>
