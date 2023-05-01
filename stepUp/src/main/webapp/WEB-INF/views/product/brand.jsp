@@ -16,35 +16,35 @@
 <body>
 <%@include file="../include/header.jsp"%>
     <main id="newjsp"><!--메인 시작-->
-        <div class="new-banner-area d-flex" id="new-banner">
+        <!-- div class="new-banner-area d-flex" id="new-banner">
             <a></a>
             <a></a>
             <a></a>
             <a></a>
-        </div>
-        <ul id="brandlist">
-            <li class="brandlogo">
-                <a href="<%=request.getContextPath()%>/product/brand.do?searchType=NK"><p class="bl_img"></p></a>
+        </div-->
+        <ul id="brandlist" style="margin-top:100px;">
+            <li class="brandlogo nklogo" onclick="blogo()">
+                <a href="<%=request.getContextPath()%>/product/brand.do?searchType=NK"><p class="bl_img" id="logonk"></p></a>
             </li>
-            <li class="brandlogo">
+            <li class="brandlogo adlogo">
                 <a href="<%=request.getContextPath()%>/product/brand.do?searchType=AD"><p class="bl_img"></p></a>
             </li>
-            <li class="brandlogo">
+            <li class="brandlogo pmlogo">
                 <a href="<%=request.getContextPath()%>/product/brand.do?searchType=PM"><p class="bl_img"></p></a>
             </li>
-            <li class="brandlogo">
+            <li class="brandlogo fllogo">
                 <a href="<%=request.getContextPath()%>/product/brand.do?searchType=FL"><p class="bl_img"></p></a>
             </li>
-            <li class="brandlogo">
+            <li class="brandlogo cvlogo">
                 <a href="<%=request.getContextPath()%>/product/brand.do?searchType=CV"><p class="bl_img"></p></a>
             </li>
-            <li class="brandlogo">
+            <li class="brandlogo vslogo">
                 <a href="<%=request.getContextPath()%>/product/brand.do?searchType=VS"><p class="bl_img"></p></a>
             </li>
-            <li class="brandlogo">
+            <li class="brandlogo crlogo">
                 <a href="<%=request.getContextPath()%>/product/brand.do?searchType=CR"><p class="bl_img"></p></a>
             </li>
-            <li class="brandlogo">
+            <li class="brandlogo nblogo">
                 <a href="<%=request.getContextPath()%>/product/brand.do?searchType=NB"><p class="bl_img"></p></a>
             </li>
         </ul>
@@ -152,7 +152,10 @@
                 <button class="fsbtn rounded-0" type="button" onclick="searchPrdList(1)">검색</button>
             </article>
             <article id="prd_cnt">
-            <div id="prd_sort" class="d-flex justify-content-end">
+            <div id="prd_sort" class="d-flex">
+	            <div class="brand-title">
+	                <h2>BRAND</h2>
+	            </div>
             	<select name="sort" id="sortList" class="form-select w-7" onchange="searchPrdList(1)">
             		<option value="new">최신순</option>
             		<option value="sale">판매순</option>
@@ -171,6 +174,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script><!-- swiper JS 연결 -->
     <script>
+
+		function blogo(){
+			document.queryElementById('logonk').backgroundImage = 'url(../../resources/image/new/new_logo_nk.png)';
+		};
+		
+		
     	//range(가격 검색)관련 스크립트
 	    var lowerSlider = document.querySelector('#lower');
 	    var upperSlider = document.querySelector('#upper');

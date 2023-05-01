@@ -124,6 +124,9 @@
             <article id="prd_cnt">
 		    <div id="brand_main"></div>
 		    <div id="prd_sort" class="d-flex justify-content-end"></div>
+		    <div class="best-title">
+                <h2>NEW</h2>
+            </div>
             <ul id="cnt_list"><!-- 상품 출력 영역 -->
             </ul>
            	<div id="pagingBtn" class="mb-5"><!-- 페이징 버튼 출력 영역 -->

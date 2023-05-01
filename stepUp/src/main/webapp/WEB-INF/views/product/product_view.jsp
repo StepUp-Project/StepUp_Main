@@ -54,12 +54,12 @@
 	                </c:choose>
                 </c:if>
                 </li>
-                <li id="prd_code"><span>상품코드:${prdVO.prdCode}</span></li>
+                <li id="prd_code"><span>상품코드 : ${prdVO.prdCode}</span></li>
                 <li id="prd_price"><fmt:formatNumber value="${prdVO.prdPrice}" pattern="#,###"/>원</li>
                 <input type="hidden" id="productPrice" value="${prdVO.prdPrice}">
            </ul>
            <div id="size_ttl">사이즈</div>
-           <ul id="select_box" class="justify-content-start">
+           <ul id="select_box">
            		<c:forEach var="sizeList" items="${sizeVO}">
 	                <li class="select_size">
 	                    <input type="checkbox" name="size" value="${sizeList.sizeKind}" id="size${sizeList.sizeKind}" onclick="updateSizeSelected(${sizeList.sizeIndex},${sizeList.sizeKind},${sizeList.sizeStock})" <c:if test="${sizeList.sizeStock == 0}">disabled</c:if>>
@@ -75,11 +75,10 @@
 	       <div class="cart_pop">
 	           	<div class="cart_pop1"><a>장바구니 담기</a><button type="button" id="popclose1"><i class="xi-close"></i></button></a></div>
 	           	<div class="cart_popimg"><img alt="대표사진" src="<%=request.getContextPath()%>/resources/prdmainimg/${prdVO.prdRname}">
-	           	<p>선택한 상품이</p>
-	           	<p>장바구니에 담겼습니다.</p></div>
+	           	<p>선택한 상품이 장바구니에 담겼습니다.</p></div>
 	           	<div class="cart_popbtn">
-				<button type="button" id="popclose2"><a>쇼핑 계속하기</a></button>
-		           	<button type="button"><a href="<%=request.getContextPath()%>/cart/cart.do?userIndex=${login.userIndex}">장바구니 바로가기</a></button>
+				<button type="button" id="popclose2" class="prdvbtn"><a>쇼핑 계속하기</a></button>
+		           	<button type="button" class="prdvbtn"><a href="<%=request.getContextPath()%>/cart/cart.do?userIndex=${login.userIndex}">장바구니 바로가기</a></button>
 	       		</div>
 	       </div>
            <div class="total_price"></div>
@@ -176,8 +175,7 @@
                         - 구매자의 사용 또는 일부 소비에 의하여 상품가치가 현저히 감소한 경우<br>
                         - 기간의 경과에 의하여 재판매가 곤란할 정도로 상품가치가 현저히 감소한 경우<br>
                         - 복제가 가능한 상품 등의 포장을 훼손한 경우<br>
-                        - 단, 재화 등의 내용이 표시 (이미지 또는 기능을 포함) 및 광고 내용과 다르거나 계약내용과 다르게 이행된 때에는 당해 재화 등을 공급<br>
-                        &nbsp;&nbsp;받은 날부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 청약 철회 등을 할 수 있습니다.
+                        - 단, 재화 등의 내용이 표시 (이미지 또는 기능을 포함) 및 광고 내용과 다르거나 계약내용과 다르게 이행된 때에는 당해 재화 등을 공급 받은 날부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 청약 철회 등을 할 수 있습니다.
                     </td>
                 </tr>
             </table>
@@ -325,7 +323,7 @@
 				totla += parseInt(pri);
 			})
 			let price1 = new Intl.NumberFormat('ko-kr').format(totla);
-			let pricaeTotal = "총 금액 : " + price1 + " 원";
+			let pricaeTotal = "총 금액 &nbsp; &nbsp; &nbsp;" + price1 + " 원";
 			if(itemPrice.length == 0){
 				pricaeTotal = "";
 			}
@@ -380,7 +378,7 @@
 			    	});
 		    	});
 	    	}else{
-	    		alert("상품 사이즈를 추가하여 주세요");
+	    		alert("상품 사이즈를 추가하여 주세요.");
 	    		return false;
 	    	}
 			$.ajax({
@@ -438,7 +436,7 @@
 	    	    		reviewHtml += '<li>';
 	    	    		reviewHtml += '<input type="hidden" name="reviewIndex" value="'+reviewList.reviewIndex+'">';
 	    	    		reviewHtml += '<input type="hidden" name="prdIndex" value="'+reviewList.prdIndex+'">';
-	    	    		reviewHtml += '<span class="review_star">';
+	    	    		reviewHtml += '<span class="review_star" style="color:#7ae48f; font-size:18px; margin-left:20px;">';
 	    	    		for(let j = 1; j <= reviewList.reviewScore; j++){
 	    	    			reviewHtml += '&#9733;';
 	    	    		}
@@ -446,13 +444,13 @@
 	    	    			reviewHtml += '&#9734;';
 	    	    		}
 					reviewHtml += '</span>';
-					reviewHtml += '<span class="review_writer">'+reviewList.userNick+'</span>';
-					reviewHtml += '<span class="review_wdate">';
+					reviewHtml += '<span class="review_writer" style="font-size:13px;">'+reviewList.userNick+'</span>';
+					reviewHtml += '<span class="review_wdate" style="font-size:13px;">';
 					reviewHtml += ''+reviewDate+''
 					reviewHtml += '</span>';
 					if(loginIndex == reviewList.userIndex){
-						reviewHtml += '<input class="review_del" type="button" onclick="reviewDel('+reviewList.reviewIndex+')" value="삭제">';
 						reviewHtml += '<input class="review_edit"  type="button" value="수정" onclick="modaltest('+reviewList.reviewIndex+')">';
+						reviewHtml += '<input class="review_del" type="button" onclick="reviewDel('+reviewList.reviewIndex+')" value="삭제">';
 	    	    		}
 						reviewHtml += '</div>';
 						reviewHtml += '<div class="review_note">'+reviewList.reviewContent+'</div>';
@@ -534,7 +532,7 @@
 			    	});
 		    	});
 	    	}else{
-	    		alert("구매할 상품 사이즈를 선택해 주세요");
+	    		alert("구매할 상품 사이즈를 선택해 주세요.");
 	    		return false;
 	    	}
 	    	$("#userIndexPay").val(userIndex);
