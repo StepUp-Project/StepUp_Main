@@ -20,8 +20,8 @@
 			background: #FEE500;
 		}
 		.sns-btn{
-		    --bs-btn-padding-x: 1rem;
-    		--bs-btn-padding-y: 0.5rem;
+		    --bs-btn-padding-x: 4rem;
+    		--bs-btn-padding-y: 1rem;
     		--bs-btn-border-width: 1px;
     		--bs-btn-border-color: transparent;
     		padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
@@ -43,7 +43,7 @@
                 <div class="mypage_gnb">
                     <span><a href="<%=request.getContextPath()%>/order/user.do">주문배송조회</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_review.do">상품후기</a></span>
-                    <span><a href="<%=request.getContextPath()%>/user/mypage_like.do">관심목록</a></span>
+                    <span><a href="<%=request.getContextPath()%>/user/mypage_like.do">관심있는 상품</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_qna.do">QnA</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_posting.do">내가 작성한 글</a></span>
                     <span><a href="<%=request.getContextPath()%>/user/mypage_sns.do">SNS연결설정</a></span>

@@ -24,8 +24,8 @@
 		<article id="joinok">
 			<i class="xi-check"></i>
 			<p>결제가 완료되었습니다.</p>
-			<button type="button" id="joid_btn" onclick="location.href='user.do'">주문내역 확인</button>
-			<button type="button" id="joid_btn" onclick="location.href='<%=request.getContextPath()%>/'">홈으로 가기</button>
+			<button type="button" id="pamen_btn" onclick="location.href='user.do'">주문내역 확인</button>
+			<button type="button" id="pamen_btnn" onclick="location.href='<%=request.getContextPath()%>/'">홈으로 가기</button>
 		</article><!--end:#joinok-->
 	</main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script><!-- 부트스트랩 자바 스크립트연결 -->
