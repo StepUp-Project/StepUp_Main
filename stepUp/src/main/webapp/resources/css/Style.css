@@ -147,6 +147,10 @@ header {
 	margin: 8px 10px;
 }
 
+table td a:hover{
+	color:inherit!important;
+	text-decoration: underline;
+}
 /*마이페이지 서브메뉴*/
 #aaaa {
 	position: fixed;
@@ -164,7 +168,7 @@ header {
 #aaaa .sub {
 	background: rgba(255, 255, 255, 0.9);
 	width: 120px;
-	height: 250px;
+	height: 240px;
 	color: #505050;
 	transition: all .4s ease-in-out;
 	opacity: 0;
@@ -238,14 +242,14 @@ footer {
 
 #footlogosns {
 	height: 100px;
-	width: 10%;
+	width: 7%;
 	margin-top: 3%;
 	margin-right: 4%
 }
 
 #footlogosns ul li, #footlogosns ul li a {
 	display: inline-block;
-	width: 40px;
+	width: 27px;
 	height: 40px;
 }
 
@@ -258,7 +262,7 @@ footer {
 }
 
 #footsns {
-	padding-top: 15px;
+	padding-top: 5px;
 	display: flex;
 	justify-content: space-between;
 }
@@ -708,7 +712,7 @@ main {
 
 .main-brandBest-items {
 	width: 60%;
-	height: 84vh;
+	height: 83vh;
 	overflow: scroll;
 	-ms-overflow-style: none;
 	margin: 3% 2% 3% 3%;
@@ -1177,6 +1181,11 @@ ul.jointerms_box {
 	height: 58px;
 }
 
+.login-main .btn-secondary{
+	height:58px;
+	width: 29%;
+}
+
 #mypage_title {
 	font-size: 17.5px;
 	margin-bottom: 60px;
@@ -1523,6 +1532,7 @@ ul.jointerms_box {
 /*mypage_review.jsp 시작*/
 .review_board {
 	margin: 0 auto;
+	margin-bottom: 35px;
 	font-size: 12.5px;
 	width: 100%;
 	position: relative;
@@ -1610,9 +1620,12 @@ ul.jointerms_box {
 	border: 1px solid #bfbfbf;
 	background: #bfbfbf;
 	color: #fff;
-	width: 80px;
-	height: 25px;
+	width: 50px;
+	height: 28px;
 	margin-bottom: 3px;
+	font-size: 12px;
+	padding-top: 5px;
+ 	margin-right: 8px;
 }
 
 .review_del {
@@ -1620,8 +1633,10 @@ ul.jointerms_box {
 	border: 1px solid #a5a5a5;
 	background: #fff;
 	color: #a8a8a8;
-	width: 80px;
-	height: 25px;
+	width: 50px;
+	height: 28px;
+	font-size: 12px;
+	padding-top: 5px;
 }
 
 .review_board .board_page {
@@ -1870,12 +1885,12 @@ ul.jointerms_box {
 
 .postCheck {
 	text-align: center;
-	width: 5%;
+	width: 3%;
 }
 
 .postNume {
 	text-align: center;
-	width: 13%;
+	width: 8%;
 }
 
 .postTitle {
@@ -1884,12 +1899,12 @@ ul.jointerms_box {
 }
 
 .postwDate {
-	width: 12%;
+	width: 10%;
 	text-align: center;
 }
 
 .postHit {
-	width: 9%;
+	width: 8%;
 	text-align: center;
 }
 
@@ -2505,7 +2520,7 @@ ul.jointerms_box {
 	top: 460px;
 	left: 980px;
 	width: 375px;
-	height: 245px;
+	height: 255px;
 	border: 1px solid #c5c5c5;
 	background-color: #fff;
 	display: none;
@@ -2530,7 +2545,7 @@ ul.jointerms_box {
 }
 
 .cart_popimg {
-	margin-left: 30px;
+	margin-left: 25px;
 	margin-top: 25px;
 	margin-bottom: 25px;
 	font-size: 13px;
@@ -2539,6 +2554,7 @@ ul.jointerms_box {
 .cart_popimg img {
 	width: 90px;
 	height: 90px;
+	margin-right: 10px;
 }
 
 .cart_popimg p {
@@ -2546,7 +2562,7 @@ ul.jointerms_box {
 }
 
 .cart_popbtn {
-	margin-left: 34px;
+	margin-left: 25px;
 	margin-top: 20px;
 }
 
@@ -2780,6 +2796,10 @@ ul.jointerms_box {
 	margin: 50px auto;
 }
 
+#prdinfo_tap2 {
+	font-size: 13px;
+	line-height: 1.7em;
+}
 #prdinfo_tap2 p {
 	width: 50%;
 	margin: 0 auto;
@@ -2877,7 +2897,14 @@ ul.jointerms_box {
 	width: 60%;
 	margin: 50px auto;
 }
-
+#review_ctn input{
+	float: right;
+    font-size: 12px;
+    width: 50px;
+    height: 30px;
+    margin-left: 10px;
+    padding-top: 5px;
+}
 #review_ctn li {
 	margin-top: 45px;
 	border-bottom: solid 1px #e0e0e0;
@@ -2998,17 +3025,17 @@ notice_view.jsp(공지사항 리스트)
 }
 
 .wDate {
-	width: 15%;
+	width: 13%;
 	text-align: center;
 }
 
 .wID {
-	width: 10%;
+	width: 11%;
 	text-align: center;
 }
 
 .boardHit {
-	width: 7%;
+	width: 8%;
 	text-align: center;
 }
 
@@ -3254,7 +3281,7 @@ notice_view.jsp(공지사항 리스트)
 #board_viewTtl div {
 	height: 40px;
 	padding-left: 10px;
-	font-size: 18px;
+	font-size: 16px;
 }
 
 #board_viewTtl {
@@ -3275,7 +3302,7 @@ notice_view.jsp(공지사항 리스트)
 
 #board_winfo div {
 	display: inline-block;
-	font-size: 15px;
+	font-size: 14px;
 	padding-left: 10px;
 }
 
@@ -3288,7 +3315,7 @@ notice_view.jsp(공지사항 리스트)
 #board_winfo p {
 	float: right;
 	margin-right: 15px;
-	font-size: 15px;
+	font-size: 14px;
 }
 
 #board_wctn {
@@ -3298,6 +3325,7 @@ notice_view.jsp(공지사항 리스트)
 	min-height: 600px;
 	margin-top: 30px;
 	font-size: 13px;
+	line-height:1.7em;
 }
 /*댓글*/
 #re_ctn {
@@ -3306,7 +3334,7 @@ notice_view.jsp(공지사항 리스트)
 }
 
 #re_ctn li {
-	margin-top: 45px;
+	margin-top: 30px;
 	border-bottom: solid 1px #e2e2e2;
 }
 
@@ -3409,7 +3437,7 @@ notice_view.jsp(공지사항 리스트)
 }
 
 .board_btn {
-	margin-top: 30px;
+	margin-top: 25px;
 	margin-left: 7px;
 	height: 40px;
 	width: 100px;
@@ -3539,8 +3567,8 @@ notice_view.jsp(공지사항 리스트)
     background: #f3f3f3;
 }
 .img-size img {
-	width: 100%;
-	height: 100%;
+	width: 100px;
+	height: 100px;
 }
 
 .w-15 {
@@ -3682,7 +3710,7 @@ notice_view.jsp(공지사항 리스트)
 
 .cart-table img {
 	width: 120px;
-	height: 80px;
+	height: 120px;
 }
 
 .cart-table tbody {
@@ -3840,13 +3868,21 @@ notice_view.jsp(공지사항 리스트)
 }
 
 #pagingNumBtn {
-	padding-top: 4px;
+	padding-top: 3px;
 	margin: 0 25px;
 }
 
 .board_page{
 	font-size: 14px;
 	color: gray;
+}
+.board_page .xi-angle-right {
+	padding-bottom: 4px;
+	margin-left:10px;
+}
+.board_page .xi-angle-left {
+	padding-bottom: 4px;
+	margin-right:10px;
 }
 .board_page b{
 	color: black !important;
@@ -3860,6 +3896,7 @@ notice_view.jsp(공지사항 리스트)
 }
 .board_page a:hover{
 	color: black !important;
+	text-decoration: none;
 }
 /*페이징 끝*/
 

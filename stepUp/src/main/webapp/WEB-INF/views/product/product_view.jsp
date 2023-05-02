@@ -449,8 +449,8 @@
 					reviewHtml += ''+reviewDate+''
 					reviewHtml += '</span>';
 					if(loginIndex == reviewList.userIndex){
-						reviewHtml += '<input class="review_edit"  type="button" value="수정" onclick="modaltest('+reviewList.reviewIndex+')">';
-						reviewHtml += '<input class="review_del" type="button" onclick="reviewDel('+reviewList.reviewIndex+')" value="삭제">';
+						reviewHtml += '<input class="re_del" type="button" onclick="reviewDel('+reviewList.reviewIndex+')" value="삭제">';
+						reviewHtml += '<input class="re_edit"  type="button" value="수정" onclick="modaltest('+reviewList.reviewIndex+')">';
 	    	    		}
 						reviewHtml += '</div>';
 						reviewHtml += '<div class="review_note">'+reviewList.reviewContent+'</div>';

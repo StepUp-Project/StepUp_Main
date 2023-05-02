@@ -48,7 +48,7 @@
 							</form>
 						</c:if>
 						<c:if test="${empty adminrsp}">
-							<input class="board_btn" type="button" value="답변완료" onclick="alert('댓글로 답변을 작성 후 완료를 눌러주세요')">
+							<input class="board_btn" type="button" value="답변완료" onclick="alert('답변을 작성 후 완료를 눌러주세요')">
 						</c:if>
 					</c:if>
 						<c:if test="${login.userGrade eq 'A' and vo.qnaRsp eq 'Y'}">
@@ -61,14 +61,14 @@
            	</c:if>
             </div>
         </article>
-        <article id=""><!--댓글란-->
+        <article id=""><!--답변란-->
             <div id="re_write">
-                <p id="re_formTtl"><c:if test="${not empty rList}">댓글(${rList.get(0).total})</c:if>  
+                <p id="re_formTtl"><c:if test="${not empty rList}">답변(${rList.get(0).total})</c:if>  
                 <div>
                 <c:if test="${not empty login}">
                 	<c:if test="${login.userIndex eq vo.userIndex or login.userGrade eq 'A'}">
 	   	                <form name="refrm" action="qnare_write.do" method="post">
-	                        <textarea id="re_writeCnt" name="qnareCnt" oninput="limitTextAreaLength(this)" placeholder="댓글을 남겨주세요"></textarea>
+	                        <textarea id="re_writeCnt" name="qnareCnt" oninput="limitTextAreaLength(this)" placeholder="답변을 남겨주세요"></textarea>
 	                        <input name="userIndex" value="${login.userIndex}" type="hidden">
 	                        <input name="qnaIndex" value="${vo.qnaIndex}" type="hidden">
 	                        <div id="re_btn">
@@ -79,12 +79,10 @@
                 </c:if>
                 </div>
             </div> 
-            <br/>
-            <br/>
             <ul id="re_ctn">
             <c:if test="${not empty rList}">
 	            <c:forEach var="rList" items="${rList}" >
-	                <li><!-- 작성된 댓글 보여주는 곳 -->
+	                <li><!-- 작성된 답변 보여주는 곳 -->
 	                    <div class="re_winfo">
 	                        <span class="re_writer">${rList.userNick}</span>
 	                        <span class="re_wdate">${rList.qnaWdate}</span>
@@ -93,12 +91,12 @@
 	                        		<div></div>
    									<input type="hidden" name="qnareIndex" value="${rList.qnareIndex}">
    									<input type="hidden" name="qnaIndex" value="${rList.qnaIndex}">
-   									<input class="qnare_del" type="submit" value="삭제">
+   									<input class="re_del" type="submit" value="삭제">
 		                        </form>
 								<input class="re_edit" type="button" value="수정" onclick="openPopup(${rList.qnareIndex})">
 								<div id="popup" class="popup_${rList.qnareIndex}" style="display: none;">
 								  <form name="editForm" action="qnare_edit.do" method="post" onsubmit="return confirm('수정하시겠습니까?')">
-								    <p>댓글 수정</p>
+								    <p>답변 수정</p>
 								    <textarea id="re_editCnt" name="qnareCnt" oninput="limiteditLength(this)">${rList.qnareCnt}</textarea>
 								    <input type="hidden" name="qnareIndex" value="${rList.qnareIndex}">
 								    <input type="hidden" name="qnaIndex" value="${rList.qnaIndex}">
