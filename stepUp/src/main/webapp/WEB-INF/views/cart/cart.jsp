@@ -217,7 +217,7 @@
 	  let sizeIndex = [];
 	  let sizeStock = [];
 	  let trWrap = document.querySelectorAll("tr[name=trWrap]");
-	  let cartIndex = document.querySelectorAll("input[name=cart_hid]");
+	  let cartIndex = document.querySelector("input[name=cart_hid]");
 	  if(cartIndex == null){
 		  location.href="<%=request.getContextPath()%>/";
 		  alert("장바구니가 비어있습니다.");
