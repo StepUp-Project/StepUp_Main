@@ -41,7 +41,7 @@
 						</thead>
 						<c:forEach var="prd" items="${sizeVO}" varStatus="status">
 							<tr class="cart-menu">
-								<td class="img-size">
+								<td class="img-size w-15">
 									<img alt="상품이미지" src="<%=request.getContextPath()%>/resources/prdmainimg/${prd.prdRname}">
 								</td>
 								<td class="w-25" style="text-align: left;">
