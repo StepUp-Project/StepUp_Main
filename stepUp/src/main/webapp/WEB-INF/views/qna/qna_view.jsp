@@ -18,7 +18,7 @@
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
-    <main><!--메인  시작-->
+    <main><!--메인 시작-->
         <article id="board_viewcontain">
             <ul id="board_view">
                 <li id="board_viewTtl"><div>${vo.qnaTitle}</div></li>
