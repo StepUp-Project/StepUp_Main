@@ -40,7 +40,7 @@
 	           </c:if>
             </div>
         </article>
-        <article id=""><!--댓글란-->
+        <article id=""><!--댓글란 -->
             <div id="re_write">
                 <p id="re_formTtl"><c:if test="${not empty rList}">댓글(${rList.get(0).total})</c:if>  
                 <div>

@@ -67,7 +67,7 @@
 							// 페이징 출력 영역
 							if(paging.getStartPage()> 1){
 						%>
-							<a href="qna.do?nowPage=<%= paging.getStartPage()-1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &lt;&lt; </a>
+							<a href="qna.do?nowPage=<%= paging.getStartPage()-1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> <i class="xi-angle-left"></i> </a>
 						<%		
 							}
 							for(int i = paging.getStartPage(); i<=paging.getEndPage(); i++){
@@ -83,7 +83,7 @@
 							}
 							if(paging.getEndPage() < paging.getLastPage()){
 						%>	
-							<a href="qna.do?nowPage=<%= paging.getEndPage()+1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> &gt;&gt; </a>
+							<a href="qna.do?nowPage=<%= paging.getEndPage()+1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> <i class="xi-angle-right"></i> </a>
 						<%
 							}
 						%>
