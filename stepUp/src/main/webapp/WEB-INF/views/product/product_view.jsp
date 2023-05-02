@@ -16,7 +16,7 @@
 <body>
 <%@include file="../include/header.jsp"%>
     <main class="container-fluid"><!--메인 시작 -->
-      <article id="prd_view"><!-- 상품 사진 +선택 영역-->
+      <article id="prd_view"><!-- 상품 사진 + 선택 영역-->
         <div id="prd_pic">
             <ul>
                 <li class="small_img" style="background-image:url(<%=request.getContextPath() %>/resources/prdmainimg/${prdVO.prdRname})" onclick="chgimg(this)"></li>

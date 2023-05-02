@@ -22,7 +22,7 @@
 </head>
 <body>
 <%@include file="../include/header.jsp"%>
-    <main><!--메인시작-->
+    <main><!--메인 시작-->
         <article id="board_contain">
             <div class="board_title">QnA게시판</div>
             <table class="nomal_board">
