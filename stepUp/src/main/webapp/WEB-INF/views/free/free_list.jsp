@@ -64,7 +64,7 @@
                     <tr class="board_page" >
                          <td colspan="5">
 				<%  
-				// 페이징 출력 영역
+				//페이징 출력 영역
 				if(paging.getStartPage()> 1){
 				%>
 				<a href="free.do?nowPage=<%= paging.getStartPage()-1%>&searchType=${svo.searchType}&searchValue=${svo.searchValue}"> <i class="xi-angle-left"></i> </a>
