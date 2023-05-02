@@ -103,15 +103,7 @@
 										<hr/><br/>
 										<div class="d-flex allpr">
 											<span>상품가격</span>
-											<span class="ms-5">
-												<c:set var="total" value="${prd.prdPrice * stock[status.index]}"/>
-												<input type="hidden" name="orderitemStock" value="${stock[status.index]}">
-												<input type="hidden" name="itemPrice" value="${total}"/>
-												<fmt:formatNumber value="${total}" pattern="#,###"/>원
-											</span>
-											
-											
-											<input type="hidden" id="totalPriceHidden" value="">
+											<span class="ms-5" id="totalsee"></span>
 										</div>
 										<div class="d-flex allpr">
 											<span>배송비</span>
@@ -208,6 +200,7 @@
     	let total = new Intl.NumberFormat('ko-kr').format(totalPrice);
     	$("#totalPriceHidden").val(totalPrice);
     	$("#totalPrice").html(total+"원");
+    	$("#totalsee").html(total+"원");
     }
 	
     //결제
